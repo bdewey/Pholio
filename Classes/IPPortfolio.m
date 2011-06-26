@@ -134,6 +134,13 @@
   return copy;
 }
 
+#pragma mark Debugging support
+
+- (NSString *)description {
+  
+  return [NSString stringWithFormat:@"%@: %@", self.title, [self.sets description]];
+}
+
 #pragma mark Data persistance
 
 //

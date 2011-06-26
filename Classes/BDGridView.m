@@ -1042,7 +1042,7 @@
       
     case UIGestureRecognizerStateEnded:
       _GTMDevLog(@"%s -- gesture recognizer ended", __PRETTY_FUNCTION__);
-      if (self.activeGap != self.pannedCell.index) {
+      if ((self.pannedCell != nil) && (self.activeGap != self.pannedCell.index)) {
       
         NSUInteger maxIndex = [self.dataSource gridViewCountOfCells:self] - 1;
         self.activeGap = MIN(maxIndex, self.activeGap);

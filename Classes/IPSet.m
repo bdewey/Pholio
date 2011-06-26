@@ -65,6 +65,20 @@
   return set;
 }
 
+#pragma mark Debugging support
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Object description
+//
+
+- (NSString *)description {
+  
+  return [NSString stringWithFormat:@"%@: %d page(s)",
+          self.title,
+          [self countOfPages]];
+}
+
 #pragma mark thumbnailFilename
 
 //
