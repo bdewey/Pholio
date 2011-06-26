@@ -1,0 +1,37 @@
+@import "compass"
+
+$font-color:         #2a2a2a
+$link-color:         #0388a6
+$link-hover-color:   #009ce0
+$link-focus-color:   $link-color
+$link-active-color:  $link-color
+$link-visited-color: $link-color
+
+$blueprint-font-family:  'Century Gothic', 'Apple Gothic', 'Helvetica Neue', arial, sans-serif
+$header-font-family:     'Futura', 'Helvetica Neue', arial, sans-serif
+$blueprint-font-size:    16px
+$blueprint-grid-columns: 6
+$blueprint-grid-width:   60px
+$blueprint-grid-margin:  20px
+
+$base-font-size:         16px
+$base-line-height:       24px
+
+@import "blueprint"
+
++global-reset
++blueprint-typography
++establish-baseline
+
+#{headers(all)}
+  font-family: $header-font-family
+  
+h6
+  +trailer
+  
+a
+  +link-colors($link-color, $link-hover-color, $link-focus-color, $link-active-color, $link-visited-color)
+
+#main
+  padding: 50px
+  +container

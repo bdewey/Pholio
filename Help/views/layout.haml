@@ -1,0 +1,10 @@
+!!! 5
+%html{ :lang => "en" }
+  %head
+    %meta{ :charset => "utf-8" }    
+    = stylesheet_link_tag "site.css"
+    = yield_content :head
+    
+  %body{ :class => page_classes }
+    #main{ :role => "main" }
+      = yield

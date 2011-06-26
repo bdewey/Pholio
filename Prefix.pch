@@ -1,0 +1,13 @@
+//
+// Prefix header for all source files of the 'ipad-portfolio' target in the 'ipad-portfolio' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+#import "GTMDefines.h"
+#endif
+
+#import "IPStrings.h"
+
+#define kGridCellSize             (220)
