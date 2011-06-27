@@ -26,6 +26,7 @@
 #import "BDGridCell.h"
 #import "BDImagePickerController.h"
 #import "IPAlert.h"
+#import "IPPhotoTilingManager.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -191,6 +192,18 @@
                                                                            target:self 
                                                                            action:@selector(popView)] autorelease];
   self.titleTextField.text = self.title;
+  
+  //
+  //  Make sure tiles exist for all photos in this set.
+  //
+  
+  for (IPPage *page in self.currentSet.pages) {
+    for (IPPhoto *photo in page.photos) {
+      
+      [[IPPhotoTilingManager sharedManager] asyncTilePhoto:photo 
+                                            withCompletion:nil];
+    }
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -70,10 +70,13 @@
     [pool drain];
   }
   
-  [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+  if (self.completion != nil) {
     
-    self.completion(self.scale);
-  }];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+      
+      self.completion(self.scale);
+    }];
+  }
 }
 
 @end
@@ -147,6 +150,17 @@
   for (int i = 1; i < levelsOfDetail; i++) {
     
     minScale /= 2;
+  }
+  
+  if (minScale == 1.0) {
+    
+    //
+    //  This photo does not need tiling.
+    //
+    
+    _GTMDevLog(@"%s -- photo does not need tiling",
+               __PRETTY_FUNCTION__);
+    return;
   }
   
   //
