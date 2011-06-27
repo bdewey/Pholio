@@ -65,7 +65,7 @@
   [assetsGroup_ autorelease];
   assetsGroup_ = [assetsGroup retain];
   
-  [self.assetsGroup setAssetsFilter:[ALAssetsFilter allAssets]];
+  [self.assetsGroup setAssetsFilter:[ALAssetsFilter allPhotos]];
   self.textLabel.text = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyName];
   NSLog(@"%s -- assets = %d", __PRETTY_FUNCTION__, [self.assetsGroup numberOfAssets]);
   self.detailTextLabel.text = [NSString stringWithFormat:@"(%d)",

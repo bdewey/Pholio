@@ -708,8 +708,18 @@
       
       [asset imageAsyncWithCompletion:^(UIImage *image) {
         
-        IPPage *page = [IPPage pageWithImage:image andTitle:[asset title]];
+        if (image == nil) {
+          
+          //
+          //  There was at least one case where we couldn't get an image.
+          //
+          
+          [workersDone lock];
+          [workersDone unlockWithCondition:[workersDone condition] - 1];
+          return;
+        }
         [workersDone lock];
+        IPPage *page = [IPPage pageWithImage:image andTitle:[asset title]];
         progress(page, [assets count] - [workersDone condition]);
         [workersDone unlockWithCondition:[workersDone condition] - 1];
       }];

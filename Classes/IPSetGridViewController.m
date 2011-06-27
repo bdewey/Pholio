@@ -411,6 +411,16 @@
       
       [asset imageAsyncWithCompletion:^(UIImage *image) {
         
+        if (image == nil) {
+          
+          //
+          //  Couldn't get an image.
+          //
+          
+          [workerThreadsComplete lock];
+          [workerThreadsComplete unlockWithCondition:[workerThreadsComplete condition]-1];
+          return;
+        }
         IPPage *page = [IPPage pageWithImage:image andTitle:[asset title]];
         [workerThreadsComplete lock];
         [pages addObject:page];

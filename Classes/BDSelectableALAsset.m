@@ -96,7 +96,25 @@
   dispatch_async(dispatch_get_main_queue(), ^ {
     
     UIImageOrientation orientation = [[self.asset valueForProperty:ALAssetPropertyOrientation] intValue];
-    UIImage *image = [UIImage imageWithCGImage:[[self.asset defaultRepresentation] fullResolutionImage]
+    ALAssetRepresentation *representation = [self.asset defaultRepresentation];
+    _GTMDevLog(@"%s: Asset representation: url = %@, UTI = %@, size = %lld, representations = %@",
+               __PRETTY_FUNCTION__,
+               [representation url],
+               [representation UTI],
+               [representation size],
+               [self.asset valueForProperty:ALAssetPropertyRepresentations]);
+    CGImageRef imageRef = [representation fullResolutionImage];
+    if (imageRef == NULL) {
+      
+      imageRef = [representation fullScreenImage];
+    }
+    if (imageRef == NULL) {
+      
+      completion(nil);
+      [completion release];
+      return;
+    }
+    UIImage *image = [UIImage imageWithCGImage:imageRef
                                          scale:1.0
                                    orientation:orientation];
     completion(image);
