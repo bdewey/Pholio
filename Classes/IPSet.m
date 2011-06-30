@@ -217,11 +217,6 @@
   [self.pages makeObjectsPerformSelector:@selector(deletePhotoFiles)];
 }
 
-- (void)didReceiveMemoryWarning {
-  
-  [self.pages makeObjectsPerformSelector:@selector(didReceiveMemoryWarning)];
-}
-
 #pragma mark - IPPasteboardObjectDelegate
 
 ////////////////////////////////////////////////////////////////////////////////

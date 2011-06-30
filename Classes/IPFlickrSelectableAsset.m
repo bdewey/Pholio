@@ -20,6 +20,7 @@
 
 #import "IPFlickrSelectableAsset.h"
 #import "IPFlickrAuthorizationManager.h"
+#import "IPPhoto.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -123,7 +124,7 @@
 //  Gets the corresponding Flickr image.
 //
 
-- (void)imageAsyncWithCompletion:(void (^)(UIImage *))completion {
+- (void)imageAsyncWithCompletion:(void (^)(NSString *, NSString *))completion {
   
   completion = [completion copy];
   
@@ -133,6 +134,8 @@
              __PRETTY_FUNCTION__,
              [self.photoProperties description]);
   dispatch_async(defaultQueue, ^{
+    
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     //
     //  These are the URL properties that we should try, in order.
@@ -151,17 +154,21 @@
       }
     }
 
-    UIImage *image = nil;
+    NSString *filename = nil;
     
     if (imageUrl != nil) {
 
+      _GTMDevLog(@"%s -- requesting image from %@", 
+                 __PRETTY_FUNCTION__,
+                 imageUrl);
       NSURLRequest *request = [NSURLRequest requestWithURL:imageUrl];
       NSURLResponse *response;
       NSData *imageData = [NSURLConnection sendSynchronousRequest:request 
                                                 returningResponse:&response 
                                                             error:NULL];
       
-      image = [[UIImage alloc] initWithData:imageData];
+      filename = [[IPPhoto newPhotoFilename] retain];
+      [imageData writeToFile:filename atomically:YES];
       
     } else {
       
@@ -169,11 +176,16 @@
                  __PRETTY_FUNCTION__,
                  [self.photoProperties description]);
     }
+    [pool drain];
     dispatch_async(dispatch_get_main_queue(), ^{
       
-      completion(image);
+      //
+      //  HACK. Guessing the UTI.
+      //
+      
+      completion(filename, @"public.jpeg");
+      [filename release];
       [completion release];
-      [image release];
     });
   });
 }

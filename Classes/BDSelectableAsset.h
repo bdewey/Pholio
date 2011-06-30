@@ -29,7 +29,7 @@
 - (BOOL)isSelected;
 - (void)setSelected:(BOOL)selected;
 - (void)thumbnailAsyncWithCompletion:(void(^)(UIImage *thumbnail))completion;
-- (void)imageAsyncWithCompletion:(void(^)(UIImage *image))completion;
+- (void)imageAsyncWithCompletion:(void(^)(NSString *filename, NSString *uti))completion;
 - (NSString *)title;
 
 @end

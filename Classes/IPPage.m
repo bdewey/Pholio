@@ -50,6 +50,11 @@
   return [IPPage pageWithPhoto:[IPPhoto photoWithImage:image andTitle:title]];
 }
 
++ (IPPage *)pageWithFilename:(NSString *)filename andTitle:(NSString *)title {
+  
+  return [IPPage pageWithPhoto:[IPPhoto photoWithFilename:filename andTitle:title]];
+}
+
 //
 //  Object initialization. Note it doesn't let the photos property stay
 //  nil.
@@ -126,11 +131,6 @@
 
 -(void)deletePhotoFiles {
   [self.photos makeObjectsPerformSelector:@selector(deletePhotoFiles)];
-}
-
-- (void)didReceiveMemoryWarning {
-  
-  [self.photos makeObjectsPerformSelector:@selector(didReceiveMemoryWarning)];
 }
 
 #pragma mark Key-Value Encoding

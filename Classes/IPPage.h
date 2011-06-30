@@ -63,6 +63,8 @@
 
 + (IPPage *)pageWithImage:(UIImage *)image andTitle:(NSString *)title;
 
++ (IPPage *)pageWithFilename:(NSString *)filename andTitle:(NSString *)title;
+
 //
 //  Helper method to get a value from one of the child photos.
 //
@@ -81,12 +83,6 @@
 //
 
 -(void)deletePhotoFiles;
-
-//
-//  Respond to a memory warning.
-//
-
-- (void)didReceiveMemoryWarning;
 
 //
 //  How many photos on the page.

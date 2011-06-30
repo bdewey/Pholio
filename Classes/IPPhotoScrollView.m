@@ -21,8 +21,7 @@
 #import "IPPhotoScrollView.h"
 #import "IPPhoto.h"
 #import "IPPhotoTilingView.h"
-#import "IPPhotoTilingManager.h"
-#import "IPOptimizingPhotoNotification.h"
+#import "IPPhotoOptimizationManager.h"
 
 @interface IPPhotoScrollView ()
 
@@ -32,12 +31,6 @@
 //
 
 @property (nonatomic, retain) UIView *imageView;
-
-//
-//  Displayed when we're tiling the image...
-//
-
-@property (nonatomic, retain) IPOptimizingPhotoNotification *busyIndicator;
 
 - (void)setMaxMinZoomScalesForCurrentBounds;
 
@@ -51,7 +44,6 @@
 
 @synthesize photo = photo_;
 @synthesize imageView = imageView_;
-@synthesize busyIndicator = busyIndicator_;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -64,9 +56,6 @@
   if (self != nil) {
     
     self.delegate = self;
-    busyIndicator_ = [[IPOptimizingPhotoNotification alloc] init];
-    [busyIndicator_ stopAnimating];
-    [self addSubview:busyIndicator_.view];
   }
   return self;
 }
@@ -78,10 +67,8 @@
 
 - (void)dealloc {
   
-  _GTMDevLog(@"%s -- pointer 0x%08x", __PRETTY_FUNCTION__, self);
   [photo_ release];
   [imageView_ release];
-  [busyIndicator_ release];
   [super dealloc];
 }
 
@@ -93,8 +80,6 @@
 - (void)layoutSubviews {
   
   [super layoutSubviews];
-  self.busyIndicator.view.center = CGPointMake(self.bounds.size.width / 2, 
-                                          self.bounds.size.height / 2);
   CGRect frameToCenter = self.imageView.frame;
   
   if (frameToCenter.size.width < self.bounds.size.width) {
@@ -140,6 +125,12 @@
   self.zoomScale = 1.0;
   size_t levelsOfDetail = [self.photo levelsOfDetail];
   
+  if (![photo isOptimized]) {
+
+    _GTMDevLog(@"%s -- unexpectedly optimizing a photo", __PRETTY_FUNCTION__);
+    [photo optimize];
+  }
+  
   if (levelsOfDetail <= 1) {
     
     //
@@ -147,7 +138,6 @@
     //
     
     self.imageView = [[[UIImageView alloc] initWithImage:self.photo.image] autorelease];
-    [self.busyIndicator stopAnimating];
     
   } else { 
 
@@ -155,44 +145,15 @@
     //  We're going to set up a tiling view for this image.
     //
     
-    CGRect imageFrame = CGRectMake(0, 0, self.photo.image.size.width, self.photo.image.size.height);
+    CGRect imageFrame = CGRectMake(0, 0, self.photo.imageSize.width, self.photo.imageSize.height);
     IPPhotoTilingView *tilingView = [[[IPPhotoTilingView alloc] initWithFrame:imageFrame] autorelease];
     tilingView.photo = self.photo;
     self.imageView = tilingView;
     
-    //
-    //  Now, make sure that we have tiles for the photo.
-    //
-    
-    [self.busyIndicator startAnimating];
-    __block CGFloat maximumSeenScale = 0.0;
-    __block BOOL firstCallback = YES;
-    IPPhoto *currentPhoto = self.photo;
-    [[IPPhotoTilingManager sharedManager] asyncTilePhoto:self.photo withCompletion:^(CGFloat scale) {
-
-      if (currentPhoto != self.photo) {
-        
-        _GTMDevLog(@"%s -- self.photo is not the photo we started tiling. Ignoring completion routine.",
-                   __PRETTY_FUNCTION__);
-        return;
-      }
-      if (firstCallback) {
-        
-        [self.imageView setNeedsDisplay];
-        firstCallback = NO;
-      }
-      if ([self.busyIndicator isAnimating] && (scale == 1.0)) {
-        
-        [self.busyIndicator stopAnimating];
-      }
-      maximumSeenScale = MAX(maximumSeenScale, scale);
-      _GTMDevLog(@"%s -- maximum seen scale is %f", __PRETTY_FUNCTION__, maximumSeenScale);
-      self.maximumZoomScale = maximumSeenScale;
-      ((IPPhotoTilingView *)self.imageView).maximumScale = maximumSeenScale;
-    }];
+    self.maximumZoomScale = 1.0;
   }
   
-  [self insertSubview:self.imageView belowSubview:self.busyIndicator.view];
+  [self addSubview:self.imageView];
   
   self.contentSize = self.photo.imageSize;
   [self setMaxMinZoomScalesForCurrentBounds];

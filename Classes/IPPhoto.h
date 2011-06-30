@@ -50,7 +50,7 @@
 @property (nonatomic, readonly) NSString *thumbnailFilename;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *caption;
-@property (nonatomic, retain) UIImage  *image;
+@property (nonatomic, copy) UIImage  *image;
 @property (nonatomic, assign) CGSize imageSize;
 
 //
@@ -62,11 +62,21 @@
 @property (nonatomic, assign) IPPage *parent;
 
 //
-//  This is an async getter for |thumbnail|. Calls the completion routine when
-//  the thumbnail is available.
+//  Gets a filename suitable for a new photo file.
 //
 
-- (void)thumbnailAsyncWithCompletion:(void(^)(UIImage *thumbnail))completion;
++ (NSString *)newPhotoFilename;
+
+//
+//  Optimize the current photo. This should be called prior to inserting a 
+//  photo into the model. This is an expensive call, both in time and memory.
+//  Therefore, don't call it on the UI thread, yet also control how many
+//  operations can happen at the same time.
+//
+
+- (void)optimize;
+
+- (BOOL)isOptimized;
 
 //
 //  Synchronously saves tiles for all needed display scales.
@@ -141,15 +151,15 @@
 + (IPPhoto *)photoWithImage:(UIImage *)image andTitle:(NSString *)title;
 
 //
+//  Creates a photo with a filename and a title.
+//
+
++ (IPPhoto *)photoWithFilename:(NSString *)filename andTitle:(NSString *)title;
+
+//
 //  Deletes all of the files associated with this photo.
 //
 
 - (void)deletePhotoFiles;
-
-//
-//  Respond to a memory warning.
-//
-
-- (void)didReceiveMemoryWarning;
 
 @end

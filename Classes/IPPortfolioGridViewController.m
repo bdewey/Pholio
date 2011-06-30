@@ -31,6 +31,8 @@
 #import "NSString+TestHelper.h"
 #import "IPUserDefaults.h"
 #import "BDCustomAlert.h"
+#import "IPPhotoOptimizationManager.h"
+#import "IPPhoto.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -95,6 +97,7 @@
     if (i >= [self.currentSet countOfPages]) {
       break;
     }
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     IPPage *page = [self.currentSet objectInPagesAtIndex:i];
     IPPhoto *photo = [page objectInPhotosAtIndex:0];
     UIImage *bordered = [photo.thumbnail imageWithBorderWidth:1.0 andColor:[[UIColor lightGrayColor] CGColor]];
@@ -113,6 +116,7 @@
     photoView.contentMode = UIViewContentModeScaleAspectFit;
     [compositeView addSubview:photoView];
     [compositeView sendSubviewToBack:photoView];
+    [pool drain];
   }
   
   UIGraphicsBeginImageContextWithOptions(compositeView.frame.size, NO, 0);
@@ -274,8 +278,6 @@
 
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
-  
-  [self.portfolio didReceiveMemoryWarning];
 }
 
 #pragma mark - View lifecycle
@@ -469,9 +471,21 @@
     if (foundSet != nil) {
       
       NSUInteger insertionIndex = [self.portfolio countOfSets];
-      [self.portfolio insertObject:foundSet inSetsAtIndex:insertionIndex];
-      [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+      __block NSUInteger currentIndex = 0;
+      IPSet *optimizedSet = [[[IPSet alloc] init] autorelease];
+      optimizedSet.title = foundSet.title;
+      [self.portfolio insertObject:optimizedSet inSetsAtIndex:insertionIndex];
       [self.gridView insertCellAtIndex:insertionIndex];
+
+      for (IPPage *page in foundSet.pages) {
+        
+        [[IPPhotoOptimizationManager sharedManager] asyncOptimizePage:page withCompletion:^(void) {
+          
+          [optimizedSet insertObject:page inPagesAtIndex:currentIndex];
+          [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+          currentIndex++;
+        }];
+      }
     }
   }];
 }
@@ -706,9 +720,9 @@
 
     for (id<BDSelectableAsset> asset in assets) {
       
-      [asset imageAsyncWithCompletion:^(UIImage *image) {
+      [asset imageAsyncWithCompletion:^(NSString *filename, NSString *uti) {
         
-        if (image == nil) {
+        if (filename == nil) {
           
           //
           //  There was at least one case where we couldn't get an image.
@@ -718,10 +732,19 @@
           [workersDone unlockWithCondition:[workersDone condition] - 1];
           return;
         }
-        [workersDone lock];
-        IPPage *page = [IPPage pageWithImage:image andTitle:[asset title]];
-        progress(page, [assets count] - [workersDone condition]);
-        [workersDone unlockWithCondition:[workersDone condition] - 1];
+        
+        IPPhoto *photo = [[IPPhoto alloc] init];
+        photo.filename = filename;
+        photo.title = [asset title];
+        
+        [[IPPhotoOptimizationManager sharedManager] asyncOptimizePhoto:photo withCompletion:^(void) {
+
+          IPPage *page = [IPPage pageWithPhoto:photo];
+          [photo release];
+          [workersDone lock];
+          progress(page, [assets count] - [workersDone condition]);
+          [workersDone unlockWithCondition:[workersDone condition] - 1];
+        }];
       }];
     }
     
@@ -797,8 +820,6 @@
                                 //
                                 
                                 [self.activityIndicator stopAnimating];
-                                [self gridView:gridView didTapCell:cell];
-                                
                               }];
                             }];
 }
@@ -900,12 +921,34 @@
 
 - (void)gridView:(BDGridView *)gridView didPasteAtPoint:(NSUInteger)insertionPoint {
   
-  IPSet *set = [self setFromPasteboard];
-  if (set != nil) {
+  IPSet *unoptimizedSet = [self setFromPasteboard];
+  if (unoptimizedSet != nil) {
 
-    [self.portfolio insertObject:set inSetsAtIndex:insertionPoint];
+    IPSet *optimizedSet = [[[IPSet alloc] init] autorelease];
+    optimizedSet.title = unoptimizedSet.title;
+    
+    //
+    //  Put the empty, optimized set in the model & UI.
+    //
+    
+    [self.portfolio insertObject:optimizedSet inSetsAtIndex:insertionPoint];
     [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
     [gridView insertCellAtIndex:insertionPoint];
+    
+    //
+    //  Optimize each page from the unoptimized set and stick it in the
+    //  optimized set.
+    //
+    
+    __block NSUInteger currentSetIndex = 0;
+    for (IPPage *page in unoptimizedSet.pages) {
+      
+      [[IPPhotoOptimizationManager sharedManager] asyncOptimizePage:page withCompletion:^(void) {
+        
+        [optimizedSet insertObject:page inPagesAtIndex:currentSetIndex];
+        currentSetIndex++;
+      }];
+    }
   }
 }
 
@@ -920,9 +963,17 @@
   if (set != nil) {
     
     IPSetCell *setCell = (IPSetCell *)cell;
-    NSIndexSet *indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange([setCell.currentSet countOfPages], [set countOfPages])];
-    [setCell.currentSet.pages insertObjects:set.pages atIndexes:indexes];
-    [self gridView:gridView didTapCell:cell];
+    IPSet *targetSet = setCell.currentSet;
+    __block NSUInteger currentIndex = [targetSet countOfPages];
+    
+    for (IPPage *page in set.pages) {
+      
+      [[IPPhotoOptimizationManager sharedManager] asyncOptimizePage:page withCompletion:^(void) {
+        
+        [targetSet insertObject:page inPagesAtIndex:currentIndex];
+        currentIndex++;
+      }];
+    }
   }
 }
 

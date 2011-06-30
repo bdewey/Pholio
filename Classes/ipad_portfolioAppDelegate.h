@@ -22,8 +22,13 @@
 #import <StoreKit/StoreKit.h>
 #import "IPPortfolio.h"
 #import "BDSplashScreen.h"
+#import "IPPhotoOptimizationManager.h"
 
-@interface ipad_portfolioAppDelegate : NSObject <UIApplicationDelegate, BDSplashScreenDelegate> {
+@interface ipad_portfolioAppDelegate : NSObject <
+  UIApplicationDelegate, 
+  IPPhotoOptimizationManagerDelegate,
+  BDSplashScreenDelegate> {
+    
   UIWindow *window;
   UINavigationController *navigationController_;
   BOOL avoidMultithreading_;

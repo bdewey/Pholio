@@ -28,7 +28,6 @@
 
 @interface IPOptimizingPhotoNotification : UIViewController { }
 
-- (BOOL)isAnimating;
-- (void)startAnimating;
-- (void)stopAnimating;
+@property (nonatomic, retain) IBOutlet UILabel *mainLabel;
+@property (nonatomic, assign) NSUInteger activeOptimizations;
 @end

@@ -27,6 +27,9 @@
 
 @implementation IPOptimizingPhotoNotification
 
+@synthesize mainLabel = mainLabel_;
+@synthesize activeOptimizations = activeOptimizations_;
+
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  Designated initializer.
@@ -75,6 +78,8 @@
   [super viewDidUnload];
   // Release any retained subviews of the main view.
   // e.g. self.myOutlet = nil;
+  
+  self.mainLabel = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -88,34 +93,27 @@
   return YES;
 }
 
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Are we visible & animating?
-//
-
-- (BOOL)isAnimating {
-  
-  return !self.view.isHidden;
-}
+#pragma mark - Properties
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  Make ourselves visible.
+//  Set indicator of how many optimizations are ongoing.
 //
 
-- (void)stopAnimating {
+- (void)setActiveOptimizations:(NSUInteger)activeOptimizations {
   
-  self.view.hidden = YES;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Start animation.
-//
-
-- (void)startAnimating {
+  activeOptimizations_ = activeOptimizations;
   
-  self.view.hidden = NO;
+  NSString *text;
+  
+  if (activeOptimizations == 1) {
+    
+    text = kOptimizationProgressSingular;
+    
+  } else {
+    
+    text = [NSString stringWithFormat:kOptimizationProgressPlural, activeOptimizations];
+  }
+  self.mainLabel.text = text;
 }
-
 @end

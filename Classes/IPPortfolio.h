@@ -146,12 +146,6 @@
 - (void)lookForFoundPicturesAsyncWithCompletion:(void(^)(IPSet *foundSet))completion;
 
 //
-//  Respond to a memory warning.
-//
-
-- (void)didReceiveMemoryWarning;
-
-//
 //  Key-value compliance for the |sets| collection:
 //
 

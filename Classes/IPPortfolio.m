@@ -78,11 +78,6 @@
   return portfolio;
 }
 
-- (void)didReceiveMemoryWarning {
-  
-  [self.sets makeObjectsPerformSelector:@selector(didReceiveMemoryWarning)];
-}
-
 #pragma mark NSCoding
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
@@ -200,6 +195,20 @@
                      thePhoto.filename);
           [photosToDelete addObject:thePhoto];
           continue;
+        }
+        
+        //
+        //  Things that are in the model but have no thumbnail need to get 
+        //  removed from the model.
+        //
+        
+        fileExists = [[NSFileManager defaultManager] fileExistsAtPath:thePhoto.thumbnailFilename isDirectory:&isDirectory];
+        if (!fileExists || isDirectory) {
+          
+          _GTMDevLog(@"%s -- deleting page from set %@: no thumbnail",
+                     __PRETTY_FUNCTION__,
+                     theSet.title);
+          [photosToDelete addObject:thePhoto];
         }
       }
     }

@@ -83,6 +83,13 @@
 #define kErrorCopyFailed        NSLocalizedString(@"Pholio does not have enough memory to complete the operation.", @"Copy error")
 
 //
+//  Optimizing text
+//
+
+#define kOptimizationProgressPlural NSLocalizedString(@"Pholio is optimizing %d photos for your iPad.", @"Optimizing plural")
+#define kOptimizationProgressSingular NSLocalizedString(@"Pholio is optimizing a photo for your iPad.", @"Optomizing singular")
+
+//
 //  Different timings
 //
 

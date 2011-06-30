@@ -96,12 +96,6 @@
 -(void)deletePhotoFiles;
 
 //
-//  Respond to a memory warning.
-//
-
-- (void)didReceiveMemoryWarning;
-
-//
 //  Notify the set that one of the images in it has changed. This may trigger
 //  the thumbnail for the set to be changed. This is intended to be called
 //  from the IPPhoto object itself, reaching up through the object hierarchy

@@ -33,6 +33,9 @@
 //  Private extensions to IPPhoto
 //
 
+#define kIPPhotoOptimizedVersion    @"optimizedVersion"
+#define kIPPhotoCurrentOptimizationVersion    (1)
+
 @interface IPPhoto ()
 
 - (UIImage *)thumbnailFromImage:(UIImage *)image;
@@ -41,8 +44,14 @@
                forImage:(UIImage*)image 
             toDirectory:(NSString*)directoryPath 
             usingPrefix:(NSString*)prefix;
++ (UIImage *)rescaleIfNecessary:(UIImage *)image;
 
-@property (nonatomic, readonly) NSOperationQueue *thumbnailQueue;
+//
+//  When the photo gets optimized, this property is set to the version of the
+//  optimization algorithm used.
+//
+
+@property (nonatomic, assign) NSUInteger optimizedVersion;
 
 @end
 
@@ -60,7 +69,7 @@
 @synthesize imageSize = imageSize_;
 @synthesize thumbnail = thumbnail_;
 @synthesize parent = parent_;
-@dynamic thumbnailQueue;
+@synthesize optimizedVersion = optimizedVersion_;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -90,6 +99,8 @@
   [aCoder encodeObject:self.title forKey:kIPPhotoTitle];
   [aCoder encodeObject:self.caption forKey:kIPPhotoCaption];
   [aCoder encodeObject:[NSValue valueWithCGSize:self.imageSize] forKey:kIPPhotoImageSize];
+  [aCoder encodeObject:[NSNumber numberWithUnsignedInteger:self.optimizedVersion] 
+                forKey:kIPPhotoOptimizedVersion];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -109,6 +120,7 @@
     self.title    = [aDecoder decodeObjectForKey:kIPPhotoTitle];
     self.caption  = [aDecoder decodeObjectForKey:kIPPhotoCaption];
     self.imageSize = [[aDecoder decodeObjectForKey:kIPPhotoImageSize] CGSizeValue];
+    self.optimizedVersion = [[aDecoder decodeObjectForKey:kIPPhotoOptimizedVersion] unsignedIntegerValue];
   }
   return self;
 }
@@ -176,17 +188,32 @@
                                 withIntermediateDirectories:YES 
                                                  attributes:nil 
                                                       error:&error]) {
+    
     _GTMDevLog(@"%s -- unable to create thumbnails directory: %@ (%@)", 
                __PRETTY_FUNCTION__, 
                [IPPhoto thumbnailDirectory], 
                error);
-    
-  } else {
 
     BOOL directory;
     BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:targetDirectory 
                                                        isDirectory:&directory];
-    _GTMDevAssert(exists && directory, @"%@ should exist but doesn't!", targetDirectory);
+    if (exists && !directory) {
+      
+      _GTMDevLog(@"%s -- %@ exists, but is not a directory. Deleting and retrying.",
+                 __PRETTY_FUNCTION__,
+                 targetDirectory);
+      [[NSFileManager defaultManager] removeItemAtPath:targetDirectory error:NULL];
+      if (![[NSFileManager defaultManager] createDirectoryAtPath:targetDirectory 
+                                     withIntermediateDirectories:YES 
+                                                      attributes:nil 
+                                                           error:&error]) {
+        
+        _GTMDevLog(@"%s -- still could not create %@ (%@)",
+                   __PRETTY_FUNCTION__,
+                   targetDirectory,
+                   error);
+      }
+    }
   }
 }  
 
@@ -197,7 +224,8 @@
 
 + (IPPhoto *)photoWithImage:(UIImage *)image {
 
-  return [IPPhoto photoWithImage:image andTitle:nil];
+  IPPhoto *photo = [IPPhoto photoWithImage:image andTitle:nil];
+  return photo;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -210,7 +238,40 @@
   IPPhoto *photo = [[[IPPhoto alloc] init] autorelease];
   photo.image = image;
   photo.title = title;
+  [photo optimize];
   return photo;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Creates a photo with a filename and a title.
+//
+
++ (IPPhoto *)photoWithFilename:(NSString *)filename andTitle:(NSString *)title {
+  
+  IPPhoto *photo = [[[IPPhoto alloc] init] autorelease];
+  photo.filename = filename;
+  photo.title = title;
+  [photo optimize];
+  return photo;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Gets a new filename suitable for a new image.
+//
+
++ (NSString *)newPhotoFilename {
+  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  NSString *docDirectory = [paths objectAtIndex:0];
+  
+  //
+  //  Generate a random filename. TODO: Check for collisions.
+  //
+  
+  NSNumber *random = [NSNumber numberWithUnsignedInt:arc4random()];
+  NSString *_filename = [[random stringValue] stringByAppendingPathExtension:@"jpg"];
+  return [docDirectory stringByAppendingPathComponent:_filename];
 }
 
 #pragma mark - Properties
@@ -240,12 +301,21 @@
   BOOL isDirectory;
   NSFileManager *fileManager = [NSFileManager defaultManager];
   
-  if (self.filename != nil && [fileManager fileExistsAtPath:self.filename isDirectory:&isDirectory]) {
+  if (self.filename == nil) {
+  
+    //
+    //  Short-circuit.
+    //
+    
+    return;
+  }
+  
+  if ([fileManager fileExistsAtPath:self.filename isDirectory:&isDirectory]) {
     if (!isDirectory) {
       [fileManager removeItemAtPath:self.filename error:nil];
     }
   }
-  if (self.filename != nil && [fileManager fileExistsAtPath:self.thumbnailFilename isDirectory:&isDirectory]) {
+  if ([fileManager fileExistsAtPath:self.thumbnailFilename isDirectory:&isDirectory]) {
     if (!isDirectory) {
       [fileManager removeItemAtPath:self.thumbnailFilename error:nil];
     }
@@ -271,31 +341,12 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  On memory warning, delete the cached image and thumbnail.
-//
-
-- (void)didReceiveMemoryWarning {
-  
-  [image_ release], image_ = nil;
-  [thumbnail_ release], thumbnail_ = nil;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
 //  Creates random values for filename and thumbnailFilename.
 //
 
 -(void)createRandomFilenames {
-  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString *docDirectory = [paths objectAtIndex:0];
-  
-  //
-  //  Generate a random filename. TODO: Check for collisions.
-  //
-  
-  NSNumber *random = [NSNumber numberWithUnsignedInt:arc4random()];
-  NSString *_filename = [[random stringValue] stringByAppendingPathExtension:@"jpg"];
-  self.filename = [docDirectory stringByAppendingPathComponent:_filename];
+
+  self.filename = [IPPhoto newPhotoFilename];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -355,7 +406,7 @@
                thumbnailPath,
                error);
     [IPPhoto createThumbnailDirectory];
-    if (![thumbnailData writeToFile:self.thumbnailFilename options:NSDataWritingAtomic error:&error]) {
+    if (![thumbnailData writeToFile:thumbnailPath options:NSDataWritingAtomic error:&error]) {
       
       _GTMDevLog(@"%s -- really finally failed to save %@ (%@)",
                  __PRETTY_FUNCTION__,
@@ -394,6 +445,8 @@
     return image_;
   }
   image_ = [[UIImage alloc] initWithContentsOfFile:self.filename];
+  
+  self.imageSize = [image_ size];
   return image_;
 }
 
@@ -410,40 +463,45 @@
 - (void)setImage:(UIImage *)theImage {
   
   [image_ autorelease];
-  image_ = [theImage retain];
+  [self deletePhotoFiles];
+  self.optimizedVersion = 0;
   
-  if (image_ == nil) {
+  if (theImage == nil) {
+    
+    //
+    //  Short circuit.
+    //
+    
+    image_ = nil;
     return;
   }
+
+  //
+  //  NOTE: Instead of just storing |theImage| into |image_|, I'm first going
+  //  to save |theImage| (rescaled if necessary) and then load the saved file.
+  //  That will mark the image data as purgable.
+  //
+  
+  [self createRandomFilenames];
   
   //
-  //  Remember my size so I don't need to reload the image in the future for this
-  //  value.
+  //  Create & drain an autorelease pool to get rid of |data| from memory as soon
+  //  as I'm done with it.
   //
   
-  self.imageSize = self.image.size;
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  NSData *data = UIImageJPEGRepresentation(theImage, 0.8);
+  [data writeToFile:self.filename atomically:YES];
+  [pool drain];
   
+  image_ = [[UIImage alloc] initWithContentsOfFile:self.filename];
+  self.imageSize = [image_ size];
+
   //
   //  Invalidate any existing thumbnail.
   //
   
   [thumbnail_ release], thumbnail_ = nil;
-
-  //
-  //  Delete any existing files.
-  //
-  
-  if (self.filename != nil) {
-    
-    [self deletePhotoFiles];
-  }
-
-  //
-  //  Save the image data.
-  //
-  
-  [self createRandomFilenames];
-  [self saveImageData];
 
   //
   //  Let the grandparent in the hierarchy know we've changed. This is to
@@ -456,8 +514,8 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  Gets the thumbnail. Note if we don't already have a thumbnail, one will
-//  get synchronously created & saved. POTENTIALLY EXPENSIVE!!
+//  Gets the thumbnail. Note it is an error to access the thumbnail before calling
+//  |optimize|.
 //
 
 - (UIImage *)thumbnail {
@@ -465,60 +523,30 @@
   if (thumbnail_ != nil) {
     return thumbnail_;
   }
-  
+
   //
   //  This is the caching code.
   //
 
   NSString *thumbnailFilename = self.thumbnailFilename;
-  if ([[NSFileManager defaultManager] fileExistsAtPath:thumbnailFilename]) {
+  
+  //
+  //  Note that if |filename_| is not valid, then |thumbnailFilename| is not
+  //  valid.
+  //
+  
+  if (self.filename == nil) {
     
-    thumbnail_ = [[UIImage alloc] initWithContentsOfFile:thumbnailFilename];
-    return thumbnail_;
-    
-  } else {
+    return nil;
+  }
+  if (![[NSFileManager defaultManager] fileExistsAtPath:thumbnailFilename]) {
 
-    //
-    //  This is where we have to create & save the thumbnail.
-    //
-    
-    thumbnail_ = [[self thumbnailFromImage:self.image] retain];
-    [self saveThumbnail:thumbnail_ toPath:self.thumbnailFilename];
-    return thumbnail_;
+    _GTMDevAssert(NO, @"Called -[IPPhoto thumbnail] before calling -[IPPhoto optimize]");
+    return nil;
   }
   
-  return nil;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Because thumbnail creation can be expensive, this is an async version
-//  that calls a completion routine on the main thread when the thumbnail
-//  is available.
-//
-
-- (void)thumbnailAsyncWithCompletion:(void(^)(UIImage *thumbnail))completion {
-  
-  if (thumbnail_ != nil) {
-    
-    //
-    //  Short-circuit if we've already cached the thumbnail.
-    //
-    
-    completion(thumbnail_);
-    return;
-  }
-  completion = [completion copy];
-  [self.thumbnailQueue addOperationWithBlock:^(void) {
-
-    UIImage *thumbnail = [[self thumbnail] retain];
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
-
-      completion(thumbnail);
-      [thumbnail release];
-      [completion release];
-    }];
-  }];
+  thumbnail_ = [[UIImage alloc] initWithContentsOfFile:thumbnailFilename];
+  return thumbnail_;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -541,21 +569,114 @@
   return imageSize_;
 }
 
+#pragma mark - Image optimization
+
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  The thumbnail queue.
+//  "Optimize" the current photo. This involves:
+//
+//    - Resizing (or tiling) the image so it can be displayed / manipulated
+//      without blowing out all memory.
+//    - Computing & saving a thumbnail for the image.
+//
+//  This method runs synchronously, and can take a long time (and a lot of
+//  memory) to complete. Thus, the caller is advised to run it off the UI
+//  thread, but control how many background operations run concurrently.
 //
 
-- (NSOperationQueue *)thumbnailQueue {
+- (void)optimize {
   
-  static NSOperationQueue *thumbnailQueue_ = nil;
-  if (thumbnailQueue_ == nil) {
+  //
+  //  Short-circuit if we've already been optimized.
+  //
+  
+  if ([self isOptimized]) {
     
-    thumbnailQueue_ = [[NSOperationQueue alloc] init];
-    [thumbnailQueue_ setMaxConcurrentOperationCount:1];
+    return;
   }
-  return thumbnailQueue_;
+  
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  
+  //
+  //  Force the image to load if it hasn't already.
+  //
+  
+  [self image];
+  UIImage *rescaled = [IPPhoto rescaleIfNecessary:image_];
+  if (rescaled != nil) {
+    
+    //
+    //  We shrank this image. Save it.
+    //
+    
+    NSData *rescaledData = UIImageJPEGRepresentation(rescaled, 0.8);
+    [rescaledData writeToFile:self.filename atomically:YES];
+    [image_ release], image_ = [rescaled retain];
+  }
+  
+  //
+  //  Force a thumbnail, even if one was there already.
+  //
+  //  NOTE: This prevents thumbnails from getting purged. Should I load from the
+  //  file??
+  //
+  
+  thumbnail_ = [[self thumbnailFromImage:image_] retain];
+  [self saveThumbnail:thumbnail_ toPath:self.thumbnailFilename];
+  _GTMDevAssert([[NSFileManager defaultManager] fileExistsAtPath:self.thumbnailFilename],
+                @"Thumbnail file should have been saved");
+  
+  //
+  //  Update this photo's optimization version.
+  //
+  
+  self.optimizedVersion = kIPPhotoCurrentOptimizationVersion;
+  
+  [pool drain];
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (BOOL)isOptimized {
+  
+  return self.optimizedVersion == kIPPhotoCurrentOptimizationVersion;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  This is a blunt hammer, and something from earlier incarnations of the program.
+//  It force-resizes an image to be something that can be managed more easily.
+//
+//  If tiling ever works better, then this can get removed.
+//
+
++ (UIImage *)rescaleIfNecessary:(UIImage *)originalImage {
+  
+  if (originalImage == nil) {
+    
+    //
+    //  Short-circuit.
+    //
+    
+    return nil;
+  }
+  CGFloat longEdge = MAX(originalImage.size.width, originalImage.size.height);
+  if (longEdge < 2 * kImageLongEdgeMinRescaleSize) {
+    
+    return nil;
+  }
+  
+  //
+  //  OK, need to rescale the image.
+  //
+  
+  CGFloat scaleFactor = (1500) / longEdge;
+  CGSize newSize = CGSizeApplyAffineTransform(originalImage.size, 
+                                              CGAffineTransformMakeScale(scaleFactor, scaleFactor));
+  UIImage *rescaled = [originalImage resizedImage:newSize interpolationQuality:kCGInterpolationHigh];
+  return rescaled;
+}
+
 #pragma mark - Image tiling
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -618,9 +739,12 @@
       CGImageRef tileImage = CGImageCreateWithImageInRect(fullImage, 
                                                           (CGRect){{x*size.width, y*size.height}, 
                                                             tileSize});
-      NSData *imageData = UIImageJPEGRepresentation([UIImage imageWithCGImage:tileImage], 0.8);
-      [imageData writeToFile:path atomically:YES];
-      CFRelease(tileImage);
+      if (tileImage != NULL) {
+        
+        NSData *imageData = UIImageJPEGRepresentation([UIImage imageWithCGImage:tileImage], 0.8);
+        [imageData writeToFile:path atomically:YES];
+        CFRelease(tileImage);
+      }
       [pool drain];
     }
   } 

@@ -24,6 +24,7 @@
 #import "IPPortfolioGridViewController.h"
 #import "IPPortfolio+TestHelpers.h"
 #import "IPAlertConfirmTest.h"
+#import "IPPhotoOptimizationManager.h"
 
 #define kNibName        @"IPPortfolioGridViewController"
 
@@ -64,7 +65,8 @@
 //
 
 - (void)setUp {
-  
+
+  [[IPPhotoOptimizationManager sharedManager] setWorkSynchronouslyForDebugging:YES];
   self.controller = [[[IPPortfolioGridViewController alloc] initWithNibName:kNibName bundle:nil] autorelease];
   
   //

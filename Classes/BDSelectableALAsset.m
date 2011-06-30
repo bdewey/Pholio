@@ -20,6 +20,17 @@
 
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "BDSelectableALAsset.h"
+#import "IPPhoto.h"
+#import "IPPhotoOptimizationManager.h"
+
+@interface BDSelectableALAsset()
+
+//
+//  These are the UTIs that I understand.
+//
+
+@property (nonatomic, readonly) NSArray *imageUTIs;
+@end
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,6 +41,7 @@
 @synthesize asset = asset_;
 @synthesize selected = selected_;
 @synthesize delegate = delegate_;
+@synthesize imageUTIs = imageUTIs_;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -54,6 +66,7 @@
 - (void)dealloc {
   
   [asset_ release];
+  [imageUTIs_ release];
   [super dealloc];
 }
 
@@ -82,7 +95,7 @@
 //  Gets the image associated with this asset.
 //
 
-- (void)imageAsyncWithCompletion:(void (^)(UIImage *))completion {
+- (void)imageAsyncWithCompletion:(void (^)(NSString *, NSString *))completion {
   
   completion = [completion copy];
 
@@ -93,33 +106,24 @@
   //  in one go.
   //
   
-  dispatch_async(dispatch_get_main_queue(), ^ {
-    
+  [[[IPPhotoOptimizationManager sharedManager] optimizationQueue] addOperationWithBlock:^(void) {
+
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     UIImageOrientation orientation = [[self.asset valueForProperty:ALAssetPropertyOrientation] intValue];
     ALAssetRepresentation *representation = [self.asset defaultRepresentation];
-    _GTMDevLog(@"%s: Asset representation: url = %@, UTI = %@, size = %lld, representations = %@",
-               __PRETTY_FUNCTION__,
-               [representation url],
-               [representation UTI],
-               [representation size],
-               [self.asset valueForProperty:ALAssetPropertyRepresentations]);
-    CGImageRef imageRef = [representation fullResolutionImage];
-    if (imageRef == NULL) {
+    UIImage *image = [[UIImage alloc] initWithCGImage:[representation fullResolutionImage] scale:1.0 orientation:orientation];
+    NSString *filename = [[IPPhoto newPhotoFilename] retain];
+    NSData *jpegData = UIImageJPEGRepresentation(image, 0.8);
+    [jpegData writeToFile:filename atomically:YES];
+    [image release];
+    [pool drain];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
       
-      imageRef = [representation fullScreenImage];
-    }
-    if (imageRef == NULL) {
-      
-      completion(nil);
+      completion(filename, @"public.jpeg");
+      [filename release];
       [completion release];
-      return;
-    }
-    UIImage *image = [UIImage imageWithCGImage:imageRef
-                                         scale:1.0
-                                   orientation:orientation];
-    completion(image);
-    [completion release];
-  });
+    }];
+  }];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -151,4 +155,18 @@
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
+//
+//  The image UTIs we understand.
+//
+
+- (NSArray *)imageUTIs {
+  
+  if (imageUTIs_ != nil) {
+    
+    return imageUTIs_;
+  }
+  imageUTIs_ = [[NSArray alloc] initWithObjects:@"public.jpeg", @"public.png", nil];
+  return imageUTIs_;
+}
 @end

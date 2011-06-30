@@ -25,6 +25,7 @@
 #import "IPSetGridViewController.h"
 #import "IPSet+TestHelpers.h"
 #import "IPAlertConfirmTest.h"
+#import "IPPhotoOptimizationManager.h"
 
 #define kNibName        @"IPSetGridViewController"
 
@@ -43,6 +44,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 @implementation IPSetGridViewController_test
+
+- (void)setUp {
+  
+//  [[NSFileManager defaultManager] removeItemAtPath:[IPPhoto thumbnailDirectory] error:NULL];
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -125,7 +131,8 @@
 //
 
 - (IPSetGridViewController *)controllerForTesting {
-  
+
+  [[IPPhotoOptimizationManager sharedManager] setWorkSynchronouslyForDebugging:YES];
   IPSetGridViewController *controller = [[[IPSetGridViewController alloc] initWithNibName:kNibName bundle:nil] autorelease];
   [controller view];
   IPSet *set = [IPSet setWithPages:[IPPage pageWithImage:[UIImage imageNamed:@"smoke.jpg"]],
@@ -305,6 +312,12 @@
   [[UIPasteboard generalPasteboard] setData:pasteData forPasteboardType:kIPPasteboardObjectUTI];
   
   STAssertTrue([controller gridViewCanPaste:controller.gridView], nil);
+  
+  //
+  //  Not a typo. savePortfolioToPath: will get called twice.
+  //
+  
+  [[mockPortfolio expect] savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
   [[mockPortfolio expect] savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
   [controller gridView:controller.gridView didPasteAtPoint:1];
   STAssertNoThrow([mockPortfolio verify], nil);

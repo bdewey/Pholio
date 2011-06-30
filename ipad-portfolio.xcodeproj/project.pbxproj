@@ -39,9 +39,9 @@
 		D30E437C13646AA90025BDAB /* IPSetGridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30E437913646AA90025BDAB /* IPSetGridViewController.xib */; };
 		D30E437D13646AA90025BDAB /* IPSetGridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30E437913646AA90025BDAB /* IPSetGridViewController.xib */; };
 		D30E438013646BB50025BDAB /* IPSetGridViewController-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D30E437F13646BB50025BDAB /* IPSetGridViewController-test.m */; };
-		D318CB7F13B571AA00F90860 /* IPPhotoTilingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB7E13B571AA00F90860 /* IPPhotoTilingManager.m */; };
-		D318CB8013B571AA00F90860 /* IPPhotoTilingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB7E13B571AA00F90860 /* IPPhotoTilingManager.m */; };
-		D318CB8313B572FD00F90860 /* IPPhotoTilingManager-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB8213B572FD00F90860 /* IPPhotoTilingManager-test.m */; };
+		D318CB7F13B571AA00F90860 /* IPPhotoOptimizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB7E13B571AA00F90860 /* IPPhotoOptimizationManager.m */; };
+		D318CB8013B571AA00F90860 /* IPPhotoOptimizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB7E13B571AA00F90860 /* IPPhotoOptimizationManager.m */; };
+		D318CB8313B572FD00F90860 /* IPPhotoOptimizationManager-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB8213B572FD00F90860 /* IPPhotoOptimizationManager-test.m */; };
 		D318CB8713B5BD8C00F90860 /* IPOptimizingPhotoNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB8513B5BD8B00F90860 /* IPOptimizingPhotoNotification.m */; };
 		D318CB8813B5BD8C00F90860 /* IPOptimizingPhotoNotification.xib in Resources */ = {isa = PBXBuildFile; fileRef = D318CB8613B5BD8B00F90860 /* IPOptimizingPhotoNotification.xib */; };
 		D318CB8913B5C79100F90860 /* IPOptimizingPhotoNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB8513B5BD8B00F90860 /* IPOptimizingPhotoNotification.m */; };
@@ -273,9 +273,9 @@
 		D30E437813646AA90025BDAB /* IPSetGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPSetGridViewController.m; sourceTree = "<group>"; };
 		D30E437913646AA90025BDAB /* IPSetGridViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IPSetGridViewController.xib; sourceTree = "<group>"; };
 		D30E437F13646BB50025BDAB /* IPSetGridViewController-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPSetGridViewController-test.m"; sourceTree = "<group>"; };
-		D318CB7D13B571AA00F90860 /* IPPhotoTilingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPhotoTilingManager.h; sourceTree = "<group>"; };
-		D318CB7E13B571AA00F90860 /* IPPhotoTilingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPPhotoTilingManager.m; sourceTree = "<group>"; };
-		D318CB8213B572FD00F90860 /* IPPhotoTilingManager-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPhotoTilingManager-test.m"; sourceTree = "<group>"; };
+		D318CB7D13B571AA00F90860 /* IPPhotoOptimizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; path = IPPhotoOptimizationManager.h; sourceTree = "<group>"; };
+		D318CB7E13B571AA00F90860 /* IPPhotoOptimizationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPPhotoOptimizationManager.m; sourceTree = "<group>"; };
+		D318CB8213B572FD00F90860 /* IPPhotoOptimizationManager-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPhotoOptimizationManager-test.m"; sourceTree = "<group>"; };
 		D318CB8413B5BD8B00F90860 /* IPOptimizingPhotoNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPOptimizingPhotoNotification.h; sourceTree = "<group>"; };
 		D318CB8513B5BD8B00F90860 /* IPOptimizingPhotoNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPOptimizingPhotoNotification.m; sourceTree = "<group>"; };
 		D318CB8613B5BD8B00F90860 /* IPOptimizingPhotoNotification.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IPOptimizingPhotoNotification.xib; sourceTree = "<group>"; };
@@ -656,7 +656,7 @@
 				D3E57E811384D2AA0027534B /* IPFlickrAuthorizationManager-test.m */,
 				D3D0149D138CBE3900181DE7 /* BDColorPicker-test.m */,
 				D395B2B313ADBEE700346D99 /* IPHelp-test.m */,
-				D318CB8213B572FD00F90860 /* IPPhotoTilingManager-test.m */,
+				D318CB8213B572FD00F90860 /* IPPhotoOptimizationManager-test.m */,
 				D31E936A134D6EB5000F5494 /* TestHelpers */,
 				D30A433513138E7800E6EBB7 /* Supporting Files */,
 			);
@@ -806,8 +806,8 @@
 				D3A20FBA120BBEBD008F247D /* IPPortfolio.m */,
 				D32ADFD713727261009EA22E /* IPPasteboardObject.h */,
 				D32ADFD813727262009EA22E /* IPPasteboardObject.m */,
-				D318CB7D13B571AA00F90860 /* IPPhotoTilingManager.h */,
-				D318CB7E13B571AA00F90860 /* IPPhotoTilingManager.m */,
+				D318CB7D13B571AA00F90860 /* IPPhotoOptimizationManager.h */,
+				D318CB7E13B571AA00F90860 /* IPPhotoOptimizationManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1121,7 +1121,7 @@
 				D3A584CD139C8478006B58E2 /* IPPhotoTilingView.m in Sources */,
 				D352E515139D3ECA00549DBB /* BDCustomAlert.m in Sources */,
 				D395B2B813ADC0C900346D99 /* IPHelpController.m in Sources */,
-				D318CB7F13B571AA00F90860 /* IPPhotoTilingManager.m in Sources */,
+				D318CB7F13B571AA00F90860 /* IPPhotoOptimizationManager.m in Sources */,
 				D318CB8713B5BD8C00F90860 /* IPOptimizingPhotoNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1213,8 +1213,8 @@
 				D352E516139D3ECA00549DBB /* BDCustomAlert.m in Sources */,
 				D395B2B413ADBEE700346D99 /* IPHelp-test.m in Sources */,
 				D395B2B913ADC0C900346D99 /* IPHelpController.m in Sources */,
-				D318CB8013B571AA00F90860 /* IPPhotoTilingManager.m in Sources */,
-				D318CB8313B572FD00F90860 /* IPPhotoTilingManager-test.m in Sources */,
+				D318CB8013B571AA00F90860 /* IPPhotoOptimizationManager.m in Sources */,
+				D318CB8313B572FD00F90860 /* IPPhotoOptimizationManager-test.m in Sources */,
 				D318CB8913B5C79100F90860 /* IPOptimizingPhotoNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

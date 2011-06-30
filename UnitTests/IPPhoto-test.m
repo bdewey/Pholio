@@ -145,6 +145,29 @@
 }
 
 //
+//  So trivial I'm afraid to write it.
+//
+
+- (void)testGetFilename {
+  
+  NSString *file1 = [IPPhoto newPhotoFilename];
+  NSString *file2 = [IPPhoto newPhotoFilename];
+  
+  //
+  //  Subsequent calls should always return different, random file names.
+  //
+  
+  STAssertNotEquals(file1, file2, nil);
+  
+  STAssertEqualStrings(@"jpg", [file1 pathExtension], 
+                       @"Unexpected path extension: %@",
+                       [file1 pathExtension]);
+
+  STAssertEqualStrings([@"" asPathInDocumentsFolder],   
+                       [file1 stringByDeletingLastPathComponent], nil);
+}
+
+//
 //  Helper routine. Validates that a string property was copied into the object
 //  and not just retained. This means I should be able to change the string
 //  object that I passed in to the |IPPhoto| and the property will not
@@ -203,6 +226,7 @@
   STAssertNotNil(image, @"Internal validation: Should load test image");
   IPPhoto *photo = [[[IPPhoto alloc] init] autorelease];
   STAssertNil(photo.image, @"Photo does not start with an image");
+  STAssertNil(photo.filename, @"Photo does not start with a file name");
   STAssertNil(photo.thumbnail, @"Photo does not start with a thumbnail");
   photo.image = image;
   
@@ -218,6 +242,7 @@
   STAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:photo.filename],
                @"File should be saved");
 
+  [photo optimize];
   STAssertNotNil(photo.thumbnail, @"Photo should have a thumbnail");
 
   CGFloat maxSize = MAX(photo.thumbnail.size.width,
@@ -254,7 +279,7 @@
   //  Note you now have to access the thumbnail to force its generation.
   //
   
-  [photo thumbnail];
+  [photo optimize];
   STAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:photo.thumbnailFilename],
                @"Thumbnail should be saved");
   
@@ -266,7 +291,7 @@
   NSString *originalFileName  = [photo.filename copy];
   NSString *originalThumbnail = [photo.thumbnailFilename copy];
   photo.image = image;
-  [photo thumbnail];
+  [photo optimize];
   STAssertNotEqualStrings(originalFileName, photo.filename,
                           @"Setting a new image should save to a new file");
   STAssertNotEqualStrings(originalThumbnail, photo.thumbnailFilename,

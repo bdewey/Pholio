@@ -22,6 +22,7 @@
 #import "IPPortfolioGridViewController.h"
 #import "ObjectiveFlickr.h"
 #import "IPFlickrAuthorizationManager.h"
+#import "IPOptimizingPhotoNotification.h"
 
 //
 //  Private methods
@@ -35,6 +36,12 @@
 
 @property (nonatomic, readonly) IPPortfolioGridViewController *portfolioGridView;
 
+//
+//  If we're showing UI about optimizing photos, this is the UI.
+//
+
+@property (nonatomic, retain) IPOptimizingPhotoNotification *optimizingNotification;
+
 @end
 
 
@@ -44,6 +51,19 @@
 @synthesize navigationController = navigationController_;
 @synthesize avoidMultithreading = avoidMultithreading_;
 @dynamic portfolioGridView;
+@synthesize optimizingNotification = optimizingNotification_;
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Dealloc.
+//
+
+- (void)dealloc {
+  [window release];
+  [navigationController_ release];
+  [optimizingNotification_ release];
+  [super dealloc];
+}
 
 
 #pragma mark -
@@ -103,6 +123,12 @@
   
   [self.portfolioGridView ensureWelcomeSet];
   
+  //
+  //  Register to show UI when there are optimizations in progress.
+  //
+  
+  [[IPPhotoOptimizationManager sharedManager] setDelegate:self];
+  
   return YES;
 }
 
@@ -116,18 +142,6 @@
   [[IPFlickrAuthorizationManager sharedManager] processFlickrAuthUrl:url];
   return YES;
 }
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Dealloc.
-//
-
-- (void)dealloc {
-  [window release];
-  [navigationController_ release];
-  [super dealloc];
-}
-
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -199,6 +213,34 @@
   [self.portfolioGridView.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
 }
 
+#pragma mark - IPPhotoOptimizationManagerDelegate
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Display notification that optimization is going on.
+//
+
+- (void)optimizationManager:(IPPhotoOptimizationManager *)optimizationManager 
+   didHaveOptimizationCount:(NSUInteger)optimizationCount {
+  
+  _GTMDevLog(@"%s -- count is %d", __PRETTY_FUNCTION__, optimizationCount);
+  if (optimizationCount == 0) {
+  
+    [self.optimizingNotification.view removeFromSuperview];
+    self.optimizingNotification = nil;
+    
+  } else {
+    
+    if (self.optimizingNotification == nil) {
+      
+      self.optimizingNotification = [[[IPOptimizingPhotoNotification alloc] initWithNibName:nil bundle:nil] autorelease];
+      self.optimizingNotification.modalPresentationStyle = UIModalPresentationFormSheet;
+      self.optimizingNotification.view.center = self.navigationController.view.center;
+      [self.navigationController.view addSubview:self.optimizingNotification.view];
+    }
+    self.optimizingNotification.activeOptimizations = optimizationCount;
+  }
+}
 
 #pragma mark -
 #pragma mark Memory management
@@ -213,6 +255,8 @@
    Free up as much memory as possible by purging cached data objects that can be recreated (or reloaded from disk) later.
    */
 }
+
+#pragma mark - Properties
 
 ////////////////////////////////////////////////////////////////////////////////
 //

@@ -26,7 +26,7 @@
 #import "BDGridCell.h"
 #import "BDImagePickerController.h"
 #import "IPAlert.h"
-#import "IPPhotoTilingManager.h"
+#import "IPPhotoOptimizationManager.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -77,12 +77,7 @@
   
   [self.photo addObserver:self forKeyPath:kIPPhotoTitle options:0 context:NULL];
   self.caption = self.photo.title;
-  
-  [self.photo thumbnailAsyncWithCompletion:^(UIImage *thumbnail) {
-    
-    _GTMDevAssert(thumbnail != nil, @"thumbnail must not be nil");
-    self.image = thumbnail;
-  }];
+  self.image = self.photo.thumbnail;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -164,7 +159,6 @@
   [super didReceiveMemoryWarning];
   
   self.defaultPicker = nil;
-  [self.currentSet didReceiveMemoryWarning];
 }
 
 #pragma mark - View lifecycle
@@ -197,13 +191,13 @@
   //  Make sure tiles exist for all photos in this set.
   //
   
-  for (IPPage *page in self.currentSet.pages) {
-    for (IPPhoto *photo in page.photos) {
-      
-      [[IPPhotoTilingManager sharedManager] asyncTilePhoto:photo 
-                                            withCompletion:nil];
-    }
-  }
+//  for (IPPage *page in self.currentSet.pages) {
+//    for (IPPhoto *photo in page.photos) {
+//      
+//      [[IPPhotoTilingManager sharedManager] asyncTilePhoto:photo 
+//                                            withCompletion:nil];
+//    }
+//  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -422,9 +416,9 @@
     
     for (id<BDSelectableAsset> asset in assets) {
       
-      [asset imageAsyncWithCompletion:^(UIImage *image) {
+      [asset imageAsyncWithCompletion:^(NSString *filename, NSString *uti) {
         
-        if (image == nil) {
+        if (filename == nil) {
           
           //
           //  Couldn't get an image.
@@ -434,14 +428,9 @@
           [workerThreadsComplete unlockWithCondition:[workerThreadsComplete condition]-1];
           return;
         }
-        IPPage *page = [IPPage pageWithImage:image andTitle:[asset title]];
+        IPPage *page = [IPPage pageWithFilename:filename andTitle:[asset title]];
         [workerThreadsComplete lock];
         [pages addObject:page];
-        _GTMDevLog(@"%s -- pages count = %d, condition = %d (Image = %@)",
-                   __PRETTY_FUNCTION__,
-                   [pages count],
-                   [workerThreadsComplete condition],
-                   image);
         [workerThreadsComplete unlockWithCondition:[workerThreadsComplete condition]-1];
       }];
     }
@@ -470,22 +459,24 @@
   
   self.popoverController = [BDImagePickerController presentPopoverFromRect:rect inView:gridView onSelection:^(NSArray *assets) {
     
-    [self.activityIndicator startAnimating];
-    [self backgroundAddImages:assets completion:^(NSArray *pages) {
-
-      NSIndexSet *indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(insertionPoint, [pages count])];
-      [self.currentSet.pages insertObjects:pages atIndexes:indexes];
-      [self.currentSet.parent savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
-      if ([pages count] == 1) {
+    __block NSUInteger currentInsertionPoint = insertionPoint;
+    for (id<BDSelectableAsset> asset in assets) {
+      
+      [asset imageAsyncWithCompletion:^(NSString *filename, NSString *uti) {
         
-        [gridView insertCellAtIndex:insertionPoint];
-        
-      } else {
-        
-        [gridView reloadData];
-      }
-      [self.activityIndicator stopAnimating];
-    }];
+        IPPhoto *photo = [[IPPhoto alloc] init];
+        photo.filename = filename;
+        [[IPPhotoOptimizationManager sharedManager] asyncOptimizePhoto:photo withCompletion:^(void) {
+          
+          IPPage *page = [IPPage pageWithPhoto:photo];
+          [self.currentSet insertObject:page inPagesAtIndex:currentInsertionPoint];
+          [self.currentSet.parent savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+          [self.gridView insertCellAtIndex:currentInsertionPoint];
+          currentInsertionPoint++;
+          [photo release];
+        }];
+      }];
+    }
   }];
 }
 
@@ -573,9 +564,13 @@
     //
     
     IPPage *page = (IPPage *)pasteboardObject.modelObject;
-    [self.currentSet insertObject:page inPagesAtIndex:insertionPoint];
-    [self.currentSet.parent savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
-    [gridView insertCellAtIndex:insertionPoint];
+
+    [[IPPhotoOptimizationManager sharedManager] asyncOptimizePage:page withCompletion:^(void) {
+
+      [self.currentSet insertObject:page inPagesAtIndex:insertionPoint];
+      [self.currentSet.parent savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+      [gridView insertCellAtIndex:insertionPoint];
+    }];
     
   } else if ([pasteboardObject.modelObject isKindOfClass:[IPSet class]]) {
     
@@ -584,10 +579,17 @@
     //
     
     IPSet *set = (IPSet *)pasteboardObject.modelObject;
-    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(insertionPoint, [set countOfPages])];
-    [self.currentSet.pages insertObjects:set.pages atIndexes:indexSet];
-    [self.currentSet.parent savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
-    [gridView reloadData];
+    __block NSUInteger currentInsertionPoint = insertionPoint;
+    for (IPPage *page in set.pages) {
+      
+      [[IPPhotoOptimizationManager sharedManager] asyncOptimizePage:page withCompletion:^(void) {
+        
+        [self.currentSet insertObject:page inPagesAtIndex:currentInsertionPoint];
+        [self.currentSet.parent savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+        [gridView insertCellAtIndex:currentInsertionPoint];
+        currentInsertionPoint++;
+      }];
+    }
     
   } else if (pasteboard.image != nil) {
 
@@ -597,9 +599,12 @@
     //
 
     IPPage *page = [IPPage pageWithImage:pasteboard.image];
-    [self.currentSet insertObject:page inPagesAtIndex:insertionPoint];
-    [self.currentSet.parent savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
-    [gridView insertCellAtIndex:insertionPoint];
+    [[IPPhotoOptimizationManager sharedManager] asyncOptimizePage:page withCompletion:^(void) {
+      
+      [self.currentSet insertObject:page inPagesAtIndex:insertionPoint];
+      [self.currentSet.parent savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+      [gridView insertCellAtIndex:insertionPoint];
+    }];
   }
 }
 

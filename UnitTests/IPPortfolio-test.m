@@ -250,7 +250,7 @@
   STAssertEquals((NSUInteger)10, countOfImages, nil);
   
   //
-  //  My test cases are maintained in three parallel arrays.
+  //  My test cases are maintained in two parallel arrays.
   //
   
   NSArray *testCaseTitles = [NSArray arrayWithObjects:@"Existing image, nil thumbnail", 
@@ -286,7 +286,16 @@
     [set insertObject:page inPagesAtIndex:[set countOfPages]];
   }
   
+  //
+  //  Only the third image gets optimized, thus only the third one will have
+  //  a thumbnail.
+  //
+  
+  [[[set objectInPagesAtIndex:2] objectInPhotosAtIndex:0] optimize];
+  
   STAssertNoThrow([portfolio performSelector:@selector(fixPhotoFileNames)], nil);
+  
+  STAssertEquals((NSUInteger)1, [set countOfPages], nil);
   
   //
   //  Look for valid photos.
