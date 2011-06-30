@@ -237,7 +237,6 @@
 @implementation IPPortfolioGridViewController
 
 @synthesize gridView = gridView_;
-@synthesize activityIndicator = activityIndicator_;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -266,7 +265,6 @@
   
   self.portfolio = nil;
   [gridView_ release];
-  [activityIndicator_ release];
   [super dealloc];
 }
 
@@ -300,7 +298,6 @@
   }
   self.gridView.font = self.portfolio.textFont;
   [self setTitleToPortfolioTitle];
-  self.activityIndicator.center = self.gridView.center;
   self.navigationController.navigationBar.translucent = YES;
 }
 
@@ -314,7 +311,6 @@
   [super viewDidUnload];
   
   self.gridView = nil;
-  self.activityIndicator = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -476,7 +472,7 @@
       IPSet *optimizedSet = [[[IPSet alloc] init] autorelease];
       optimizedSet.title = foundSet.title;
       [self.portfolio insertObject:optimizedSet inSetsAtIndex:insertionIndex];
-      [self.gridView insertCellAtIndex:insertionIndex];
+      IPSetCell *cell = (IPSetCell *)[self.gridView insertCellAtIndex:insertionIndex];
 
       for (IPPage *page in foundSet.pages) {
         
@@ -484,6 +480,7 @@
           
           [optimizedSet insertObject:page inPagesAtIndex:currentIndex];
           [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+          [cell updateThumbnail];
           currentIndex++;
         }];
       }
@@ -521,6 +518,7 @@
       
       IPPhoto *photo = [[[IPPhoto alloc] init] autorelease];
       photo.filename = [imageName asPathInDocumentsFolder];
+      [photo optimize];
       IPPage *page = [IPPage pageWithPhoto:photo];
       [welcomeSet.pages addObject:page];
       
@@ -775,7 +773,6 @@
                                                                onSelection:
                             ^(NSArray *assets) {
                               
-                              [self.activityIndicator startAnimating];
                               IPSet *set = [[[IPSet alloc] init] autorelease];
                               set.title = kNewGalleryName;
                               [self.portfolio insertObject:set inSetsAtIndex:insertionPoint];
@@ -788,7 +785,6 @@
                               } completion:^ {
                                
                                 [cell updateThumbnail];
-                                [self.activityIndicator stopAnimating];
                                 [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
                               }];
                             }];
@@ -807,7 +803,6 @@
                                                                onSelection:
                             ^(NSArray *assets) {
                               
-                              [self.activityIndicator startAnimating];
                               [self asyncLoadImages:assets pageProgress:^(IPPage *nextPage, NSUInteger count) {
                                 
                                 [setCell.currentSet insertObject:nextPage inPagesAtIndex:[setCell.currentSet countOfPages]];
@@ -815,10 +810,9 @@
                               } completion:^ {
                                 
                                 //
-                                //  Simulate a tap to navigate to the set.
+                                //  NOTHING
                                 //
                                 
-                                [self.activityIndicator stopAnimating];
                               }];
                             }];
 }

@@ -104,7 +104,6 @@
   STAssertNotNil(controller.gridView, nil);
   STAssertEquals(controller.gridView.gridViewDelegate, controller, nil);
   STAssertNotNil(controller.backgroundImage, nil);
-  STAssertNotNil(controller.activityIndicator, nil);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

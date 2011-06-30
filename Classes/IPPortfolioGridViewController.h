@@ -44,7 +44,6 @@
 //
 
 @property (nonatomic, retain) IBOutlet BDGridView *gridView;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 //
 //  Tell the controller to look for images.

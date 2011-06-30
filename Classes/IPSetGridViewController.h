@@ -58,6 +58,5 @@ UINavigationControllerDelegate
 //
 
 @property (nonatomic, retain) IBOutlet BDGridView *gridView;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end

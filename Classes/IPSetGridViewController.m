@@ -115,7 +115,6 @@
 @synthesize currentSet = currentSet_;
 @synthesize backButtonText = backButtonText_;
 @synthesize gridView = gridView_;
-@synthesize activityIndicator = activityIndicator_;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -144,7 +143,6 @@
   [currentSet_ release];
   [backButtonText_ release];
   [gridView_ release];
-  [activityIndicator_ release];
   [super dealloc];
 }
 
@@ -251,7 +249,6 @@
   [super viewDidUnload];
   
   self.gridView = nil;
-  self.activityIndicator = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
