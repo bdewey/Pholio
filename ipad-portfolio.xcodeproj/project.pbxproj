@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D3623260D0F684500981E51 /* ipad_portfolioAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* ipad_portfolioAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -123,7 +122,6 @@
 		D3A25E90138811DC00FA80B7 /* IPFlickrLoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A25E8E138811DC00FA80B7 /* IPFlickrLoadingCell.m */; };
 		D3A25E931388D1C600FA80B7 /* IPAlertConfirmTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A25E921388D1C600FA80B7 /* IPAlertConfirmTest.m */; };
 		D3A392E71356D73600DBAA36 /* version1-portfolio.dat in Resources */ = {isa = PBXBuildFile; fileRef = D3A392E61356D73600DBAA36 /* version1-portfolio.dat */; };
-		D3A392EB13580A3000DBAA36 /* ipad_portfolioAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* ipad_portfolioAppDelegate.m */; };
 		D3A392F21358A8AC00DBAA36 /* NSObject+NullAwareProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A392F11358A8AC00DBAA36 /* NSObject+NullAwareProperties.m */; };
 		D3A392F41358AD6800DBAA36 /* zoo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3A392F31358AD6800DBAA36 /* zoo.jpg */; };
 		D3A392F61358ADCF00DBAA36 /* zoo.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A392F51358ADCF00DBAA36 /* zoo.png */; };
@@ -156,6 +154,8 @@
 		D3AEA45313613C090025C334 /* BDGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA45213613C080025C334 /* BDGridView.m */; };
 		D3AEA45413613C090025C334 /* BDGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA45213613C080025C334 /* BDGridView.m */; };
 		D3AEA46713628F4B0025C334 /* BDGridView-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA46613628F4B0025C334 /* BDGridView-test.m */; };
+		D3B09AB013BC46B00001C3F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B09AAF13BC46AF0001C3F4 /* AppDelegate.m */; };
+		D3B09AB113BC46B00001C3F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B09AAF13BC46AF0001C3F4 /* AppDelegate.m */; };
 		D3D01474138B1F5A00181DE7 /* ChooseYourBest.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D01473138B1F5A00181DE7 /* ChooseYourBest.png */; };
 		D3D01476138C1EC400181DE7 /* GiveItYourLook.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D01475138C1EC400181DE7 /* GiveItYourLook.png */; };
 		D3D0148B138C25AF00181DE7 /* BDFontPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D0148A138C25AF00181DE7 /* BDFontPickerController.m */; };
@@ -230,8 +230,7 @@
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D3623240D0F684500981E51 /* ipad_portfolioAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ipad_portfolioAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* ipad_portfolioAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ipad_portfolioAppDelegate.m; sourceTree = "<group>"; };
+		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Pholio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pholio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -273,7 +272,7 @@
 		D30E437813646AA90025BDAB /* IPSetGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPSetGridViewController.m; sourceTree = "<group>"; };
 		D30E437913646AA90025BDAB /* IPSetGridViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IPSetGridViewController.xib; sourceTree = "<group>"; };
 		D30E437F13646BB50025BDAB /* IPSetGridViewController-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPSetGridViewController-test.m"; sourceTree = "<group>"; };
-		D318CB7D13B571AA00F90860 /* IPPhotoOptimizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; path = IPPhotoOptimizationManager.h; sourceTree = "<group>"; };
+		D318CB7D13B571AA00F90860 /* IPPhotoOptimizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPhotoOptimizationManager.h; sourceTree = "<group>"; };
 		D318CB7E13B571AA00F90860 /* IPPhotoOptimizationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPPhotoOptimizationManager.m; sourceTree = "<group>"; };
 		D318CB8213B572FD00F90860 /* IPPhotoOptimizationManager-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPhotoOptimizationManager-test.m"; sourceTree = "<group>"; };
 		D318CB8413B5BD8B00F90860 /* IPOptimizingPhotoNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPOptimizingPhotoNotification.h; sourceTree = "<group>"; };
@@ -385,6 +384,7 @@
 		D3AEA45113613C080025C334 /* BDGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDGridView.h; sourceTree = "<group>"; };
 		D3AEA45213613C080025C334 /* BDGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDGridView.m; sourceTree = "<group>"; };
 		D3AEA46613628F4B0025C334 /* BDGridView-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BDGridView-test.m"; sourceTree = "<group>"; };
+		D3B09AAF13BC46AF0001C3F4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D3CADAD413B7744B00834CAC /* IPFlickrApiKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFlickrApiKeys.h; sourceTree = "<group>"; };
 		D3D01473138B1F5A00181DE7 /* ChooseYourBest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChooseYourBest.png; sourceTree = "<group>"; };
 		D3D01475138C1EC400181DE7 /* GiveItYourLook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GiveItYourLook.png; sourceTree = "<group>"; };
@@ -511,8 +511,8 @@
 				D3AEA449135FE6900025C334 /* Grid */,
 				D30E436C1363D9A10025BDAB /* Grid Controllers */,
 				D3D2B7DD121F9D2C00F1B2BD /* UIImage */,
-				1D3623240D0F684500981E51 /* ipad_portfolioAppDelegate.h */,
-				1D3623250D0F684500981E51 /* ipad_portfolioAppDelegate.m */,
+				1D3623240D0F684500981E51 /* AppDelegate.h */,
+				D3B09AAF13BC46AF0001C3F4 /* AppDelegate.m */,
 				D3D541B613503BD30027DCB4 /* IPUserDefaults.h */,
 				D3D541B713503BD30027DCB4 /* IPUserDefaults.m */,
 				D3A3A56313540DE40058145D /* IPStrings.h */,
@@ -1067,7 +1067,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-				1D3623260D0F684500981E51 /* ipad_portfolioAppDelegate.m in Sources */,
 				D3A20FA4120B4BFA008F247D /* IPPage.m in Sources */,
 				D3A20FA7120BB21E008F247D /* IPPhoto.m in Sources */,
 				D3A20FB4120BBB40008F247D /* IPSet.m in Sources */,
@@ -1123,6 +1122,7 @@
 				D395B2B813ADC0C900346D99 /* IPHelpController.m in Sources */,
 				D318CB7F13B571AA00F90860 /* IPPhotoOptimizationManager.m in Sources */,
 				D318CB8713B5BD8C00F90860 /* IPOptimizingPhotoNotification.m in Sources */,
+				D3B09AB013BC46B00001C3F4 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1159,7 +1159,6 @@
 				D3DF7545134E70A000439546 /* IPPortfolio-test.m in Sources */,
 				D3D541B913503EE50027DCB4 /* IPUserDefaults.m in Sources */,
 				D3A3A56713540F8B0058145D /* IPAlert.m in Sources */,
-				D3A392EB13580A3000DBAA36 /* ipad_portfolioAppDelegate.m in Sources */,
 				D3A392F21358A8AC00DBAA36 /* NSObject+NullAwareProperties.m in Sources */,
 				D35934C8135AA8B5001048E2 /* BDSplashScreen.m in Sources */,
 				D3AEA44D135FE71D0025C334 /* BDGridCell.m in Sources */,
@@ -1216,6 +1215,7 @@
 				D318CB8013B571AA00F90860 /* IPPhotoOptimizationManager.m in Sources */,
 				D318CB8313B572FD00F90860 /* IPPhotoOptimizationManager-test.m in Sources */,
 				D318CB8913B5C79100F90860 /* IPOptimizingPhotoNotification.m in Sources */,
+				D3B09AB113BC46B00001C3F4 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
