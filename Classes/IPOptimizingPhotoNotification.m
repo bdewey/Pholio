@@ -102,6 +102,12 @@
 
 - (void)setActiveOptimizations:(NSUInteger)activeOptimizations {
   
+  //
+  //  bdewey 2011-06-29 -- skip updating text for now.
+  //
+
+#ifdef UPDATE_NOTIFICATION_TEXT
+  
   activeOptimizations_ = activeOptimizations;
   
   NSString *text;
@@ -114,6 +120,8 @@
     
     text = [NSString stringWithFormat:kOptimizationProgressPlural, activeOptimizations];
   }
+  
   self.mainLabel.text = text;
+#endif
 }
 @end

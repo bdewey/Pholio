@@ -150,8 +150,8 @@
 
 - (void)testGetFilename {
   
-  NSString *file1 = [IPPhoto newPhotoFilename];
-  NSString *file2 = [IPPhoto newPhotoFilename];
+  NSString *file1 = [IPPhoto filenameForNewPhoto];
+  NSString *file2 = [IPPhoto filenameForNewPhoto];
   
   //
   //  Subsequent calls should always return different, random file names.

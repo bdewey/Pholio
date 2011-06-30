@@ -38,6 +38,7 @@
 
 - (void)configureTitle;
 - (void)didSelectDone;
+- (void)didSelectAll;
 
 @end
 
@@ -96,6 +97,15 @@
                                                                                           action:@selector(didSelectDone)] autorelease];
   self.navigationItem.rightBarButtonItem.enabled = NO;
   
+  UIBarButtonItem *selectAll = [[[UIBarButtonItem alloc] initWithTitle:@"Select All" 
+                                                                 style:UIBarButtonItemStyleBordered 
+                                                                target:self 
+                                                                action:@selector(didSelectAll)] autorelease];
+  UIBarButtonItem *flexibleSpace = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace 
+                                                                                  target:nil 
+                                                                                  action:nil] autorelease];
+  self.toolbarItems = [NSArray arrayWithObjects:flexibleSpace, selectAll, flexibleSpace, nil];
+  
   //
   //  TODO: Need to set the delegate for all of these selectable assets.
   //
@@ -115,6 +125,17 @@
 - (void)viewDidUnload {
   
   [super viewDidUnload];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Make sure the toolbar is visible when we are.
+//
+
+- (void)viewDidAppear:(BOOL)animated {
+  
+  [self.navigationController setToolbarHidden:NO animated:animated];
+  self.navigationController.toolbar.barStyle = UIBarStyleBlack;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -161,6 +182,20 @@
     [assetArray addObject:asset];
   }
   [self.delegate bdImagePickerDidPickImages:assetArray];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Select all images.
+//
+
+- (void)didSelectAll {
+  
+  for (id<BDSelectableAsset> asset in self.assets) {
+    
+    [asset setSelected:YES];
+  }
+  [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source

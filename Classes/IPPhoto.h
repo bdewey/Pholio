@@ -65,7 +65,7 @@
 //  Gets a filename suitable for a new photo file.
 //
 
-+ (NSString *)newPhotoFilename;
++ (NSString *)filenameForNewPhoto;
 
 //
 //  Optimize the current photo. This should be called prior to inserting a 

@@ -167,7 +167,7 @@
                                                 returningResponse:&response 
                                                             error:NULL];
       
-      filename = [[IPPhoto newPhotoFilename] retain];
+      filename = [[IPPhoto filenameForNewPhoto] retain];
       [imageData writeToFile:filename atomically:YES];
       
     } else {

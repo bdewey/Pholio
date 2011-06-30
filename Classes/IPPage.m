@@ -88,7 +88,7 @@
   if ((self = [super init]) != nil) {
     self.photos = [aDecoder decodeObjectForKey:kIPPagePhotos];
     if (self.photos == nil) {
-      self.photos = [[NSMutableArray alloc] init];
+      self.photos = [[[NSMutableArray alloc] init] autorelease];
     }
     [self.photos makeObjectsPerformSelector:@selector(setParent:) withObject:self];
   }

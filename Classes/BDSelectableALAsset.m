@@ -112,7 +112,7 @@
     UIImageOrientation orientation = [[self.asset valueForProperty:ALAssetPropertyOrientation] intValue];
     ALAssetRepresentation *representation = [self.asset defaultRepresentation];
     UIImage *image = [[UIImage alloc] initWithCGImage:[representation fullResolutionImage] scale:1.0 orientation:orientation];
-    NSString *filename = [[IPPhoto newPhotoFilename] retain];
+    NSString *filename = [[IPPhoto filenameForNewPhoto] retain];
     NSData *jpegData = UIImageJPEGRepresentation(image, 0.8);
     [jpegData writeToFile:filename atomically:YES];
     [image release];

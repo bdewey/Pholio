@@ -261,7 +261,8 @@
 //  Gets a new filename suitable for a new image.
 //
 
-+ (NSString *)newPhotoFilename {
++ (NSString *)filenameForNewPhoto {
+  
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString *docDirectory = [paths objectAtIndex:0];
   
@@ -346,7 +347,7 @@
 
 -(void)createRandomFilenames {
 
-  self.filename = [IPPhoto newPhotoFilename];
+  self.filename = [IPPhoto filenameForNewPhoto];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -617,12 +618,10 @@
   //
   //  Force a thumbnail, even if one was there already.
   //
-  //  NOTE: This prevents thumbnails from getting purged. Should I load from the
-  //  file??
-  //
   
-  thumbnail_ = [[self thumbnailFromImage:image_] retain];
-  [self saveThumbnail:thumbnail_ toPath:self.thumbnailFilename];
+  UIImage *tempThumbnail = [self thumbnailFromImage:image_];
+  [self saveThumbnail:tempThumbnail toPath:self.thumbnailFilename];
+  thumbnail_ = [[UIImage alloc] initWithContentsOfFile:self.thumbnailFilename];
   _GTMDevAssert([[NSFileManager defaultManager] fileExistsAtPath:self.thumbnailFilename],
                 @"Thumbnail file should have been saved");
   
@@ -862,7 +861,6 @@
 
 - (void)saveTilesForScale:(CGFloat)scale {
   
-  CGSize scaledSize = CGSizeMake(self.imageSize.width * scale, self.imageSize.height * scale);
   UIImage *scaledImage;
   
   if (scale < 1.0) {
@@ -871,6 +869,7 @@
     //  Only do this if we're really rescaling.
     //
     
+    CGSize scaledSize = CGSizeMake(self.imageSize.width * scale, self.imageSize.height * scale);
     scaledImage = [self.image resizedImage:scaledSize interpolationQuality:kCGInterpolationHigh];
     
   } else {
@@ -880,7 +879,6 @@
     //  Note this logic will prevent me from scaling up.
     //
     
-    scaledSize  = self.imageSize;
     scaledImage = self.image;
   }
   

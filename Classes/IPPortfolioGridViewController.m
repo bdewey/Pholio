@@ -156,11 +156,12 @@
   
   [self compositeAsyncWithCompletion:^(UIImage *compositeImage) {
     
-    self.alpha = 0.0;
     self.image = compositeImage;
-    [UIView animateWithDuration:kIPAnimationViewAppearFast animations:^(void) {
-      self.alpha = 1.0;
-    }];
+//    self.alpha = 0.0;
+//    self.image = compositeImage;
+//    [UIView animateWithDuration:kIPAnimationViewAppearFast animations:^(void) {
+//      self.alpha = 1.0;
+//    }];
   }];
 }
 
@@ -782,10 +783,8 @@
                               [self asyncLoadImages:assets pageProgress:^(IPPage *nextPage, NSUInteger count) {
                                 
                                 [set.pages addObject:nextPage];
-                                if (count == 0) {
-                                  
-                                  [cell updateThumbnail];
-                                }
+                                [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+                                [cell updateThumbnail];
                               } completion:^ {
                                
                                 [cell updateThumbnail];
