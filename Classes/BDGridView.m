@@ -1068,10 +1068,14 @@
       break;
       
     default:
-      self.pannedCell.frame = CGRectOffset(initialFrame, 
-                                      panGesture.translation.x, 
-                                      panGesture.translation.y);
-      [self setActiveGap:[self indexForPoint:panGesture.currentTouchPoint] animated:YES];
+      
+      if (self.pannedCell != nil) {
+        
+        self.pannedCell.frame = CGRectOffset(initialFrame, 
+                                             panGesture.translation.x, 
+                                             panGesture.translation.y);
+        [self setActiveGap:[self indexForPoint:panGesture.currentTouchPoint] animated:YES];
+      }
       break;
   }
 }
