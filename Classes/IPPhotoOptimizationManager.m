@@ -116,6 +116,38 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
+//  Optimize an array of photos and call the completion routine when all are done.
+//
+
+- (void)asyncOptimizePhotos:(NSArray *)photos withCompletion:(IPPhotoOptimizationCompletion)completion {
+  
+  completion = [completion copy];
+  self.activeOptimizations += [photos count];
+  [self.delegate optimizationManager:self 
+            didHaveOptimizationCount:self.activeOptimizations];
+  NSBlockOperation *optimizationOperation = [NSBlockOperation blockOperationWithBlock:^(void) {
+    
+    for (IPPhoto *photo in photos) {
+      [photo optimize];
+    }
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+      
+      if (completion != nil) {
+        
+        completion();
+        [completion release];
+      }
+      self.activeOptimizations -= [photos count];
+      [self.delegate optimizationManager:self 
+                didHaveOptimizationCount:self.activeOptimizations];
+    }];
+  }];
+  
+  [self.optimizationQueue addOperation:optimizationOperation];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
 //  Optimize a page.
 //
 

@@ -45,7 +45,7 @@
 
 - (IPSet *)welcomeSet;
 - (void)ensureWelcomeSetForPortfolio:(IPPortfolio *)portfolio;
-- (void)upgradePhotoOptimizationForPortfolio:(IPPortfolio *)portfolio;
+- (void)upgradePhotoOptimizationForPortfolio:(IPPortfolio *)portfolio completion:(IPPhotoOptimizationCompletion)completion;
 - (void)preparePortfolioForDisplay;
 
 @end
@@ -283,9 +283,7 @@
     //
     
     [self ensureWelcomeSetForPortfolio:portfolio];
-    [self upgradePhotoOptimizationForPortfolio:portfolio];
-    
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+    [self upgradePhotoOptimizationForPortfolio:portfolio completion:^(void) {
 
       self.portfolioGridView.portfolio = portfolio;
       [self.portfolioGridView lookForFoundPictures];
@@ -378,8 +376,9 @@
 //  Upgrade optimization of any photos.
 //
 
-- (void)upgradePhotoOptimizationForPortfolio:(IPPortfolio *)portfolio {
+- (void)upgradePhotoOptimizationForPortfolio:(IPPortfolio *)portfolio completion:(IPPhotoOptimizationCompletion)completion {
   
+  NSMutableArray *toOptimize = [[NSMutableArray alloc] init];
   for (IPSet *theSet in portfolio.sets) {
     
     for (IPPage *thePage in theSet.pages) {
@@ -388,10 +387,28 @@
         
         if (![thePhoto isOptimized]) {
           
-          [[IPPhotoOptimizationManager sharedManager] asyncOptimizePhoto:thePhoto withCompletion:nil];
+          [toOptimize addObject:thePhoto];
         }
       }
     }
   }
+  
+  if ([toOptimize count] == 0) {
+    
+    if (completion != nil) {
+      completion();
+    }
+    [toOptimize release];
+    return;
+  }
+  
+  [[IPPhotoOptimizationManager sharedManager] asyncOptimizePhotos:toOptimize withCompletion:^(void) {
+
+    if (completion != nil) {
+      
+      completion();
+    }
+    [toOptimize release];
+  }];
 }
 @end

@@ -52,6 +52,13 @@ typedef void (^IPPhotoOptimizationCompletion)(void);
 - (void)asyncOptimizePhoto:(IPPhoto *)photo withCompletion:(IPPhotoOptimizationCompletion)completion;
 
 //
+//  Optimize a set of photos, then call the completion when all are done.
+//
+
+- (void)asyncOptimizePhotos:(NSArray *)photos withCompletion:(IPPhotoOptimizationCompletion)completion;
+
+
+//
 //  Asynchronously optimize a page.
 //
 
