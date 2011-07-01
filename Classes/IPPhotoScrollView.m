@@ -122,14 +122,14 @@
   [self.imageView removeFromSuperview];
   self.imageView = nil;
   
-  self.zoomScale = 1.0;
-  size_t levelsOfDetail = [self.photo levelsOfDetail];
-  
   if (![photo isOptimized]) {
 
     _GTMDevLog(@"%s -- unexpectedly optimizing a photo", __PRETTY_FUNCTION__);
     [photo optimize];
   }
+  
+  self.zoomScale = 1.0;
+  size_t levelsOfDetail = [self.photo levelsOfDetail];
   
   if (levelsOfDetail <= 1) {
     

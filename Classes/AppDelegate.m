@@ -23,6 +23,7 @@
 #import "ObjectiveFlickr.h"
 #import "IPFlickrAuthorizationManager.h"
 #import "IPOptimizingPhotoNotification.h"
+#import "NSString+TestHelper.h"
 
 //
 //  Private methods
@@ -41,6 +42,11 @@
 //
 
 @property (nonatomic, retain) IPOptimizingPhotoNotification *optimizingNotification;
+
+- (IPSet *)welcomeSet;
+- (void)ensureWelcomeSetForPortfolio:(IPPortfolio *)portfolio;
+- (void)upgradePhotoOptimizationForPortfolio:(IPPortfolio *)portfolio;
+- (void)preparePortfolioForDisplay;
 
 @end
 
@@ -78,30 +84,6 @@
   didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
   
   [window addSubview:self.navigationController.view];
-
-  //
-  //  Need to force the view to load prior to assigning the portfolio.
-  //
-  
-  // [self.portfolioGridView view];
-  self.portfolioGridView.portfolio = [IPPortfolio loadPortfolioFromPath:[IPPortfolio defaultPortfolioPath]];
-  
-  //
-  //  Set appearance defaults.
-  //
-  
-  if ([self.portfolioGridView.portfolio.backgroundImageName length] == 0) {
-    
-    self.portfolioGridView.portfolio.backgroundImageName = @"black.jpg";
-    [self.portfolioGridView.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
-  }
-  
-  if (self.portfolioGridView.portfolio.fontColor == nil) {
-    
-    self.portfolioGridView.portfolio.fontColor = [UIColor whiteColor];
-    [self.portfolioGridView.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
-  }
-  
   [window makeKeyAndVisible];
   
   //
@@ -118,17 +100,11 @@
   }
   
   //
-  //  Make sure we have our welcome content.
-  //
-  
-  [self.portfolioGridView ensureWelcomeSet];
-  
-  //
   //  Register to show UI when there are optimizations in progress.
   //
   
   [[IPPhotoOptimizationManager sharedManager] setDelegate:self];
-  
+  [self preparePortfolioForDisplay];
   return YES;
 }
 
@@ -193,15 +169,7 @@
   //  changed through document syncing.
   //
   
-  IPPortfolio *savedPortfolio = [IPPortfolio loadPortfolioFromPath:[IPPortfolio defaultPortfolioPath]];
-  _GTMDevLog(@"%s -- saved version = %d, in memory version = %d",
-             __PRETTY_FUNCTION__,
-             savedPortfolio.version,
-             self.portfolioGridView.portfolio.version);
-  if (savedPortfolio.version != self.portfolioGridView.portfolio.version) {
-    self.portfolioGridView.portfolio = savedPortfolio;
-  }
-  [self.portfolioGridView lookForFoundPictures];
+  [self preparePortfolioForDisplay];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -266,5 +234,164 @@
 - (IPPortfolioGridViewController *)portfolioGridView {
   
   return (IPPortfolioGridViewController *)[self.navigationController.viewControllers objectAtIndex:0];
+}
+
+#pragma mark - Portfolio manipulation
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Prepares a portfolio object for displaying.
+//
+
+- (void)preparePortfolioForDisplay {
+  
+  [[[IPPhotoOptimizationManager sharedManager] optimizationQueue] addOperationWithBlock:^(void) {
+
+    IPPortfolio *portfolio = [IPPortfolio loadPortfolioFromPath:[IPPortfolio defaultPortfolioPath]];
+    
+    _GTMDevLog(@"%s -- saved version = %d, in memory version = %d",
+               __PRETTY_FUNCTION__,
+               portfolio.version,
+               self.portfolioGridView.portfolio.version);
+    if (portfolio.version == self.portfolioGridView.portfolio.version) {
+      
+      //
+      //  The portfolio on disk is already displayed.
+      //
+      
+      return;
+    }
+    
+    //
+    //  Set appearance defaults.
+    //
+    
+    if ([portfolio.backgroundImageName length] == 0) {
+      
+      portfolio.backgroundImageName = @"black.jpg";
+      [portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+    }
+    
+    if (portfolio.fontColor == nil) {
+      
+      portfolio.fontColor = [UIColor whiteColor];
+      [portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+    }
+    
+    //
+    //  Make sure we have our welcome content.
+    //
+    
+    [self ensureWelcomeSetForPortfolio:portfolio];
+    [self upgradePhotoOptimizationForPortfolio:portfolio];
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+
+      self.portfolioGridView.portfolio = portfolio;
+      [self.portfolioGridView lookForFoundPictures];
+    }];
+  }];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Creates the "welcome" set.
+//
+
+- (IPSet *)welcomeSet {
+  
+  NSArray *imageNames = [NSArray arrayWithObjects:
+                         @"ChooseYourBest.png",
+                         @"GiveItYourLook.png",
+                         @"CutTheCord.png",
+                         @"Tips.png",
+                         nil];
+  IPSet *welcomeSet = [[[IPSet alloc] init] autorelease];
+  welcomeSet.title = kWelcomeGalleryName;
+  for (NSString *imageName in imageNames) {
+    
+    //
+    //  Copy the image from the bundle path to the documents path.
+    //
+    
+    NSError *error;
+    BOOL success;
+    success = [[NSFileManager defaultManager] copyItemAtPath:[imageName asPathInBundlePath] 
+                                                      toPath:[imageName asPathInDocumentsFolder] 
+                                                       error:&error];
+    if (success) {
+      
+      IPPhoto *photo = [[[IPPhoto alloc] init] autorelease];
+      photo.filename = [imageName asPathInDocumentsFolder];
+      [photo optimize];
+      IPPage *page = [IPPage pageWithPhoto:photo];
+      [welcomeSet.pages addObject:page];
+      
+    } else {
+      
+      _GTMDevLog(@"%s -- unexpected error copying image %@: %@",
+                 __PRETTY_FUNCTION__,
+                 imageName,
+                 error);
+    }
+  }
+  
+  if ([welcomeSet countOfPages] > 0) {
+    
+    return welcomeSet;
+    
+  } else {
+    
+    return nil;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Ensure that we have a welcome set.
+//
+
+- (void)ensureWelcomeSetForPortfolio:(IPPortfolio *)portfolio {
+  
+  //
+  //  Bump this number each time there's a new version of the welcome set.
+  //
+  
+  NSInteger welcomeSetVersion = 2;
+  IPUserDefaults *userDefaults = [IPUserDefaults defaultSettings];
+  if ([userDefaults welcomeVersion] < welcomeSetVersion) {
+    
+    //
+    //  Right now, doing this synchronously so I don't race with the code that
+    //  looks for unrecognized files. This should be fast-ish.
+    //
+    
+    IPSet *welcomeSet = [self welcomeSet];
+    [portfolio insertObject:welcomeSet inSetsAtIndex:[portfolio countOfSets]];
+    userDefaults.welcomeVersion = welcomeSetVersion;
+    [portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Upgrade optimization of any photos.
+//
+
+- (void)upgradePhotoOptimizationForPortfolio:(IPPortfolio *)portfolio {
+  
+  for (IPSet *theSet in portfolio.sets) {
+    
+    for (IPPage *thePage in theSet.pages) {
+      
+      for (IPPhoto *thePhoto in thePage.photos) {
+        
+        if (![thePhoto isOptimized]) {
+          
+          [[IPPhotoOptimizationManager sharedManager] asyncOptimizePhoto:thePhoto withCompletion:nil];
+        }
+      }
+    }
+  }
 }
 @end

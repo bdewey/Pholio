@@ -51,10 +51,4 @@
 
 - (void)lookForFoundPictures;
 
-//
-//  Ensure that we have a "welcome" set.
-//
-
-- (void)ensureWelcomeSet;
-
 @end
