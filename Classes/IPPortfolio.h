@@ -40,6 +40,7 @@
 #define kIPPortfolioTitleFont       @"titleFont"
 #define kIPPortfolioTextFont        @"textFont"
 #define kIPPortfolioVersion         @"version"
+#define kIPPortfolioImageOptimizationVersion @"imageOptimizationVersion"
 
 
 #define kIPPortfolioTitleFontSize   (20.0)
@@ -106,6 +107,12 @@
 //
 
 @property (nonatomic, readonly) NSInteger version;
+
+//
+//  The version number of the optimization algorithm applied to each photo.
+//
+
+@property (nonatomic, assign) NSUInteger imageOptimizationVersion;
 
 //
 //  Where portfolios are saved by default.

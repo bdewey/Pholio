@@ -378,6 +378,18 @@
 
 - (void)upgradePhotoOptimizationForPortfolio:(IPPortfolio *)portfolio completion:(IPPhotoOptimizationCompletion)completion {
   
+  if (portfolio.imageOptimizationVersion == kIPPhotoCurrentOptimizationVersion) {
+    
+    //
+    //  The portfolio has already been optimized. Short-circuit.
+    //
+    
+    if (completion != nil) {
+      completion();
+    }
+    return;
+  }
+  
   NSMutableArray *toOptimize = [[NSMutableArray alloc] init];
   for (IPSet *theSet in portfolio.sets) {
     
@@ -395,6 +407,8 @@
   
   if ([toOptimize count] == 0) {
     
+    portfolio.imageOptimizationVersion = kIPPhotoCurrentOptimizationVersion;
+    [portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
     if (completion != nil) {
       completion();
     }
@@ -402,11 +416,15 @@
     return;
   }
   
+  completion = [completion copy];
   [[IPPhotoOptimizationManager sharedManager] asyncOptimizePhotos:toOptimize withCompletion:^(void) {
 
+    portfolio.imageOptimizationVersion = kIPPhotoCurrentOptimizationVersion;
+    [portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
     if (completion != nil) {
       
       completion();
+      [completion release];
     }
     [toOptimize release];
   }];

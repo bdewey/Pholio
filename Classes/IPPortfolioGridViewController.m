@@ -402,6 +402,13 @@
 
     self.gridView.fontColor = self.portfolio.fontColor;
   }
+  self.gridView.font = self.portfolio.textFont;
+  self.titleTextField.font = self.portfolio.titleFont;
+  if (self.portfolio.navigationColor != nil) {
+    
+    self.navigationController.navigationBar.tintColor = self.portfolio.navigationColor;
+    self.navigationController.navigationBar.translucent = YES;
+  }
 
   _GTMDevLog(@"%s -- looking at a portfolio with %d set(s)",
              __PRETTY_FUNCTION__,
@@ -423,6 +430,7 @@
                    forKeyPath:kIPPortfolioFontColor 
                       options:0 
                       context:NULL];
+  [self.view setNeedsDisplay];
 }
 
 ////////////////////////////////////////////////////////////////////////////////

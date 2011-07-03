@@ -32,6 +32,7 @@
 @synthesize titleFont = titleFont_;
 @synthesize textFont = textFont_;
 @synthesize version = version_;
+@synthesize imageOptimizationVersion = imageOptimizationVersion_;
 
 -(id)init {
   if ((self = [super init]) != nil) {
@@ -97,6 +98,7 @@
     self.titleFont = [aDecoder decodeObjectForKey:kIPPortfolioTitleFont];
     self.textFont = [aDecoder decodeObjectForKey:kIPPortfolioTextFont];
     version_ = [aDecoder decodeIntegerForKey:kIPPortfolioVersion];
+    self.imageOptimizationVersion = [aDecoder decodeIntegerForKey:kIPPortfolioImageOptimizationVersion];
   }
   return self;
 }
@@ -109,6 +111,7 @@
   [aCoder encodeObject:fontColor_ forKey:kIPPortfolioFontColor];
   [aCoder encodeObject:titleFont_ forKey:kIPPortfolioTitleFont];
   [aCoder encodeObject:textFont_ forKey:kIPPortfolioTextFont];
+  [aCoder encodeInteger:imageOptimizationVersion_ forKey:kIPPortfolioImageOptimizationVersion];
   
   //
   //  Bump the version before encoding.

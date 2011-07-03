@@ -34,7 +34,6 @@
 //
 
 #define kIPPhotoOptimizedVersion    @"optimizedVersion"
-#define kIPPhotoCurrentOptimizationVersion    (1)
 
 @interface IPPhoto ()
 
