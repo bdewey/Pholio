@@ -96,6 +96,8 @@
 		D37EAFA81314D061006FC137 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D2B7D7121F9D2300F1B2BD /* UIImage+Resize.m */; };
 		D37EAFA91314D061006FC137 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D2B7D8121F9D2300F1B2BD /* UIImage+RoundedCorner.m */; };
 		D38273451212428400A36CA4 /* TapToInsert.png in Resources */ = {isa = PBXBuildFile; fileRef = D38273441212428400A36CA4 /* TapToInsert.png */; };
+		D38B0CE913C2EF180042D7E4 /* libObjectiveFlickr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D38B0CE813C2EF180042D7E4 /* libObjectiveFlickr.a */; };
+		D38B0CEA13C2EF810042D7E4 /* libObjectiveFlickr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D38B0CE813C2EF180042D7E4 /* libObjectiveFlickr.a */; };
 		D3912C2D1358EFDF0021E4C7 /* branding.png in Resources */ = {isa = PBXBuildFile; fileRef = D3912C2C1358EFDF0021E4C7 /* branding.png */; };
 		D3912C2F1358F1E50021E4C7 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3912C2E1358F1E50021E4C7 /* background.jpg */; };
 		D3912C34135902520021E4C7 /* NSString+TestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F75D134C2BA90059EA0F /* NSString+TestHelper.m */; };
@@ -147,7 +149,6 @@
 		D3A584CA139BCEF7006B58E2 /* AlexGrass_20110604.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3A584C9139BCEF7006B58E2 /* AlexGrass_20110604.jpg */; };
 		D3A584CD139C8478006B58E2 /* IPPhotoTilingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A584CC139C8478006B58E2 /* IPPhotoTilingView.m */; };
 		D3A584CE139C8478006B58E2 /* IPPhotoTilingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A584CC139C8478006B58E2 /* IPPhotoTilingView.m */; };
-		D3A6D0B813A9E240006EF83D /* libObjectiveFlickr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6D0B713A9E240006EF83D /* libObjectiveFlickr.a */; };
 		D3AEA44C135FE71D0025C334 /* BDGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA44B135FE71D0025C334 /* BDGridCell.m */; };
 		D3AEA44D135FE71D0025C334 /* BDGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA44B135FE71D0025C334 /* BDGridCell.m */; };
 		D3AEA450136137560025C334 /* BDGridCell-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA44F136137560025C334 /* BDGridCell-test.m */; };
@@ -218,7 +219,6 @@
 		D3E7C5EB1367C3D800DE4A98 /* BDContrainPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E7C5EA1367C3D700DE4A98 /* BDContrainPanGestureRecognizer.m */; };
 		D3E7C5EC1367C3D800DE4A98 /* BDContrainPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E7C5EA1367C3D700DE4A98 /* BDContrainPanGestureRecognizer.m */; };
 		D3EB04131380EA2000CA6CC8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3EB04121380EA2000CA6CC8 /* CFNetwork.framework */; };
-		D3EB04181380F1CE00CA6CC8 /* libObjectiveFlickr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3EB04171380F1CE00CA6CC8 /* libObjectiveFlickr.a */; };
 		D3EB04241380F4A300CA6CC8 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3EB04231380F4A300CA6CC8 /* Entitlements.plist */; };
 		D3F0F75B134C2A0C0059EA0F /* IPPage-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F75A134C2A0C0059EA0F /* IPPage-test.m */; };
 		D3F0F75E134C2BA90059EA0F /* NSString+TestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F75D134C2BA90059EA0F /* NSString+TestHelper.m */; };
@@ -326,6 +326,7 @@
 		D37C624E13B2F7840055823B /* context-menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "context-menu.png"; path = "build/context-menu.png"; sourceTree = "<group>"; };
 		D37EAFA51314CE9E006FC137 /* test-medium.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "test-medium.jpg"; sourceTree = "<group>"; };
 		D38273441212428400A36CA4 /* TapToInsert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TapToInsert.png; sourceTree = "<group>"; };
+		D38B0CE813C2EF180042D7E4 /* libObjectiveFlickr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveFlickr.a; path = "../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos/libObjectiveFlickr.a"; sourceTree = "<group>"; };
 		D3912C2C1358EFDF0021E4C7 /* branding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = branding.png; sourceTree = "<group>"; };
 		D3912C2E1358F1E50021E4C7 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		D395B2A913ADBEA600346D99 /* site.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = site.css; path = build/site.css; sourceTree = "<group>"; };
@@ -377,7 +378,6 @@
 		D3A584C9139BCEF7006B58E2 /* AlexGrass_20110604.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = AlexGrass_20110604.jpg; sourceTree = "<group>"; };
 		D3A584CB139C8477006B58E2 /* IPPhotoTilingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPhotoTilingView.h; sourceTree = "<group>"; };
 		D3A584CC139C8478006B58E2 /* IPPhotoTilingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPPhotoTilingView.m; sourceTree = "<group>"; };
-		D3A6D0B713A9E240006EF83D /* libObjectiveFlickr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveFlickr.a; path = "../../../Library/Developer/Xcode/DerivedData/Pholio-bpcczbmozlyfwaerlxsfbwsdqgeh/Build/Products/Debug-iphoneos/libObjectiveFlickr.a"; sourceTree = "<group>"; };
 		D3AEA44A135FE71D0025C334 /* BDGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDGridCell.h; sourceTree = "<group>"; };
 		D3AEA44B135FE71D0025C334 /* BDGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDGridCell.m; sourceTree = "<group>"; };
 		D3AEA44F136137560025C334 /* BDGridCell-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BDGridCell-test.m"; sourceTree = "<group>"; };
@@ -466,7 +466,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3A6D0B813A9E240006EF83D /* libObjectiveFlickr.a in Frameworks */,
+				D38B0CEA13C2EF810042D7E4 /* libObjectiveFlickr.a in Frameworks */,
 				D3EB04131380EA2000CA6CC8 /* CFNetwork.framework in Frameworks */,
 				D33C017D13745A0B00030DD9 /* AssetsLibrary.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
@@ -482,7 +482,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3EB04181380F1CE00CA6CC8 /* libObjectiveFlickr.a in Frameworks */,
+				D38B0CE913C2EF180042D7E4 /* libObjectiveFlickr.a in Frameworks */,
 				D30A433113138E7800E6EBB7 /* UIKit.framework in Frameworks */,
 				D30A433213138E7800E6EBB7 /* Foundation.framework in Frameworks */,
 				D30A433313138E7800E6EBB7 /* CoreGraphics.framework in Frameworks */,
@@ -545,7 +545,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				D3A6D0B713A9E240006EF83D /* libObjectiveFlickr.a */,
+				D38B0CE813C2EF180042D7E4 /* libObjectiveFlickr.a */,
 				D30A42D5130F9DEE00E6EBB7 /* GTM */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -1262,10 +1262,11 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-bpcczbmozlyfwaerlxsfbwsdqgeh/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = Pholio;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/** $(PROJECT_DIR)/../objectiveflickr/**";
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
 			};
 			name = Debug;
 		};
@@ -1284,10 +1285,11 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-bpcczbmozlyfwaerlxsfbwsdqgeh/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = Pholio;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/** $(PROJECT_DIR)/../objectiveflickr/**";
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1358,10 +1360,11 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-bpcczbmozlyfwaerlxsfbwsdqgeh/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = Pholio;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/** $(PROJECT_DIR)/../objectiveflickr/**";
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Distribution;
@@ -1390,6 +1393,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
 				);
 				"OTHER_LDFLAGS[arch=*]" = (
 					"-force_load",
@@ -1418,6 +1422,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
 				);
 				"OTHER_LDFLAGS[arch=*]" = (
 					"-force_load",
@@ -1446,6 +1451,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
 				);
 				"OTHER_LDFLAGS[arch=*]" = (
 					"-force_load",
@@ -1490,9 +1496,10 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-bpcczbmozlyfwaerlxsfbwsdqgeh/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = Pholio;
-				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/** $(PROJECT_DIR)/../objectiveflickr/**";
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = "Ad Hoc";
@@ -1514,6 +1521,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
 				);
 				"OTHER_LDFLAGS[arch=*]" = (
 					"-force_load",
