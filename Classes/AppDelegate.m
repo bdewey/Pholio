@@ -378,6 +378,7 @@
 
 - (void)upgradePhotoOptimizationForPortfolio:(IPPortfolio *)portfolio completion:(IPPhotoOptimizationCompletion)completion {
   
+  completion = [completion copy];
   if (portfolio.imageOptimizationVersion == kIPPhotoCurrentOptimizationVersion) {
     
     //
@@ -385,7 +386,11 @@
     //
     
     if (completion != nil) {
-      completion();
+      [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+
+        completion();
+        [completion release];
+      }];
     }
     return;
   }
@@ -410,13 +415,17 @@
     portfolio.imageOptimizationVersion = kIPPhotoCurrentOptimizationVersion;
     [portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
     if (completion != nil) {
-      completion();
+      
+      [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+        
+        completion();
+        [completion release];
+      }];
     }
     [toOptimize release];
     return;
   }
   
-  completion = [completion copy];
   [[IPPhotoOptimizationManager sharedManager] asyncOptimizePhotos:toOptimize withCompletion:^(void) {
 
     portfolio.imageOptimizationVersion = kIPPhotoCurrentOptimizationVersion;

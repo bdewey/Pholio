@@ -101,9 +101,6 @@
     IPPage *page = [self.currentSet objectInPagesAtIndex:i];
     IPPhoto *photo = [page objectInPhotosAtIndex:0];
     UIImage *bordered = [photo.thumbnail imageWithBorderWidth:1.0 andColor:[[UIColor lightGrayColor] CGColor]];
-    bordered = [bordered resizedImageWithContentMode:UIViewContentModeScaleAspectFit
-                                              bounds:compositeView.bounds.size
-                                interpolationQuality:kCGInterpolationHigh];
     UIImageView *photoView = [[[UIImageView alloc] initWithImage:bordered] autorelease];
     CGAffineTransform transform = CGAffineTransformMakeRotation(i * 0.15);
     CGRect postTransformViewSize = CGRectApplyAffineTransform(photoView.frame, transform);
@@ -430,7 +427,7 @@
                    forKeyPath:kIPPortfolioFontColor 
                       options:0 
                       context:NULL];
-  [self.view setNeedsDisplay];
+  [self.gridView setNeedsLayout];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
