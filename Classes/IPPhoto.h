@@ -39,6 +39,8 @@
 
 #define kImageLongEdgeMinRescaleSize  768
 
+#define kIPPhotoMaxEdgeSize           1500
+
 //
 //  The version number of the image optimization algorithm we use. 
 //  Used in -[IPPhoto optimize].

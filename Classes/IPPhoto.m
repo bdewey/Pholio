@@ -18,6 +18,7 @@
 //  limitations under the License.
 //
 
+#import <ImageIO/ImageIO.h>
 #import "IPPhoto.h"
 #import "IPSet.h"
 #import "UIImage+Alpha.h"
@@ -598,26 +599,52 @@
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
   //
-  //  Force the image to load if it hasn't already.
+  //  Use ImageIO to inspect the size of the image, and generate a 
+  //  resized image if needed.
   //
   
-  [self image];
-  UIImage *rescaled = [IPPhoto rescaleIfNecessary:image_];
-  if (rescaled != nil) {
+  NSURL *imageUrl = [NSURL fileURLWithPath:self.filename];
+  CGImageSourceRef imageSource = CGImageSourceCreateWithURL((CFURLRef)imageUrl, NULL);
+  CFDictionaryRef imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, NULL);
+  _GTMDevLog(@"%s -- got properties %@", 
+             __PRETTY_FUNCTION__,
+             imageProperties);
+  CFNumberRef pixelWidthRef  = CFDictionaryGetValue(imageProperties, kCGImagePropertyPixelWidth);
+  CFNumberRef pixelHeightRef = CFDictionaryGetValue(imageProperties, kCGImagePropertyPixelHeight);
+  CGFloat pixelWidth = [(NSNumber *)pixelWidthRef floatValue];
+  CGFloat pixelHeight = [(NSNumber *)pixelHeightRef floatValue];
+  CGFloat maxEdge = MAX(pixelWidth, pixelHeight);
+  _GTMDevLog(@"%s -- found max edge = %f (%f, %f)",
+             __PRETTY_FUNCTION__,
+             maxEdge,
+             pixelWidth,
+             pixelHeight);
+  
+  if (maxEdge > kIPPhotoMaxEdgeSize) {
     
     //
-    //  We shrank this image. Save it.
+    //  We need to rescale the image. Ask ImageIO to make a thumbnail for us.
     //
     
-    NSData *rescaledData = UIImageJPEGRepresentation(rescaled, 0.8);
-    [rescaledData writeToFile:self.filename atomically:YES];
-    [image_ release], image_ = [rescaled retain];
+    NSDictionary *thumbnailOptions = [NSDictionary dictionaryWithObjectsAndKeys:(id)kCFBooleanTrue, kCGImageSourceCreateThumbnailWithTransform,
+                                      kCFBooleanTrue, kCGImageSourceCreateThumbnailFromImageAlways,
+                                      [NSNumber numberWithFloat:kIPPhotoMaxEdgeSize], kCGImageSourceThumbnailMaxPixelSize,
+                                      nil];
+    CGImageRef thumbnail = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, (CFDictionaryRef)thumbnailOptions);
+    UIImage *resizedImage = [UIImage imageWithCGImage:thumbnail];
+    NSData *jpegData = UIImageJPEGRepresentation(resizedImage, 0.8);
+    [jpegData writeToFile:self.filename atomically:YES];
+    CFRelease(thumbnail);
   }
   
+  CFRelease(imageSource);
+  CFRelease(imageProperties);
+
   //
   //  Force a thumbnail, even if one was there already.
   //
   
+  [self image];
   UIImage *tempThumbnail = [self thumbnailFromImage:image_];
   [self saveThumbnail:tempThumbnail toPath:self.thumbnailFilename];
   thumbnail_ = [[UIImage alloc] initWithContentsOfFile:self.thumbnailFilename];
@@ -668,7 +695,7 @@
   //  OK, need to rescale the image.
   //
   
-  CGFloat scaleFactor = (1500) / longEdge;
+  CGFloat scaleFactor = kIPPhotoMaxEdgeSize / longEdge;
   CGSize newSize = CGSizeApplyAffineTransform(originalImage.size, 
                                               CGAffineTransformMakeScale(scaleFactor, scaleFactor));
   UIImage *rescaled = [originalImage resizedImage:newSize interpolationQuality:kCGInterpolationHigh];

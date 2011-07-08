@@ -85,6 +85,8 @@
 		D352E516139D3ECA00549DBB /* BDCustomAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = D352E514139D3ECA00549DBB /* BDCustomAlert.m */; };
 		D35934BF135A907C001048E2 /* BDSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = D35934BE135A907C001048E2 /* BDSplashScreen.m */; };
 		D35934C8135AA8B5001048E2 /* BDSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = D35934BE135A907C001048E2 /* BDSplashScreen.m */; };
+		D35F88BC13C6C50600EB2706 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35F88BB13C6C50600EB2706 /* ImageIO.framework */; };
+		D35F88BD13C6C73D00EB2706 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35F88BB13C6C50600EB2706 /* ImageIO.framework */; };
 		D37C624B13B2F6A30055823B /* getting-started.html in Resources */ = {isa = PBXBuildFile; fileRef = D37C624A13B2F6A30055823B /* getting-started.html */; };
 		D37C624C13B2F76A0055823B /* getting-started.html in Resources */ = {isa = PBXBuildFile; fileRef = D37C624A13B2F6A30055823B /* getting-started.html */; };
 		D37C624F13B2F7840055823B /* rename.png in Resources */ = {isa = PBXBuildFile; fileRef = D37C624D13B2F7840055823B /* rename.png */; };
@@ -321,6 +323,7 @@
 		D352E514139D3ECA00549DBB /* BDCustomAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDCustomAlert.m; sourceTree = "<group>"; };
 		D35934BD135A907C001048E2 /* BDSplashScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSplashScreen.h; sourceTree = "<group>"; };
 		D35934BE135A907C001048E2 /* BDSplashScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDSplashScreen.m; sourceTree = "<group>"; };
+		D35F88BB13C6C50600EB2706 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		D37C624A13B2F6A30055823B /* getting-started.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "getting-started.html"; path = "build/getting-started.html"; sourceTree = "<group>"; };
 		D37C624D13B2F7840055823B /* rename.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rename.png; path = build/rename.png; sourceTree = "<group>"; };
 		D37C624E13B2F7840055823B /* context-menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "context-menu.png"; path = "build/context-menu.png"; sourceTree = "<group>"; };
@@ -466,6 +469,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D35F88BC13C6C50600EB2706 /* ImageIO.framework in Frameworks */,
 				D38B0CEA13C2EF810042D7E4 /* libObjectiveFlickr.a in Frameworks */,
 				D3EB04131380EA2000CA6CC8 /* CFNetwork.framework in Frameworks */,
 				D33C017D13745A0B00030DD9 /* AssetsLibrary.framework in Frameworks */,
@@ -491,6 +495,7 @@
 				D3E7C5C3136496AE00DE4A98 /* QuartzCore.framework in Frameworks */,
 				D33C01A91379091200030DD9 /* AssetsLibrary.framework in Frameworks */,
 				D3E57E841384D4150027534B /* CFNetwork.framework in Frameworks */,
+				D35F88BD13C6C73D00EB2706 /* ImageIO.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,6 +605,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D35F88BB13C6C50600EB2706 /* ImageIO.framework */,
 				D3EB04121380EA2000CA6CC8 /* CFNetwork.framework */,
 				D33C017C13745A0B00030DD9 /* AssetsLibrary.framework */,
 				D3E7C5C1136496AE00DE4A98 /* QuartzCore.framework */,
