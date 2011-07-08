@@ -18,6 +18,7 @@
 //  limitations under the License.
 //
 
+#import <ImageIO/ImageIO.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "BDSelectableALAsset.h"
 #import "IPPhoto.h"
@@ -108,67 +109,63 @@
   
   [[[IPPhotoOptimizationManager sharedManager] optimizationQueue] addOperationWithBlock:^(void) {
 
+    //
+    //  General strategy: Create a CGImageSourceRef from the raw asset image.
+    //  If the image size would be too big, have ImageIO thumbnail the image for
+    //  us. Otherwise, get the full image. Then, save to JPEG.
+    //
+    
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
-    NSString *uti = nil;
-    ALAssetRepresentation *representation;
+    UIImageOrientation orientation = [[self.asset valueForProperty:ALAssetPropertyOrientation] intValue];
+    ALAssetRepresentation *representation = [self.asset defaultRepresentation];
     NSString *filename = nil;
+    NSDictionary *metadata = [representation metadata];
+    CGFloat width = [[metadata objectForKey:(id)kCGImagePropertyPixelWidth] floatValue];
+    CGFloat height = [[metadata objectForKey:(id)kCGImagePropertyPixelHeight] floatValue];
+    CGFloat maxEdge = MAX(width, height);
+    _GTMDevLog(@"%s -- maxEdge is %f (%f, %f)", __PRETTY_FUNCTION__, maxEdge, width, height);
     
     //
-    //  Look to see if I understand the raw data of the asset. If I do, just
-    //  copy the bytes over.
+    //  Get the raw bytes and create a CGImageSourceRef.
     //
     
-    if (NO) {
-      
-      //
-      //  bdewey 2011-06-30 Skip this for now until I'm better at handling 
-      //  large images.
-      //
-      
-      for (uti in self.imageUTIs) {
-        
-        representation = [self.asset representationForUTI:uti];
-        if (representation != nil) {
-          
-          long long size = [representation size];
-          NSMutableData *bytes = [[NSMutableData alloc] initWithLength:size];
-          _GTMDevLog(@"%s -- found representation %@ (%lld bytes)",
-                     __PRETTY_FUNCTION__,
-                     uti,
-                     size);
-          [representation getBytes:[bytes mutableBytes] fromOffset:0 length:size error:NULL];
-          filename = [[IPPhoto filenameForNewPhoto] retain];
-          [bytes writeToFile:filename atomically:YES];
-          [bytes release];
-          break;
-        }
-      }
-    }
+    NSMutableData *imageBytes = [[NSMutableData alloc] initWithLength:[representation size]];
+    [representation getBytes:[imageBytes mutableBytes] fromOffset:0 length:[representation size] error:NULL];
     
-    if (filename == nil) {
+    CGImageSourceRef imageSource = CGImageSourceCreateWithData((CFDataRef)imageBytes, NULL);
+    CGImageRef theImage = NULL;
+    
+    if (maxEdge > kIPPhotoMaxEdgeSize) {
+      
+      //
+      //  We need ImageIO to generate a thumbnail for us.
+      //
+      
+      NSDictionary *thumbnailOptions = [NSDictionary dictionaryWithObjectsAndKeys:(id)kCFBooleanTrue, kCGImageSourceCreateThumbnailWithTransform,
+                                        kCFBooleanTrue, kCGImageSourceCreateThumbnailFromImageAlways,
+                                        [NSNumber numberWithFloat:kIPPhotoMaxEdgeSize], kCGImageSourceThumbnailMaxPixelSize,
+                                        nil];
+      theImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, (CFDictionaryRef)thumbnailOptions);
 
-      //
-      //  If we couldn't find one of the representations we know, then decode
-      //  the image into memory and save it out.
-      //
+    } else {
       
-      uti = @"public.jpeg";
-      UIImageOrientation orientation = [[self.asset valueForProperty:ALAssetPropertyOrientation] intValue];
-      representation = [self.asset defaultRepresentation];
-      UIImage *image = [[UIImage alloc] initWithCGImage:[representation fullScreenImage] scale:1.0 orientation:orientation];
-      filename = [[IPPhoto filenameForNewPhoto] retain];
-      NSData *jpegData = UIImageJPEGRepresentation(image, 0.8);
-      _GTMDevLog(@"%s -- couldn't find UTI. Wrote %d jpeg bytes",
-                 __PRETTY_FUNCTION__,
-                 [jpegData length]);
-      [jpegData writeToFile:filename atomically:YES];
-      [image release];
+      theImage = CGImageSourceCreateImageAtIndex(imageSource, 0, NULL);
     }
+    
+    CFRelease(imageSource);
+    [imageBytes release];
+    
+    UIImage *uiImage = [[UIImage alloc] initWithCGImage:theImage scale:1.0 orientation:orientation];
+    NSData *jpegData = UIImageJPEGRepresentation(uiImage, 0.8);
+    filename = [[IPPhoto filenameForNewPhoto] retain];
+    [jpegData writeToFile:filename atomically:YES];
+    [uiImage release];
+    CFRelease(theImage);
     [pool drain];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
       
-      completion(filename, uti);
+      completion(filename, @"public.jpeg");
       [filename release];
       [completion release];
     }];
