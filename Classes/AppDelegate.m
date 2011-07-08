@@ -168,8 +168,14 @@
   //  Before looking for new pictures, reload the portfolio. It could be 
   //  changed through document syncing.
   //
+  //  Note: At this point, if |portfolio| is nil, it means we haven't finished
+  //  preparing it from |viewDidLoad|. So do nothing.
+  //
   
-  [self preparePortfolioForDisplay];
+  if (self.portfolioGridView.portfolio != nil) {
+    
+    [self preparePortfolioForDisplay];
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -191,23 +197,25 @@
 - (void)optimizationManager:(IPPhotoOptimizationManager *)optimizationManager 
    didHaveOptimizationCount:(NSUInteger)optimizationCount {
   
-  _GTMDevLog(@"%s -- count is %d", __PRETTY_FUNCTION__, optimizationCount);
-  if (optimizationCount == 0) {
-  
-    [self.optimizingNotification.view removeFromSuperview];
-    self.optimizingNotification = nil;
-    
-  } else {
-    
-    if (self.optimizingNotification == nil) {
+  [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+    _GTMDevLog(@"%s -- count is %d", __PRETTY_FUNCTION__, optimizationCount);
+    if (optimizationCount == 0) {
       
-      self.optimizingNotification = [[[IPOptimizingPhotoNotification alloc] initWithNibName:nil bundle:nil] autorelease];
-      self.optimizingNotification.modalPresentationStyle = UIModalPresentationFormSheet;
-      self.optimizingNotification.view.center = self.navigationController.view.center;
-      [self.navigationController.view addSubview:self.optimizingNotification.view];
+      [self.optimizingNotification.view removeFromSuperview];
+      self.optimizingNotification = nil;
+      
+    } else {
+      
+      if (self.optimizingNotification == nil) {
+        
+        self.optimizingNotification = [[[IPOptimizingPhotoNotification alloc] initWithNibName:nil bundle:nil] autorelease];
+        self.optimizingNotification.modalPresentationStyle = UIModalPresentationFormSheet;
+        self.optimizingNotification.view.center = self.navigationController.view.center;
+        [self.navigationController.view addSubview:self.optimizingNotification.view];
+      }
+      self.optimizingNotification.activeOptimizations = optimizationCount;
     }
-    self.optimizingNotification.activeOptimizations = optimizationCount;
-  }
+  }];
 }
 
 #pragma mark -
