@@ -142,7 +142,7 @@
       //  We need ImageIO to generate a thumbnail for us.
       //
       
-      NSDictionary *thumbnailOptions = [NSDictionary dictionaryWithObjectsAndKeys:(id)kCFBooleanTrue, kCGImageSourceCreateThumbnailWithTransform,
+      NSDictionary *thumbnailOptions = [NSDictionary dictionaryWithObjectsAndKeys:(id)kCFBooleanFalse, kCGImageSourceCreateThumbnailWithTransform,
                                         kCFBooleanTrue, kCGImageSourceCreateThumbnailFromImageAlways,
                                         [NSNumber numberWithFloat:kIPPhotoMaxEdgeSize], kCGImageSourceThumbnailMaxPixelSize,
                                         nil];
