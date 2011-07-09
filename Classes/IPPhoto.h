@@ -72,6 +72,12 @@
 @property (nonatomic, assign) IPPage *parent;
 
 //
+//  Unload the image.
+//
+
+- (void)unloadImage;
+
+//
 //  Gets a filename suitable for a new photo file.
 //
 

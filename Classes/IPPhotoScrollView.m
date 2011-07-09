@@ -66,7 +66,8 @@
 //
 
 - (void)dealloc {
-  
+
+  [photo_ unloadImage];
   [photo_ release];
   [imageView_ release];
   [super dealloc];
@@ -112,7 +113,12 @@
 
 - (void)setPhoto:(IPPhoto *)photo {
   
-  [photo_ autorelease];
+  if (photo == photo_) {
+    
+    return;
+  }
+  [photo_ unloadImage];
+  [photo_ release];
   photo_ = [photo retain];
   
   //
