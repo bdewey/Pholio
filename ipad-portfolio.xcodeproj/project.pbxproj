@@ -1300,7 +1300,7 @@
 				);
 				PRODUCT_NAME = Pholio;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/** $(SRCROOT)/../objectiveflickr/**";
 			};
 			name = Debug;
 		};
@@ -1323,7 +1323,7 @@
 				);
 				PRODUCT_NAME = Pholio;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/** $(SRCROOT)/../objectiveflickr/**";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1398,7 +1398,7 @@
 				);
 				PRODUCT_NAME = Pholio;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/** $(SRCROOT)/../objectiveflickr/**";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Distribution;
@@ -1498,7 +1498,7 @@
 			};
 			name = Distribution;
 		};
-		D3EB04251380F4E800CA6CC8 /* Ad Hoc */ = {
+		D35506AA13CA1D25005E68BD /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
@@ -1513,13 +1513,13 @@
 				TARGETED_DEVICE_FAMILY = 2;
 				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
 			};
-			name = "Ad Hoc";
+			name = AdHoc;
 		};
-		D3EB04261380F4E800CA6CC8 /* Ad Hoc */ = {
+		D35506AB13CA1D25005E68BD /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
@@ -1533,12 +1533,13 @@
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = Pholio;
-				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/** $(SRCROOT)/../objectiveflickr/**";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = "Ad Hoc";
+			name = AdHoc;
 		};
-		D3EB04271380F4E800CA6CC8 /* Ad Hoc */ = {
+		D35506AC13CA1D25005E68BD /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1548,7 +1549,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UnitTests/UnitTests-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
-				"HEADER_SEARCH_PATHS[arch=*]" = "$(PROJECT_DIR)/Libraries/Headers";
 				INFOPLIST_FILE = "UnitTests/UnitTests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
@@ -1566,7 +1566,7 @@
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
-			name = "Ad Hoc";
+			name = AdHoc;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1576,8 +1576,8 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
-				D3EB04261380F4E800CA6CC8 /* Ad Hoc */,
 				D3004C6E1231F82300069187 /* Distribution */,
+				D35506AB13CA1D25005E68BD /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1587,8 +1587,8 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
-				D3EB04251380F4E800CA6CC8 /* Ad Hoc */,
 				D3004C6D1231F82300069187 /* Distribution */,
+				D35506AA13CA1D25005E68BD /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1598,8 +1598,8 @@
 			buildConfigurations = (
 				D30A434413138E7800E6EBB7 /* Debug */,
 				D30A434513138E7800E6EBB7 /* Release */,
-				D3EB04271380F4E800CA6CC8 /* Ad Hoc */,
 				D30A434613138E7800E6EBB7 /* Distribution */,
+				D35506AC13CA1D25005E68BD /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
