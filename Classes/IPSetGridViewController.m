@@ -390,64 +390,6 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  Adds images to |self.currentSet| on a background thread, then invokes a
-//  completion routine on the foreground to update UI.
-//
-
-- (void)backgroundAddImages:(NSArray *)assets
-                 completion:(void(^)(NSArray *pages))completion {
-
-  //
-  //  Even though it's an async api to get the image from the asset, I still
-  //  do all of this in a background thread so this method won't block
-  //  while waiting for the worker threads to complete.
-  //
-  
-  dispatch_queue_t defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-  completion = [completion copy];
-  
-  dispatch_async(defaultQueue, ^{
-    
-    NSConditionLock *workerThreadsComplete = [[[NSConditionLock alloc] initWithCondition:[assets count]] autorelease];
-    NSMutableArray *pages = [[NSMutableArray alloc] initWithCapacity:[assets count]];
-    
-    for (id<BDSelectableAsset> asset in assets) {
-      
-      [asset imageAsyncWithCompletion:^(NSString *filename, NSString *uti) {
-        
-        if (filename == nil) {
-          
-          //
-          //  Couldn't get an image.
-          //
-          
-          [workerThreadsComplete lock];
-          [workerThreadsComplete unlockWithCondition:[workerThreadsComplete condition]-1];
-          return;
-        }
-        IPPage *page = [IPPage pageWithFilename:filename andTitle:[asset title]];
-        [workerThreadsComplete lock];
-        [pages addObject:page];
-        [workerThreadsComplete unlockWithCondition:[workerThreadsComplete condition]-1];
-      }];
-    }
-    
-    [workerThreadsComplete lockWhenCondition:0];
-    _GTMDevLog(@"%s -- condition = %d, starting completion",
-               __PRETTY_FUNCTION__,
-               [workerThreadsComplete condition]);
-    dispatch_async(dispatch_get_main_queue(), ^ {
-      
-      completion(pages);
-      [completion release];
-      [pages release];
-    });
-    [workerThreadsComplete unlockWithCondition:0];
-  });
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
 //  Let the user pick a picture to insert.
 //
 
@@ -461,6 +403,9 @@
       
       [asset imageAsyncWithCompletion:^(NSString *filename, NSString *uti) {
         
+        if (filename == nil) {
+          return;
+        }
         IPPhoto *photo = [[IPPhoto alloc] init];
         photo.filename = filename;
         [[IPPhotoOptimizationManager sharedManager] asyncOptimizePhoto:photo withCompletion:^(void) {

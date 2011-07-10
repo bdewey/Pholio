@@ -601,7 +601,7 @@
   //  Short-circuit if we've already been optimized.
   //
   
-  if ([self isOptimized]) {
+  if ([self isOptimized] || (self.filename == nil)) {
     
     return;
   }

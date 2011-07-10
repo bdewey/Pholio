@@ -107,69 +107,75 @@
   //  in one go.
   //
   
-  [[[IPPhotoOptimizationManager sharedManager] optimizationQueue] addOperationWithBlock:^(void) {
-
-    //
-    //  General strategy: Create a CGImageSourceRef from the raw asset image.
-    //  If the image size would be too big, have ImageIO thumbnail the image for
-    //  us. Otherwise, get the full image. Then, save to JPEG.
-    //
-    
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    UIImageOrientation orientation = [[self.asset valueForProperty:ALAssetPropertyOrientation] intValue];
-    ALAssetRepresentation *representation = [self.asset defaultRepresentation];
-    NSString *filename = nil;
-    NSDictionary *metadata = [representation metadata];
-    CGFloat width = [[metadata objectForKey:(id)kCGImagePropertyPixelWidth] floatValue];
-    CGFloat height = [[metadata objectForKey:(id)kCGImagePropertyPixelHeight] floatValue];
-    CGFloat maxEdge = MAX(width, height);
-    _GTMDevLog(@"%s -- maxEdge is %f (%f, %f)", __PRETTY_FUNCTION__, maxEdge, width, height);
-    
-    //
-    //  Get the raw bytes and create a CGImageSourceRef.
-    //
-    
-    NSMutableData *imageBytes = [[NSMutableData alloc] initWithLength:[representation size]];
-    [representation getBytes:[imageBytes mutableBytes] fromOffset:0 length:[representation size] error:NULL];
-    
-    CGImageSourceRef imageSource = CGImageSourceCreateWithData((CFDataRef)imageBytes, NULL);
-    CGImageRef theImage = NULL;
-    
-    if (maxEdge > kIPPhotoMaxEdgeSize) {
+  NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^(void) {
       
       //
-      //  We need ImageIO to generate a thumbnail for us.
+      //  General strategy: Create a CGImageSourceRef from the raw asset image.
+      //  If the image size would be too big, have ImageIO thumbnail the image for
+      //  us. Otherwise, get the full image. Then, save to JPEG.
       //
       
-      NSDictionary *thumbnailOptions = [NSDictionary dictionaryWithObjectsAndKeys:(id)kCFBooleanFalse, kCGImageSourceCreateThumbnailWithTransform,
-                                        kCFBooleanTrue, kCGImageSourceCreateThumbnailFromImageAlways,
-                                        [NSNumber numberWithFloat:kIPPhotoMaxEdgeSize], kCGImageSourceThumbnailMaxPixelSize,
-                                        nil];
-      theImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, (CFDictionaryRef)thumbnailOptions);
-
-    } else {
+      NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
       
-      theImage = CGImageSourceCreateImageAtIndex(imageSource, 0, NULL);
-    }
-    
-    CFRelease(imageSource);
-    [imageBytes release];
-    
-    UIImage *uiImage = [[UIImage alloc] initWithCGImage:theImage scale:1.0 orientation:orientation];
-    NSData *jpegData = UIImageJPEGRepresentation(uiImage, 0.8);
-    filename = [[IPPhoto filenameForNewPhoto] retain];
-    [jpegData writeToFile:filename atomically:YES];
-    [uiImage release];
-    CFRelease(theImage);
-    [pool drain];
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+      UIImageOrientation orientation = [[self.asset valueForProperty:ALAssetPropertyOrientation] intValue];
+      ALAssetRepresentation *representation = [self.asset defaultRepresentation];
+      NSString *filename = nil;
+      NSDictionary *metadata = [representation metadata];
+      CGFloat width = [[metadata objectForKey:(id)kCGImagePropertyPixelWidth] floatValue];
+      CGFloat height = [[metadata objectForKey:(id)kCGImagePropertyPixelHeight] floatValue];
+      CGFloat maxEdge = MAX(width, height);
+      _GTMDevLog(@"%s -- maxEdge is %f (%f, %f)", __PRETTY_FUNCTION__, maxEdge, width, height);
       
-      completion(filename, @"public.jpeg");
-      [filename release];
-      [completion release];
-    }];
+      //
+      //  Get the raw bytes and create a CGImageSourceRef.
+      //
+      
+      NSMutableData *imageBytes = [[NSMutableData alloc] initWithLength:[representation size]];
+      [representation getBytes:[imageBytes mutableBytes] fromOffset:0 length:[representation size] error:NULL];
+      
+      CGImageSourceRef imageSource = CGImageSourceCreateWithData((CFDataRef)imageBytes, NULL);
+      CGImageRef theImage = NULL;
+      
+      if (maxEdge > kIPPhotoMaxEdgeSize) {
+        
+        //
+        //  We need ImageIO to generate a thumbnail for us.
+        //
+        
+        NSDictionary *thumbnailOptions = [NSDictionary dictionaryWithObjectsAndKeys:(id)kCFBooleanFalse, kCGImageSourceCreateThumbnailWithTransform,
+                                          kCFBooleanTrue, kCGImageSourceCreateThumbnailFromImageAlways,
+                                          [NSNumber numberWithFloat:kIPPhotoMaxEdgeSize], kCGImageSourceThumbnailMaxPixelSize,
+                                          nil];
+        theImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, (CFDictionaryRef)thumbnailOptions);
+        
+      } else {
+        
+        theImage = CGImageSourceCreateImageAtIndex(imageSource, 0, NULL);
+      }
+      
+      CFRelease(imageSource);
+      [imageBytes release];
+      
+      if (theImage != NULL) {
+        
+        UIImage *uiImage = [[UIImage alloc] initWithCGImage:theImage scale:1.0 orientation:orientation];
+        NSData *jpegData = UIImageJPEGRepresentation(uiImage, 0.8);
+        filename = [[IPPhoto filenameForNewPhoto] retain];
+        [jpegData writeToFile:filename atomically:YES];
+        [uiImage release];
+        CFRelease(theImage);
+      }
+      [pool drain];
+      [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        
+        completion(filename, @"public.jpeg");
+        [filename release];
+        [completion release];
+      }];
   }];
+  
+  [operation setQueuePriority:NSOperationQueuePriorityNormal];
+  [[[IPPhotoOptimizationManager sharedManager] optimizationQueue] addOperation:operation];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
