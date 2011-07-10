@@ -69,6 +69,12 @@
 //  Gets an image from |imageName|, resizes it, and then passes the resized image
 //  to the completion routine on the main thread.
 //
+//  ASSUMPTION: |imageName| is a file name of an image *without* a path
+//  (e.g., it will come from the bundle by default). There is a thumbnail version
+//  of the file that follows this pattern: "file.jpg" --> "file-thumb.jpg".
+//  This routine will load the "-thumb.jpg" file.
+//  
+//
 
 - (void)getThumbnailForImageNamed:(NSString *)imageName completion:(void (^)(UIImage *))completion {
   
@@ -87,7 +93,9 @@
     //  In the background, load & resize the image.
     //
     
-    UIImage *image = [UIImage imageNamed:imageName];
+    NSString *thumbName = [imageName stringByDeletingPathExtension];
+    thumbName = [NSString stringWithFormat:@"%@-thumb.jpg", thumbName];
+    UIImage *image = [UIImage imageNamed:thumbName];
     image = [image thumbnailImage:kThumbnailSize 
                 transparentBorder:1 
                      cornerRadius:kRoundedEdge 
