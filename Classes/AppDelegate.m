@@ -210,7 +210,9 @@
         
         self.optimizingNotification = [[[IPOptimizingPhotoNotification alloc] initWithNibName:nil bundle:nil] autorelease];
         self.optimizingNotification.modalPresentationStyle = UIModalPresentationFormSheet;
-        self.optimizingNotification.view.center = self.navigationController.view.center;
+        CGRect navBounds = self.navigationController.view.bounds;
+        self.optimizingNotification.view.center = CGPointMake(CGRectGetMidX(navBounds), 
+                                                              CGRectGetMidY(navBounds));
         [self.navigationController.view addSubview:self.optimizingNotification.view];
       }
       self.optimizingNotification.activeOptimizations = optimizationCount;
