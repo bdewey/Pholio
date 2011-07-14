@@ -91,12 +91,14 @@
 
 - (OFFlickrAPIContext *)context {
   
+#ifdef PHOLIO_FLICKR_API_KEY
   if (context_ == nil) {
     
     context_ = [[OFFlickrAPIContext alloc] initWithAPIKey:PHOLIO_FLICKR_API_KEY
                                              sharedSecret:PHOLIO_FLICKR_API_SHARED_SECRET];
     context_.authToken = self.authToken;
   }
+#endif
   return context_;
 }
 
@@ -157,8 +159,12 @@
 //
 
 - (NSString *)authToken {
-  
+
+#ifdef PHOLIO_FLICKR_API_KEY
   return [[NSUserDefaults standardUserDefaults] objectForKey:kIPFlickrAuthToken];
+#else
+  return nil;
+#endif
 }
 
 ////////////////////////////////////////////////////////////////////////////////

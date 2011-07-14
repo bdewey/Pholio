@@ -27,6 +27,6 @@
 //#define PHOLIO_FLICKR_API_SHARED_SECRET ...
 
 #ifndef PHOLIO_FLICKR_API_KEY
-#error You need to define an API key and shared secret to interact with Flickr.
+#warning You need to define an API key and shared secret to interact with Flickr.
 #endif
 

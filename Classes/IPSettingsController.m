@@ -35,7 +35,9 @@ enum IPSettingsControllerSections {
   IPSettingsControllerUserGuide,
   IPSettingsControllerDisplay,
   IPSettingsControllerActions,
+#ifdef PHOLIO_FLICKR_API_KEY
   IPSettingsControllerConnect,
+#endif
   IPSettingsControllerNumSections,
   IPSettingsControllerInAppPurchases
   };
@@ -263,8 +265,10 @@ enum IPSettingsDisplay {
     case IPSettingsControllerDisplay:
       return kIPSettingsDisplayTitle;
       
+#ifdef PHOLIO_FLICKR_API_KEY
     case IPSettingsControllerConnect:
       return kIPSettingsConnectTitle;
+#endif
       
     default:
       _GTMDevAssert(NO, @"Unrecognized section");
@@ -292,8 +296,10 @@ enum IPSettingsDisplay {
     case IPSettingsControllerDisplay:
       return IPSettingsDisplayNumItems;
       
+#ifdef PHOLIO_FLICKR_API_KEY
     case IPSettingsControllerConnect:
       return IPSettingsConnectNumItems;
+#endif
       
     default:
       _GTMDevAssert(NO, @"Should not get here");
@@ -321,8 +327,10 @@ enum IPSettingsDisplay {
     case IPSettingsControllerActions:
       return [self cellForActionsInTableView:tableView atIndexPath:indexPath];
       
+#ifdef PHOLIO_FLICKR_API_KEY
     case IPSettingsControllerConnect:
       return [self cellForConnectInTableView:tableView atIndexPath:indexPath];
+#endif
       
     case IPSettingsControllerInAppPurchases:
       return [self cellForInAppPurchasesInTableView:tableView atIndexPath:indexPath];
