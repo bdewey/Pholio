@@ -18,6 +18,7 @@
 //  limitations under the License.
 //
 
+#import "IPFlickrApiKeys.h"
 #import "IPSettingsController.h"
 #import "IPButtonCell.h"
 #import "IPCustomBackgroundCell.h"
