@@ -151,15 +151,20 @@
 
 - (void)updateThumbnail {
   
-  [self compositeAsyncWithCompletion:^(UIImage *compositeImage) {
-    
-    self.image = compositeImage;
-//    self.alpha = 0.0;
-//    self.image = compositeImage;
-//    [UIView animateWithDuration:kIPAnimationViewAppearFast animations:^(void) {
-//      self.alpha = 1.0;
-//    }];
-  }];
+  IPPage *page = [self.currentSet objectInPagesAtIndex:0];
+  IPPhoto *photo = [page objectInPhotosAtIndex:0];
+  
+  switch (self.style) {
+    case BDGridCellStyleDefault:
+      [self compositeAsyncWithCompletion:^(UIImage *compositeImage) {
+        self.image = compositeImage;
+      }];
+      break;
+      
+    case BDGridCellStyleTile:
+      self.image = photo.image;
+      break;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -513,7 +518,8 @@
 
 - (CGSize)gridViewSizeOfCell:(BDGridView *)gridView {
   
-  return CGSizeMake(kGridCellSize, kGridCellSize);
+  CGFloat size = 300;
+  return CGSizeMake(size, size);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -533,16 +539,14 @@
 
 - (BDGridCell *)gridView:(BDGridView *)gridView cellForIndex:(NSUInteger)index {
   
-  CGSize defaultSize = [self gridViewSizeOfCell:gridView];
-  CGRect frame = CGRectMake(0, 0, defaultSize.width, defaultSize.height);
   IPSetCell *cell = (IPSetCell *)[gridView dequeueCell];
   if (cell == nil) {
     
-    cell = [[[IPSetCell alloc] initWithFrame:frame] autorelease];
+    cell = [[[IPSetCell alloc] initWithStyle:BDGridCellStyleTile] autorelease];
     cell.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    cell.captionHeight = 75;
   }
   
-  cell.frame = frame;
   cell.currentSet = [self.portfolio objectInSetsAtIndex:index];
   
   return cell;

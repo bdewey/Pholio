@@ -355,9 +355,7 @@
   IPPageCell *cell = (IPPageCell *)[gridView dequeueCell];
   if (cell == nil) {
     
-    CGSize defaultSize = [self gridViewSizeOfCell:gridView];
-    CGRect frame = CGRectMake(0, 0, defaultSize.width, defaultSize.height);
-    cell = [[[IPPageCell alloc] initWithFrame:frame] autorelease];
+    cell = [[[IPPageCell alloc] initWithStyle:BDGridCellStyleDefault] autorelease];
     cell.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
   }
   

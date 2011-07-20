@@ -21,11 +21,31 @@
 
 #import <UIKit/UIKit.h>
 
+//
+//  The style of the BDGridCell.
+//
+
+typedef enum {
+  
+  //
+  //  Default style: An Aspect Fit image with a caption of |captionHeight|
+  //  *underneath* the image.
+  //
+  
+  BDGridCellStyleDefault,
+  
+  //
+  //  "Tile" style: An Aspect Fill / clip to bounds image with a caption
+  //  overlaying the bottom of the image.
+  //
+  
+  BDGridCellStyleTile
+} BDGridCellStyle;
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-@class BDGridIcon;
 @interface BDGridCell : UIView {
     
 }
@@ -35,6 +55,12 @@
 //
 
 @property (nonatomic, retain) UIImage *image;
+
+//
+//  The cell display style.
+//
+
+@property (nonatomic, assign) BDGridCellStyle style;
 
 //
 //  The image caption.
@@ -77,5 +103,11 @@
 //
 
 @property (nonatomic, assign, getter=isSelected) BOOL selected;
+
+//
+//  Designated initializer.
+//
+
+- (id)initWithStyle:(BDGridCellStyle)style;
 
 @end

@@ -40,7 +40,8 @@
 - (void)testBindings {
 
   CGRect frame = CGRectMake(20, 20, 120, 120);
-  BDGridCell *cell = [[[BDGridCell alloc] initWithFrame:frame] autorelease];
+  BDGridCell *cell = [[[BDGridCell alloc] initWithStyle:BDGridCellStyleDefault] autorelease];
+  cell.frame = frame;
   
   STAssertEquals(cell.bounds.origin.x, (CGFloat)0, nil);
   STAssertEquals(cell.bounds.size.width, (CGFloat)120, 

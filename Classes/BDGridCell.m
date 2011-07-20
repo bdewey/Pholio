@@ -29,6 +29,7 @@
 @interface BDGridCell ()
 @property (nonatomic, retain) UIImageView *imageView;
 @property (nonatomic, retain) UILabel *label;
+@property (nonatomic, retain) UIView *labelView;
 
 - (void)repositionImageAndLabel;
 @end
@@ -37,6 +38,7 @@
 @implementation BDGridCell
 
 @dynamic image;
+@synthesize style = style_;
 @dynamic caption;
 @dynamic fontColor;
 @dynamic font;
@@ -45,6 +47,7 @@
 @synthesize captionHeight = captionHeight_;
 @synthesize imageView = imageView_;
 @synthesize label = label_;
+@synthesize labelView = labelView_;
 @synthesize selected = selected_;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -52,26 +55,49 @@
 //  Main initializer
 //
 
-- (id)initWithFrame:(CGRect)frame {
+- (id)initWithStyle:(BDGridCellStyle)style {
 
-  self = [super initWithFrame:frame];
+  self = [super initWithFrame:CGRectZero];
   if (self) {
 
+    self.style = style;
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     captionHeight_ = kDefaultCaptionHeight;
     self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.0];
+
+    //
+    //  Construct a view for holding our label.
+    //
+    
+    self.labelView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    self.labelView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+
+    
     self.label = [[[UILabel alloc] init] autorelease];
     self.label.textAlignment = UITextAlignmentCenter;
-    self.label.textColor = [UIColor blackColor];
+    self.label.textColor = [UIColor whiteColor];
     self.label.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.0];
-    self.label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    self.label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.labelView addSubview:self.label];
+    
     self.imageView = [[[UIImageView alloc] init] autorelease];
-    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    switch (self.style) {
+      case BDGridCellStyleDefault:
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        self.labelView.backgroundColor = nil;
+        break;
+        
+      case BDGridCellStyleTile:
+        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        self.labelView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        break;
+    }
+    self.imageView.clipsToBounds = YES;
     self.imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | 
       UIViewAutoresizingFlexibleHeight | 
       UIViewAutoresizingFlexibleBottomMargin;
-    [self addSubview:self.label];
     [self addSubview:self.imageView];
+    [self addSubview:self.labelView];
     [self repositionImageAndLabel];
   }
   return self;
@@ -86,6 +112,7 @@
   
   [imageView_ release];
   [label_ release];
+  [labelView_ release];
   
   [super dealloc];
 }
@@ -119,16 +146,35 @@
   
   CGRect contentRect = UIEdgeInsetsInsetRect(self.bounds, self.contentInset);
   contentRect = CGRectStandardize(contentRect);
-  CGRect imageFrame = CGRectMake(contentRect.origin.x, 
-                                 contentRect.origin.y,
-                                 contentRect.size.width, 
-                                 contentRect.size.height - self.captionHeight);
-  CGRect labelFrame = CGRectMake(contentRect.origin.x,
-                                 contentRect.origin.y + (contentRect.size.height - self.captionHeight),
-                                 contentRect.size.width,
-                                 self.captionHeight);
+  CGRect imageFrame, labelFrame;
+  
+  //
+  //  Image size depends on the cell style.
+  //
+  
+  switch (self.style) {
+    case BDGridCellStyleDefault:
+      imageFrame = CGRectMake(contentRect.origin.x, 
+                              contentRect.origin.y,
+                              contentRect.size.width, 
+                              contentRect.size.height - self.captionHeight);
+      break;
+      
+    case BDGridCellStyleTile:
+      imageFrame = contentRect;
+      break;
+  }
+  
+  //
+  //  No matter what, the label goes at the bottom of |contentRect|.
+  //
+  
+  labelFrame = CGRectMake(contentRect.origin.x,
+                          contentRect.origin.y + (contentRect.size.height - self.captionHeight),
+                          contentRect.size.width,
+                          self.captionHeight);
   self.imageView.frame = imageFrame;
-  self.label.frame = labelFrame;
+  self.labelView.frame = labelFrame;
 }
 
 #pragma mark -
@@ -212,6 +258,14 @@
 
 - (void)setFontColor:(UIColor *)fontColor {
   
+  if (self.style == BDGridCellStyleTile) {
+    
+    //
+    //  If we're a tile, then the font color should always be white.
+    //
+    
+    return;
+  }
   self.label.textColor = fontColor;
 }
 

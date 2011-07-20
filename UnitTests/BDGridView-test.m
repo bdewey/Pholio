@@ -160,7 +160,7 @@ BDGridViewDataSource>
   
   BDGridCell *cell = [gridView dequeueCell];
   if (cell == nil) {
-    cell = [[[BDGridCell alloc] init] autorelease];
+    cell = [[[BDGridCell alloc] initWithStyle:BDGridCellStyleDefault] autorelease];
     [self.allocatedCells addObject:cell];
   }
   
