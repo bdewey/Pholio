@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A4F0C7A13D938F8008759F5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4F0C7913D938F8008759F5 /* Security.framework */; };
+		0A4F0C8113D944EB008759F5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4F0C7913D938F8008759F5 /* Security.framework */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -513,6 +514,7 @@
 				D33C01A91379091200030DD9 /* AssetsLibrary.framework in Frameworks */,
 				D3E57E841384D4150027534B /* CFNetwork.framework in Frameworks */,
 				D35F88BD13C6C73D00EB2706 /* ImageIO.framework in Frameworks */,
+				0A4F0C8113D944EB008759F5 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
