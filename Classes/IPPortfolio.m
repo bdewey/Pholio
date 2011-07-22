@@ -18,6 +18,7 @@
 //  limitations under the License.
 //
 
+#import <Security/Security.h>
 #import "IPPortfolio.h"
 
 #define kAppDelegatePortfolio           @"portfolio"
@@ -44,7 +45,7 @@
     //  portfolios.
     //
     
-    version_ = rand() & 0x7FFF0000;
+    SecRandomCopyBytes(kSecRandomDefault, sizeof(version_), &version_);
   }
   return self;
 }
