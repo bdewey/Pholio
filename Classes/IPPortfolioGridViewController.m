@@ -33,6 +33,7 @@
 #import "BDCustomAlert.h"
 #import "IPPhotoOptimizationManager.h"
 #import "IPPhoto.h"
+#import "BDContrainPanGestureRecognizer.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -228,6 +229,9 @@
 - (void)setTitleToPortfolioTitle;
 - (void)pushControllerForSet:(IPSet *)set;
 
+- (void)didSwipeDown;
+- (void)didSwipeUp;
+
 @end
 
 @implementation IPPortfolioGridViewController
@@ -295,6 +299,16 @@
   self.gridView.font = self.portfolio.textFont;
   [self setTitleToPortfolioTitle];
   self.navigationController.navigationBar.translucent = YES;
+  
+  UISwipeGestureRecognizer *swipeDown = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDown)] autorelease];
+  swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
+  swipeDown.numberOfTouchesRequired = 2;
+  [self.gridView addGestureRecognizer:swipeDown];
+  
+  UISwipeGestureRecognizer *swipeUp = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeUp)] autorelease];
+  swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
+  swipeUp.numberOfTouchesRequired = 2;
+  [self.gridView addGestureRecognizer:swipeUp];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -369,6 +383,28 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 
   return YES;
+}
+
+#pragma mark - Swiping
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Handle a down swipe by showing the navigation bar.
+//
+
+- (void)didSwipeDown {
+  
+  [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Handle an up swipe by hiding the navigation bar.
+//
+
+- (void)didSwipeUp {
+  
+  [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 #pragma mark -
