@@ -151,7 +151,15 @@
 
 - (void)updateThumbnail {
   
-  IPPage *page = [self.currentSet objectInPagesAtIndex:0];
+  IPPage *page;
+  if ([self.currentSet countOfPages] > 0) {
+    
+    page = [self.currentSet objectInPagesAtIndex:0];
+    
+  } else {
+    
+    page = nil;
+  }
   IPPhoto *photo = [page objectInPhotosAtIndex:0];
   
   switch (self.style) {
