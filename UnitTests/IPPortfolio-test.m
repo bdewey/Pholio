@@ -354,4 +354,19 @@
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Test that new portfolios get a random, non-zero version.
+//
+
+- (void)testNewPortfolioVersion {
+  
+  IPPortfolio *portfolio1 = [[[IPPortfolio alloc] init] autorelease];
+  IPPortfolio *portfolio2 = [[[IPPortfolio alloc] init] autorelease];
+  
+  STAssertNotEquals(0, portfolio1.version, nil);
+  STAssertNotEquals(0, portfolio2.version, nil);
+  STAssertNotEquals(portfolio1.version, portfolio2.version, nil);
+}
+
 @end
