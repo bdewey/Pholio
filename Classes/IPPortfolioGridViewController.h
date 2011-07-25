@@ -25,6 +25,7 @@
 #import <UIKit/UIKit.h>
 #import "IPEditableTitleViewController.h"
 #import "BDGridView.h"
+#import "IPGridHeader.h"
 
 @class IPPortfolio;
 
@@ -34,7 +35,8 @@
 
 @interface IPPortfolioGridViewController : IPEditableTitleViewController<
   BDGridViewDataSource,
-  BDGridViewDelegate
+  BDGridViewDelegate,
+  IPGridHeaderDelegate
 > {
     
 }

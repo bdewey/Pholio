@@ -106,6 +106,12 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
 - (void)dismissPopover;
 
 //
+//  Gets a popover controller all set up to show the settings picker.
+//
+
+- (UIPopoverController *)settingsPopover;
+
+//
 //  Presents a UIImagePickerController and executes |block| if the user
 //  selects an image.
 //

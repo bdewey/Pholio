@@ -67,6 +67,12 @@
 @property (nonatomic, assign) CGFloat topContentPadding;
 
 //
+//  Optional header to display at the top of the grid.
+//
+
+@property (nonatomic, retain) UIView *headerView;
+
+//
 //  The computed number of cells per row. Based on |numberOfCells|, |cellSize|, 
 //  and |view.frame|. Not valid until |reloadData| has been sent.
 //

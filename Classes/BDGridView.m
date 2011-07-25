@@ -93,6 +93,7 @@
 //
 
 - (void)setup;
+- (CGFloat)topPaddingIncludingHeader;
 - (void)recomputeContentSize;
 - (NSUInteger)indexForPoint:(CGPoint)point;
 - (BOOL)isCellVisible:(NSUInteger)index;
@@ -126,6 +127,7 @@
 @synthesize gridViewDelegate = gridViewDelegate_;
 @synthesize minimumPadding = minimumPadding_;
 @synthesize topContentPadding = topContentPadding_;
+@synthesize headerView = headerView_;
 @synthesize cellsPerRow = cellsPerRow_;
 @synthesize countOfRows = countOfRows_;
 @synthesize fontColor = fontColor_;
@@ -168,6 +170,7 @@
 
 - (void)dealloc {
   
+  [headerView_ release];
   [viewCells_ release];
   [recycledCells_ release];
   [selectedCells_ release];
@@ -382,8 +385,64 @@
   [self setNeedsLayout];
 }
 
+////////////////////////////////////////////////////////////////////////////////
+//
+//  When setting a new header view, ensure that we account for it in the 
+//  padding.
+//
+
+- (void)setHeaderView:(UIView *)headerView {
+  
+  if (headerView == headerView_) {
+    return;
+  }
+  if (headerView_ != nil) {
+    
+    [headerView_ removeFromSuperview];
+  }
+  [headerView_ release];
+  headerView_ = [headerView retain];
+  if (headerView_ != nil) {
+    
+    CGSize frameSize = headerView_.frame.size;
+    headerView_.frame = CGRectMake(0, topContentPadding_, frameSize.width, frameSize.height);
+    [self addSubview:headerView_];
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  When setting |topContentPadding|, need to adjust the position of any
+//  header view.
+//
+
+- (void)setTopContentPadding:(CGFloat)topContentPadding {
+  
+  topContentPadding_ = topContentPadding;
+  if (headerView_ != nil) {
+    
+    CGSize frameSize = headerView_.frame.size;
+    headerView_.frame = CGRectMake(0, topContentPadding_, frameSize.width, frameSize.height);
+  }
+}
+
 #pragma mark -
 #pragma mark Cell management
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  The amount of top padding.
+//
+
+- (CGFloat)topPaddingIncludingHeader {
+  
+  CGFloat topPadding = self.topContentPadding;
+  if (self.headerView != nil) {
+    
+    topPadding += self.headerView.frame.size.height;
+  }
+  return topPadding;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -429,7 +488,7 @@
   } while (padding_ < self.minimumPadding);
   
   self.contentSize = CGSizeMake(width, 
-                                countOfRows_ * cellSize.height + self.topContentPadding);
+                                countOfRows_ * cellSize.height + [self topPaddingIncludingHeader]);
   
   //
   //  If the content size height is greater than the bounds height, then the
@@ -450,8 +509,8 @@
 - (NSUInteger)indexForPoint:(CGPoint)point {
   
   CGSize cellSize = [self.dataSource gridViewSizeOfCell:self];
-  
-  CGFloat pointRow = floor((point.y - self.topContentPadding) / cellSize.height);
+
+  CGFloat pointRow = floor((point.y - [self topPaddingIncludingHeader]) / cellSize.height);
   CGFloat pointColumn = floor(point.x / (cellSize.width + self.padding));
   
   return round(pointRow * self.cellsPerRow + pointColumn);
@@ -498,7 +557,7 @@
   //
   
   CGPoint cellOrigin = CGPointMake(targetColumn * (cellSize.width + self.padding) + self.padding, 
-                                   targetRow * cellSize.height + self.topContentPadding);
+                                   targetRow * cellSize.height + [self topPaddingIncludingHeader]);
   CGRect frame = CGRectMake(cellOrigin.x,
                             cellOrigin.y,
                             cellSize.width, 
@@ -591,7 +650,19 @@
 //
 
 - (void)adjustAllVisibleCellFrames {
-  
+
+  if (headerView_ != nil) {
+    
+    //
+    //  The width of the header view will get bounded by |padding| on both
+    //  sides.
+    //
+    
+    CGRect frame = headerView_.frame;
+    frame.origin.x = self.padding;
+    frame.size.width = self.bounds.size.width - 2 * self.padding;
+    headerView_.frame = frame;
+  }
   for (BDGridCell *cell in self.viewCells) {
     
     [self configureCell:cell];
@@ -631,7 +702,8 @@
 
   CGRect visibleBounds = self.bounds;
   CGSize cellSize = [self.dataSource gridViewSizeOfCell:self];
-  visibleBounds = CGRectOffset(visibleBounds, 0, -1.0 * self.topContentPadding);
+  CGFloat topPaddingIncludingHeader = [self topPaddingIncludingHeader];
+  visibleBounds = CGRectOffset(visibleBounds, 0, -1.0 * topPaddingIncludingHeader);
   CGFloat firstVisibleRow = floor(CGRectGetMinY(visibleBounds) / cellSize.height);
   firstVisibleRow = MAX(0, firstVisibleRow);
   CGFloat lastVisibleRow  = floor((CGRectGetMaxY(visibleBounds)-1) / cellSize.height);

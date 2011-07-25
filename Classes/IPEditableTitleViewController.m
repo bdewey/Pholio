@@ -419,22 +419,26 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
   return NO;
 }
 
-#pragma mark - Assets group testing.
+#pragma mark - Settings
 
 ////////////////////////////////////////////////////////////////////////////////
-//
-//  Display the asset group controller.
-//
 
-- (void)showSettings {
+- (UIPopoverController *)settingsPopover {
   
   IPSettingsController *settingsController = [[[IPSettingsController alloc] init] autorelease];
   settingsController.delegate = self;
   UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:settingsController] autorelease];
   nav.navigationBar.tintColor = self.portfolio.navigationColor;
   nav.navigationBar.translucent = NO;
+  return [[[UIPopoverController alloc] initWithContentViewController:nav] autorelease];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)showSettings {
+  
   [self dismissPopover];
-  self.popoverController = [[[UIPopoverController alloc] initWithContentViewController:nav] autorelease];
+  self.popoverController = [self settingsPopover];
   [self.popoverController presentPopoverFromBarButtonItem:self.navigationItem.rightBarButtonItem 
                                  permittedArrowDirections:UIPopoverArrowDirectionAny 
                                                  animated:YES];

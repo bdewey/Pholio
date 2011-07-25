@@ -184,6 +184,11 @@ BDGridViewDataSource>
   //
   
   CGFloat pageWidth = view.frame.size.width;
+  CGFloat topPadding = view.topContentPadding;
+  if (view.headerView != nil) {
+    
+    topPadding += view.headerView.frame.size.height;
+  }
   
   //
   //  Note there must be at least one cell per row.
@@ -207,7 +212,7 @@ BDGridViewDataSource>
   
   CGPoint contentOffset = view.contentOffset;
   CGFloat pageHeight    = view.frame.size.height;
-  CGFloat firstVisibleRow = floor((contentOffset.y - view.topContentPadding) / self.testCellSize.height);
+  CGFloat firstVisibleRow = floor((contentOffset.y - topPadding) / self.testCellSize.height);
   firstVisibleRow = MAX(0, firstVisibleRow);
   
   //
@@ -215,7 +220,7 @@ BDGridViewDataSource>
   //
   
   CGSize expectedContentSize = CGSizeMake(MAX(pageWidth, self.testCellSize.width),
-                                          expectedCountOfRows * self.testCellSize.height + view.topContentPadding);
+                                          expectedCountOfRows * self.testCellSize.height + topPadding);
   CFDictionaryRef expectedSizeDictionary = CGSizeCreateDictionaryRepresentation(expectedContentSize);
   CFDictionaryRef actualSizeDictionary   = CGSizeCreateDictionaryRepresentation(view.contentSize);
   STAssertEquals(expectedContentSize,
@@ -232,7 +237,7 @@ BDGridViewDataSource>
   //  TODO: Think hard about that "-1" in the line below. Really?
   //
   
-  CGFloat lastVisibleRow  = floor((contentOffset.y + pageHeight - view.topContentPadding - 1) / self.testCellSize.height);
+  CGFloat lastVisibleRow  = floor((contentOffset.y + pageHeight - topPadding - 1) / self.testCellSize.height);
   NSInteger expectedLastVisibleIndex = ((lastVisibleRow + 1) * expectedCellsPerRow);
   expectedLastVisibleIndex = MIN(self.testCellCount, expectedLastVisibleIndex);
   STAssertEquals((NSInteger)(firstVisibleRow * expectedCellsPerRow),
@@ -290,7 +295,7 @@ BDGridViewDataSource>
       NSUInteger column = cell.index % view.cellsPerRow;
       NSUInteger row    = cell.index / view.cellsPerRow;
       CGRect expectedFrame = CGRectMake((view.padding + self.testCellSize.width) * column, 
-                                        self.testCellSize.height * row + view.topContentPadding,
+                                        self.testCellSize.height * row + topPadding,
                                         self.testCellSize.width, 
                                         self.testCellSize.height);
       CFDictionaryRef expectedFrameDictionary = CGRectCreateDictionaryRepresentation(expectedFrame);
@@ -384,6 +389,14 @@ BDGridViewDataSource>
   view.topContentPadding = 44;
   [view reloadData];
   [self validateView:view forTestCase:@"topContentPadding"];
+  
+  //
+  //  Add a header.
+  //
+  
+  view.headerView = [[[UIView alloc] initWithFrame:CGRectMake(10, 10, 10, 10)] autorelease];
+  [view reloadData];
+  [self validateView:view forTestCase:@"headerView"];
   
   //
   //  Now, scroll forward one half row. There should be a new row of cells (partially) 
@@ -745,6 +758,20 @@ BDGridViewDataSource>
   [[[mockDelegate stub] andReturnValue:OCMOCK_VALUE(shouldEdit)] gridViewShouldEdit:view];
   view.gridViewDelegate = mockDelegate;
   STAssertTrue([view gestureRecognizerShouldBegin:panGesture], nil);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Tests adding a header view to the grid.
+//
+
+- (void)testHeaderView {
+  
+  BDGridView *view = [[[BDGridView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)] autorelease];
+  UIView *header = [[[UIView alloc] initWithFrame:CGRectMake(100, 100, 50, 10)] autorelease];
+  
+  view.headerView = header;
+  STAssertEquals(view.topContentPadding, (CGFloat)0, nil);
 }
 
 @end

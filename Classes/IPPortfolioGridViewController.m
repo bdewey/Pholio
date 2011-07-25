@@ -24,6 +24,7 @@
 #import "IPPortfolio.h"
 #import "IPPortfolioGridViewController.h"
 #import "IPSetGridViewController.h"
+#import "IPSetPagingViewController.h"
 #import "BDGridCell.h"
 #import "IPPasteboardObject.h"
 #import "BDImagePickerController.h"
@@ -34,6 +35,7 @@
 #import "IPPhotoOptimizationManager.h"
 #import "IPPhoto.h"
 #import "BDContrainPanGestureRecognizer.h"
+#import "IPGridHeader.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -226,6 +228,18 @@
 
 @interface IPPortfolioGridViewController() 
 
+//
+//  This is the header label that we've displayed over our content.
+//
+
+@property (nonatomic, retain) IPGridHeader *gridHeader;
+
+//
+//  The font we use for showing the header label. 
+//
+
+@property (nonatomic, readonly) UIFont *headerFont;
+
 - (void)setTitleToPortfolioTitle;
 - (void)pushControllerForSet:(IPSet *)set;
 
@@ -237,6 +251,8 @@
 @implementation IPPortfolioGridViewController
 
 @synthesize gridView = gridView_;
+@synthesize gridHeader = gridHeader_;
+@dynamic headerFont;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -265,6 +281,7 @@
   
   self.portfolio = nil;
   [gridView_ release];
+  [gridHeader_ release];
   [super dealloc];
 }
 
@@ -289,6 +306,19 @@
 - (void)viewDidLoad {
 
   [super viewDidLoad];
+  
+  //
+  //  Create the header label.
+  //
+  
+  gridHeader_ = [[IPGridHeader alloc] initWithNibName:nil bundle:nil];
+  gridHeader_.delegate = self;
+  self.gridView.headerView = gridHeader_.view;
+  if (self.portfolio != nil) {
+    
+    self.gridHeader.foregroundColor = self.portfolio.fontColor;
+    self.gridHeader.label.font = self.portfolio.titleFont;
+  }
 
   self.gridView.dataSource = self;
   self.gridView.gridViewDelegate = self;
@@ -321,6 +351,7 @@
   [super viewDidUnload];
   
   self.gridView = nil;
+  self.gridHeader = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -331,7 +362,8 @@
 - (void)viewDidAppear:(BOOL)animated {
   
   [super viewDidAppear:animated];
-  self.gridView.topContentPadding = self.navigationController.navigationBar.frame.size.height;
+//  self.gridView.topContentPadding = self.navigationController.navigationBar.frame.size.height;
+  [self.navigationController setNavigationBarHidden:YES animated:YES];
   self.gridView.alpha = 0;
   [UIView animateWithDuration:0.2 animations:^(void) {
     self.gridView.alpha = 1;
@@ -422,9 +454,21 @@
   } else {
     self.titleTextField.text = kProductName;
   }
+  self.gridHeader.label.text = self.titleTextField.text;
   _GTMDevLog(@"%s -- titleTextField is %@", 
              __PRETTY_FUNCTION__,
              self.titleTextField.text);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Gets the header font. This is a larger version of the font stored in
+//  |self.portfolio|.
+//
+
+- (UIFont *)headerFont {
+  
+  return [UIFont fontWithName:self.portfolio.titleFont.fontName size:36.0];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -455,6 +499,8 @@
     self.navigationController.navigationBar.tintColor = self.portfolio.navigationColor;
     self.navigationController.navigationBar.translucent = YES;
   }
+  self.gridHeader.label.font = self.headerFont;
+  self.gridHeader.foregroundColor = self.portfolio.fontColor;
 
   _GTMDevLog(@"%s -- looking at a portfolio with %d set(s)",
              __PRETTY_FUNCTION__,
@@ -528,6 +574,21 @@
   }];
 }
 
+#pragma mark - IPGridHeaderDelegate
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)gridHeaderDidTapSettings:(IPGridHeader *)gridHeader {
+  
+  UIPopoverController *settingsPopover = [self settingsPopover];
+  [self dismissPopover];
+  self.popoverController = settingsPopover;
+  [self.popoverController presentPopoverFromRect:self.gridHeader.settingsButton.frame 
+                                          inView:self.gridHeader.view 
+                        permittedArrowDirections:UIPopoverArrowDirectionAny 
+                                        animated:YES];
+}
+
 #pragma mark - IPSettingsControllerDelegate
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -539,6 +600,7 @@
   
   [super ipSettingsSetGridTextColor:gridTextColor];
   self.gridView.fontColor = self.portfolio.fontColor;
+  self.gridHeader.foregroundColor = self.portfolio.fontColor;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -552,6 +614,14 @@
   self.gridView.font = self.portfolio.textFont;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)ipSettingsDidSetTitleFontFamily:(NSString *)fontFamily {
+  
+  [super ipSettingsDidSetTitleFontFamily:fontFamily];
+  self.gridHeader.label.font = self.headerFont;
+}
+
 #pragma mark -
 #pragma mark BDGridViewDataSource
 
@@ -563,7 +633,12 @@
 - (CGSize)gridViewSizeOfCell:(BDGridView *)gridView {
   
   CGFloat size = 300;
-  return CGSizeMake(size, size);
+  
+  //
+  //  The +20 below is for the 10 pixel top & bottom edge inset on the cell.
+  //
+  
+  return CGSizeMake(size, size + 20);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -587,7 +662,7 @@
   if (cell == nil) {
     
     cell = [[[IPSetCell alloc] initWithStyle:BDGridCellStyleTile] autorelease];
-    cell.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    cell.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
     cell.captionHeight = 75;
   }
   
@@ -606,7 +681,8 @@
 
 - (void)pushControllerForSet:(IPSet *)set {
   
-  IPSetGridViewController *setController = [[[IPSetGridViewController alloc] initWithNibName:@"IPSetGridViewController" bundle:nil] autorelease];
+//  IPSetGridViewController *setController = [[[IPSetGridViewController alloc] initWithNibName:@"IPSetGridViewController" bundle:nil] autorelease];
+  IPSetPagingViewController *setController = [[[IPSetPagingViewController alloc] initWithNibName:@"IPSetPagingViewController" bundle:nil] autorelease];
   setController.backButtonText = self.titleTextField.text;
   setController.currentSet = set;
   [self.navigationController pushViewController:setController animated:NO];

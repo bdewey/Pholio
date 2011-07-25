@@ -40,12 +40,12 @@
     sets_ = [[NSMutableArray alloc] init];
     
     //
-    //  Put random 15 bits in the upper part of the version number.
+    //  Start with a random version number.
     //  This reduced the likelihood of incorrect matches of different
     //  portfolios.
     //
     
-    SecRandomCopyBytes(kSecRandomDefault, sizeof(version_), &version_);
+    SecRandomCopyBytes(kSecRandomDefault, sizeof(version_), (uint8_t *)(&version_));
   }
   return self;
 }
