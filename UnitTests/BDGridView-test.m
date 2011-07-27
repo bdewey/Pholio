@@ -774,4 +774,95 @@ BDGridViewDataSource>
   STAssertEquals(view.topContentPadding, (CGFloat)0, nil);
 }
 
+typedef struct {
+  NSUInteger cellIndex;
+  NSUInteger gridIndex;
+} ExpectedIndexTranslation;
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Tests cell <-> grid index translation
+//
+
+- (void)testIndexTranslation {
+  
+  BDGridView *view = [[[BDGridView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)] autorelease];
+  
+  //
+  //  Set this up to use 100 cells, each 10x10. 10 cells fit per row.
+  //
+  
+  self.testCellSize = CGSizeMake(10, 10);
+  self.testCellCount = 100;
+  view.dataSource = self;
+  view.minimumPadding = 0.0;
+  [self resetAllocatedCellTracking];
+  [view reloadData];
+  
+  STAssertEquals((NSUInteger)10, view.cellsPerRow, nil);
+  STAssertEquals((NSUInteger)10, view.countOfRows, nil);
+  
+  //
+  //  Case 1. When no drop cap style is used (default), then the logical and grid indexes
+  //  coincide.
+  //
+  
+  STAssertEquals((NSUInteger)1, view.dropCapHeight, nil);
+  STAssertEquals((NSUInteger)1, view.dropCapWidth, nil);
+  
+  NSUInteger testIndexes[] = { 0, 1, 2, 3, 5, 7, 15, 100 };
+  for (int i = 0; i < sizeof(testIndexes) / sizeof(NSUInteger); i++) {
+    
+    NSUInteger translation = [view cellIndexForGridIndex:testIndexes[i]];
+    STAssertEquals(translation, testIndexes[i], nil);
+    translation = [view gridIndexForCellIndex:testIndexes[i]];
+    STAssertEquals(translation, testIndexes[i], nil);
+  }
+  
+  //
+  //  Now, set up a 3 by 4 drop cap. Witness the new cell translations.
+  //
+  
+  view.dropCapWidth  = 3;
+  view.dropCapHeight = 4;
+  [view reloadData];
+  
+  STAssertEquals((NSUInteger)10, view.cellsPerRow, nil);
+  STAssertEquals((NSUInteger)12, view.countOfRows, nil);
+  
+  //
+  //  Remember, this is (cell, grid)...
+  //
+  
+  ExpectedIndexTranslation expectedResults[] = {
+    { 0, 0 },
+    { 1, 3 },
+    { 7, 9 },
+    { 8, 13 },
+    { 22, 33 },
+    { 28, 39 },
+    { 29, 40 },
+    { 48, 59 }
+  };
+  
+  for (int i = 0; i < sizeof(expectedResults) / sizeof(ExpectedIndexTranslation); i++) {
+    
+    NSUInteger translation = [view gridIndexForCellIndex:expectedResults[i].cellIndex];
+    STAssertEquals(translation, expectedResults[i].gridIndex, nil);
+    translation = [view cellIndexForGridIndex:expectedResults[i].gridIndex];
+    STAssertEquals(translation, expectedResults[i].cellIndex, nil);
+  }
+  
+  //
+  //  All of these are in the drop cap region.
+  //
+  
+  NSUInteger gridIndexesInDropCap[] = { 0, 1, 2, 10, 11, 12, 20, 21, 22, 30, 31, 32 };
+  for (int i = 0; i < sizeof(gridIndexesInDropCap) / sizeof(NSUInteger); i++) {
+    
+    NSUInteger translation = [view cellIndexForGridIndex:gridIndexesInDropCap[i]];
+    STAssertEquals((NSUInteger)0, translation, nil);
+  }
+}
+
 @end

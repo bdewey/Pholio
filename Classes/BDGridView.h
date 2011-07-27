@@ -87,6 +87,18 @@
 @property (nonatomic, readonly) NSUInteger countOfRows;
 
 //
+//  The grid optionally supports a "drop cap" style. In this style, the 
+//  first cell in the grid is larger than other cells. Its dimensions
+//  are expressed in terms of integral counts of width and height
+//  for the first cell. 
+//
+//  Defaults to 1x1 -- i.e., the first cell looks just like any other cell.
+//
+
+@property (nonatomic, assign) NSUInteger dropCapWidth;
+@property (nonatomic, assign) NSUInteger dropCapHeight;
+
+//
 //  The font color to use for the text in all cells.
 //
 
@@ -120,6 +132,42 @@
 
 @property (nonatomic, readonly) NSInteger firstVisibleIndex;
 @property (nonatomic, readonly) NSInteger lastVisibleIndex;
+
+//
+//  To support more complex grid layouts (like the "drop cap" style, when the
+//  first cell spans multiple cells), |BDGridView| has the concept of the
+//  "cell" and "grid" indexes. The grid index is a simple numbering of grid
+//  cells, starting at zero and moving across each row before moving to the next.
+//
+//  Thus:
+//
+//        0   1   2   3
+//        4   5   6   7
+//        8   9  10  11
+//
+//  ...are grid indexes. The cell index is the index of the cell that is shown
+//  in the corresponding grid index. So, if the grid is using a drop cap style
+//  where the first cell takes up two rows and two columns, the cell indexes
+//  for the grid would be:
+//
+//        0   0   1   2
+//        0   0   3   4
+//        5   6   7   8
+//
+//  These routines do index translation based upon the current layout of the
+//  grid.
+//
+
+- (NSUInteger)cellIndexForGridIndex:(NSUInteger)gridIndex;
+- (NSUInteger)gridIndexForCellIndex:(NSUInteger)cellIndex;
+
+//
+//  Given a certain number of columns in the layout, compute the number of
+//  rows, taking into account any crazy drop-cap configuration (or other
+//  layout variations I may dream up in the future).
+//
+
+- (NSUInteger)countOfGridRowsGivenCellsPerRow:(NSUInteger)cellsPerRow;
 
 //
 //  Reloads / redraws the grid.

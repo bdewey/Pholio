@@ -130,6 +130,8 @@
 @synthesize headerView = headerView_;
 @synthesize cellsPerRow = cellsPerRow_;
 @synthesize countOfRows = countOfRows_;
+@synthesize dropCapWidth = dropCapWidth_;
+@synthesize dropCapHeight = dropCapHeight_;
 @synthesize fontColor = fontColor_;
 @synthesize font = font_;
 @synthesize firstVisibleIndex = firstVisibleIndex_;
@@ -194,6 +196,12 @@
   activeGap_ = NSNotFound;
   insertionPoint_ = NSNotFound;
   minimumPadding_ = kMinimumPadding;
+  
+  //
+  //  By default, we don't do any fancy drop-capping.
+  //
+  
+  dropCapWidth_ = dropCapHeight_ = 1;
   
   UITapGestureRecognizer *tap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)] autorelease];
   tap.cancelsTouchesInView = NO;
@@ -426,6 +434,113 @@
   }
 }
 
+#pragma mark - Logical / Grid Index translation
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (NSUInteger)cellIndexForGridIndex:(NSUInteger)gridIndex {
+  
+  //
+  //  Get the grid row & column that correspond to this index.
+  //
+  
+  NSUInteger row = gridIndex / self.cellsPerRow;
+  NSUInteger column = gridIndex % self.cellsPerRow;
+  
+  if ((column < self.dropCapWidth) && (row < self.dropCapHeight)) {
+    
+    //
+    //  If both the row & column index are less than the drop cap dimensions,
+    //  then we're looking at the first cell.
+    //
+    
+    return 0;
+  }
+  
+  if (row < self.dropCapHeight) {
+    
+    //
+    //  We're in the "truncated" region of the grid. Here, you don't get a 
+    //  full row of new cells for each row of the grid, because part of the
+    //  row is taken up by the drop cap.
+    //
+    
+    _GTMDevAssert(self.cellsPerRow > self.dropCapWidth, 
+                  @"Must have enough cells per row to accomodate the drop cap");
+    _GTMDevAssert(column >= self.dropCapWidth,
+                  @"The column value must be in the truncated region of the grid");
+    NSUInteger truncatedCellsPerRow = self.cellsPerRow - self.dropCapWidth;
+    return 1 + (row * truncatedCellsPerRow) + (column - self.dropCapWidth);
+  }
+  
+  //
+  //  In this case, we're in the "full" portion of the grid. Each row gets a
+  //  full row of new cells.
+  //
+  
+  NSUInteger firstFullIndex = 1 + (self.cellsPerRow - self.dropCapWidth) * self.dropCapHeight;
+  return firstFullIndex + ((row - self.dropCapHeight) * self.cellsPerRow) + column;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (NSUInteger)gridIndexForCellIndex:(NSUInteger)cellIndex {
+  
+  if (cellIndex == 0) {
+    
+    //
+    //  This is the same no matter what drop cap we're using.
+    //
+    
+    return 0;
+  }
+  
+  //
+  //  Compute the first index in the "full" region of the grid.
+  //  This is the region below the drop cap, that gets a full complement of 
+  //  cells in each row.
+  //
+  
+  NSUInteger row, column;
+  NSUInteger firstFullRegionIndex = 1 + (self.cellsPerRow - self.dropCapWidth) * self.dropCapHeight;
+  if (cellIndex < firstFullRegionIndex) {
+    
+    //
+    //  We're in the truncated region. Compute the corresponding grid index.
+    //
+    
+    NSUInteger cellsPerTruncatedRow = self.cellsPerRow - self.dropCapWidth;
+    row = (cellIndex - 1) / cellsPerTruncatedRow;
+    column = self.dropCapWidth + ((cellIndex - 1) % cellsPerTruncatedRow);
+    
+  } else {
+    
+    //
+    //  We're in the full region. 
+    //
+    
+    NSUInteger indexIntoFullRegion = cellIndex - firstFullRegionIndex;
+    row = self.dropCapHeight + indexIntoFullRegion / self.cellsPerRow;
+    column = indexIntoFullRegion % self.cellsPerRow;
+  }
+  
+  return row * self.cellsPerRow + column;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (NSUInteger)countOfGridRowsGivenCellsPerRow:(NSUInteger)cellsPerRow {
+  
+  CGFloat numberOfCells = [self.dataSource gridViewCountOfCells:self];
+  
+  //
+  //  Simple adjustment for drop cap.
+  //
+  
+  numberOfCells += (dropCapWidth_ * dropCapHeight_) - 1;
+  return MAX(1, ceil(numberOfCells / cellsPerRow));
+}
+
 #pragma mark -
 #pragma mark Cell management
 
@@ -463,8 +578,7 @@
   
   CGFloat cellsPerRow = MAX(1, floor(width / cellSize.width));
   cellsPerRow_ = round(cellsPerRow);
-  CGFloat numberOfCells = [self.dataSource gridViewCountOfCells:self];
-  countOfRows_ = MAX(1, ceil(numberOfCells / cellsPerRow));
+  countOfRows_ = [self countOfGridRowsGivenCellsPerRow:cellsPerRow_];
   
   //
   //  Adjust |cellsPerRow| until |padding| is at least |kMinimumPadding|.
@@ -483,7 +597,7 @@
     if (padding_ < self.minimumPadding) {
       
       cellsPerRow_--;
-      countOfRows_ = MAX(1, ceil(numberOfCells / self.cellsPerRow));
+      countOfRows_ = [self countOfGridRowsGivenCellsPerRow:cellsPerRow_];
     }
   } while (padding_ < self.minimumPadding);
   
