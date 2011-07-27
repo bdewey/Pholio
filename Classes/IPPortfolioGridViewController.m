@@ -319,6 +319,8 @@
     self.gridHeader.foregroundColor = self.portfolio.fontColor;
     self.gridHeader.label.font = self.portfolio.titleFont;
   }
+  self.gridView.dropCapHeight = 2;
+  self.gridView.dropCapWidth = 2;
 
   self.gridView.dataSource = self;
   self.gridView.gridViewDelegate = self;

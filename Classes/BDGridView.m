@@ -108,6 +108,7 @@
 - (void)handleLongTap:(UILongPressGestureRecognizer *)gestureRecognizer;
 - (void)handleCellPan:(BDContrainPanGestureRecognizer *)panGesture;
 - (void)addNew;
+- (CGSize)sizeForIndex:(NSUInteger)index;
 
 @end
 
@@ -617,7 +618,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  Computes the grid index for a point in the view.
+//  Computes the cell index for a point in the view.
 //
 
 - (NSUInteger)indexForPoint:(CGPoint)point {
@@ -627,7 +628,7 @@
   CGFloat pointRow = floor((point.y - [self topPaddingIncludingHeader]) / cellSize.height);
   CGFloat pointColumn = floor(point.x / (cellSize.width + self.padding));
   
-  return round(pointRow * self.cellsPerRow + pointColumn);
+  return [self cellIndexForGridIndex:round(pointRow * self.cellsPerRow + pointColumn)];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -643,6 +644,10 @@
       self.pannedCell.index == index) {
     return YES;
   }
+  if (index == self.activeGap) {
+    
+    return YES;
+  }
   for (BDGridCell *cell in viewCells_) {
     
     if (cell.index == index) {
@@ -654,16 +659,35 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+- (CGSize)sizeForIndex:(NSUInteger)index {
+  
+  CGSize cellSize = [self.dataSource gridViewSizeOfCell:self];
+  
+  if (index == 0) {
+    
+    //
+    //  This is the "drop cap" index. Adjust the cell size appropriately.
+    //
+    
+    cellSize.width = self.dropCapWidth * (cellSize.width + self.padding) - self.padding;
+    cellSize.height = self.dropCapHeight * cellSize.height;
+  }
+  return cellSize;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 //
 //  Computes the frame for a particular cell.
 //
 
 - (CGRect)frameForCellAtIndex:(NSUInteger)index {
-  
+
+  index = [self gridIndexForCellIndex:index];
   NSUInteger targetRow = index / self.cellsPerRow;
   NSUInteger targetColumn = index % self.cellsPerRow;
-  CGSize cellSize = [self.dataSource gridViewSizeOfCell:self];
-  
+  CGSize cellSize = [self sizeForIndex:index];
+
   //
   //  Compute the origin of this cell. Note there is |self.padding| pixels 
   //  of padding between each column, including before the first and after the
@@ -822,10 +846,30 @@
   firstVisibleRow = MAX(0, firstVisibleRow);
   CGFloat lastVisibleRow  = floor((CGRectGetMaxY(visibleBounds)-1) / cellSize.height);
   NSUInteger firstVisibleCell = firstVisibleRow * self.cellsPerRow;
+  firstVisibleCell = [self cellIndexForGridIndex:firstVisibleCell];
   
   NSInteger countOfCells = [self.dataSource gridViewCountOfCells:self];
-  NSInteger firstNonVisibleIndex = MIN(((lastVisibleRow + 1) * self.cellsPerRow),
-                                       countOfCells);
+  
+  //
+  //  Adjust |countOfCells| to account for additional space consumed by the drop
+  //  cap.
+  //
+  
+//  countOfCells += (self.dropCapHeight * self.dropCapWidth) - 1;
+  NSInteger firstNonVisibleIndex = (lastVisibleRow + 1) * self.cellsPerRow;
+  
+  //
+  //  What we just computed was a grid index. Convert it to a cell index.
+  //  Do a little bit of trickery to make we don't hit the drop cap.
+  //
+  
+  firstNonVisibleIndex = [self cellIndexForGridIndex:firstNonVisibleIndex - 1] + 1;
+  
+  //
+  //  Cap the first non-visible index as the count of cells.
+  //
+  
+  firstNonVisibleIndex = MIN(countOfCells, firstNonVisibleIndex);
   
   _GTMDevAssert(viewCells_ != nil, @"viewCells must not be nil");
   _GTMDevAssert(recycledCells_ != nil, @"recycledCells must not be nil");
@@ -1257,10 +1301,10 @@
       
       if (self.pannedCell != nil) {
         
+        [self setActiveGap:[self indexForPoint:panGesture.currentTouchPoint] animated:YES];
         self.pannedCell.frame = CGRectOffset(initialFrame, 
                                              panGesture.translation.x, 
                                              panGesture.translation.y);
-        [self setActiveGap:[self indexForPoint:panGesture.currentTouchPoint] animated:YES];
       }
       break;
   }
