@@ -133,6 +133,7 @@
 @synthesize countOfRows = countOfRows_;
 @synthesize dropCapWidth = dropCapWidth_;
 @synthesize dropCapHeight = dropCapHeight_;
+@synthesize labelBackgroundColor = labelBackgroundColor_;
 @synthesize fontColor = fontColor_;
 @synthesize font = font_;
 @synthesize firstVisibleIndex = firstVisibleIndex_;
@@ -177,6 +178,7 @@
   [viewCells_ release];
   [recycledCells_ release];
   [selectedCells_ release];
+  [labelBackgroundColor_ release];
   [fontColor_ release];
   [font_ release];
   [pannedCell_ release];
@@ -357,6 +359,24 @@
   }
   _GTMDevAssert(![self.viewCells containsObject:pannedCell], 
                 @"Panned cell should no longer be visible");
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)setLabelBackgroundColor:(UIColor *)labelBackgroundColor {
+  
+  if (labelBackgroundColor == labelBackgroundColor_) {
+    
+    return;
+  }
+  [labelBackgroundColor_ release];
+  labelBackgroundColor_ = [labelBackgroundColor retain];
+  
+  for (BDGridCell *cell in self.viewCells) {
+    
+    cell.labelBackgroundColor = self.labelBackgroundColor;
+  }
+  [self setNeedsLayout];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -911,6 +931,7 @@
         cell.index = i;
         cell.fontColor = self.fontColor;
         cell.font = self.font;
+        cell.labelBackgroundColor = self.labelBackgroundColor;
         [viewCells_ addObject:cell];
         [self configureCell:cell];
         [self addSubview:cell];

@@ -41,6 +41,7 @@
 @synthesize style = style_;
 @dynamic caption;
 @dynamic fontColor;
+@synthesize labelBackgroundColor = labelBackgroundColor_;
 @dynamic font;
 @synthesize index = index_;
 @synthesize contentInset = contentInset_;
@@ -64,6 +65,7 @@
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     captionHeight_ = kDefaultCaptionHeight;
     self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.0];
+    self.labelBackgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
 
     //
     //  Construct a view for holding our label.
@@ -76,7 +78,7 @@
     self.label = [[[UILabel alloc] init] autorelease];
     self.label.textAlignment = UITextAlignmentCenter;
     self.label.textColor = [UIColor whiteColor];
-    self.label.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.0];
+    self.label.backgroundColor = [UIColor clearColor];
     self.label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.labelView addSubview:self.label];
     
@@ -102,6 +104,7 @@
   [imageView_ release];
   [label_ release];
   [labelView_ release];
+  [labelBackgroundColor_ release];
   
   [super dealloc];
 }
@@ -306,7 +309,7 @@
   switch (self.style) {
     case BDGridCellStyleTile:
       self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-      self.labelView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+      self.labelView.backgroundColor = self.labelBackgroundColor;
       break;
 
     case BDGridCellStyleDefault:
@@ -315,6 +318,23 @@
       self.labelView.backgroundColor = nil;
       break;
       
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)setLabelBackgroundColor:(UIColor *)labelBackgroundColor {
+  
+  if (labelBackgroundColor == labelBackgroundColor_) {
+    
+    return;
+  }
+  [labelBackgroundColor_ release];
+  labelBackgroundColor_ = [[labelBackgroundColor colorWithAlphaComponent:0.5] retain];
+  
+  if (self.style == BDGridCellStyleTile) {
+    
+    self.labelView.backgroundColor = labelBackgroundColor_;
   }
 }
 

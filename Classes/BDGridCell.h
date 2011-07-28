@@ -75,6 +75,12 @@ typedef enum {
 @property (nonatomic, retain) UIColor *fontColor;
 
 //
+//  Color behind the label in a tile view.
+//
+
+@property (nonatomic, retain) UIColor *labelBackgroundColor;
+
+//
 //  font.
 //
 

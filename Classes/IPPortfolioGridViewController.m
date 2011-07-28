@@ -323,6 +323,7 @@
     
     self.gridHeader.foregroundColor = self.portfolio.fontColor;
     self.gridHeader.label.font = self.portfolio.titleFont;
+    self.gridView.labelBackgroundColor = self.portfolio.navigationColor;
   }
     [self configureDropCap];
 
@@ -523,6 +524,7 @@
     self.gridView.fontColor = self.portfolio.fontColor;
   }
   self.gridView.font = self.portfolio.textFont;
+  self.gridView.labelBackgroundColor = self.portfolio.navigationColor;
   self.titleTextField.font = self.portfolio.titleFont;
   if (self.portfolio.navigationColor != nil) {
     
@@ -626,6 +628,14 @@
 }
 
 #pragma mark - IPSettingsControllerDelegate
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)ipSettingsSetNavigationColor:(UIColor *)navigationColor {
+  
+  [super ipSettingsSetNavigationColor:navigationColor];
+  self.gridView.labelBackgroundColor = navigationColor;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 //

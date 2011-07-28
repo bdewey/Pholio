@@ -99,6 +99,12 @@
 @property (nonatomic, assign) NSUInteger dropCapHeight;
 
 //
+//  If the cell label uses a background color, it will use this one.
+//
+
+@property (nonatomic, retain) UIColor *labelBackgroundColor;
+
+//
 //  The font color to use for the text in all cells.
 //
 
