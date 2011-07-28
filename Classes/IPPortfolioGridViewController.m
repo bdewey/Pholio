@@ -136,15 +136,19 @@
 - (void)compositeAsyncWithCompletion:(void(^)(UIImage *compositeImage))completion {
   
   completion = [completion copy];
-  dispatch_queue_t defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-  dispatch_async(defaultQueue, ^(void) {
+  
+  //
+  //  ACK! Note that UIGraphicsBeginImageContextWithOptions must be called
+  //  on the main thread. Compositing uses this function. Ergo, we'll do the
+  //  operation async but we'll do it on the main queue.
+  //
+  
+  [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
     UIImage *composite = [[self compositeImage] retain];
-    dispatch_async(dispatch_get_main_queue(), ^(void) {
-      completion(composite);
-      [completion release];
-      [composite release];
-    });
-  });
+    completion(composite);
+    [composite release];
+    [completion release];
+  }];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
