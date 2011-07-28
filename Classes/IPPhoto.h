@@ -27,10 +27,10 @@
 #define kIPPhotoTitle               @"title"
 #define kIPPhotoCaption             @"caption"
 #define kIPPhotoImageSize           @"imageSize"
-#define kThumbnailSize              250
+#define kThumbnailSize              384
 #define kThumbnailBorderSize        10
 #define kThumbnailCornerRadius      0
-#define kThumbnailPathComponent     @"thumbnails_v2.0"
+#define kThumbnailPathComponent     @"thumbnails_v4"
 
 //
 //  When we rescale this image for tiling, we don't need to worry about
@@ -46,7 +46,7 @@
 //  Used in -[IPPhoto optimize].
 //
 
-#define kIPPhotoCurrentOptimizationVersion    (1)
+#define kIPPhotoCurrentOptimizationVersion    (4)
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -62,6 +62,13 @@
 @property (nonatomic, copy) NSString *caption;
 @property (nonatomic, copy) UIImage  *image;
 @property (nonatomic, assign) CGSize imageSize;
+
+//
+//  When the photo gets optimized, this property is set to the version of the
+//  optimization algorithm used.
+//
+
+@property (nonatomic, assign) NSUInteger optimizedVersion;
 
 //
 //  The thumbnail is generated on demand. Note this can be expensive, so there's

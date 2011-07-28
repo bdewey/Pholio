@@ -207,16 +207,17 @@
         
         //
         //  Things that are in the model but have no thumbnail need to get 
-        //  removed from the model.
+        //  updated. Make sure these get optimized.
         //
         
         fileExists = [[NSFileManager defaultManager] fileExistsAtPath:thePhoto.thumbnailFilename isDirectory:&isDirectory];
         if (!fileExists || isDirectory) {
           
-          _GTMDevLog(@"%s -- deleting page from set %@: no thumbnail",
+          _GTMDevLog(@"%s -- marking page for optimization from set %@: no thumbnail",
                      __PRETTY_FUNCTION__,
                      theSet.title);
-          [photosToDelete addObject:thePhoto];
+          thePhoto.optimizedVersion = NSNotFound;
+          self.imageOptimizationVersion = NSNotFound;
         }
       }
     }

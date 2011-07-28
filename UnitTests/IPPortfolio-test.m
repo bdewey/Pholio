@@ -295,7 +295,12 @@
   
   STAssertNoThrow([portfolio performSelector:@selector(fixPhotoFileNames)], nil);
   
-  STAssertEquals((NSUInteger)1, [set countOfPages], nil);
+  STAssertEquals((NSUInteger)4, [set countOfPages], nil);
+  STAssertEquals((NSUInteger)NSNotFound, [portfolio imageOptimizationVersion], nil);
+  STAssertEquals((NSUInteger)NSNotFound, 
+                 [[[set objectInPagesAtIndex:0] objectInPhotosAtIndex:0] optimizedVersion],
+                 nil);
+  
   
   //
   //  Look for valid photos.

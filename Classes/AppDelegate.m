@@ -389,6 +389,10 @@
 - (void)upgradePhotoOptimizationForPortfolio:(IPPortfolio *)portfolio completion:(IPPhotoOptimizationCompletion)completion {
   
   completion = [completion copy];
+  _GTMDevLog(@"%s -- Portfolio image optimization version = %d, current = %d",
+             __PRETTY_FUNCTION__,
+             portfolio.imageOptimizationVersion,
+             kIPPhotoCurrentOptimizationVersion);
   if (portfolio.imageOptimizationVersion == kIPPhotoCurrentOptimizationVersion) {
     
     //

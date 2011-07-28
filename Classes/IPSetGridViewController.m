@@ -27,6 +27,7 @@
 #import "BDImagePickerController.h"
 #import "IPAlert.h"
 #import "IPPhotoOptimizationManager.h"
+#import "UIImage+Border.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -77,7 +78,7 @@
   
   [self.photo addObserver:self forKeyPath:kIPPhotoTitle options:0 context:NULL];
   self.caption = self.photo.title;
-  self.image = self.photo.thumbnail;
+  self.image = [self.photo.thumbnail imageWithBorderWidth:10.0 andColor:[[UIColor whiteColor] CGColor]];
 }
 
 ////////////////////////////////////////////////////////////////////////////////

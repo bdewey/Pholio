@@ -46,13 +46,6 @@
             usingPrefix:(NSString*)prefix;
 + (UIImage *)rescaleIfNecessary:(UIImage *)image;
 
-//
-//  When the photo gets optimized, this property is set to the version of the
-//  optimization algorithm used.
-//
-
-@property (nonatomic, assign) NSUInteger optimizedVersion;
-
 @end
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -358,31 +351,17 @@
 
 - (UIImage *)thumbnailFromImage:(UIImage *)image {
 
-  if (image == nil) {
-    
-    //
-    //  Short circuit.
-    //
-    
-    return nil;
-  }
-  UIImage *thumbnail;
-  CGSize dimensions = CGSizeMake(kThumbnailSize - 2 * kThumbnailBorderSize, 
-                                 kThumbnailSize - 2 * kThumbnailBorderSize);
-  thumbnail = [self.image resizedImageWithContentMode:UIViewContentModeScaleAspectFit 
-                                                bounds:dimensions 
-                                  interpolationQuality:kCGInterpolationHigh];
-  thumbnail = [thumbnail imageWithBorderWidth:kThumbnailBorderSize 
-                                       andColor:[[UIColor whiteColor] CGColor]];
-  _GTMDevAssert(thumbnail.size.width <= kThumbnailSize + 1, 
-                @"Expected max width of %f, found %f",
-                (CGFloat)kThumbnailSize,
-                thumbnail.size.width);
-  _GTMDevAssert(thumbnail.size.height <= kThumbnailSize + 1, 
-                @"Expected max height of %f, found %f",
-                (CGFloat)kThumbnailSize,
-                thumbnail.size.height);
-  return thumbnail;
+  NSURL *imageUrl = [NSURL fileURLWithPath:self.filename];
+  CGImageSourceRef imageSource = CGImageSourceCreateWithURL((CFURLRef)imageUrl, NULL);
+  NSDictionary *thumbnailOptions = [NSDictionary dictionaryWithObjectsAndKeys:(id)kCFBooleanTrue, kCGImageSourceCreateThumbnailWithTransform,
+                                    kCFBooleanTrue, kCGImageSourceCreateThumbnailFromImageAlways,
+                                    [NSNumber numberWithFloat:kThumbnailSize], kCGImageSourceThumbnailMaxPixelSize,
+                                    nil];
+  CGImageRef thumbnail = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, (CFDictionaryRef)thumbnailOptions);
+  UIImage *resizedImage = [UIImage imageWithCGImage:thumbnail];
+  CFRelease(thumbnail);
+  CFRelease(imageSource);
+  return resizedImage;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

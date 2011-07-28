@@ -731,7 +731,13 @@
 
 - (void)configureCell:(BDGridCell *)cell {
   
+  CGRect newFrame = [self frameForCellAtIndex:cell.index];
+  CGRect oldFrame = cell.frame;
   cell.frame = [self frameForCellAtIndex:cell.index];
+  if (newFrame.size.width != oldFrame.size.width) {
+    
+    [cell setNeedsDisplay];
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

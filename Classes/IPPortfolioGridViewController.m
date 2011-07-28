@@ -103,7 +103,8 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     IPPage *page = [self.currentSet objectInPagesAtIndex:i];
     IPPhoto *photo = [page objectInPhotosAtIndex:0];
-    UIImage *bordered = [photo.thumbnail imageWithBorderWidth:1.0 andColor:[[UIColor lightGrayColor] CGColor]];
+    UIImage *bordered = [photo.thumbnail imageWithBorderWidth:10.0 andColor:[[UIColor whiteColor] CGColor]];
+    bordered = [bordered imageWithBorderWidth:1.0 andColor:[[UIColor lightGrayColor] CGColor]];
     UIImageView *photoView = [[[UIImageView alloc] initWithImage:bordered] autorelease];
     CGAffineTransform transform = CGAffineTransformMakeRotation(i * 0.15);
     CGRect postTransformViewSize = CGRectApplyAffineTransform(photoView.frame, transform);
@@ -177,9 +178,28 @@
       break;
       
     case BDGridCellStyleTile:
-      self.image = photo.image;
+      if (self.frame.size.width <= kThumbnailSize) {
+        
+        self.image = photo.thumbnail;
+        
+      } else {
+        
+        self.image = photo.image;
+      }
       break;
   }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Looks at the size of the image and the size of the cell to determine if
+//  we should update the thumbnail.
+//
+
+- (void)drawRect:(CGRect)rect {
+  
+  [self updateThumbnail];
+  [super drawRect:rect];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
