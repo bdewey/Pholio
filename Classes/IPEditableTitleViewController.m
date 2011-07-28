@@ -700,4 +700,26 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
   self.portfolio.textFont = font;
   [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (BOOL)ipSettingsUseTiles {
+  
+  return self.portfolio.layoutStyle == IPPortfolioLayoutStyleTiles;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)ipSettingsSetUseTiles:(BOOL)useTiles {
+  
+  if (useTiles) {
+    
+    self.portfolio.layoutStyle = IPPortfolioLayoutStyleTiles;
+    
+  } else {
+    
+    self.portfolio.layoutStyle = IPPortfolioLayoutStyleStacks;
+  }
+  [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+}
 @end

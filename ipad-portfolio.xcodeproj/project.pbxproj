@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A1372EC13E141EA004469E4 /* IPToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD8CF0D13E13CA000BD88E6 /* IPToggleCell.m */; };
 		0A4F0C7A13D938F8008759F5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4F0C7913D938F8008759F5 /* Security.framework */; };
 		0A4F0C8113D944EB008759F5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4F0C7913D938F8008759F5 /* Security.framework */; };
 		0AB426DE13DCE7A600895092 /* IPGridHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB426DC13DCE7A600895092 /* IPGridHeader.m */; };
@@ -17,6 +18,7 @@
 		0AB426E413DCE87400895092 /* 19-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB426E213DCE87400895092 /* 19-gear.png */; };
 		0AB426EB13DD2D1700895092 /* UIImage+ColorMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB426EA13DD2D1700895092 /* UIImage+ColorMask.m */; };
 		0AB426EC13DD2D1700895092 /* UIImage+ColorMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB426EA13DD2D1700895092 /* UIImage+ColorMask.m */; };
+		0AD8CF0E13E13CA000BD88E6 /* IPToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD8CF0D13E13CA000BD88E6 /* IPToggleCell.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -255,6 +257,8 @@
 		0AB426E213DCE87400895092 /* 19-gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-gear.png"; sourceTree = "<group>"; };
 		0AB426E913DD2D1700895092 /* UIImage+ColorMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ColorMask.h"; sourceTree = "<group>"; };
 		0AB426EA13DD2D1700895092 /* UIImage+ColorMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ColorMask.m"; sourceTree = "<group>"; };
+		0AD8CF0C13E13CA000BD88E6 /* IPToggleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPToggleCell.h; sourceTree = "<group>"; };
+		0AD8CF0D13E13CA000BD88E6 /* IPToggleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPToggleCell.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Pholio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pholio.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -827,6 +831,8 @@
 				D3D01492138C401600181DE7 /* IPFontPickerCell.m */,
 				D3D014AC138CCC5F00181DE7 /* IPColorCell.h */,
 				D3D014AD138CCC5F00181DE7 /* IPColorCell.m */,
+				0AD8CF0C13E13CA000BD88E6 /* IPToggleCell.h */,
+				0AD8CF0D13E13CA000BD88E6 /* IPToggleCell.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1189,6 +1195,7 @@
 				D3B09AB013BC46B00001C3F4 /* AppDelegate.m in Sources */,
 				0AB426DE13DCE7A600895092 /* IPGridHeader.m in Sources */,
 				0AB426EB13DD2D1700895092 /* UIImage+ColorMask.m in Sources */,
+				0AD8CF0E13E13CA000BD88E6 /* IPToggleCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1284,6 +1291,7 @@
 				D3B09AB113BC46B00001C3F4 /* AppDelegate.m in Sources */,
 				0AB426DF13DCE7A600895092 /* IPGridHeader.m in Sources */,
 				0AB426EC13DD2D1700895092 /* UIImage+ColorMask.m in Sources */,
+				0A1372EC13E141EA004469E4 /* IPToggleCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

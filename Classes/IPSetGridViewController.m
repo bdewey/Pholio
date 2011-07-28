@@ -361,6 +361,7 @@
   
   IPPage *page = [self.currentSet objectInPagesAtIndex:index];
   IPPhoto *photo = [page objectInPhotosAtIndex:0];
+  cell.style = BDGridCellStyleDefault;
   cell.photo = photo;
   
   return cell;

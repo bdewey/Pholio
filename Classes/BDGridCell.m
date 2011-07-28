@@ -81,17 +81,6 @@
     [self.labelView addSubview:self.label];
     
     self.imageView = [[[UIImageView alloc] init] autorelease];
-    switch (self.style) {
-      case BDGridCellStyleDefault:
-        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        self.labelView.backgroundColor = nil;
-        break;
-        
-      case BDGridCellStyleTile:
-        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-        self.labelView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-        break;
-    }
     self.imageView.clipsToBounds = YES;
     self.imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | 
       UIViewAutoresizingFlexibleHeight | 
@@ -309,5 +298,24 @@
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)setStyle:(BDGridCellStyle)style {
+  
+  style_ = style;
+  switch (self.style) {
+    case BDGridCellStyleTile:
+      self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+      self.labelView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+      break;
+
+    case BDGridCellStyleDefault:
+    default:
+      self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+      self.labelView.backgroundColor = nil;
+      break;
+      
+  }
+}
 
 @end

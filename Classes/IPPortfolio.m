@@ -32,6 +32,7 @@
 @synthesize fontColor = fontColor_;
 @synthesize titleFont = titleFont_;
 @synthesize textFont = textFont_;
+@synthesize layoutStyle = layoutStyle_;
 @synthesize version = version_;
 @synthesize imageOptimizationVersion = imageOptimizationVersion_;
 
@@ -100,6 +101,7 @@
     self.textFont = [aDecoder decodeObjectForKey:kIPPortfolioTextFont];
     version_ = [aDecoder decodeIntegerForKey:kIPPortfolioVersion];
     self.imageOptimizationVersion = [aDecoder decodeIntegerForKey:kIPPortfolioImageOptimizationVersion];
+    self.layoutStyle = [aDecoder decodeIntegerForKey:kIPPortfolioLayoutStyle];
   }
   return self;
 }
@@ -113,6 +115,7 @@
   [aCoder encodeObject:titleFont_ forKey:kIPPortfolioTitleFont];
   [aCoder encodeObject:textFont_ forKey:kIPPortfolioTextFont];
   [aCoder encodeInteger:imageOptimizationVersion_ forKey:kIPPortfolioImageOptimizationVersion];
+  [aCoder encodeInteger:layoutStyle_ forKey:kIPPortfolioLayoutStyle];
   
   //
   //  Bump the version before encoding.
@@ -130,6 +133,7 @@
   copy.sets = [[[NSMutableArray alloc] initWithArray:sets_ copyItems:YES] autorelease];
   copy.backgroundImageName = [[backgroundImageName_ copyWithZone:zone] autorelease];
   copy.fontColor = [[fontColor_ copy] autorelease];
+  copy.layoutStyle = layoutStyle_;
   return copy;
 }
 

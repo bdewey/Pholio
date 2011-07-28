@@ -240,6 +240,7 @@
 
 @property (nonatomic, readonly) UIFont *headerFont;
 
+- (void)configureDropCap;
 - (void)setTitleToPortfolioTitle;
 - (void)pushControllerForSet:(IPSet *)set;
 
@@ -319,8 +320,7 @@
     self.gridHeader.foregroundColor = self.portfolio.fontColor;
     self.gridHeader.label.font = self.portfolio.titleFont;
   }
-  self.gridView.dropCapHeight = 2;
-  self.gridView.dropCapWidth = 2;
+    [self configureDropCap];
 
   self.gridView.dataSource = self;
   self.gridView.gridViewDelegate = self;
@@ -446,6 +446,28 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
+//  Configures the Drop Cap settings based on the layout style.
+//
+
+- (void)configureDropCap {
+  
+  switch (self.portfolio.layoutStyle) {
+    case IPPortfolioLayoutStyleTiles:
+      self.gridView.dropCapHeight = 2;
+      self.gridView.dropCapWidth = 2;
+      break;
+      
+    case IPPortfolioLayoutStyleStacks:      
+    default:
+      self.gridView.dropCapHeight = 1;
+      self.gridView.dropCapWidth = 1;
+      break;
+  }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+//
 //  Sets the view title to the portfolio title.
 //
 
@@ -487,8 +509,10 @@
   [self.portfolio removeObserver:self 
                       forKeyPath:kIPPortfolioBackgroundImageName];
   [self.portfolio removeObserver:self forKeyPath:kIPPortfolioFontColor];
+  [self.portfolio removeObserver:self forKeyPath:kIPPortfolioLayoutStyle];
   [super setPortfolio:portfolio];
   
+  [self configureDropCap];
   [self setTitleToPortfolioTitle];
   if (self.portfolio.fontColor != nil) {
 
@@ -524,6 +548,7 @@
                    forKeyPath:kIPPortfolioFontColor 
                       options:0 
                       context:NULL];
+  [self.portfolio addObserver:self forKeyPath:kIPPortfolioLayoutStyle options:0 context:NULL];
   [self.gridView setNeedsLayout];
 }
 
@@ -536,6 +561,11 @@
 
   [self setBackgroundImageName:self.portfolio.backgroundImageName];
   self.gridView.fontColor = self.portfolio.fontColor;
+  if ([keyPath isEqualToString:kIPPortfolioLayoutStyle]) {
+    
+    [self configureDropCap];
+    [self.gridView reloadData];
+  }
 }
 
 #pragma mark - Actions
@@ -634,7 +664,22 @@
 
 - (CGSize)gridViewSizeOfCell:(BDGridView *)gridView {
   
-  CGFloat size = 300;
+  CGFloat size;
+  
+  switch (self.portfolio.layoutStyle) {
+    case IPPortfolioLayoutStyleTiles:
+//      size = 300;
+      size = 220;
+      break;
+      
+    case IPPortfolioLayoutStyleStacks:
+      size = 220;
+      break;
+      
+    default:
+      size = 180;
+      break;
+  }
   
   //
   //  The +20 below is for the 10 pixel top & bottom edge inset on the cell.
@@ -665,9 +710,22 @@
     
     cell = [[[IPSetCell alloc] initWithStyle:BDGridCellStyleTile] autorelease];
     cell.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
-    cell.captionHeight = 75;
   }
   
+  switch (self.portfolio.layoutStyle) {
+    case IPPortfolioLayoutStyleStacks:
+      cell.style = BDGridCellStyleDefault;
+      cell.captionHeight = 21;
+      break;
+      
+    case IPPortfolioLayoutStyleTiles:
+      cell.style = BDGridCellStyleTile;
+      cell.captionHeight = 75;
+      break;
+      
+    default:
+      break;
+  }
   cell.currentSet = [self.portfolio objectInSetsAtIndex:index];
   
   return cell;

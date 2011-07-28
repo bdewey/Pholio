@@ -31,6 +31,7 @@
 #import "IPColorCell.h"
 #import "BDColorPicker.h"
 #import "IPUserDefaults.h"
+#import "IPToggleCell.h"
 
 enum IPSettingsControllerSections {
   IPSettingsControllerUserGuide,
@@ -76,7 +77,8 @@ enum IPSettingsInAppPurchases {
 #define kIPSettingsDisplayTitle     NSLocalizedString(@"Display", @"Display")
 
 enum IPSettingsDisplay {
-  IPSettingsDisplayCustomBackground = 0,
+  IPSettingsDisplayTileStyle = 0,
+  IPSettingsDisplayCustomBackground,
   IPSettingsDisplayTitleFont,
   IPSettingsDisplayGridFont,
   IPSettingsDisplayNavigationColor,
@@ -84,6 +86,7 @@ enum IPSettingsDisplay {
   IPSettingsDisplayTextColor
 };
 
+#define kIPSettingsDisplayTileStyleName    NSLocalizedString(@"Use tiles", @"Tile style")
 #define kIPSettingsDisplayTitleFontName    NSLocalizedString(@"Title font", @"Title font")
 #define kIPSettingsDisplayGridFontName     NSLocalizedString(@"Grid font", @"Grid font")
 #define kIPSettingsDisplayTextColorName    NSLocalizedString(@"Text color", @"Text color")
@@ -441,6 +444,16 @@ enum IPSettingsDisplay {
                                    atIndexPath:(NSIndexPath *)indexPath {
 
   switch (indexPath.row) {
+      
+    case IPSettingsDisplayTileStyle:
+    {
+      IPToggleCell *cell = [IPToggleCell cellForTableView:tableView];
+      cell.text = kIPSettingsDisplayTileStyleName;
+      cell.on = [self.delegate ipSettingsUseTiles];
+      cell.delegate = self;
+      return cell;
+    }
+      
     case IPSettingsDisplayCustomBackground:
     {
       IPCustomBackgroundCell *cell = [IPCustomBackgroundCell cellForTableView:tableView];
@@ -703,6 +716,13 @@ enum IPSettingsDisplay {
   }
 }
 
+#pragma mark - IPToggleCellDelegate
 
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)toggleCell:(IPToggleCell *)cell didSetOn:(BOOL)on {
+  
+  [self.delegate ipSettingsSetUseTiles:on];
+}
 
 @end

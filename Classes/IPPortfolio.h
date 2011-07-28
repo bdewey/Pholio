@@ -41,7 +41,16 @@
 #define kIPPortfolioTextFont        @"textFont"
 #define kIPPortfolioVersion         @"version"
 #define kIPPortfolioImageOptimizationVersion @"imageOptimizationVersion"
+#define kIPPortfolioLayoutStyle     @"layoutStyle"
 
+//
+//  The different kinds of portfolio layouts we support.
+//
+
+typedef enum {
+  IPPortfolioLayoutStyleTiles,
+  IPPortfolioLayoutStyleStacks
+} IPPortfolioLayoutStyle;
 
 #define kIPPortfolioTitleFontSize   (20.0)
 
@@ -101,6 +110,12 @@
 //
 
 @property (nonatomic, retain) UIFont *textFont;
+
+//
+//  The portfolio layout style.
+//
+
+@property (nonatomic, assign) IPPortfolioLayoutStyle layoutStyle;
 
 //
 //  The version number of this portfolio. Gets incremented on each save.

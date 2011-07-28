@@ -21,6 +21,7 @@
 #import <UIKit/UIKit.h>
 #import "BDFontPickerController.h"
 #import "BDColorPicker.h"
+#import "IPToggleCell.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,7 +31,8 @@
 @class IPUserDefaults;
 @interface IPSettingsController : UITableViewController<
   BDFontPickerControllerDelegate,
-  BDColorPickerDelegate
+  BDColorPickerDelegate,
+  IPToggleCellDelegate
 > { }
 
 @property (nonatomic, retain) IPUserDefaults *userDefaults;
@@ -130,5 +132,12 @@
 //
 
 - (void)ipSettingsMailCurrentPhoto;
+
+//
+//  Whether we currently use tiles.
+//
+
+- (BOOL)ipSettingsUseTiles;
+- (void)ipSettingsSetUseTiles:(BOOL)useTiles;
 
 @end
