@@ -31,7 +31,7 @@ GTM_DISABLE_ZOMBIES=${GTM_DISABLE_ZOMBIES:=1}
 # GTM_ENABLE_LEAKS -
 #   Set to a non-zero value to turn on the leaks check. You will probably want
 #   to disable zombies, otherwise you will get a lot of false positives.
-# export GTM_ENABLE_LEAKS=1
+export GTM_ENABLE_LEAKS=1
 
 # GTM_DISABLE_TERMINATION
 #   Set to a non-zero value so that the app doesn't terminate when it's finished
