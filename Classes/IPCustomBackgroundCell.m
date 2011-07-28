@@ -22,10 +22,12 @@
 #import "UIImage+Resize.h"
 
 
-#define kThumbnailSize        70
-#define kRoundedEdge          10
+#define kThumbnailSize        35
+#define kRoundedEdge          5
 
 @interface IPCustomBackgroundCell ()
+
+@property (nonatomic, retain) UIImageView *thumbnailImageView;
 
 - (void)getThumbnailForImageNamed:(NSString *)image completion:(void (^)(UIImage *))completion;
 
@@ -41,6 +43,7 @@
 @dynamic title;
 @dynamic disclosureIndicator;
 @dynamic checkmark;
+@synthesize thumbnailImageView = thumbnailImageView_;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -61,6 +64,7 @@
 - (void)dealloc {
   
   [imageName_ release];
+  [thumbnailImageView_ release];
   [super dealloc];
 }
 
@@ -124,8 +128,20 @@
   imageName_ = [imageName copy];
   
   [self getThumbnailForImageNamed:imageName completion:^(UIImage *image) {
-    self.imageView.image = image;
+
+    [self.thumbnailImageView removeFromSuperview];
+    self.thumbnailImageView = [[[UIImageView alloc] initWithImage:image] autorelease];
+
+    //
+    //  Right-align |thumbnailImageView|.
+    //
     
+    CGFloat rightMargin = 40;
+    CGFloat x = self.bounds.size.width - image.size.width - rightMargin;
+    CGFloat y = (self.bounds.size.height - image.size.height) / 2;
+    [self addSubview:self.thumbnailImageView];
+    self.thumbnailImageView.frame = CGRectMake(x, y, image.size.width, image.size.height);
+
     //
     //  Need to relayout after adding the image, as |imageView| won't be in 
     //  the cell by default.

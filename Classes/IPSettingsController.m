@@ -35,10 +35,10 @@
 enum IPSettingsControllerSections {
   IPSettingsControllerUserGuide,
   IPSettingsControllerDisplay,
-  IPSettingsControllerActions,
 #ifdef PHOLIO_FLICKR_API_KEY
   IPSettingsControllerConnect,
 #endif
+  IPSettingsControllerActions,
   IPSettingsControllerNumSections,
   IPSettingsControllerInAppPurchases
   };
@@ -50,7 +50,7 @@ enum IPSettingsUserGuide {
   IPSettingsUserGuideNumItems
 };
 
-#define kIPSettingsActionsTitle     NSLocalizedString(@"", @"Actions")
+#define kIPSettingsActionsTitle     NSLocalizedString(@"Feedback", @"Actions")
 
 enum IPSettingsActions {
   IPSettingsActionContactDeveloper,

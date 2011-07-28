@@ -51,10 +51,11 @@
   if (self != nil) {
     
     self.swatch = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-    [[self.swatch layer] setCornerRadius:8.0];
+    [[self.swatch layer] setCornerRadius:5.0];
     [[self.swatch layer] setMasksToBounds:YES];
     [[self.swatch layer] setBorderWidth:1.0];
     [self addSubview:self.swatch];
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
   }
   return self;
 }
@@ -84,14 +85,12 @@
   //  Position the swatch.
   //
   
-  CGRect swatchFrame = CGRectMake(self.center.x, 
-                                  self.bounds.origin.y,
-                                  self.frame.size.width / 2.0,
-                                  self.frame.size.height);
-  swatchFrame = CGRectInset(swatchFrame, 30, 10);
+  CGFloat swatchSize = 35;
+  CGFloat rightMargin = 40;
+  CGFloat x = self.bounds.size.width - swatchSize - rightMargin;
+  CGFloat y = (self.bounds.size.height - swatchSize) / 2;
+  CGRect swatchFrame = CGRectMake(x, y, swatchSize, swatchSize);
   self.swatch.frame = swatchFrame;
-  self.swatch.center = CGPointMake(self.swatch.center.x, 
-                                   self.bounds.size.height / 2);
 }
 
 #pragma mark - Properties
