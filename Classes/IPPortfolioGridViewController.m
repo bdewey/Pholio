@@ -313,7 +313,7 @@
   
   gridHeader_ = [[IPGridHeader alloc] initWithNibName:nil bundle:nil];
   gridHeader_.delegate = self;
-  self.gridView.headerView = gridHeader_.view;
+//  self.gridView.headerView = gridHeader_.view;
   if (self.portfolio != nil) {
     
     self.gridHeader.foregroundColor = self.portfolio.fontColor;
@@ -364,8 +364,8 @@
 - (void)viewDidAppear:(BOOL)animated {
   
   [super viewDidAppear:animated];
-//  self.gridView.topContentPadding = self.navigationController.navigationBar.frame.size.height;
-  [self.navigationController setNavigationBarHidden:YES animated:YES];
+  self.gridView.topContentPadding = self.navigationController.navigationBar.frame.size.height;
+//  [self.navigationController setNavigationBarHidden:YES animated:YES];
   self.gridView.alpha = 0;
   [UIView animateWithDuration:0.2 animations:^(void) {
     self.gridView.alpha = 1;
@@ -683,8 +683,8 @@
 
 - (void)pushControllerForSet:(IPSet *)set {
   
-//  IPSetGridViewController *setController = [[[IPSetGridViewController alloc] initWithNibName:@"IPSetGridViewController" bundle:nil] autorelease];
-  IPSetPagingViewController *setController = [[[IPSetPagingViewController alloc] initWithNibName:@"IPSetPagingViewController" bundle:nil] autorelease];
+  IPSetGridViewController *setController = [[[IPSetGridViewController alloc] initWithNibName:@"IPSetGridViewController" bundle:nil] autorelease];
+//  IPSetPagingViewController *setController = [[[IPSetPagingViewController alloc] initWithNibName:@"IPSetPagingViewController" bundle:nil] autorelease];
   setController.backButtonText = self.titleTextField.text;
   setController.currentSet = set;
   [self.navigationController pushViewController:setController animated:NO];
