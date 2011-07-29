@@ -76,9 +76,28 @@
   [photo_ autorelease];
   photo_ = [photo retain];
   
+  self.image = nil;
+  if (photo == nil) {
+    
+    //
+    //  To go past here with |photo| equal to |nil| could mean queuing an operation
+    //  for an object that's about to be deleted.
+    //
+    
+    return;
+  }
   [self.photo addObserver:self forKeyPath:kIPPhotoTitle options:0 context:NULL];
   self.caption = self.photo.title;
-  self.image = [self.photo.thumbnail imageWithBorderWidth:10.0 andColor:[[UIColor whiteColor] CGColor]];
+  UIImage *thumbnail = [self.photo.thumbnail retain];
+  [[[IPPhotoOptimizationManager sharedManager] optimizationQueue] addOperationWithBlock:^(void) {
+    UIImage *bordered = [[thumbnail imageWithBorderWidth:10.0 andColor:[[UIColor whiteColor] CGColor]] retain];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+      
+      self.image = bordered;
+      [thumbnail release];
+      [bordered release];
+    }];
+  }];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
