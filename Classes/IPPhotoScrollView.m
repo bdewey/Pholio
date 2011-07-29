@@ -201,7 +201,7 @@
   
   // on high resolution screens we have double the pixel density, so we will be seeing every pixel if we limit the
   // maximum zoom scale to 0.5.
-  CGFloat maxScale = 1.0 / [[UIScreen mainScreen] scale];
+  CGFloat maxScale = 2.0 / [[UIScreen mainScreen] scale];
   
   // don't let minScale exceed maxScale. (If the image is smaller than the screen, we don't want to force it to be zoomed.) 
   if (minScale > maxScale) {
