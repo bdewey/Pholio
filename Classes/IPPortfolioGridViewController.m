@@ -754,7 +754,7 @@
       
     case IPPortfolioLayoutStyleTiles:
       cell.style = BDGridCellStyleTile;
-      cell.captionHeight = 75;
+      cell.captionHeight = 55;
       break;
       
     default:
