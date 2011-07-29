@@ -10,6 +10,8 @@
 		0A1372EC13E141EA004469E4 /* IPToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD8CF0D13E13CA000BD88E6 /* IPToggleCell.m */; };
 		0A4F0C7A13D938F8008759F5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4F0C7913D938F8008759F5 /* Security.framework */; };
 		0A4F0C8113D944EB008759F5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4F0C7913D938F8008759F5 /* Security.framework */; };
+		0AB0C80E13E26A5700B204BC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB0C80D13E26A5700B204BC /* CoreLocation.framework */; };
+		0AB0C80F13E2750900B204BC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB0C80D13E26A5700B204BC /* CoreLocation.framework */; };
 		0AB426DE13DCE7A600895092 /* IPGridHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB426DC13DCE7A600895092 /* IPGridHeader.m */; };
 		0AB426DF13DCE7A600895092 /* IPGridHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB426DC13DCE7A600895092 /* IPGridHeader.m */; };
 		0AB426E013DCE7A600895092 /* IPGridHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AB426DD13DCE7A600895092 /* IPGridHeader.xib */; };
@@ -251,6 +253,7 @@
 
 /* Begin PBXFileReference section */
 		0A4F0C7913D938F8008759F5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0AB0C80D13E26A5700B204BC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0AB426DB13DCE7A600895092 /* IPGridHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPGridHeader.h; sourceTree = "<group>"; };
 		0AB426DC13DCE7A600895092 /* IPGridHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPGridHeader.m; sourceTree = "<group>"; };
 		0AB426DD13DCE7A600895092 /* IPGridHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IPGridHeader.xib; sourceTree = "<group>"; };
@@ -504,6 +507,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AB0C80E13E26A5700B204BC /* CoreLocation.framework in Frameworks */,
 				0A4F0C7A13D938F8008759F5 /* Security.framework in Frameworks */,
 				D35F88BC13C6C50600EB2706 /* ImageIO.framework in Frameworks */,
 				D38B0CEA13C2EF810042D7E4 /* libObjectiveFlickr.a in Frameworks */,
@@ -533,6 +537,7 @@
 				D3E57E841384D4150027534B /* CFNetwork.framework in Frameworks */,
 				D35F88BD13C6C73D00EB2706 /* ImageIO.framework in Frameworks */,
 				0A4F0C8113D944EB008759F5 /* Security.framework in Frameworks */,
+				0AB0C80F13E2750900B204BC /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,6 +655,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0AB0C80D13E26A5700B204BC /* CoreLocation.framework */,
 				0A4F0C7913D938F8008759F5 /* Security.framework */,
 				D35F88BB13C6C50600EB2706 /* ImageIO.framework */,
 				D3EB04121380EA2000CA6CC8 /* CFNetwork.framework */,

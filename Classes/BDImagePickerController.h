@@ -30,6 +30,12 @@
 typedef void (^BDImagePickerControllerImageBlock)(NSArray *images);
 
 //
+//  Block type that can get the created popover controller async.
+//
+
+typedef void (^BDImagePickerControllerSetPopoverBlock)(UIPopoverController *popover);
+
+//
 //  Block type that will get invoked when the user cancels.
 //
 
@@ -46,6 +52,11 @@ typedef void (^BDImagePickerControllerCancelBlock)();
 + (UIPopoverController *)presentPopoverFromRect:(CGRect)rect
                                          inView:(UIView *)view
                                     onSelection:(BDImagePickerControllerImageBlock)imageBlock;
+
++ (void)confirmLocationServicesAndPresentPopoverFromRect:(CGRect)rect
+                                                  inView:(UIView *)view
+                                             onSelection:(BDImagePickerControllerImageBlock)imageBlock
+                                              setPopover:(BDImagePickerControllerSetPopoverBlock)setPopover;
 
 @end
 

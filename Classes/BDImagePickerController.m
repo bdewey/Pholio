@@ -18,6 +18,8 @@
 //  limitations under the License.
 //
 
+#import <CoreLocation/CoreLocation.h>
+#import "IPAlert.h"
 #import "BDImagePickerController.h"
 #import "BDAssetsLibraryController.h"
 #import "IPFlickrAuthorizationManager.h"
@@ -154,6 +156,42 @@
   controller.popover = popover;
   [popover presentPopoverFromRect:rect inView:view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
   return popover;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
++ (void)confirmLocationServicesAndPresentPopoverFromRect:(CGRect)rect
+                                                  inView:(UIView *)view
+                                             onSelection:(BDImagePickerControllerImageBlock)imageBlock
+                                              setPopover:(BDImagePickerControllerSetPopoverBlock)setPopover {
+  
+  CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
+  
+  switch (authorizationStatus) {
+    case kCLAuthorizationStatusRestricted:
+    case kCLAuthorizationStatusDenied:
+      [[IPAlert defaultAlert] showErrorMessage:kLocationServiceDenied];
+      break;
+      
+    case kCLAuthorizationStatusNotDetermined:
+    {
+      setPopover = [setPopover copy];
+      [[IPAlert defaultAlert] confirmWithDescription:kLocationServiceNotDetermined andButtonTitle:kOKString fromRect:rect inView:view performAction:^(void) {
+        
+        UIPopoverController *popover = [BDImagePickerController presentPopoverFromRect:rect inView:view onSelection:imageBlock];
+        setPopover(popover);
+        [setPopover release];
+      }];
+    }
+      break;
+      
+    case kCLAuthorizationStatusAuthorized:
+      setPopover([BDImagePickerController presentPopoverFromRect:rect inView:view onSelection:imageBlock]);
+      break;
+      
+    default:
+      break;
+  }
 }
 
 #pragma mark - BDAssetsLibraryControllerDelegate

@@ -90,6 +90,13 @@
 #define kOptimizationProgressSingular NSLocalizedString(@"Pholio is optimizing a photo for your iPad.", @"Optomizing singular")
 
 //
+//  Location service checks
+//
+
+#define kLocationServiceDenied   NSLocalizedString(@"You give Pholio access to your current location so it can access your pictures, which have location information. You give Pholio access through Settings -> Location Services.", @"Location Denied")
+#define kLocationServiceNotDetermined NSLocalizedString(@"Pholio needs access to your location to read your pictures, which have location information.", @"Location service not determined")
+
+//
 //  Different timings
 //
 

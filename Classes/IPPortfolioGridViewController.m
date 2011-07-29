@@ -878,26 +878,30 @@
 - (void)gridView:(BDGridView *)gridView didInsertAtPoint:(NSUInteger)insertionPoint 
         fromRect:(CGRect)rect {
   
-  self.popoverController = [BDImagePickerController presentPopoverFromRect:rect
-                                                                    inView:gridView 
-                                                               onSelection:
-                            ^(NSArray *assets) {
-                              
-                              IPSet *set = [[[IPSet alloc] init] autorelease];
-                              set.title = kNewGalleryName;
-                              [self.portfolio insertObject:set inSetsAtIndex:insertionPoint];
-                              IPSetCell *cell = (IPSetCell *)[gridView insertCellAtIndex:insertionPoint];
-                              [self asyncLoadImages:assets pageProgress:^(IPPage *nextPage, NSUInteger count) {
-                                
-                                [set.pages addObject:nextPage];
-                                [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
-                                [cell updateThumbnail];
-                              } completion:^ {
-                               
-                                [cell updateThumbnail];
-                                [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
-                              }];
-                            }];
+  [BDImagePickerController confirmLocationServicesAndPresentPopoverFromRect:rect
+                                                                     inView:gridView 
+                                                                onSelection:
+   ^(NSArray *assets) {
+     
+     IPSet *set = [[[IPSet alloc] init] autorelease];
+     set.title = kNewGalleryName;
+     [self.portfolio insertObject:set inSetsAtIndex:insertionPoint];
+     IPSetCell *cell = (IPSetCell *)[gridView insertCellAtIndex:insertionPoint];
+     [self asyncLoadImages:assets pageProgress:^(IPPage *nextPage, NSUInteger count) {
+       
+       [set.pages addObject:nextPage];
+       [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+       [cell updateThumbnail];
+     } completion:^ {
+       
+       [cell updateThumbnail];
+       [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+     }];
+   }
+                                                                 setPopover:
+   ^(UIPopoverController *popover) {
+     self.popoverController = popover;
+   }];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -908,23 +912,27 @@
 - (void)gridView:(BDGridView *)gridView didInsertIntoCell :(BDGridCell *)cell {
   
   IPSetCell *setCell = (IPSetCell *)cell;
-  self.popoverController = [BDImagePickerController presentPopoverFromRect:cell.frame 
-                                                                    inView:gridView 
-                                                               onSelection:
-                            ^(NSArray *assets) {
-                              
-                              [self asyncLoadImages:assets pageProgress:^(IPPage *nextPage, NSUInteger count) {
-                                
-                                [setCell.currentSet insertObject:nextPage inPagesAtIndex:[setCell.currentSet countOfPages]];
-                                
-                              } completion:^ {
-                                
-                                //
-                                //  NOTHING
-                                //
-                                
-                              }];
-                            }];
+  [BDImagePickerController confirmLocationServicesAndPresentPopoverFromRect:cell.frame 
+                                           inView:gridView 
+                                      onSelection:
+   ^(NSArray *assets) {
+     
+     [self asyncLoadImages:assets pageProgress:^(IPPage *nextPage, NSUInteger count) {
+       
+       [setCell.currentSet insertObject:nextPage inPagesAtIndex:[setCell.currentSet countOfPages]];
+       
+     } completion:^ {
+       
+       //
+       //  NOTHING
+       //
+       
+     }];
+   }
+   setPopover:^(UIPopoverController *popover) {
+     self.popoverController = popover;
+   }
+   ];
 }
 
 ////////////////////////////////////////////////////////////////////////////////

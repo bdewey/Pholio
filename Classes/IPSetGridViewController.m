@@ -415,7 +415,7 @@
 - (void)gridView:(BDGridView *)gridView didInsertAtPoint:(NSUInteger)insertionPoint 
         fromRect:(CGRect)rect {
   
-  self.popoverController = [BDImagePickerController presentPopoverFromRect:rect inView:gridView onSelection:^(NSArray *assets) {
+  [BDImagePickerController confirmLocationServicesAndPresentPopoverFromRect:rect inView:gridView onSelection:^(NSArray *assets) {
     
     __block NSUInteger currentInsertionPoint = insertionPoint;
     for (id<BDSelectableAsset> asset in assets) {
@@ -438,7 +438,11 @@
         }];
       }];
     }
-  }];
+  }
+   setPopover:^(UIPopoverController *popover) {
+     self.popoverController = popover;
+   }
+   ];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
