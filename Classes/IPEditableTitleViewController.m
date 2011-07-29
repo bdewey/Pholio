@@ -558,7 +558,14 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
       //  Get a good subject for the mail
       //
       
-      NSString *subject = [NSString stringWithFormat:@"Feedback on %@", __PRODUCT_NAME__, nil];
+      NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
+      NSString *version = [info objectForKey:@"CFBundleShortVersionString"];
+      NSString *build   = [info objectForKey:@"CFBundleVersion"];
+      NSString *subject = [NSString stringWithFormat:@"Feedback on %@ %@ (%@)", 
+                           __PRODUCT_NAME__, 
+                           version,
+                           build,
+                           nil];
       [picker setSubject:subject];
       [picker setToRecipients:[NSArray arrayWithObject:@"thebrain@brians-brain.org"]];
       
