@@ -33,6 +33,7 @@
 
 @interface BDAssetsGroupController()
 
+@property (nonatomic, retain) NSMutableArray *children;
 @property (nonatomic, retain) NSMutableArray *assets;
 @property (nonatomic, retain) NSMutableSet *selectedAssets;
 
@@ -47,6 +48,7 @@
 
 @synthesize assetsSource = assetsSource_;
 @synthesize delegate = delegate_;
+@synthesize children = children_;
 @synthesize assets = assets_;
 @synthesize selectedAssets = selectedAssets_;
 
@@ -60,6 +62,7 @@
   self = [super initWithStyle:style];
   if (self) {
     
+    self.children = [NSMutableArray arrayWithCapacity:10];
     self.assets = [NSMutableArray arrayWithCapacity:10];
     self.selectedAssets = [NSMutableSet setWithCapacity:10];
   }
@@ -74,6 +77,7 @@
 - (void)dealloc {
 
   [assetsSource_ release];
+  [children_ release];
   [assets_ release];
   [selectedAssets_ release];
   [super dealloc];
@@ -110,11 +114,12 @@
   //  TODO: Need to set the delegate for all of these selectable assets.
   //
   
-  [self.assetsSource asyncFillArrayWithAssets:self.assets 
-                  withSelectableAssetDelegate:self 
-                                   completion:^ {
-                                     [self.tableView reloadData];
-                                   }];
+  [self.assetsSource asyncFillArrayWithChildren:self.children
+                                      andAssets:self.assets 
+                    withSelectableAssetDelegate:self 
+                                     completion:^ {
+                                       [self.tableView reloadData];
+                                     }];
 }
 
 ////////////////////////////////////////////////////////////////////////////////

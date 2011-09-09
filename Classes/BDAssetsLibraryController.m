@@ -63,9 +63,10 @@
   return [self.assetsGroup valueForProperty:ALAssetsGroupPropertyName];
 }
 
-- (void)asyncFillArrayWithAssets:(NSMutableArray *)assets 
-     withSelectableAssetDelegate:(id<BDSelectableAssetDelegate>)delegate 
-                      completion:(void (^)())completion {
+- (void)asyncFillArrayWithChildren:(NSMutableArray *)children
+                         andAssets:(NSMutableArray *)assets 
+       withSelectableAssetDelegate:(id<BDSelectableAssetDelegate>)delegate 
+                        completion:(void (^)())completion {
   
   [self.assetsGroup enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
     

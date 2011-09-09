@@ -75,9 +75,10 @@
 //  Fill in an assets array.
 //
 
-- (void)asyncFillArrayWithAssets:(NSMutableArray *)assets 
-     withSelectableAssetDelegate:(id<BDSelectableAssetDelegate>)delegate 
-                      completion:(void (^)())completion {
+- (void)asyncFillArrayWithChildren:(NSMutableArray *)children
+                         andAssets:(NSMutableArray *)assets 
+       withSelectableAssetDelegate:(id<BDSelectableAssetDelegate>)delegate 
+                        completion:(void (^)())completion {
   
   completion = [completion copy];
   [self.searchCell searchResults:^(NSArray *results) {

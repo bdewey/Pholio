@@ -1,11 +1,9 @@
 //
-//  BDAssetsSource.h
+//  IPDropBoxAssetsSource.h
+//  ipad-portfolio
 //
-//  Objects that conform to |BDAssetsSource| know how to fill in an array
-//  of objects that conform to |BDSelectableAsset|.
-//
-//  Created by Brian Dewey on 5/19/11.
-//  Copyright 2011 Brian Dewey.
+//  Created by Brian Dewey on 9/7/11.
+//  Copyright 2011 Brian Dewey. 
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -21,13 +19,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BDAssetsSource.h"
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+@interface IPDropBoxAssetsSource : NSObject<BDAssetsSource>
 
-@protocol BDSelectableAssetDelegate;
-@protocol BDAssetsSource <NSObject>
+//
+//  The path into the DropBox hierarchy represented by this source.
+//
+
+@property (nonatomic, copy) NSString *path;
 
 //
 //  The title of this asset source.
@@ -50,4 +50,5 @@
                          andAssets:(NSMutableArray *)assets 
        withSelectableAssetDelegate:(id<BDSelectableAssetDelegate>)delegate
                         completion:(void (^)())completion;
+
 @end

@@ -22,6 +22,7 @@
 #import "BDFontPickerController.h"
 #import "BDColorPicker.h"
 #import "IPToggleCell.h"
+#import "DropboxSDK.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -32,7 +33,8 @@
 @interface IPSettingsController : UITableViewController<
   BDFontPickerControllerDelegate,
   BDColorPickerDelegate,
-  IPToggleCellDelegate
+  IPToggleCellDelegate,
+  DBLoginControllerDelegate
 > { }
 
 @property (nonatomic, retain) IPUserDefaults *userDefaults;

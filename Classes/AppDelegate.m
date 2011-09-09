@@ -24,6 +24,8 @@
 #import "IPFlickrAuthorizationManager.h"
 #import "IPOptimizingPhotoNotification.h"
 #import "NSString+TestHelper.h"
+#import "IPDropBoxApiKeys.h"
+#import "DropboxSDK.h"
 
 //
 //  Private methods
@@ -98,6 +100,16 @@
                authManager.authToken);
     [authManager checkToken];
   }
+  
+  //
+  //  Initialize the DropBox session
+  //
+  
+#ifdef PHOLIO_DROPBOX_API_KEY
+  DBSession *session = [[[DBSession alloc] initWithConsumerKey:PHOLIO_DROPBOX_API_KEY 
+                                                consumerSecret:PHOLIO_DROPBOX_API_SHARED_SECRET] autorelease];
+  [DBSession setSharedSession:session];
+#endif
   
   //
   //  Register to show UI when there are optimizations in progress.

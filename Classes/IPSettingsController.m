@@ -32,6 +32,8 @@
 #import "BDColorPicker.h"
 #import "IPUserDefaults.h"
 #import "IPToggleCell.h"
+#import "IPDropBoxConnectionCell.h"
+#import "DropboxSDK.h"
 
 enum IPSettingsControllerSections {
   IPSettingsControllerUserGuide,
@@ -64,6 +66,7 @@ enum IPSettingsActions {
 
 enum IPSettingsConnect {
   IPSettingsConnectFlickr,
+  IPSettingsConnectDropBox,
   IPSettingsConnectNumItems
 };
 
@@ -407,9 +410,27 @@ enum IPSettingsDisplay {
 
 - (UITableViewCell *)cellForConnectInTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath {
   
-  IPFlickrConnectionCell *cell = [IPFlickrConnectionCell cellForTableView:tableView];
-  [cell configureCell];
-  return cell;
+  enum IPSettingsConnect row = (enum IPSettingsConnect)[indexPath row];
+  
+  switch (row) {
+    case IPSettingsConnectFlickr:
+    {
+      IPFlickrConnectionCell *cell = [IPFlickrConnectionCell cellForTableView:tableView];
+      [cell configureCell];
+      return cell;
+    }
+      
+    case IPSettingsConnectDropBox:
+    {
+      IPDropBoxConnectionCell *cell = [IPDropBoxConnectionCell cellForTableView:tableView];
+      [cell configureCell];
+      return cell;
+    }
+      
+      default:
+      _GTMDevLog(@"Unexpected row: %d", row);
+      return nil;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -550,6 +571,12 @@ enum IPSettingsDisplay {
     IPFlickrLoginController *loginController = [[[IPFlickrLoginController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
     [self.navigationController pushViewController:loginController animated:YES];
     
+  } else if ([tableViewCell isKindOfClass:[IPDropBoxConnectionCell class]]) {
+
+    DBLoginController *loginController = [[[DBLoginController alloc] init] autorelease];
+    loginController.delegate = self;
+    [self.navigationController pushViewController:loginController animated:YES];
+    
   } else if ([tableViewCell isKindOfClass:[IPFontPickerCell class]]) {
     
     BDFontPickerController *fontController = [[[BDFontPickerController alloc] init] autorelease];
@@ -576,6 +603,20 @@ enum IPSettingsDisplay {
     colorPicker.currentColor = colorCell.color;
     [self.navigationController pushViewController:colorPicker animated:YES];
   }
+}
+
+#pragma mark - DBLoginControllerDelegate
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)loginControllerDidLogin:(DBLoginController *)controller {
+  
+  [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)loginControllerDidCancel:(DBLoginController *)controller {
+  
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - BDFontPickerControllerDelegate
