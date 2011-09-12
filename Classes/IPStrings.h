@@ -63,6 +63,12 @@
 #define kFlickrLoading          NSLocalizedString(@"Loading...", @"Loading")
 
 //
+//  DropBox strings
+//
+
+#define kDropBox                NSLocalizedString(@"DropBox", @"DropBox")
+
+//
 //  Action menu text
 //
 

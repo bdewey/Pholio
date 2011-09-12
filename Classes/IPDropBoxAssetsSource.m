@@ -76,7 +76,12 @@
 
 - (NSString *)title {
   
-  return [self.path lastPathComponent];
+  NSString *lastPathComponent = [self.path lastPathComponent];
+  if ([@"/" isEqualToString:lastPathComponent]) {
+    
+    return kDropBox;
+  }
+  return lastPathComponent;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
