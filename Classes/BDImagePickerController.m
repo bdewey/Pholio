@@ -131,6 +131,7 @@
   BDAssetsGroupController *assetsController = [[[BDAssetsGroupController alloc] initWithStyle:UITableViewStylePlain] autorelease];
   assetsController.assetsSource = root;
   assetsController.title = @"DropBox";
+  assetsController.tabBarItem.image = [UIImage imageNamed:@"dropbox.png"];
   assetsController.delegate = self;
   UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:assetsController] autorelease];
   nav.navigationBar.barStyle = UIBarStyleBlack;

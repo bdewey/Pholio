@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A1372EC13E141EA004469E4 /* IPToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD8CF0D13E13CA000BD88E6 /* IPToggleCell.m */; };
+		0A373C3C141E7F4600EBEAB0 /* dropbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A373C3B141E7F4600EBEAB0 /* dropbox.png */; };
 		0A4F0C7A13D938F8008759F5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4F0C7913D938F8008759F5 /* Security.framework */; };
 		0A4F0C8113D944EB008759F5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4F0C7913D938F8008759F5 /* Security.framework */; };
 		0A8EB72D14153B0500E4ACA7 /* DBAccountInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8EB6D814153B0500E4ACA7 /* DBAccountInfo.m */; };
@@ -350,6 +351,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A373C3B141E7F4600EBEAB0 /* dropbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropbox.png; sourceTree = "<group>"; };
 		0A4F0C7913D938F8008759F5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0A8EB6D714153B0500E4ACA7 /* DBAccountInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAccountInfo.h; sourceTree = "<group>"; };
 		0A8EB6D814153B0500E4ACA7 /* DBAccountInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAccountInfo.m; sourceTree = "<group>"; };
@@ -951,6 +953,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0A373C3B141E7F4600EBEAB0 /* dropbox.png */,
 				0AB426E213DCE87400895092 /* 19-gear.png */,
 				D343E27A13C96065007330D6 /* gold-thumb.jpg */,
 				D343E27B13C96065007330D6 /* blue-thumb.jpg */,
@@ -1428,6 +1431,7 @@
 				0A8EB77F14153B0500E4ACA7 /* db_link_header@2x.png in Resources */,
 				0A8EB78114153B0500E4ACA7 /* db_logo.png in Resources */,
 				0A8EB78314153B0500E4ACA7 /* db_logo@2x.png in Resources */,
+				0A373C3C141E7F4600EBEAB0 /* dropbox.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
