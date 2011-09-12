@@ -50,4 +50,13 @@
                          andAssets:(NSMutableArray *)assets 
        withSelectableAssetDelegate:(id<BDSelectableAssetDelegate>)delegate
                         completion:(void (^)())completion;
+
+@optional
+
+//
+//  Optional method to get a visual thumbnail for this asset source.
+//
+
+- (void)asyncThumbnail:(void(^)(UIImage *thumbnail))completion;
+
 @end

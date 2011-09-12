@@ -29,18 +29,17 @@
 @property (nonatomic, retain) id<BDSelectableAssetDelegate> assetDelegate;
 @property (nonatomic, retain) NSMutableArray *children;
 @property (nonatomic, retain) NSMutableArray *assets;
-@property (nonatomic, retain) DBRestClient *restClient;
 
 @end
 
 @implementation IPDropBoxAssetsSource
 
 @synthesize path = path_;
+@synthesize restClient = restClient_;
 @synthesize completion = completion_;
 @synthesize assetDelegate = assetDelegate_;
 @synthesize children = children_;
 @synthesize assets = assets_;
-@synthesize restClient = restClient_;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -49,8 +48,10 @@
   self = [super init];
   if (self) {
 
-    restClient_ = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
-    restClient_.delegate = self;
+    //
+    //  Hmm. No custom initialization yet.
+    //
+    
   }
   
   return self;
@@ -69,11 +70,26 @@
   [super dealloc];
 }
 
+#pragma mark - Properties
+
 ////////////////////////////////////////////////////////////////////////////////
 
 - (NSString *)title {
   
-  return path_;
+  return [self.path lastPathComponent];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (DBRestClient *)restClient {
+  
+  if (restClient_ != nil) {
+    
+    return restClient_;
+  }
+  restClient_ = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+  restClient_.delegate = self;
+  return restClient_;
 }
 
 #pragma mark - BDAssetsSource
@@ -90,6 +106,18 @@
   self.children = children;
   self.assets = assets;
   [self.restClient loadMetadata:self.path];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)asyncThumbnail:(void (^)(UIImage *))completion {
+  
+  static UIImage *thumb = nil;
+  if (thumb == nil) {
+    
+    thumb = [UIImage imageNamed:@"folder48.gif"];
+  }
+  completion(thumb);
 }
 
 #pragma mark - DBRestClientDelegate

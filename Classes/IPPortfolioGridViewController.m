@@ -821,42 +821,42 @@
   
   progress = [progress copy];
   completion = [completion copy];
+  NSConditionLock *workersDone = [[NSConditionLock alloc] initWithCondition:[assets count]];
+  
+  for (id<BDSelectableAsset> asset in assets) {
+    
+    [asset imageAsyncWithCompletion:^(NSString *filename, NSString *uti) {
+      
+      if (filename == nil) {
+        
+        //
+        //  There was at least one case where we couldn't get an image.
+        //
+        
+        [workersDone lock];
+        [workersDone unlockWithCondition:[workersDone condition] - 1];
+        return;
+      }
+      
+      IPPhoto *photo = [[IPPhoto alloc] init];
+      photo.filename = filename;
+      photo.title = [asset title];
+      
+      [[IPPhotoOptimizationManager sharedManager] asyncOptimizePhoto:photo withCompletion:^(void) {
+        
+        IPPage *page = [IPPage pageWithPhoto:photo];
+        [photo release];
+        [workersDone lock];
+        progress(page, [assets count] - [workersDone condition]);
+        [workersDone unlockWithCondition:[workersDone condition] - 1];
+      }];
+    }];
+  }
   
   dispatch_queue_t defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
   dispatch_async(defaultQueue, ^(void) {
     
-    NSConditionLock *workersDone = [[[NSConditionLock alloc] initWithCondition:[assets count]] autorelease];
 
-    for (id<BDSelectableAsset> asset in assets) {
-      
-      [asset imageAsyncWithCompletion:^(NSString *filename, NSString *uti) {
-        
-        if (filename == nil) {
-          
-          //
-          //  There was at least one case where we couldn't get an image.
-          //
-          
-          [workersDone lock];
-          [workersDone unlockWithCondition:[workersDone condition] - 1];
-          return;
-        }
-        
-        IPPhoto *photo = [[IPPhoto alloc] init];
-        photo.filename = filename;
-        photo.title = [asset title];
-        
-        [[IPPhotoOptimizationManager sharedManager] asyncOptimizePhoto:photo withCompletion:^(void) {
-
-          IPPage *page = [IPPage pageWithPhoto:photo];
-          [photo release];
-          [workersDone lock];
-          progress(page, [assets count] - [workersDone condition]);
-          [workersDone unlockWithCondition:[workersDone condition] - 1];
-        }];
-      }];
-    }
-    
     [workersDone lockWhenCondition:0];
     dispatch_async(dispatch_get_main_queue(), ^(void) {
       
@@ -865,6 +865,7 @@
       [completion release];
     });
     [workersDone unlockWithCondition:0];
+    [workersDone release];
   });
 }
 

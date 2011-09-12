@@ -101,8 +101,6 @@
 		0A8EB78414153B0500E4ACA7 /* db_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8EB72C14153B0500E4ACA7 /* db_logo@2x.png */; };
 		0A8EB7941415417900E4ACA7 /* IPDropBoxConnectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8EB7931415417900E4ACA7 /* IPDropBoxConnectionCell.m */; };
 		0A8EB7951415417900E4ACA7 /* IPDropBoxConnectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8EB7931415417900E4ACA7 /* IPDropBoxConnectionCell.m */; };
-		0A8EB79D1415500200E4ACA7 /* IPDropBoxPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8EB79C1415500200E4ACA7 /* IPDropBoxPickerController.m */; };
-		0A8EB79E1415500200E4ACA7 /* IPDropBoxPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8EB79C1415500200E4ACA7 /* IPDropBoxPickerController.m */; };
 		0A8EB7A114188B5600E4ACA7 /* IPDropBoxSelectableAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8EB7A014188B5600E4ACA7 /* IPDropBoxSelectableAsset.m */; };
 		0A8EB7A214188B5600E4ACA7 /* IPDropBoxSelectableAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8EB7A014188B5600E4ACA7 /* IPDropBoxSelectableAsset.m */; };
 		0A8EB7A51418996E00E4ACA7 /* IPDropBoxAssetsSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8EB7A41418996E00E4ACA7 /* IPDropBoxAssetsSource.m */; };
@@ -118,6 +116,8 @@
 		0AB426EB13DD2D1700895092 /* UIImage+ColorMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB426EA13DD2D1700895092 /* UIImage+ColorMask.m */; };
 		0AB426EC13DD2D1700895092 /* UIImage+ColorMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB426EA13DD2D1700895092 /* UIImage+ColorMask.m */; };
 		0AD8CF0E13E13CA000BD88E6 /* IPToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD8CF0D13E13CA000BD88E6 /* IPToggleCell.m */; };
+		0AEDDB08141E9E6C0091D8E7 /* folder48.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AEDDB07141E9E6C0091D8E7 /* folder48.gif */; };
+		0AEDDB0C141EA1190091D8E7 /* IPDropBoxSelectableAsset-test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEDDB0B141EA1190091D8E7 /* IPDropBoxSelectableAsset-test.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -438,8 +438,6 @@
 		0A8EB78714153CEF00E4ACA7 /* IPDropBoxApiKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPDropBoxApiKeys.h; sourceTree = "<group>"; };
 		0A8EB7921415417900E4ACA7 /* IPDropBoxConnectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPDropBoxConnectionCell.h; sourceTree = "<group>"; };
 		0A8EB7931415417900E4ACA7 /* IPDropBoxConnectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPDropBoxConnectionCell.m; sourceTree = "<group>"; };
-		0A8EB79B1415500200E4ACA7 /* IPDropBoxPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPDropBoxPickerController.h; sourceTree = "<group>"; };
-		0A8EB79C1415500200E4ACA7 /* IPDropBoxPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPDropBoxPickerController.m; sourceTree = "<group>"; };
 		0A8EB79F14188B5600E4ACA7 /* IPDropBoxSelectableAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPDropBoxSelectableAsset.h; sourceTree = "<group>"; };
 		0A8EB7A014188B5600E4ACA7 /* IPDropBoxSelectableAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPDropBoxSelectableAsset.m; sourceTree = "<group>"; };
 		0A8EB7A31418996E00E4ACA7 /* IPDropBoxAssetsSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPDropBoxAssetsSource.h; sourceTree = "<group>"; };
@@ -453,6 +451,8 @@
 		0AB426EA13DD2D1700895092 /* UIImage+ColorMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ColorMask.m"; sourceTree = "<group>"; };
 		0AD8CF0C13E13CA000BD88E6 /* IPToggleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPToggleCell.h; sourceTree = "<group>"; };
 		0AD8CF0D13E13CA000BD88E6 /* IPToggleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPToggleCell.m; sourceTree = "<group>"; };
+		0AEDDB07141E9E6C0091D8E7 /* folder48.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = folder48.gif; sourceTree = "<group>"; };
+		0AEDDB0B141EA1190091D8E7 /* IPDropBoxSelectableAsset-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPDropBoxSelectableAsset-test.m"; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Pholio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pholio.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -902,8 +902,6 @@
 				0A8EB78714153CEF00E4ACA7 /* IPDropBoxApiKeys.h */,
 				0A8EB7921415417900E4ACA7 /* IPDropBoxConnectionCell.h */,
 				0A8EB7931415417900E4ACA7 /* IPDropBoxConnectionCell.m */,
-				0A8EB79B1415500200E4ACA7 /* IPDropBoxPickerController.h */,
-				0A8EB79C1415500200E4ACA7 /* IPDropBoxPickerController.m */,
 				0A8EB79F14188B5600E4ACA7 /* IPDropBoxSelectableAsset.h */,
 				0A8EB7A014188B5600E4ACA7 /* IPDropBoxSelectableAsset.m */,
 				0A8EB7A31418996E00E4ACA7 /* IPDropBoxAssetsSource.h */,
@@ -953,6 +951,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0AEDDB07141E9E6C0091D8E7 /* folder48.gif */,
 				0A373C3B141E7F4600EBEAB0 /* dropbox.png */,
 				0AB426E213DCE87400895092 /* 19-gear.png */,
 				D343E27A13C96065007330D6 /* gold-thumb.jpg */,
@@ -1048,6 +1047,7 @@
 				D3D0149D138CBE3900181DE7 /* BDColorPicker-test.m */,
 				D395B2B313ADBEE700346D99 /* IPHelp-test.m */,
 				D318CB8213B572FD00F90860 /* IPPhotoOptimizationManager-test.m */,
+				0AEDDB0B141EA1190091D8E7 /* IPDropBoxSelectableAsset-test.m */,
 				D31E936A134D6EB5000F5494 /* TestHelpers */,
 				D30A433513138E7800E6EBB7 /* Supporting Files */,
 			);
@@ -1432,6 +1432,7 @@
 				0A8EB78114153B0500E4ACA7 /* db_logo.png in Resources */,
 				0A8EB78314153B0500E4ACA7 /* db_logo@2x.png in Resources */,
 				0A373C3C141E7F4600EBEAB0 /* dropbox.png in Resources */,
+				0AEDDB08141E9E6C0091D8E7 /* folder48.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1594,7 +1595,6 @@
 				0A8EB76B14153B0500E4ACA7 /* NSURLResponse+Encoding.m in Sources */,
 				0A8EB76D14153B0500E4ACA7 /* NSString+Dropbox.m in Sources */,
 				0A8EB7941415417900E4ACA7 /* IPDropBoxConnectionCell.m in Sources */,
-				0A8EB79D1415500200E4ACA7 /* IPDropBoxPickerController.m in Sources */,
 				0A8EB7A114188B5600E4ACA7 /* IPDropBoxSelectableAsset.m in Sources */,
 				0A8EB7A51418996E00E4ACA7 /* IPDropBoxAssetsSource.m in Sources */,
 				D37E6CD4141BE3D100AE4FCA /* BDAssetsSourceCell.m in Sources */,
@@ -1728,10 +1728,10 @@
 				0A8EB76C14153B0500E4ACA7 /* NSURLResponse+Encoding.m in Sources */,
 				0A8EB76E14153B0500E4ACA7 /* NSString+Dropbox.m in Sources */,
 				0A8EB7951415417900E4ACA7 /* IPDropBoxConnectionCell.m in Sources */,
-				0A8EB79E1415500200E4ACA7 /* IPDropBoxPickerController.m in Sources */,
 				0A8EB7A214188B5600E4ACA7 /* IPDropBoxSelectableAsset.m in Sources */,
 				0A8EB7A61418996E00E4ACA7 /* IPDropBoxAssetsSource.m in Sources */,
 				D37E6CD5141BE3D100AE4FCA /* BDAssetsSourceCell.m in Sources */,
+				0AEDDB0C141EA1190091D8E7 /* IPDropBoxSelectableAsset-test.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

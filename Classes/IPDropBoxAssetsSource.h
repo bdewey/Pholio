@@ -37,6 +37,13 @@
 @property (nonatomic, readonly) NSString *title;
 
 //
+//  For debugging only... this is the |DBRestClient| used for talking to DropBox.
+//  It will get lazily created if needed.
+//
+
+@property (nonatomic, retain) DBRestClient *restClient;
+
+//
 //  Return immediately. In the background, fill in |assets| with the appropriate
 //  objects that conform to |BDSelectableAsset|. Each object should have its
 //  delegate property set to |delegate|.

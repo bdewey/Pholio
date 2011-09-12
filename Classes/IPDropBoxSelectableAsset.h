@@ -22,17 +22,55 @@
 #import "BDSelectableAsset.h"
 #import "DropboxSDK.h"
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
 @class DBMetadata;
 @interface IPDropBoxSelectableAsset : NSObject<
   BDSelectableAsset,
   DBRestClientDelegate>
 
+//
+//  The metadata object that identifies the file to download from DropBox.
+//
+
 @property (nonatomic, retain) DBMetadata *metadata;
+
+//
+//  Whether or not this image is selected for download.
+//
+
 @property (nonatomic, assign, getter = isSelected) BOOL selected;
+
+//
+//  Gets notified when selection state changes.
+//
+
 @property (nonatomic, assign) id<BDSelectableAssetDelegate> delegate;
 
+//
+//  For debugging only.
+//
+
+@property (nonatomic, retain) DBRestClient *restClient;
+
+//
+//  Gets the thumbnail for the asset.
+//
+
 - (void)thumbnailAsyncWithCompletion:(void(^)(UIImage *thumbnail))completion;
+
+//
+//  Gets the image for the asset.
+//
+
 - (void)imageAsyncWithCompletion:(void(^)(NSString *filename, NSString *uti))completion;
+
+//
+//  Gets the title of the asset.
+//
+
 - (NSString *)title;
 
 @end

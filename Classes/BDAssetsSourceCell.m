@@ -63,6 +63,14 @@
   [assetsSource_ release];
   assetsSource_ = [assetsSource retain];
   self.textLabel.text = [self.assetsSource title];
+  if ([self.assetsSource respondsToSelector:@selector(asyncThumbnail:)]) {
+    
+    [self.assetsSource asyncThumbnail:^(UIImage *thumbnail) {
+      
+      self.imageView.image = thumbnail;
+      [self setNeedsLayout];
+    }];
+  }
 }
 
 @end

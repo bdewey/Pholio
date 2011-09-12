@@ -27,7 +27,6 @@
 
 @property (nonatomic, copy) void (^thumbnailCompletion)(UIImage *thumbnail);
 @property (nonatomic, copy) void (^imageCompletion)(NSString *filename, NSString *uti);
-@property (nonatomic, retain) DBRestClient *restClient;
 
 @end
 
@@ -36,9 +35,9 @@
 @synthesize metadata = metadata_;
 @synthesize selected = selected_;
 @synthesize delegate = delegate_;
+@synthesize restClient = restClient_;
 @synthesize thumbnailCompletion = thumbnailCompletion_;
 @synthesize imageCompletion = imageCompletion_;
-@synthesize restClient = restClient_;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -47,8 +46,9 @@
   self = [super init];
   if (self) {
 
-    restClient_ = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
-    restClient_.delegate = self;
+    //
+    //  No custom initialization needed yet.
+    //
   }
   
   return self;
@@ -82,10 +82,10 @@
   self.imageCompletion = completion;
   NSString *localPath = [IPPhoto filenameForNewPhoto];
   _GTMDevLog(@"Loading image into %@", localPath);
-  [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
-    [self.restClient loadFile:self.metadata.path intoPath:localPath];
-  }];
+  [self.restClient loadFile:self.metadata.path intoPath:localPath];
 }
+
+#pragma mark - Properties
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -107,6 +107,19 @@
     
     [self.delegate selectableAssetDidUnselect:self];
   }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (DBRestClient *)restClient {
+  
+  if (restClient_ != nil) {
+    
+    return restClient_;
+  }
+  restClient_ = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+  restClient_.delegate = self;
+  return restClient_;
 }
 
 #pragma mark - DBRestClientDelegate
