@@ -82,7 +82,9 @@
   self.imageCompletion = completion;
   NSString *localPath = [IPPhoto filenameForNewPhoto];
   _GTMDevLog(@"Loading image into %@", localPath);
-  [self.restClient loadFile:self.metadata.path intoPath:localPath];
+  [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
+    [self.restClient loadFile:self.metadata.path intoPath:localPath];
+  }];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
