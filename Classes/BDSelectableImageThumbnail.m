@@ -71,6 +71,8 @@
   if (self) {
 
     self.mainImage = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
+    self.mainImage.contentMode = UIViewContentModeScaleAspectFill;
+    self.mainImage.clipsToBounds = YES;
     self.overlay   = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
     self.overlay.image = [UIImage imageNamed:@"Overlay.png"];
     self.selected  = NO;

@@ -20,11 +20,25 @@
 
 #import "IPDropBoxSelectableAsset.h"
 #import "DropboxSDK.h"
+#import "NSString+TestHelper.h"
+#import "IPPhoto.h"
+
+@interface IPDropBoxSelectableAsset()
+
+@property (nonatomic, copy) void (^thumbnailCompletion)(UIImage *thumbnail);
+@property (nonatomic, copy) void (^imageCompletion)(NSString *filename, NSString *uti);
+@property (nonatomic, retain) DBRestClient *restClient;
+
+@end
 
 @implementation IPDropBoxSelectableAsset
 
 @synthesize metadata = metadata_;
 @synthesize selected = selected_;
+@synthesize delegate = delegate_;
+@synthesize thumbnailCompletion = thumbnailCompletion_;
+@synthesize imageCompletion = imageCompletion_;
+@synthesize restClient = restClient_;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -32,7 +46,9 @@
 
   self = [super init];
   if (self) {
-    // Initialization code here.
+
+    restClient_ = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+    restClient_.delegate = self;
   }
   
   return self;
@@ -43,6 +59,9 @@
 - (void)dealloc {
   
   [metadata_ release], metadata_ = nil;
+  [thumbnailCompletion_ release], thumbnailCompletion_ = nil;
+  [imageCompletion_ release], imageCompletion_ = nil;
+  [restClient_ release], restClient_ = nil;
   [super dealloc];
 }
 
@@ -50,12 +69,20 @@
 
 - (void)thumbnailAsyncWithCompletion:(void(^)(UIImage *thumbnail))completion {
   
+  self.thumbnailCompletion = completion;
+  NSString *localPath = [[self.metadata.path lastPathComponent] asPathInCachesFolder];
+  _GTMDevLog(@"Loading thumbnail into %@", localPath);
+  [self.restClient loadThumbnail:self.metadata.path ofSize:@"large" intoPath:localPath];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 - (void)imageAsyncWithCompletion:(void(^)(NSString *filename, NSString *uti))completion {
   
+  self.imageCompletion = completion;
+  NSString *localPath = [IPPhoto filenameForNewPhoto];
+  _GTMDevLog(@"Loading image into %@", localPath);
+  [self.restClient loadFile:self.metadata.path intoPath:localPath];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -63,6 +90,47 @@
 - (NSString *)title {
   
   return nil;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)setSelected:(BOOL)selected {
+  
+  selected_ = selected;
+  if (selected_) {
+    
+    [self.delegate selectableAssetDidSelect:self];
+    
+  } else {
+    
+    [self.delegate selectableAssetDidUnselect:self];
+  }
+}
+
+#pragma mark - DBRestClientDelegate
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)restClient:(DBRestClient *)client loadedThumbnail:(NSString *)destPath {
+  
+  _GTMDevLog(@"Loaded thumbnail into %@", destPath);
+  UIImage *thumbnail = [UIImage imageWithContentsOfFile:destPath];
+  self.thumbnailCompletion(thumbnail);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)restClient:(DBRestClient *)client loadedFile:(NSString *)destPath contentType:(NSString *)contentType {
+  
+  _GTMDevLog(@"%s -- loaded file from DropBox (%@, %@)", __PRETTY_FUNCTION__, destPath, contentType);
+  self.imageCompletion(destPath, contentType);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)restClient:(DBRestClient *)client loadFileFailedWithError:(NSError *)error {
+  
+  _GTMDevLog(@"%s -- load file failed: %@", __PRETTY_FUNCTION__, error);
 }
 
 @end

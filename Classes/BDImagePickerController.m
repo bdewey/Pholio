@@ -24,6 +24,8 @@
 #import "BDAssetsLibraryController.h"
 #import "IPFlickrAuthorizationManager.h"
 #import "IPFlickrSetPickerController.h"
+#import "DropboxSDK.h"
+#import "IPDropBoxAssetsSource.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -60,6 +62,12 @@
 //
 
 - (UINavigationController *)flickrController;
+
+//
+//  Creates an |BDAssetsGroupController| set up for DropBox, wrapped in a UINavigationController.
+//
+
+- (UINavigationController *)dropBoxController;
 
 @end
 
@@ -115,6 +123,21 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+- (UINavigationController *)dropBoxController {
+  
+  IPDropBoxAssetsSource *root = [[[IPDropBoxAssetsSource alloc] init] autorelease];
+  root.path = @"/";
+  BDAssetsGroupController *assetsController = [[[BDAssetsGroupController alloc] initWithStyle:UITableViewStylePlain] autorelease];
+  assetsController.assetsSource = root;
+  assetsController.title = @"DropBox";
+  assetsController.delegate = self;
+  UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:assetsController] autorelease];
+  nav.navigationBar.barStyle = UIBarStyleBlack;
+  return nav;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 //
 //  Release any retained properties.
 //
@@ -139,19 +162,29 @@
   controller.imageBlock = imageBlock;
   UIViewController *picker;
   IPFlickrAuthorizationManager *authManager = [IPFlickrAuthorizationManager sharedManager];
+  NSMutableArray *childControllers = [[[NSMutableArray alloc] init] autorelease];
   
-  if (authManager.authToken == nil) {
+  [childControllers addObject:[controller assetsLibraryController]];
+  if (authManager.authToken != nil) {
     
-    picker = [controller assetsLibraryController];
+    [childControllers addObject:[controller flickrController]];
+  }
+  if ([[DBSession sharedSession] isLinked]) {
+    
+    [childControllers addObject:[controller dropBoxController]];
+  }
+  
+  if ([childControllers count] > 1) {
+    
+    UITabBarController *tab = [[[UITabBarController alloc] init] autorelease];
+    [tab setViewControllers:childControllers];
+    picker = tab;
     
   } else {
     
-    UITabBarController *tab = [[[UITabBarController alloc] init] autorelease];
-    [tab setViewControllers:[NSArray arrayWithObjects:[controller assetsLibraryController],
-                             [controller flickrController],
-                             nil]];
-    picker = tab;
+    picker = [childControllers objectAtIndex:0];
   }
+
   UIPopoverController *popover = [[[UIPopoverController alloc] initWithContentViewController:picker] autorelease];
   controller.popover = popover;
   [popover presentPopoverFromRect:rect inView:view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];

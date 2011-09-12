@@ -20,8 +20,9 @@
 
 #import <Foundation/Foundation.h>
 #import "BDAssetsSource.h"
+#import "DropboxSDK.h"
 
-@interface IPDropBoxAssetsSource : NSObject<BDAssetsSource>
+@interface IPDropBoxAssetsSource : NSObject<BDAssetsSource, DBRestClientDelegate>
 
 //
 //  The path into the DropBox hierarchy represented by this source.

@@ -19,10 +19,28 @@
 //
 
 #import "IPDropBoxAssetsSource.h"
+#import "BDSelectableAsset.h"
+#import "IPDropBoxSelectableAsset.h"
+#import "DropboxSDK.h"
+
+@interface IPDropBoxAssetsSource ()
+
+@property (nonatomic, copy) void (^completion)();
+@property (nonatomic, retain) id<BDSelectableAssetDelegate> assetDelegate;
+@property (nonatomic, retain) NSMutableArray *children;
+@property (nonatomic, retain) NSMutableArray *assets;
+@property (nonatomic, retain) DBRestClient *restClient;
+
+@end
 
 @implementation IPDropBoxAssetsSource
 
 @synthesize path = path_;
+@synthesize completion = completion_;
+@synthesize assetDelegate = assetDelegate_;
+@synthesize children = children_;
+@synthesize assets = assets_;
+@synthesize restClient = restClient_;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -30,7 +48,9 @@
 
   self = [super init];
   if (self) {
-    // Initialization code here.
+
+    restClient_ = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+    restClient_.delegate = self;
   }
   
   return self;
@@ -41,6 +61,11 @@
 - (void)dealloc {
   
   [path_ release], path_ = nil;
+  [completion_ release], completion_ = nil;
+  [assetDelegate_ release], assetDelegate_ = nil;
+  [children_ release], children_ = nil;
+  [assets_ release], assets_ = nil;
+  [restClient_ release], restClient_ = nil;
   [super dealloc];
 }
 
@@ -49,6 +74,54 @@
 - (NSString *)title {
   
   return path_;
+}
+
+#pragma mark - BDAssetsSource
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)asyncFillArrayWithChildren:(NSMutableArray *)children 
+                         andAssets:(NSMutableArray *)assets 
+       withSelectableAssetDelegate:(id<BDSelectableAssetDelegate>)delegate 
+                        completion:(void (^)())completion {
+  
+  self.assetDelegate = delegate;
+  self.completion = completion;
+  self.children = children;
+  self.assets = assets;
+  [self.restClient loadMetadata:self.path];
+}
+
+#pragma mark - DBRestClientDelegate
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)restClient:(DBRestClient *)client loadedMetadata:(DBMetadata *)metadata {
+  
+  for (DBMetadata *child in metadata.contents) {
+    
+    if (child.isDirectory) {
+      
+      IPDropBoxAssetsSource *childSource = [[[IPDropBoxAssetsSource alloc] init] autorelease];
+      childSource.path = child.path;
+      [self.children addObject:childSource];
+    }
+    if (child.thumbnailExists) {
+      
+      IPDropBoxSelectableAsset *asset = [[[IPDropBoxSelectableAsset alloc] init] autorelease];
+      asset.metadata = child;
+      asset.delegate = self.assetDelegate;
+      [self.assets addObject:asset];
+    }
+  }
+  self.completion();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)restClient:(DBRestClient *)client loadMetadataFailedWithError:(NSError *)error {
+  
+  self.completion();
 }
 
 @end

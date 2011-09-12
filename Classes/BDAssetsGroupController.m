@@ -23,6 +23,7 @@
 #import "BDAssetRowCell.h"
 #import "BDSelectableALAsset.h"
 #import "BDAssetsSource.h"
+#import "BDAssetsSourceCell.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -94,7 +95,7 @@
   
   [super viewDidLoad];
   self.tableView.separatorColor = [UIColor clearColor];
-  self.tableView.allowsSelection = NO;
+//  self.tableView.allowsSelection = NO;
   
   self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
                                                                                           target:self 
@@ -222,7 +223,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   
-  return ceil([self.assets count] / (CGFloat)kAssetsPerRow);
+  return [self.children count] + ceil([self.assets count] / (CGFloat)kAssetsPerRow);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -231,9 +232,17 @@
 //
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  
-  BDAssetRowCell *cell = [BDAssetRowCell cellForTableView:tableView];
+
   int row = [indexPath row];
+
+  if (row < [self.children count]) {
+    
+    BDAssetsSourceCell *cell = [BDAssetsSourceCell cellForTableView:tableView];
+    cell.assetsSource = [self.children objectAtIndex:row];
+    return cell;
+  }
+  row -= [self.children count];
+  BDAssetRowCell *cell = [BDAssetRowCell cellForTableView:tableView];
   NSRange indexRange = NSMakeRange(row * kAssetsPerRow, kAssetsPerRow);
   if ((indexRange.location + indexRange.length) >= [self.assets count]) {
     
@@ -262,15 +271,17 @@
 //
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  
-  // Navigation logic may go here. Create and push another view controller.
-  /*
-   <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-   // ...
-   // Pass the selected object to the new view controller.
-   [self.navigationController pushViewController:detailViewController animated:YES];
-   [detailViewController release];
-   */
+
+  NSUInteger row = [indexPath row];
+  if (row >= [self.children count]) {
+    
+    return;
+  }
+  id<BDAssetsSource> source = [self.children objectAtIndex:row];
+  BDAssetsGroupController *childController = [[[BDAssetsGroupController alloc] initWithStyle:UITableViewStylePlain] autorelease];
+  childController.assetsSource = source;
+  childController.delegate = self.delegate;
+  [self.navigationController pushViewController:childController animated:YES];
 }
 
 #pragma mark - BDSelectableAssetDelegate

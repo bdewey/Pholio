@@ -20,12 +20,16 @@
 
 #import <Foundation/Foundation.h>
 #import "BDSelectableAsset.h"
+#import "DropboxSDK.h"
 
 @class DBMetadata;
-@interface IPDropBoxSelectableAsset : NSObject<BDSelectableAsset>
+@interface IPDropBoxSelectableAsset : NSObject<
+  BDSelectableAsset,
+  DBRestClientDelegate>
 
 @property (nonatomic, retain) DBMetadata *metadata;
 @property (nonatomic, assign, getter = isSelected) BOOL selected;
+@property (nonatomic, assign) id<BDSelectableAssetDelegate> delegate;
 
 - (void)thumbnailAsyncWithCompletion:(void(^)(UIImage *thumbnail))completion;
 - (void)imageAsyncWithCompletion:(void(^)(NSString *filename, NSString *uti))completion;

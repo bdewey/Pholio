@@ -210,6 +210,8 @@
 		D37C625013B2F7840055823B /* rename.png in Resources */ = {isa = PBXBuildFile; fileRef = D37C624D13B2F7840055823B /* rename.png */; };
 		D37C625113B2F7840055823B /* context-menu.png in Resources */ = {isa = PBXBuildFile; fileRef = D37C624E13B2F7840055823B /* context-menu.png */; };
 		D37C625213B2F7840055823B /* context-menu.png in Resources */ = {isa = PBXBuildFile; fileRef = D37C624E13B2F7840055823B /* context-menu.png */; };
+		D37E6CD4141BE3D100AE4FCA /* BDAssetsSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D37E6CD3141BE3D100AE4FCA /* BDAssetsSourceCell.m */; };
+		D37E6CD5141BE3D100AE4FCA /* BDAssetsSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D37E6CD3141BE3D100AE4FCA /* BDAssetsSourceCell.m */; };
 		D37EAFA61314CE9E006FC137 /* test-medium.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D37EAFA51314CE9E006FC137 /* test-medium.jpg */; };
 		D37EAFA71314D061006FC137 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D2B7D6121F9D2300F1B2BD /* UIImage+Alpha.m */; };
 		D37EAFA81314D061006FC137 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D2B7D7121F9D2300F1B2BD /* UIImage+Resize.m */; };
@@ -552,6 +554,8 @@
 		D37C624A13B2F6A30055823B /* getting-started.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "getting-started.html"; path = "build/getting-started.html"; sourceTree = "<group>"; };
 		D37C624D13B2F7840055823B /* rename.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rename.png; path = build/rename.png; sourceTree = "<group>"; };
 		D37C624E13B2F7840055823B /* context-menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "context-menu.png"; path = "build/context-menu.png"; sourceTree = "<group>"; };
+		D37E6CD2141BE3D100AE4FCA /* BDAssetsSourceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDAssetsSourceCell.h; sourceTree = "<group>"; };
+		D37E6CD3141BE3D100AE4FCA /* BDAssetsSourceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDAssetsSourceCell.m; sourceTree = "<group>"; };
 		D37EAFA51314CE9E006FC137 /* test-medium.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "test-medium.jpg"; sourceTree = "<group>"; };
 		D38273441212428400A36CA4 /* TapToInsert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TapToInsert.png; sourceTree = "<group>"; };
 		D38B0CE813C2EF180042D7E4 /* libObjectiveFlickr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveFlickr.a; path = "../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos/libObjectiveFlickr.a"; sourceTree = "<group>"; };
@@ -1144,6 +1148,8 @@
 				D33C01981374B68600030DD9 /* BDImagePickerController.m */,
 				D33C019A1378812700030DD9 /* BDImagePickerControllerDelegate.h */,
 				D3E57EA9138645A70027534B /* BDAssetsSource.h */,
+				D37E6CD2141BE3D100AE4FCA /* BDAssetsSourceCell.h */,
+				D37E6CD3141BE3D100AE4FCA /* BDAssetsSourceCell.m */,
 			);
 			name = "Asset Management";
 			sourceTree = "<group>";
@@ -1587,6 +1593,7 @@
 				0A8EB79D1415500200E4ACA7 /* IPDropBoxPickerController.m in Sources */,
 				0A8EB7A114188B5600E4ACA7 /* IPDropBoxSelectableAsset.m in Sources */,
 				0A8EB7A51418996E00E4ACA7 /* IPDropBoxAssetsSource.m in Sources */,
+				D37E6CD4141BE3D100AE4FCA /* BDAssetsSourceCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1720,6 +1727,7 @@
 				0A8EB79E1415500200E4ACA7 /* IPDropBoxPickerController.m in Sources */,
 				0A8EB7A214188B5600E4ACA7 /* IPDropBoxSelectableAsset.m in Sources */,
 				0A8EB7A61418996E00E4ACA7 /* IPDropBoxAssetsSource.m in Sources */,
+				D37E6CD5141BE3D100AE4FCA /* BDAssetsSourceCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
