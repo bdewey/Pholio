@@ -820,6 +820,17 @@
   }
   CGFloat minScale = kImageLongEdgeMinRescaleSize / longEdge;
   CGFloat log = ceilf(log2f(minScale));
+  if (log >= 1) {
+    
+    //
+    //  The image is too small to have any levels of detail. Special case this
+    //  as one level.
+    //
+    
+    _GTMDevLog(@"%s -- image too small; reporting one level of detail", 
+               __PRETTY_FUNCTION__);
+    return 1;
+  }
   size_t detail = -1.0 * log + 1;
   _GTMDevLog(@"%s -- (%f x %f) minScale = %f, log = %f, detail = %ld",
              __PRETTY_FUNCTION__,
