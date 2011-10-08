@@ -95,6 +95,7 @@
 
 @interface BDAssetsLibraryController ()
 
+@property (nonatomic, retain) ALAssetsLibrary *library;
 - (void)didCancel;
 
 @end
@@ -108,6 +109,7 @@
 
 @synthesize groups = groups_;
 @synthesize delegate = delegate_;
+@synthesize library = library_;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -124,6 +126,8 @@
     UIImage *tabBarIcon = [UIImage imageNamed:@"42-photos.png"];
     _GTMDevAssert(tabBarIcon != nil, @"Should get tab bar icon");
     self.tabBarItem.image = tabBarIcon;
+    
+    library_ = [[ALAssetsLibrary alloc] init];
   }
   return self;
 }
@@ -135,7 +139,8 @@
 
 - (void)dealloc {
 
-  [groups_ release];
+  [groups_ release], groups_ = nil;
+  [library_ release], library_ = nil;
   [super dealloc];
 }
 
@@ -153,15 +158,13 @@
                                                                                           target:self 
                                                                                           action:@selector(didCancel)] autorelease];
   
-  ALAssetsLibrary *library = [[[ALAssetsLibrary alloc] init] autorelease];
-  
   //
   //  Note that enumerateGroupsWithTypes already executes this in a multithreaded
   //  way. I.e., the function returns before all blocks have been enumerated.
   //  All blocks are called on the main thread, though.
   //
   
-  [library enumerateGroupsWithTypes:ALAssetsGroupAll
+  [self.library enumerateGroupsWithTypes:ALAssetsGroupAll
                          usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
                            
                            if (group != nil) {
