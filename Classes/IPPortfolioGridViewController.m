@@ -382,6 +382,14 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+- (void)viewWillAppear:(BOOL)animated {
+
+  [super viewWillAppear:animated];
+  self.gridView.topContentPadding = self.navigationController.navigationBar.frame.size.height;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 //
 //  Always do a fade-in transition, to help from popping in from the stack.
 //
@@ -389,8 +397,6 @@
 - (void)viewDidAppear:(BOOL)animated {
   
   [super viewDidAppear:animated];
-  self.gridView.topContentPadding = self.navigationController.navigationBar.frame.size.height;
-//  [self.navigationController setNavigationBarHidden:YES animated:YES];
   self.gridView.alpha = 0;
   [UIView animateWithDuration:0.2 animations:^(void) {
     self.gridView.alpha = 1;
