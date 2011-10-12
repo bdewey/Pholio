@@ -427,6 +427,7 @@
         }
         IPPhoto *photo = [[IPPhoto alloc] init];
         photo.filename = filename;
+        photo.title = [asset title];
         [[IPPhotoOptimizationManager sharedManager] asyncOptimizePhoto:photo withCompletion:^(void) {
           
           IPPage *page = [IPPage pageWithPhoto:photo];
