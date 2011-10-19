@@ -1,1 +1,2 @@
 Classes/IPFlickrApiKeys.h                filter=remove-keys
+Classes/IPDropBoxApiKeys.h               filter=remove-keys
