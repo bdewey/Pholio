@@ -21,6 +21,16 @@ NSString* kDBProtocolHTTP = @"http";
 NSString* kDBProtocolHTTPS = @"https";
 
 
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Prototypes
+//
+
+NSString *createFakeSignature(DBSession *session, NSArray *params, NSString *filename, NSURL *baseUrl);
+NSMutableURLRequest *createRealRequest(DBSession *session, NSArray *params, NSString *urlString, NSString *signatureText);
+DBErrorCode addFileUploadToRequest(NSMutableURLRequest *urlRequest, NSString *filename, NSString *sourcePath);
+
+
 @interface DBRestClient ()
 
 // This method escapes all URI escape characters except /

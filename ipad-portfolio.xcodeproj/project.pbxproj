@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A1372EC13E141EA004469E4 /* IPToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD8CF0D13E13CA000BD88E6 /* IPToggleCell.m */; };
+		0A31C00D142CF9F6007E95E1 /* IPDropBoxAssetsSource-test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A31C00A142CF9B9007E95E1 /* IPDropBoxAssetsSource-test.m */; };
 		0A373C3C141E7F4600EBEAB0 /* dropbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A373C3B141E7F4600EBEAB0 /* dropbox.png */; };
 		0A4F0C7A13D938F8008759F5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4F0C7913D938F8008759F5 /* Security.framework */; };
 		0A4F0C8113D944EB008759F5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4F0C7913D938F8008759F5 /* Security.framework */; };
@@ -351,6 +352,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A31C00A142CF9B9007E95E1 /* IPDropBoxAssetsSource-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPDropBoxAssetsSource-test.m"; sourceTree = "<group>"; };
 		0A373C3B141E7F4600EBEAB0 /* dropbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropbox.png; sourceTree = "<group>"; };
 		0A4F0C7913D938F8008759F5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0A8EB6D714153B0500E4ACA7 /* DBAccountInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAccountInfo.h; sourceTree = "<group>"; };
@@ -1048,6 +1050,7 @@
 				D395B2B313ADBEE700346D99 /* IPHelp-test.m */,
 				D318CB8213B572FD00F90860 /* IPPhotoOptimizationManager-test.m */,
 				0AEDDB0B141EA1190091D8E7 /* IPDropBoxSelectableAsset-test.m */,
+				0A31C00A142CF9B9007E95E1 /* IPDropBoxAssetsSource-test.m */,
 				D31E936A134D6EB5000F5494 /* TestHelpers */,
 				D30A433513138E7800E6EBB7 /* Supporting Files */,
 			);
@@ -1732,6 +1735,7 @@
 				0A8EB7A61418996E00E4ACA7 /* IPDropBoxAssetsSource.m in Sources */,
 				D37E6CD5141BE3D100AE4FCA /* BDAssetsSourceCell.m in Sources */,
 				0AEDDB0C141EA1190091D8E7 /* IPDropBoxSelectableAsset-test.m in Sources */,
+				0A31C00D142CF9F6007E95E1 /* IPDropBoxAssetsSource-test.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
