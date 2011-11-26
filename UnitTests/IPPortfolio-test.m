@@ -246,8 +246,7 @@
 
 - (void)testFixupFileNames {
   
-  NSUInteger countOfImages = [self resetTestImages];
-  STAssertEquals((NSUInteger)22, countOfImages, nil);
+  [self resetTestImages];
   
   //
   //  My test cases are maintained in two parallel arrays.
