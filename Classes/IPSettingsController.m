@@ -573,9 +573,17 @@ enum IPSettingsDisplay {
     
   } else if ([tableViewCell isKindOfClass:[IPDropBoxConnectionCell class]]) {
 
-    DBLoginController *loginController = [[[DBLoginController alloc] init] autorelease];
-    loginController.delegate = self;
-    [self.navigationController pushViewController:loginController animated:YES];
+    if ([[DBSession sharedSession] isLinked]) {
+      
+      [[DBSession sharedSession] unlink];
+      [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+      
+    } else {
+      
+      DBLoginController *loginController = [[[DBLoginController alloc] init] autorelease];
+      loginController.delegate = self;
+      [self.navigationController pushViewController:loginController animated:YES];
+    }
     
   } else if ([tableViewCell isKindOfClass:[IPFontPickerCell class]]) {
     
