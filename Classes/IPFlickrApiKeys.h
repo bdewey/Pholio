@@ -23,8 +23,8 @@
 //
 
 
-#define PHOLIO_FLICKR_API_KEY             @"cc0e65877814a82cccb5b634632de2da"
-#define PHOLIO_FLICKR_API_SHARED_SECRET   @"95c0024565e4fc5a"
+#define PHOLIO_FLICKR_API_KEY               @"cc0e65877814a82cccb5b634632de2da"
+#define PHOLIO_FLICKR_API_SHARED_SECRET     @"95c0024565e4fc5a"
 
 #ifndef PHOLIO_FLICKR_API_KEY
 #warning You need to define an API key and shared secrets to interact with Flickr.

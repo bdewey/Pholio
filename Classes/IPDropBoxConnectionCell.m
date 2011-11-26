@@ -49,7 +49,7 @@
     
   } else {
     
-    self.textLabel.text = @"DropBox";
+    self.textLabel.text = @"Connect to DropBox";
   }
 }
 
