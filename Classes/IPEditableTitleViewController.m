@@ -25,7 +25,6 @@
 #import "IPAlert.h"
 #import "IPUserDefaults.h"
 #import "IPPortfolio.h"
-#import "IPHelpController.h"
 
 #define kDefaultBackgroundImageName       @"black.jpg"
 
@@ -100,6 +99,7 @@
 @synthesize popoverController = popoverController_;
 @synthesize backgroundImage = backgroundImage_;
 @synthesize backgroundImageName = backgroundImageName_;
+@synthesize tutorialController = tutorialController_;
 @synthesize alertManager = alertManager_;
 @synthesize userDefaults = userDefaults_;
 @synthesize currentImagePickerBlock = currentImagePickerBlock_;
@@ -130,6 +130,7 @@
   [popoverController_ release];
   [backgroundImage_ release];
   [backgroundImageName_ release];
+  [tutorialController_ release];
   [alertManager_ release];
   [userDefaults_ release];
   [currentImagePickerBlock_ release];
@@ -587,13 +588,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 - (void)ipSettingsShowUserGuide {
   
   [self dismissPopover];
-  IPHelpController *helpController = [[[IPHelpController alloc] initWithNibName:nil bundle:nil] autorelease];
-  UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:helpController] autorelease];
-
-  nav.modalPresentationStyle = UIModalPresentationFormSheet;
-  nav.navigationBar.tintColor = self.portfolio.navigationColor;
-  nav.navigationBar.translucent = YES;
-  [self presentModalViewController:nav animated:YES];
+  [self startTutorial];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -729,4 +724,38 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
   }
   [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
 }
+
+#pragma mark - IPTutorialControllerDelegate
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)startTutorial {
+ 
+  if (self.tutorialController != nil) {
+    
+    //
+    //  Abort if there's already an active tutorial.
+    //
+    
+    return;
+  }
+  self.tutorialController = [[[IPTutorialController alloc] initWithDelegate:self] autorelease];
+  [self.view addSubview:self.tutorialController.view];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)tutorialControllerDidDismiss:(IPTutorialController *)controller {
+  
+  [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+    
+    self.tutorialController.view.alpha = 0.0;
+    
+  } completion:^(BOOL finished) {
+    
+    [self.tutorialController.view removeFromSuperview];
+    self.tutorialController = nil;
+  }];
+}
+
 @end

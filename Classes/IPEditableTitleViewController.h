@@ -29,6 +29,7 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import "IPSettingsController.h"
 #import "BDGridView.h"
+#import "IPTutorialController.h"
 
 
 typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionary *options);
@@ -43,6 +44,7 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
   UIPopoverControllerDelegate,
   IPSettingsControllerDelegate,
   MFMailComposeViewControllerDelegate,
+  IPTutorialControllerDelegate,
   BDGridViewDelegate
 >{
     
@@ -100,6 +102,12 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
 @property (nonatomic, copy) NSString *backgroundImageName;
 
 //
+//  If we're showing a tutorial, this is the controller.
+//
+
+@property (nonatomic, retain) IPTutorialController *tutorialController;
+
+//
 //  Dismisses our popover controller.
 //
 
@@ -125,6 +133,12 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
 //
 
 - (void)setBackgroundImageName:(NSString *)backgroundImageName;
+
+//
+//  Starts running the tutorial.
+//
+
+- (void)startTutorial;
 
 
 @end

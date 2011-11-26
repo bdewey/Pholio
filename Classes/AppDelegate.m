@@ -309,6 +309,7 @@
 
       self.portfolioGridView.portfolio = portfolio;
       [self.portfolioGridView lookForFoundPictures];
+      [self.portfolioGridView startTutorial];
     }];
   }];
 }

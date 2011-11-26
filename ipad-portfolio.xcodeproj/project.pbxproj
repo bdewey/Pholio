@@ -150,6 +150,11 @@
 		D30E437C13646AA90025BDAB /* IPSetGridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30E437913646AA90025BDAB /* IPSetGridViewController.xib */; };
 		D30E437D13646AA90025BDAB /* IPSetGridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30E437913646AA90025BDAB /* IPSetGridViewController.xib */; };
 		D30E438013646BB50025BDAB /* IPSetGridViewController-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D30E437F13646BB50025BDAB /* IPSetGridViewController-test.m */; };
+		D312726114708C26004CAAAC /* IPTutorialController.m in Sources */ = {isa = PBXBuildFile; fileRef = D312725F14708C26004CAAAC /* IPTutorialController.m */; };
+		D312726214708C26004CAAAC /* IPTutorialController.m in Sources */ = {isa = PBXBuildFile; fileRef = D312725F14708C26004CAAAC /* IPTutorialController.m */; };
+		D312726314708C26004CAAAC /* IPTutorialController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D312726014708C26004CAAAC /* IPTutorialController.xib */; };
+		D312726414708C26004CAAAC /* IPTutorialController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D312726014708C26004CAAAC /* IPTutorialController.xib */; };
+		D312726714708E40004CAAAC /* IPTutorialController-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D312726614708E40004CAAAC /* IPTutorialController-test.m */; };
 		D318CB7F13B571AA00F90860 /* IPPhotoOptimizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB7E13B571AA00F90860 /* IPPhotoOptimizationManager.m */; };
 		D318CB8013B571AA00F90860 /* IPPhotoOptimizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB7E13B571AA00F90860 /* IPPhotoOptimizationManager.m */; };
 		D318CB8313B572FD00F90860 /* IPPhotoOptimizationManager-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB8213B572FD00F90860 /* IPPhotoOptimizationManager-test.m */; };
@@ -206,12 +211,6 @@
 		D35934C8135AA8B5001048E2 /* BDSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = D35934BE135A907C001048E2 /* BDSplashScreen.m */; };
 		D35F88BC13C6C50600EB2706 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35F88BB13C6C50600EB2706 /* ImageIO.framework */; };
 		D35F88BD13C6C73D00EB2706 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35F88BB13C6C50600EB2706 /* ImageIO.framework */; };
-		D37C624B13B2F6A30055823B /* getting-started.html in Resources */ = {isa = PBXBuildFile; fileRef = D37C624A13B2F6A30055823B /* getting-started.html */; };
-		D37C624C13B2F76A0055823B /* getting-started.html in Resources */ = {isa = PBXBuildFile; fileRef = D37C624A13B2F6A30055823B /* getting-started.html */; };
-		D37C624F13B2F7840055823B /* rename.png in Resources */ = {isa = PBXBuildFile; fileRef = D37C624D13B2F7840055823B /* rename.png */; };
-		D37C625013B2F7840055823B /* rename.png in Resources */ = {isa = PBXBuildFile; fileRef = D37C624D13B2F7840055823B /* rename.png */; };
-		D37C625113B2F7840055823B /* context-menu.png in Resources */ = {isa = PBXBuildFile; fileRef = D37C624E13B2F7840055823B /* context-menu.png */; };
-		D37C625213B2F7840055823B /* context-menu.png in Resources */ = {isa = PBXBuildFile; fileRef = D37C624E13B2F7840055823B /* context-menu.png */; };
 		D37E6CD4141BE3D100AE4FCA /* BDAssetsSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D37E6CD3141BE3D100AE4FCA /* BDAssetsSourceCell.m */; };
 		D37E6CD5141BE3D100AE4FCA /* BDAssetsSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D37E6CD3141BE3D100AE4FCA /* BDAssetsSourceCell.m */; };
 		D37EAFA61314CE9E006FC137 /* test-medium.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D37EAFA51314CE9E006FC137 /* test-medium.jpg */; };
@@ -224,17 +223,6 @@
 		D3912C2D1358EFDF0021E4C7 /* branding.png in Resources */ = {isa = PBXBuildFile; fileRef = D3912C2C1358EFDF0021E4C7 /* branding.png */; };
 		D3912C2F1358F1E50021E4C7 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3912C2E1358F1E50021E4C7 /* background.jpg */; };
 		D3912C34135902520021E4C7 /* NSString+TestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F75D134C2BA90059EA0F /* NSString+TestHelper.m */; };
-		D395B2AC13ADBEA600346D99 /* site.css in Resources */ = {isa = PBXBuildFile; fileRef = D395B2A913ADBEA600346D99 /* site.css */; };
-		D395B2AD13ADBEA600346D99 /* site.css in Resources */ = {isa = PBXBuildFile; fileRef = D395B2A913ADBEA600346D99 /* site.css */; };
-		D395B2AE13ADBEA600346D99 /* import.html in Resources */ = {isa = PBXBuildFile; fileRef = D395B2AA13ADBEA600346D99 /* import.html */; };
-		D395B2AF13ADBEA600346D99 /* import.html in Resources */ = {isa = PBXBuildFile; fileRef = D395B2AA13ADBEA600346D99 /* import.html */; };
-		D395B2B013ADBEA600346D99 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = D395B2AB13ADBEA600346D99 /* index.html */; };
-		D395B2B113ADBEA600346D99 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = D395B2AB13ADBEA600346D99 /* index.html */; };
-		D395B2B413ADBEE700346D99 /* IPHelp-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D395B2B313ADBEE700346D99 /* IPHelp-test.m */; };
-		D395B2B813ADC0C900346D99 /* IPHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = D395B2B613ADC0C900346D99 /* IPHelpController.m */; };
-		D395B2B913ADC0C900346D99 /* IPHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = D395B2B613ADC0C900346D99 /* IPHelpController.m */; };
-		D395B2BA13ADC0C900346D99 /* IPHelpController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D395B2B713ADC0C900346D99 /* IPHelpController.xib */; };
-		D395B2BB13ADC0C900346D99 /* IPHelpController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D395B2B713ADC0C900346D99 /* IPHelpController.xib */; };
 		D3A20FA4120B4BFA008F247D /* IPPage.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20FA3120B4BFA008F247D /* IPPage.m */; };
 		D3A20FA7120BB21E008F247D /* IPPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20FA6120BB21E008F247D /* IPPhoto.m */; };
 		D3A20FB4120BBB40008F247D /* IPSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20FB3120BBB40008F247D /* IPSet.m */; };
@@ -305,6 +293,15 @@
 		D3D2B7DB121F9D2300F1B2BD /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D2B7D8121F9D2300F1B2BD /* UIImage+RoundedCorner.m */; };
 		D3D541B813503BD30027DCB4 /* IPUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D541B713503BD30027DCB4 /* IPUserDefaults.m */; };
 		D3D541B913503EE50027DCB4 /* IPUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D541B713503BD30027DCB4 /* IPUserDefaults.m */; };
+		D3D843451480A59700819497 /* BDOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D843431480A59700819497 /* BDOverlayViewController.m */; };
+		D3D843461480A59700819497 /* BDOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D843431480A59700819497 /* BDOverlayViewController.m */; };
+		D3D843471480A59700819497 /* BDOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D843441480A59700819497 /* BDOverlayViewController.xib */; };
+		D3D843481480A59700819497 /* BDOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D843441480A59700819497 /* BDOverlayViewController.xib */; };
+		D3D8434C1480AD5A00819497 /* BDOverlayViewController-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D8434B1480AD5A00819497 /* BDOverlayViewController-test.m */; };
+		D3D8434F1480B1D100819497 /* GTMUIKit+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D8434E1480B1D100819497 /* GTMUIKit+UnitTesting.m */; };
+		D3D843521480B29A00819497 /* GTMCALayer+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D843511480B29A00819497 /* GTMCALayer+UnitTesting.m */; };
+		D3D843551480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D843541480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png */; };
+		D3D843571480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D843561480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png */; };
 		D3DF753A134E6C6A00439546 /* IPPortfolio+TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF7539134E6C6A00439546 /* IPPortfolio+TestHelpers.m */; };
 		D3DF753B134E6CF600439546 /* IPPortfolio.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20FBA120BBEBD008F247D /* IPPortfolio.m */; };
 		D3DF7545134E70A000439546 /* IPPortfolio-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF7544134E70A000439546 /* IPPortfolio-test.m */; };
@@ -498,6 +495,10 @@
 		D30E437813646AA90025BDAB /* IPSetGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPSetGridViewController.m; sourceTree = "<group>"; };
 		D30E437913646AA90025BDAB /* IPSetGridViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IPSetGridViewController.xib; sourceTree = "<group>"; };
 		D30E437F13646BB50025BDAB /* IPSetGridViewController-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPSetGridViewController-test.m"; sourceTree = "<group>"; };
+		D312725E14708C26004CAAAC /* IPTutorialController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPTutorialController.h; sourceTree = "<group>"; };
+		D312725F14708C26004CAAAC /* IPTutorialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPTutorialController.m; sourceTree = "<group>"; };
+		D312726014708C26004CAAAC /* IPTutorialController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IPTutorialController.xib; sourceTree = "<group>"; };
+		D312726614708E40004CAAAC /* IPTutorialController-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPTutorialController-test.m"; sourceTree = "<group>"; };
 		D318CB7D13B571AA00F90860 /* IPPhotoOptimizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPhotoOptimizationManager.h; sourceTree = "<group>"; };
 		D318CB7E13B571AA00F90860 /* IPPhotoOptimizationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPPhotoOptimizationManager.m; sourceTree = "<group>"; };
 		D318CB8213B572FD00F90860 /* IPPhotoOptimizationManager-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPhotoOptimizationManager-test.m"; sourceTree = "<group>"; };
@@ -555,9 +556,6 @@
 		D35934BD135A907C001048E2 /* BDSplashScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSplashScreen.h; sourceTree = "<group>"; };
 		D35934BE135A907C001048E2 /* BDSplashScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDSplashScreen.m; sourceTree = "<group>"; };
 		D35F88BB13C6C50600EB2706 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
-		D37C624A13B2F6A30055823B /* getting-started.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "getting-started.html"; path = "build/getting-started.html"; sourceTree = "<group>"; };
-		D37C624D13B2F7840055823B /* rename.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rename.png; path = build/rename.png; sourceTree = "<group>"; };
-		D37C624E13B2F7840055823B /* context-menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "context-menu.png"; path = "build/context-menu.png"; sourceTree = "<group>"; };
 		D37E6CD2141BE3D100AE4FCA /* BDAssetsSourceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDAssetsSourceCell.h; sourceTree = "<group>"; };
 		D37E6CD3141BE3D100AE4FCA /* BDAssetsSourceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDAssetsSourceCell.m; sourceTree = "<group>"; };
 		D37EAFA51314CE9E006FC137 /* test-medium.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "test-medium.jpg"; sourceTree = "<group>"; };
@@ -565,13 +563,6 @@
 		D38B0CE813C2EF180042D7E4 /* libObjectiveFlickr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveFlickr.a; path = "../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos/libObjectiveFlickr.a"; sourceTree = "<group>"; };
 		D3912C2C1358EFDF0021E4C7 /* branding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = branding.png; sourceTree = "<group>"; };
 		D3912C2E1358F1E50021E4C7 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
-		D395B2A913ADBEA600346D99 /* site.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = site.css; path = build/site.css; sourceTree = "<group>"; };
-		D395B2AA13ADBEA600346D99 /* import.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = import.html; path = build/import.html; sourceTree = "<group>"; };
-		D395B2AB13ADBEA600346D99 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = index.html; path = build/index.html; sourceTree = "<group>"; };
-		D395B2B313ADBEE700346D99 /* IPHelp-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPHelp-test.m"; sourceTree = "<group>"; };
-		D395B2B513ADC0C900346D99 /* IPHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPHelpController.h; sourceTree = "<group>"; };
-		D395B2B613ADC0C900346D99 /* IPHelpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPHelpController.m; sourceTree = "<group>"; };
-		D395B2B713ADC0C900346D99 /* IPHelpController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IPHelpController.xib; sourceTree = "<group>"; };
 		D3A20FA2120B4BFA008F247D /* IPPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPage.h; sourceTree = "<group>"; };
 		D3A20FA3120B4BFA008F247D /* IPPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPPage.m; sourceTree = "<group>"; };
 		D3A20FA5120BB21E008F247D /* IPPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPhoto.h; sourceTree = "<group>"; };
@@ -649,6 +640,16 @@
 		D3D2B7D8121F9D2300F1B2BD /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		D3D541B613503BD30027DCB4 /* IPUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPUserDefaults.h; sourceTree = "<group>"; };
 		D3D541B713503BD30027DCB4 /* IPUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPUserDefaults.m; sourceTree = "<group>"; };
+		D3D843421480A59700819497 /* BDOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDOverlayViewController.h; sourceTree = "<group>"; };
+		D3D843431480A59700819497 /* BDOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDOverlayViewController.m; sourceTree = "<group>"; };
+		D3D843441480A59700819497 /* BDOverlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BDOverlayViewController.xib; sourceTree = "<group>"; };
+		D3D8434B1480AD5A00819497 /* BDOverlayViewController-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BDOverlayViewController-test.m"; sourceTree = "<group>"; };
+		D3D8434D1480B1D100819497 /* GTMUIKit+UnitTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMUIKit+UnitTesting.h"; sourceTree = "<group>"; };
+		D3D8434E1480B1D100819497 /* GTMUIKit+UnitTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMUIKit+UnitTesting.m"; sourceTree = "<group>"; };
+		D3D843501480B29A00819497 /* GTMCALayer+UnitTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMCALayer+UnitTesting.h"; sourceTree = "<group>"; };
+		D3D843511480B29A00819497 /* GTMCALayer+UnitTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMCALayer+UnitTesting.m"; sourceTree = "<group>"; };
+		D3D843541480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BDOverlayViewController_testDrawing.10.7.2.iPhone.png; sourceTree = "<group>"; };
+		D3D843561480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png; sourceTree = "<group>"; };
 		D3DF7538134E6C6A00439546 /* IPPortfolio+TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IPPortfolio+TestHelpers.h"; sourceTree = "<group>"; };
 		D3DF7539134E6C6A00439546 /* IPPortfolio+TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPortfolio+TestHelpers.m"; sourceTree = "<group>"; };
 		D3DF7544134E70A000439546 /* IPPortfolio-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPortfolio-test.m"; sourceTree = "<group>"; };
@@ -770,9 +771,12 @@
 				D3E7C5E613672AED00DE4A98 /* IPColors.m */,
 				D352E513139D3ECA00549DBB /* BDCustomAlert.h */,
 				D352E514139D3ECA00549DBB /* BDCustomAlert.m */,
-				D395B2B513ADC0C900346D99 /* IPHelpController.h */,
-				D395B2B613ADC0C900346D99 /* IPHelpController.m */,
-				D395B2B713ADC0C900346D99 /* IPHelpController.xib */,
+				D312725E14708C26004CAAAC /* IPTutorialController.h */,
+				D312725F14708C26004CAAAC /* IPTutorialController.m */,
+				D312726014708C26004CAAAC /* IPTutorialController.xib */,
+				D3D843421480A59700819497 /* BDOverlayViewController.h */,
+				D3D843431480A59700819497 /* BDOverlayViewController.m */,
+				D3D843441480A59700819497 /* BDOverlayViewController.xib */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -928,7 +932,6 @@
 				D30A42D5130F9DEE00E6EBB7 /* GTM */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
-				D395B2A813ADB03400346D99 /* Help */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				D30A433413138E7800E6EBB7 /* UnitTests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -1007,6 +1010,10 @@
 		D30A42D5130F9DEE00E6EBB7 /* GTM */ = {
 			isa = PBXGroup;
 			children = (
+				D3D843501480B29A00819497 /* GTMCALayer+UnitTesting.h */,
+				D3D843511480B29A00819497 /* GTMCALayer+UnitTesting.m */,
+				D3D8434D1480B1D100819497 /* GTMUIKit+UnitTesting.h */,
+				D3D8434E1480B1D100819497 /* GTMUIKit+UnitTesting.m */,
 				D3F0F764134C3FCB0059EA0F /* GTMDevLogUnitTestingBridge.m */,
 				D30A42D8130F9E2A00E6EBB7 /* GTMDefines.h */,
 				D30A42D9130F9E2A00E6EBB7 /* GTMGarbageCollection.h */,
@@ -1033,6 +1040,7 @@
 		D30A433413138E7800E6EBB7 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				D3D843531480BDA600819497 /* Images */,
 				D30A433D13138E7800E6EBB7 /* UnitTestsAppDelegate.h */,
 				D30A433E13138E7800E6EBB7 /* UnitTestsAppDelegate.m */,
 				D30A434013138E7800E6EBB7 /* MainWindow.xib */,
@@ -1047,12 +1055,13 @@
 				D30E437F13646BB50025BDAB /* IPSetGridViewController-test.m */,
 				D3E57E811384D2AA0027534B /* IPFlickrAuthorizationManager-test.m */,
 				D3D0149D138CBE3900181DE7 /* BDColorPicker-test.m */,
-				D395B2B313ADBEE700346D99 /* IPHelp-test.m */,
 				D318CB8213B572FD00F90860 /* IPPhotoOptimizationManager-test.m */,
 				0AEDDB0B141EA1190091D8E7 /* IPDropBoxSelectableAsset-test.m */,
 				0A31C00A142CF9B9007E95E1 /* IPDropBoxAssetsSource-test.m */,
 				D31E936A134D6EB5000F5494 /* TestHelpers */,
 				D30A433513138E7800E6EBB7 /* Supporting Files */,
+				D312726614708E40004CAAAC /* IPTutorialController-test.m */,
+				D3D8434B1480AD5A00819497 /* BDOverlayViewController-test.m */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -1181,19 +1190,6 @@
 			name = Settings;
 			sourceTree = "<group>";
 		};
-		D395B2A813ADB03400346D99 /* Help */ = {
-			isa = PBXGroup;
-			children = (
-				D37C624D13B2F7840055823B /* rename.png */,
-				D37C624E13B2F7840055823B /* context-menu.png */,
-				D37C624A13B2F6A30055823B /* getting-started.html */,
-				D395B2A913ADBEA600346D99 /* site.css */,
-				D395B2AA13ADBEA600346D99 /* import.html */,
-				D395B2AB13ADBEA600346D99 /* index.html */,
-			);
-			path = Help;
-			sourceTree = SOURCE_ROOT;
-		};
 		D3A20FBE120BBFEE008F247D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1277,6 +1273,15 @@
 				0AB426EA13DD2D1700895092 /* UIImage+ColorMask.m */,
 			);
 			name = UIImage;
+			sourceTree = "<group>";
+		};
+		D3D843531480BDA600819497 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				D3D843561480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png */,
+				D3D843541480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		D3E57E711384CA590027534B /* Flickr */ = {
@@ -1406,13 +1411,6 @@
 				D3D0149A138CB39F00181DE7 /* BDColorPicker.xib in Resources */,
 				D3D014B5138DD24F00181DE7 /* CutTheCord.png in Resources */,
 				D3D014B6138DD24F00181DE7 /* Tips.png in Resources */,
-				D395B2AC13ADBEA600346D99 /* site.css in Resources */,
-				D395B2AE13ADBEA600346D99 /* import.html in Resources */,
-				D395B2B013ADBEA600346D99 /* index.html in Resources */,
-				D395B2BA13ADC0C900346D99 /* IPHelpController.xib in Resources */,
-				D37C624B13B2F6A30055823B /* getting-started.html in Resources */,
-				D37C624F13B2F7840055823B /* rename.png in Resources */,
-				D37C625113B2F7840055823B /* context-menu.png in Resources */,
 				D318CB8813B5BD8C00F90860 /* IPOptimizingPhotoNotification.xib in Resources */,
 				D343E28113C96065007330D6 /* gold-thumb.jpg in Resources */,
 				D343E28213C96065007330D6 /* blue-thumb.jpg in Resources */,
@@ -1436,6 +1434,8 @@
 				0A8EB78314153B0500E4ACA7 /* db_logo@2x.png in Resources */,
 				0A373C3C141E7F4600EBEAB0 /* dropbox.png in Resources */,
 				0AEDDB08141E9E6C0091D8E7 /* folder48.gif in Resources */,
+				D312726314708C26004CAAAC /* IPTutorialController.xib in Resources */,
+				D3D843471480A59700819497 /* BDOverlayViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1458,13 +1458,6 @@
 				D3A25E8C1388104400FA80B7 /* 42-photos.png in Resources */,
 				D3D0149B138CB39F00181DE7 /* BDColorPicker.xib in Resources */,
 				D3A584CA139BCEF7006B58E2 /* AlexGrass_20110604.jpg in Resources */,
-				D395B2AD13ADBEA600346D99 /* site.css in Resources */,
-				D395B2AF13ADBEA600346D99 /* import.html in Resources */,
-				D395B2B113ADBEA600346D99 /* index.html in Resources */,
-				D395B2BB13ADC0C900346D99 /* IPHelpController.xib in Resources */,
-				D37C624C13B2F76A0055823B /* getting-started.html in Resources */,
-				D37C625013B2F7840055823B /* rename.png in Resources */,
-				D37C625213B2F7840055823B /* context-menu.png in Resources */,
 				0AB426E113DCE7A600895092 /* IPGridHeader.xib in Resources */,
 				0AB426E413DCE87400895092 /* 19-gear.png in Resources */,
 				0A8EB77014153B0500E4ACA7 /* db_background.png in Resources */,
@@ -1478,6 +1471,10 @@
 				0A8EB78014153B0500E4ACA7 /* db_link_header@2x.png in Resources */,
 				0A8EB78214153B0500E4ACA7 /* db_logo.png in Resources */,
 				0A8EB78414153B0500E4ACA7 /* db_logo@2x.png in Resources */,
+				D312726414708C26004CAAAC /* IPTutorialController.xib in Resources */,
+				D3D843481480A59700819497 /* BDOverlayViewController.xib in Resources */,
+				D3D843551480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png in Resources */,
+				D3D843571480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1557,7 +1554,6 @@
 				D3A584C7139B3C4E006B58E2 /* IPPhotoScrollView.m in Sources */,
 				D3A584CD139C8478006B58E2 /* IPPhotoTilingView.m in Sources */,
 				D352E515139D3ECA00549DBB /* BDCustomAlert.m in Sources */,
-				D395B2B813ADC0C900346D99 /* IPHelpController.m in Sources */,
 				D318CB7F13B571AA00F90860 /* IPPhotoOptimizationManager.m in Sources */,
 				D318CB8713B5BD8C00F90860 /* IPOptimizingPhotoNotification.m in Sources */,
 				D3B09AB013BC46B00001C3F4 /* AppDelegate.m in Sources */,
@@ -1601,6 +1597,8 @@
 				0A8EB7A114188B5600E4ACA7 /* IPDropBoxSelectableAsset.m in Sources */,
 				0A8EB7A51418996E00E4ACA7 /* IPDropBoxAssetsSource.m in Sources */,
 				D37E6CD4141BE3D100AE4FCA /* BDAssetsSourceCell.m in Sources */,
+				D312726114708C26004CAAAC /* IPTutorialController.m in Sources */,
+				D3D843451480A59700819497 /* BDOverlayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1688,8 +1686,6 @@
 				D3A584C8139B3C4E006B58E2 /* IPPhotoScrollView.m in Sources */,
 				D3A584CE139C8478006B58E2 /* IPPhotoTilingView.m in Sources */,
 				D352E516139D3ECA00549DBB /* BDCustomAlert.m in Sources */,
-				D395B2B413ADBEE700346D99 /* IPHelp-test.m in Sources */,
-				D395B2B913ADC0C900346D99 /* IPHelpController.m in Sources */,
 				D318CB8013B571AA00F90860 /* IPPhotoOptimizationManager.m in Sources */,
 				D318CB8313B572FD00F90860 /* IPPhotoOptimizationManager-test.m in Sources */,
 				D318CB8913B5C79100F90860 /* IPOptimizingPhotoNotification.m in Sources */,
@@ -1736,6 +1732,12 @@
 				D37E6CD5141BE3D100AE4FCA /* BDAssetsSourceCell.m in Sources */,
 				0AEDDB0C141EA1190091D8E7 /* IPDropBoxSelectableAsset-test.m in Sources */,
 				0A31C00D142CF9F6007E95E1 /* IPDropBoxAssetsSource-test.m in Sources */,
+				D312726214708C26004CAAAC /* IPTutorialController.m in Sources */,
+				D312726714708E40004CAAAC /* IPTutorialController-test.m in Sources */,
+				D3D843461480A59700819497 /* BDOverlayViewController.m in Sources */,
+				D3D8434C1480AD5A00819497 /* BDOverlayViewController-test.m in Sources */,
+				D3D8434F1480B1D100819497 /* GTMUIKit+UnitTesting.m in Sources */,
+				D3D843521480B29A00819497 /* GTMCALayer+UnitTesting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
