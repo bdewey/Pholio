@@ -1,12 +1,12 @@
 //
-//  IPDropBoxApiKeys
+//  IPFlickrApiKeys.h
 //
 //  This is where you define the API key and shared secret for interacting
-//  with DropBox. If I set up git correctly, these keys will get removed on
+//  with Flickr. If I set up git correctly, these keys will get removed on
 //  checkin. If you work on your own version of this code, you will need to
-//  get your own DropBox API keys.
+//  get your own Flickr API keys.
 //
-//  Created by Brian Dewey on 9/5/2011.
+//  Created by Brian Dewey on 6/26/11.
 //  Copyright 2011 Brian Dewey. 
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,10 +22,11 @@
 //  limitations under the License.
 //
 
-#define PHOLIO_DROPBOX_API_KEY              @"iytcu5ls64lop66"
-#define PHOLIO_DROPBOX_API_SHARED_SECRET    @"6g3j3opnse79ph1"
 
-#ifndef PHOLIO_DROPBOX_API_KEY
-#warning You need to define an API key and shared secrets to interact with DropBox.
+//#define PHOLIO_FLICKR_API_KEY ...
+//#define PHOLIO_FLICKR_API_SHARED_SECRET ...
+
+#ifndef PHOLIO_FLICKR_API_KEY
+#warning You need to define an API key and shared secrets to interact with Flickr.
 #endif
 
