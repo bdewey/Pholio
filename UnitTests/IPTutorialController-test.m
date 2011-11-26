@@ -49,6 +49,13 @@
 
 #pragma mark - IPTutorialControllerDelegate
 
+- (void)tutorialControllerDidSelectLearnMore:(IPTutorialController *)controller {
+  
+  //
+  //  NOTHING
+  //
+}
+
 - (void)tutorialControllerDidDismiss:(IPTutorialController *)controller {
   
   //

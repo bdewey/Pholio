@@ -36,6 +36,7 @@
 #import "IPPhoto.h"
 #import "BDContrainPanGestureRecognizer.h"
 #import "IPGridHeader.h"
+#import "IPTutorialManager.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -397,6 +398,15 @@
 - (void)viewDidAppear:(BOOL)animated {
   
   [super viewDidAppear:animated];
+  
+  //
+  //  If we need to show a tutorial, do so.
+  //
+  
+  if (self.tutorialManager.state == IPTutorialManagerStateWelcome) {
+    
+    [self startTutorial];
+  }
   self.gridView.alpha = 0;
   [UIView animateWithDuration:0.2 animations:^(void) {
     self.gridView.alpha = 1;
@@ -1140,6 +1150,53 @@
   
   self.portfolio.title = textField.text;
   [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+}
+
+#pragma mark - Tutorial
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)startTutorial {
+  
+  if (self.tutorialController != nil) {
+    
+    return;
+  }
+  self.tutorialController = [[[IPTutorialController alloc] initWithDelegate:self] autorelease];
+  [self.view addSubview:self.tutorialController.view];
+  self.tutorialManager.state = IPTutorialManagerStateWelcome;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)tutorialControllerDidSelectLearnMore:(IPTutorialController *)controller {
+  
+  self.tutorialManager.state = IPTutorialManagerStateNoTutorial;
+  [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+    
+    self.tutorialController.view.alpha = 0.0;
+    
+  } completion:^(BOOL finished) {
+    
+    [self.tutorialController.view removeFromSuperview];
+    self.tutorialController = nil;
+  }];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)tutorialControllerDidDismiss:(IPTutorialController *)controller {
+  
+  self.tutorialManager.state = IPTutorialManagerStateNoTutorial;
+  [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+    
+    self.tutorialController.view.alpha = 0.0;
+    
+  } completion:^(BOOL finished) {
+    
+    [self.tutorialController.view removeFromSuperview];
+    self.tutorialController = nil;
+  }];
 }
 
 @end

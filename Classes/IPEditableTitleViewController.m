@@ -25,6 +25,7 @@
 #import "IPAlert.h"
 #import "IPUserDefaults.h"
 #import "IPPortfolio.h"
+#import "IPTutorialManager.h"
 
 #define kDefaultBackgroundImageName       @"black.jpg"
 
@@ -99,6 +100,7 @@
 @synthesize popoverController = popoverController_;
 @synthesize backgroundImage = backgroundImage_;
 @synthesize backgroundImageName = backgroundImageName_;
+@synthesize tutorialManager = tutorialManager_;
 @synthesize tutorialController = tutorialController_;
 @synthesize alertManager = alertManager_;
 @synthesize userDefaults = userDefaults_;
@@ -130,6 +132,7 @@
   [popoverController_ release];
   [backgroundImage_ release];
   [backgroundImageName_ release];
+  [tutorialManager_ release];
   [tutorialController_ release];
   [alertManager_ release];
   [userDefaults_ release];
@@ -331,6 +334,17 @@
 - (void)updateBackgroundImage {
   
   self.backgroundImage.image = [UIImage imageNamed:self.backgroundImageName];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (IPTutorialManager *)tutorialManager {
+  
+  if (tutorialManager_ == nil) {
+    
+    tutorialManager_ = [[IPTutorialManager sharedManager] retain];
+  }
+  return tutorialManager_;
 }
 
 #pragma mark - Image picking
@@ -739,23 +753,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     return;
   }
-  self.tutorialController = [[[IPTutorialController alloc] initWithDelegate:self] autorelease];
-  [self.view addSubview:self.tutorialController.view];
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-- (void)tutorialControllerDidDismiss:(IPTutorialController *)controller {
-  
-  [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-    
-    self.tutorialController.view.alpha = 0.0;
-    
-  } completion:^(BOOL finished) {
-    
-    [self.tutorialController.view removeFromSuperview];
-    self.tutorialController = nil;
-  }];
+  self.tutorialManager.state = IPTutorialManagerStateWelcome;
+  [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end

@@ -37,6 +37,7 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
 @class IPAlert;
 @class IPUserDefaults;
 @class IPPortfolio;
+@class IPTutorialManager;
 @interface IPEditableTitleViewController : UIViewController<
   UITextFieldDelegate,
   UIImagePickerControllerDelegate,
@@ -100,6 +101,13 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
 //
 
 @property (nonatomic, copy) NSString *backgroundImageName;
+
+//
+//  Pointer to the tutorial manager... this maintains where the user is
+//  in the tutorial.
+//
+
+@property (nonatomic, retain) IPTutorialManager *tutorialManager;
 
 //
 //  If we're showing a tutorial, this is the controller.

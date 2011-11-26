@@ -80,7 +80,7 @@
 
 - (IBAction)didStartLearnMore:(id)sender {
   
-  [self.delegate tutorialControllerDidDismiss:self];
+  [self.delegate tutorialControllerDidSelectLearnMore:self];
 }
 
 - (IBAction)didStartUsingNow:(id)sender {

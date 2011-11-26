@@ -46,6 +46,7 @@
 
 @protocol IPTutorialControllerDelegate <NSObject>
 
+- (void)tutorialControllerDidSelectLearnMore:(IPTutorialController *)controller;
 - (void)tutorialControllerDidDismiss:(IPTutorialController *)controller;
 
 @end

@@ -346,6 +346,8 @@
 		D3F0F763134C2F680059EA0F /* IPPhoto+TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F760134C2D060059EA0F /* IPPhoto+TestHelpers.m */; };
 		D3F0F765134C3FCB0059EA0F /* GTMDevLogUnitTestingBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F764134C3FCB0059EA0F /* GTMDevLogUnitTestingBridge.m */; };
 		D3F61153123C043B007F789A /* 40-inbox.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F61151123C043B007F789A /* 40-inbox.png */; };
+		D3FF3ADF1480D6050088D350 /* IPTutorialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FF3ADE1480D6050088D350 /* IPTutorialManager.m */; };
+		D3FF3AE01480D6050088D350 /* IPTutorialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FF3ADE1480D6050088D350 /* IPTutorialManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -696,6 +698,8 @@
 		D3F0F760134C2D060059EA0F /* IPPhoto+TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPhoto+TestHelpers.m"; sourceTree = "<group>"; };
 		D3F0F764134C3FCB0059EA0F /* GTMDevLogUnitTestingBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMDevLogUnitTestingBridge.m; sourceTree = "<group>"; };
 		D3F61151123C043B007F789A /* 40-inbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "40-inbox.png"; sourceTree = "<group>"; };
+		D3FF3ADD1480D6050088D350 /* IPTutorialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPTutorialManager.h; sourceTree = "<group>"; };
+		D3FF3ADE1480D6050088D350 /* IPTutorialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPTutorialManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -777,6 +781,8 @@
 				D3D843421480A59700819497 /* BDOverlayViewController.h */,
 				D3D843431480A59700819497 /* BDOverlayViewController.m */,
 				D3D843441480A59700819497 /* BDOverlayViewController.xib */,
+				D3FF3ADD1480D6050088D350 /* IPTutorialManager.h */,
+				D3FF3ADE1480D6050088D350 /* IPTutorialManager.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1599,6 +1605,7 @@
 				D37E6CD4141BE3D100AE4FCA /* BDAssetsSourceCell.m in Sources */,
 				D312726114708C26004CAAAC /* IPTutorialController.m in Sources */,
 				D3D843451480A59700819497 /* BDOverlayViewController.m in Sources */,
+				D3FF3ADF1480D6050088D350 /* IPTutorialManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1738,6 +1745,7 @@
 				D3D8434C1480AD5A00819497 /* BDOverlayViewController-test.m in Sources */,
 				D3D8434F1480B1D100819497 /* GTMUIKit+UnitTesting.m in Sources */,
 				D3D843521480B29A00819497 /* GTMCALayer+UnitTesting.m in Sources */,
+				D3FF3AE01480D6050088D350 /* IPTutorialManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
