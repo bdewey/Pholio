@@ -46,6 +46,8 @@
 @property (nonatomic, retain) IPOptimizingPhotoNotification *optimizingNotification;
 
 - (IPSet *)welcomeSet;
+- (IPSet *)sampleLandscapes;
+- (IPSet *)setNamed:(NSString *)setName fromImagesNamed:(NSArray *)imageNames;
 - (void)ensureWelcomeSetForPortfolio:(IPPortfolio *)portfolio;
 - (void)upgradePhotoOptimizationForPortfolio:(IPPortfolio *)portfolio completion:(IPPhotoOptimizationCompletion)completion;
 - (void)preparePortfolioForDisplay;
@@ -327,8 +329,32 @@
                          @"CutTheCord.png",
                          @"Tips.png",
                          nil];
-  IPSet *welcomeSet = [[[IPSet alloc] init] autorelease];
-  welcomeSet.title = kWelcomeGalleryName;
+  return [self setNamed:kWelcomeGalleryName fromImagesNamed:imageNames];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (IPSet *)sampleLandscapes {
+  
+  NSArray *imageNames = [NSArray arrayWithObjects:
+                         @"Across the Lake (2008).jpg",
+                         @"Count the Balloons (2009).jpg",
+                         @"Everglades Sunrise (2009).jpg",
+                         @"Frostscape (2008).jpg",
+                         @"Haystack Rock (2009).jpg",
+                         @"Lone Photographer (2008).jpg",
+                         @"Misty Morning (2008).jpg",
+                         @"To the Sky (2008).jpg",
+                         nil];
+  return [self setNamed:@"Example Landscapes" fromImagesNamed:imageNames];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (IPSet *)setNamed:(NSString *)setName fromImagesNamed:(NSArray *)imageNames {
+  
+  IPSet *theSet = [[[IPSet alloc] init] autorelease];
+  theSet.title = setName;
   for (NSString *imageName in imageNames) {
     
     //
@@ -346,7 +372,7 @@
       photo.filename = [imageName asPathInDocumentsFolder];
       [photo optimize];
       IPPage *page = [IPPage pageWithPhoto:photo];
-      [welcomeSet.pages addObject:page];
+      [theSet.pages addObject:page];
       
     } else {
       
@@ -357,9 +383,9 @@
     }
   }
   
-  if ([welcomeSet countOfPages] > 0) {
+  if ([theSet countOfPages] > 0) {
     
-    return welcomeSet;
+    return theSet;
     
   } else {
     
@@ -378,7 +404,7 @@
   //  Bump this number each time there's a new version of the welcome set.
   //
   
-  NSInteger welcomeSetVersion = 2;
+  NSInteger welcomeSetVersion = 3;
   IPUserDefaults *userDefaults = [IPUserDefaults defaultSettings];
   if ([userDefaults welcomeVersion] < welcomeSetVersion) {
     
@@ -388,7 +414,15 @@
     //
     
     IPSet *welcomeSet = [self welcomeSet];
-    [portfolio insertObject:welcomeSet inSetsAtIndex:[portfolio countOfSets]];
+    if (welcomeSet) {
+      
+      [portfolio insertObject:welcomeSet inSetsAtIndex:[portfolio countOfSets]];
+    }
+    IPSet *landscapes = [self sampleLandscapes];
+    if (landscapes) {
+
+      [portfolio insertObject:landscapes inSetsAtIndex:[portfolio countOfSets]];
+    }
     userDefaults.welcomeVersion = welcomeSetVersion;
     [portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
   }

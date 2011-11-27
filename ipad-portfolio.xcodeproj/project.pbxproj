@@ -211,6 +211,14 @@
 		D35934C8135AA8B5001048E2 /* BDSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = D35934BE135A907C001048E2 /* BDSplashScreen.m */; };
 		D35F88BC13C6C50600EB2706 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35F88BB13C6C50600EB2706 /* ImageIO.framework */; };
 		D35F88BD13C6C73D00EB2706 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35F88BB13C6C50600EB2706 /* ImageIO.framework */; };
+		D3787C831482192C000F0B6D /* Across the Lake (2008).jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3787C7B1482192C000F0B6D /* Across the Lake (2008).jpg */; };
+		D3787C841482192C000F0B6D /* Count the Balloons (2009).jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3787C7C1482192C000F0B6D /* Count the Balloons (2009).jpg */; };
+		D3787C851482192C000F0B6D /* Everglades Sunrise (2009).jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3787C7D1482192C000F0B6D /* Everglades Sunrise (2009).jpg */; };
+		D3787C861482192C000F0B6D /* Frostscape (2008).jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3787C7E1482192C000F0B6D /* Frostscape (2008).jpg */; };
+		D3787C871482192C000F0B6D /* Haystack Rock (2009).jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3787C7F1482192C000F0B6D /* Haystack Rock (2009).jpg */; };
+		D3787C881482192C000F0B6D /* Lone Photographer (2008).jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3787C801482192C000F0B6D /* Lone Photographer (2008).jpg */; };
+		D3787C891482192C000F0B6D /* Misty Morning (2008).jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3787C811482192C000F0B6D /* Misty Morning (2008).jpg */; };
+		D3787C8A1482192C000F0B6D /* To the Sky (2008).jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3787C821482192C000F0B6D /* To the Sky (2008).jpg */; };
 		D37E6CD4141BE3D100AE4FCA /* BDAssetsSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D37E6CD3141BE3D100AE4FCA /* BDAssetsSourceCell.m */; };
 		D37E6CD5141BE3D100AE4FCA /* BDAssetsSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D37E6CD3141BE3D100AE4FCA /* BDAssetsSourceCell.m */; };
 		D37EAFA61314CE9E006FC137 /* test-medium.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D37EAFA51314CE9E006FC137 /* test-medium.jpg */; };
@@ -558,6 +566,14 @@
 		D35934BD135A907C001048E2 /* BDSplashScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSplashScreen.h; sourceTree = "<group>"; };
 		D35934BE135A907C001048E2 /* BDSplashScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDSplashScreen.m; sourceTree = "<group>"; };
 		D35F88BB13C6C50600EB2706 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		D3787C7B1482192C000F0B6D /* Across the Lake (2008).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Across the Lake (2008).jpg"; sourceTree = "<group>"; };
+		D3787C7C1482192C000F0B6D /* Count the Balloons (2009).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Count the Balloons (2009).jpg"; sourceTree = "<group>"; };
+		D3787C7D1482192C000F0B6D /* Everglades Sunrise (2009).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Everglades Sunrise (2009).jpg"; sourceTree = "<group>"; };
+		D3787C7E1482192C000F0B6D /* Frostscape (2008).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Frostscape (2008).jpg"; sourceTree = "<group>"; };
+		D3787C7F1482192C000F0B6D /* Haystack Rock (2009).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Haystack Rock (2009).jpg"; sourceTree = "<group>"; };
+		D3787C801482192C000F0B6D /* Lone Photographer (2008).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Lone Photographer (2008).jpg"; sourceTree = "<group>"; };
+		D3787C811482192C000F0B6D /* Misty Morning (2008).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Misty Morning (2008).jpg"; sourceTree = "<group>"; };
+		D3787C821482192C000F0B6D /* To the Sky (2008).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "To the Sky (2008).jpg"; sourceTree = "<group>"; };
 		D37E6CD2141BE3D100AE4FCA /* BDAssetsSourceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDAssetsSourceCell.h; sourceTree = "<group>"; };
 		D37E6CD3141BE3D100AE4FCA /* BDAssetsSourceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDAssetsSourceCell.m; sourceTree = "<group>"; };
 		D37EAFA51314CE9E006FC137 /* test-medium.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "test-medium.jpg"; sourceTree = "<group>"; };
@@ -962,6 +978,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D3787C7914821908000F0B6D /* Samples */,
 				0AEDDB07141E9E6C0091D8E7 /* folder48.gif */,
 				0A373C3B141E7F4600EBEAB0 /* dropbox.png */,
 				0AB426E213DCE87400895092 /* 19-gear.png */,
@@ -1194,6 +1211,21 @@
 				0AD8CF0D13E13CA000BD88E6 /* IPToggleCell.m */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		D3787C7914821908000F0B6D /* Samples */ = {
+			isa = PBXGroup;
+			children = (
+				D3787C7B1482192C000F0B6D /* Across the Lake (2008).jpg */,
+				D3787C7C1482192C000F0B6D /* Count the Balloons (2009).jpg */,
+				D3787C7D1482192C000F0B6D /* Everglades Sunrise (2009).jpg */,
+				D3787C7E1482192C000F0B6D /* Frostscape (2008).jpg */,
+				D3787C7F1482192C000F0B6D /* Haystack Rock (2009).jpg */,
+				D3787C801482192C000F0B6D /* Lone Photographer (2008).jpg */,
+				D3787C811482192C000F0B6D /* Misty Morning (2008).jpg */,
+				D3787C821482192C000F0B6D /* To the Sky (2008).jpg */,
+			);
+			path = Samples;
 			sourceTree = "<group>";
 		};
 		D3A20FBE120BBFEE008F247D /* Model */ = {
@@ -1442,6 +1474,14 @@
 				0AEDDB08141E9E6C0091D8E7 /* folder48.gif in Resources */,
 				D312726314708C26004CAAAC /* IPTutorialController.xib in Resources */,
 				D3D843471480A59700819497 /* BDOverlayViewController.xib in Resources */,
+				D3787C831482192C000F0B6D /* Across the Lake (2008).jpg in Resources */,
+				D3787C841482192C000F0B6D /* Count the Balloons (2009).jpg in Resources */,
+				D3787C851482192C000F0B6D /* Everglades Sunrise (2009).jpg in Resources */,
+				D3787C861482192C000F0B6D /* Frostscape (2008).jpg in Resources */,
+				D3787C871482192C000F0B6D /* Haystack Rock (2009).jpg in Resources */,
+				D3787C881482192C000F0B6D /* Lone Photographer (2008).jpg in Resources */,
+				D3787C891482192C000F0B6D /* Misty Morning (2008).jpg in Resources */,
+				D3787C8A1482192C000F0B6D /* To the Sky (2008).jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
