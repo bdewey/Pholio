@@ -783,9 +783,43 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
 - (void)overlayViewController:(BDOverlayViewController *)controller didFinishWithSwipeDirection:(UISwipeGestureRecognizerDirection)direction {
   
-  //
-  //  NOTHING
-  //
+  if (controller != self.overlayController) {
+    
+    _GTMDevAssert(NO, @"Got notification from unexpected controller");
+    return;
+  }
+  CGRect finalFrame;
+  switch (direction) {
+      
+    case UISwipeGestureRecognizerDirectionUp:
+      
+      finalFrame = CGRectOffset(controller.view.frame, 0, CGRectGetMaxY(controller.view.frame) * -1);
+      break;
+      
+    case UISwipeGestureRecognizerDirectionDown:
+      finalFrame = CGRectOffset(controller.view.frame, 0, CGRectGetMinY(controller.view.frame));
+      break;
+      
+    case UISwipeGestureRecognizerDirectionLeft:
+      finalFrame = CGRectOffset(controller.view.frame, CGRectGetMaxX(controller.view.frame) * -1, 0);
+      break;
+      
+    case UISwipeGestureRecognizerDirectionRight:
+      finalFrame = CGRectOffset(controller.view.frame, 
+                                CGRectGetMaxX(self.view.bounds) - CGRectGetMinX(controller.view.frame), 
+                                0);
+      break;
+  }
+  self.tutorialManager.state = IPTutorialManagerStateNoTutorial;
+  [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+    
+    controller.view.frame = finalFrame;
+    
+  } completion:^(BOOL finished) {
+    
+    [controller.view removeFromSuperview];
+    self.overlayController = nil;
+  }];
 }
 
 @end
