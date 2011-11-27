@@ -827,7 +827,7 @@
     
     return;
   }
-  BDOverlayViewController *overlay = [[self overlayControllerForCurrentState] retain];
+  BDOverlayViewController *overlay = [self overlayControllerForCurrentState];
   [self.view addSubview:overlay.view];
   [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
     
@@ -837,7 +837,6 @@
   } completion:^(BOOL finished) {
     
     self.overlayController = overlay;
-    [overlay release];
   }];
 }
 
@@ -1197,7 +1196,7 @@
   //  Create an overlay and swap it with |tutorialController|.
   //
   
-  BDOverlayViewController *overlay = [[self overlayControllerForCurrentState] retain];
+  BDOverlayViewController *overlay = [self overlayControllerForCurrentState];
   [self.view addSubview:overlay.view];
   [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
     
@@ -1209,7 +1208,6 @@
     [self.tutorialController.view removeFromSuperview];
     self.tutorialController = nil;
     self.overlayController = overlay;
-    [overlay release];
   }];
 }
 
