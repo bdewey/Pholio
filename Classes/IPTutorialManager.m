@@ -116,7 +116,12 @@
       break;
       
     case IPTutorialManagerStateDragDrop:
-      break;
+      if (event == IPTutorialManagerEventDidDragDrop) {
+        
+        self.state = IPTutorialManagerStateNoTutorial;
+        return YES;
+      }
+      return NO;
       
     default:
       break;

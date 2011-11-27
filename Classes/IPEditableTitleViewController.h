@@ -155,5 +155,11 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
 
 - (void)startTutorial;
 
+//
+//  Gets the overlay controller we need for a given tutorial state.
+//
+
+- (BDOverlayViewController *)overlayControllerForCurrentState;
+
 
 @end

@@ -760,6 +760,23 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
   [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+- (BDOverlayViewController *)overlayControllerForCurrentState {
+  
+  if (self.tutorialManager.state == IPTutorialManagerStateNoTutorial ||
+      self.tutorialManager.state == IPTutorialManagerStateWelcome) {
+    
+    return nil;
+  }
+  BDOverlayViewController *overlay = [[[BDOverlayViewController alloc] initWithDelegate:self] autorelease];
+  overlay.overlayTitleText = self.tutorialManager.tutorialTitle;
+  overlay.descriptionText  = self.tutorialManager.tutorialDescription;
+  overlay.view.center      = self.view.center;
+  overlay.view.alpha       = 0.0;
+  return overlay;
+}
+
 #pragma mark - BDOverlayViewControllerDelegate
 
 ////////////////////////////////////////////////////////////////////////////////
