@@ -20,13 +20,54 @@
 
 #import "IPTutorialManager.h"
 
+@interface IPTutorialManager()
+
+@property (nonatomic, retain) NSArray *tutorialTitles;
+@property (nonatomic, retain) NSArray *tutorialDescriptions;
+
+@end
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
 @implementation IPTutorialManager
 
-@synthesize state = state_;
+@synthesize state                = state_;
+@synthesize tutorialTitles       = tutorialTitles_;
+@synthesize tutorialDescriptions = tutorialDescriptions_;
+
+@dynamic tutorialTitle;
+@dynamic tutorialDescription;
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (id)init {
+  
+  self = [super init];
+  if (self) {
+    
+    tutorialTitles_ = [[NSArray alloc] initWithObjects:@"No Tutorial",
+                       @"Welcome",
+                       @"Drag and Drop",
+                       nil];
+    tutorialDescriptions_ = [[NSArray alloc] initWithObjects:@"No Tutorial",
+                             @"Welcome to Pholio!",
+                             @"(Add some text about how you can drag and drop here...)",
+                             nil];
+  }
+  return self;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)dealloc {
+  
+  [tutorialTitles_ release];
+  [tutorialDescriptions_ release];
+  
+  [super dealloc];
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -39,4 +80,65 @@
   }
   return sharedManager_;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (BOOL)updateTutorialStateForEvent:(IPTutorialManagerEvent)event {
+  
+  if (event == IPTutorialManagerEventDidSelectLearnMore) {
+    
+    //
+    //  The resulting state is always IPTutorialManagerStateDragDrop.
+    //
+    
+    if (self.state == IPTutorialManagerStateDragDrop) {
+      
+      //
+      //  Already there.
+      //
+      
+      return NO;
+      
+    } else {
+      
+      self.state = IPTutorialManagerStateDragDrop;
+      return YES;
+    }
+  }
+  
+  switch (self.state) {
+      
+    case IPTutorialManagerStateNoTutorial:
+      
+      break;
+      
+    case IPTutorialManagerStateWelcome:
+      break;
+      
+    case IPTutorialManagerStateDragDrop:
+      break;
+      
+    default:
+      break;
+  }
+  
+  return NO;
+}
+
+#pragma mark - Properties
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (NSString *)tutorialTitle {
+  
+  return [self.tutorialTitles objectAtIndex:self.state];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (NSString *)tutorialDescription {
+  
+  return [self.tutorialDescriptions objectAtIndex:self.state];
+}
+
 @end

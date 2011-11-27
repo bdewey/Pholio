@@ -1171,15 +1171,31 @@
 
 - (void)tutorialControllerDidSelectLearnMore:(IPTutorialController *)controller {
   
-  self.tutorialManager.state = IPTutorialManagerStateNoTutorial;
+  if (![self.tutorialManager updateTutorialStateForEvent:IPTutorialManagerEventDidSelectLearnMore]) {
+    
+    return;
+  }
+    
+  //
+  //  Create an overlay and swap it with |tutorialController|.
+  //
+  
+  BDOverlayViewController *overlay = [[BDOverlayViewController alloc] initWithDelegate:self];
+  overlay.overlayTitleText = self.tutorialManager.tutorialTitle;
+  overlay.descriptionText  = self.tutorialManager.tutorialDescription;
+  overlay.view.alpha = 0.0;
+  [self.view addSubview:overlay.view];
   [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
     
+    overlay.view.alpha = 1.0;
     self.tutorialController.view.alpha = 0.0;
     
   } completion:^(BOOL finished) {
     
     [self.tutorialController.view removeFromSuperview];
     self.tutorialController = nil;
+    self.overlayController = overlay;
+    [overlay release];
   }];
 }
 

@@ -24,8 +24,14 @@
 
 typedef enum {
   IPTutorialManagerStateNoTutorial,
-  IPTutorialManagerStateWelcome
+  IPTutorialManagerStateWelcome,
+  IPTutorialManagerStateDragDrop
 } IPTutorialManagerState;
+
+typedef enum {
+  IPTutorialManagerEventDidSelectLearnMore,
+  IPTutorialManagerEventDidDragDrop
+} IPTutorialManagerEvent;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,7 +40,11 @@ typedef enum {
 @interface IPTutorialManager : NSObject
 
 @property (nonatomic, assign) IPTutorialManagerState state;
+@property (nonatomic, readonly) NSString *tutorialTitle;
+@property (nonatomic, readonly) NSString *tutorialDescription;
 
 + (IPTutorialManager *)sharedManager;
+
+- (BOOL)updateTutorialStateForEvent:(IPTutorialManagerEvent)event;
 
 @end

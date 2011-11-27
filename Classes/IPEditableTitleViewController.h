@@ -29,7 +29,7 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import "IPSettingsController.h"
 #import "BDGridView.h"
-#import "IPTutorialController.h"
+#import "BDOverlayViewController.h"
 
 
 typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionary *options);
@@ -38,6 +38,7 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
 @class IPUserDefaults;
 @class IPPortfolio;
 @class IPTutorialManager;
+@class IPTutorialController;
 @interface IPEditableTitleViewController : UIViewController<
   UITextFieldDelegate,
   UIImagePickerControllerDelegate,
@@ -45,7 +46,7 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
   UIPopoverControllerDelegate,
   IPSettingsControllerDelegate,
   MFMailComposeViewControllerDelegate,
-  IPTutorialControllerDelegate,
+  BDOverlayViewControllerDelegate,
   BDGridViewDelegate
 >{
     
@@ -114,6 +115,12 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
 //
 
 @property (nonatomic, retain) IPTutorialController *tutorialController;
+
+//
+//  Overlay. You can have at most one, but it can be used for many things.
+//
+
+@property (nonatomic, retain) BDOverlayViewController *overlayController;
 
 //
 //  Dismisses our popover controller.

@@ -26,6 +26,7 @@
 #import "IPUserDefaults.h"
 #import "IPPortfolio.h"
 #import "IPTutorialManager.h"
+#import "BDOverlayViewController.h"
 
 #define kDefaultBackgroundImageName       @"black.jpg"
 
@@ -94,16 +95,17 @@
 
 @implementation IPEditableTitleViewController
 
-@synthesize portfolio = portfolio_;
-@synthesize titleTextField = titleTextField_;
-@synthesize defaultPicker = defaultPicker_;
-@synthesize popoverController = popoverController_;
-@synthesize backgroundImage = backgroundImage_;
+@synthesize portfolio           = portfolio_;
+@synthesize titleTextField      = titleTextField_;
+@synthesize defaultPicker       = defaultPicker_;
+@synthesize popoverController   = popoverController_;
+@synthesize backgroundImage     = backgroundImage_;
 @synthesize backgroundImageName = backgroundImageName_;
-@synthesize tutorialManager = tutorialManager_;
-@synthesize tutorialController = tutorialController_;
-@synthesize alertManager = alertManager_;
-@synthesize userDefaults = userDefaults_;
+@synthesize tutorialManager     = tutorialManager_;
+@synthesize tutorialController  = tutorialController_;
+@synthesize overlayController   = overlayController_;
+@synthesize alertManager        = alertManager_;
+@synthesize userDefaults        = userDefaults_;
 @synthesize currentImagePickerBlock = currentImagePickerBlock_;
 
 
@@ -134,6 +136,7 @@
   [backgroundImageName_ release];
   [tutorialManager_ release];
   [tutorialController_ release];
+  [overlayController_ release];
   [alertManager_ release];
   [userDefaults_ release];
   [currentImagePickerBlock_ release];
@@ -755,6 +758,17 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
   }
   self.tutorialManager.state = IPTutorialManagerStateWelcome;
   [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+#pragma mark - BDOverlayViewControllerDelegate
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)overlayViewController:(BDOverlayViewController *)controller didFinishWithSwipeDirection:(UISwipeGestureRecognizerDirection)direction {
+  
+  //
+  //  NOTHING
+  //
 }
 
 @end
