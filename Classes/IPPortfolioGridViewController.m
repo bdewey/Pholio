@@ -823,21 +823,10 @@
   [self.portfolio insertObject:set inSetsAtIndex:finalIndex];
   [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
   
-  if (![self.tutorialManager updateTutorialStateForEvent:IPTutorialManagerEventDidDragDrop]) {
+  if ([self.tutorialManager updateTutorialStateForEvent:IPTutorialManagerEventDidDragDrop]) {
     
-    return;
+    [self setOverlayController:[self overlayControllerForCurrentState] animated:YES];
   }
-  BDOverlayViewController *overlay = [self overlayControllerForCurrentState];
-  [self.view addSubview:overlay.view];
-  [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-    
-    overlay.view.alpha = 1.0;
-    self.overlayController.view.alpha = 0.0;
-    
-  } completion:^(BOOL finished) {
-    
-    self.overlayController = overlay;
-  }];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1174,58 +1163,8 @@
 
 - (void)startTutorial {
   
-  if (self.tutorialController != nil) {
-    
-    return;
-  }
-  self.tutorialController = [[[IPTutorialController alloc] initWithDelegate:self] autorelease];
-  self.tutorialController.view.frame = self.view.bounds;
-  [self.view addSubview:self.tutorialController.view];
   self.tutorialManager.state = IPTutorialManagerStateWelcome;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-- (void)tutorialControllerDidSelectLearnMore:(IPTutorialController *)controller {
-  
-  if (![self.tutorialManager updateTutorialStateForEvent:IPTutorialManagerEventDidSelectLearnMore]) {
-    
-    return;
-  }
-    
-  //
-  //  Create an overlay and swap it with |tutorialController|.
-  //
-  
-  BDOverlayViewController *overlay = [self overlayControllerForCurrentState];
-  [self.view addSubview:overlay.view];
-  [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-    
-    overlay.view.alpha = 1.0;
-    self.tutorialController.view.alpha = 0.0;
-    
-  } completion:^(BOOL finished) {
-    
-    [self.tutorialController.view removeFromSuperview];
-    self.tutorialController = nil;
-    self.overlayController = overlay;
-  }];
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-- (void)tutorialControllerDidDismiss:(IPTutorialController *)controller {
-  
-  self.tutorialManager.state = IPTutorialManagerStateNoTutorial;
-  [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-    
-    self.tutorialController.view.alpha = 0.0;
-    
-  } completion:^(BOOL finished) {
-    
-    [self.tutorialController.view removeFromSuperview];
-    self.tutorialController = nil;
-  }];
+  [self setOverlayController:[self overlayControllerForCurrentState] animated:YES];
 }
 
 @end

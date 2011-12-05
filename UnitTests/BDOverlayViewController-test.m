@@ -49,7 +49,6 @@
   [controller view];
   STAssertNotNil([controller performSelector:@selector(overlayTitleLabel)], nil);
   STAssertNotNil([controller performSelector:@selector(descriptionLabel)], nil);
-  STAssertNotNil([controller performSelector:@selector(dismissLabel)], nil);
   STAssertEquals(self, controller.delegate, nil);
 }
 
@@ -110,6 +109,15 @@
 - (void)overlayViewController:(BDOverlayViewController *)controller didFinishWithSwipeDirection:(UISwipeGestureRecognizerDirection)direction {
 
   self.direction = direction;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)overlayViewControllerDidSkip:(BDOverlayViewController *)controller {
+  
+  //
+  //  NOTHING
+  //
 }
 
 @end

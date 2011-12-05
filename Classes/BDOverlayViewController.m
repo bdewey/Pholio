@@ -29,7 +29,8 @@
 
 @property (retain, nonatomic) IBOutlet UILabel *overlayTitleLabel;
 @property (retain, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (retain, nonatomic) IBOutlet UILabel *dismissLabel;
+@property (retain, nonatomic) IBOutlet UIButton *cancelButton;
+@property (retain, nonatomic) IBOutlet UIButton *skipButton;
 
 //
 //  The default size of the description label. Comes from the XIB, remembered
@@ -48,6 +49,9 @@
 @property (nonatomic, retain) UISwipeGestureRecognizer *leftRecognizer;
 @property (nonatomic, retain) UISwipeGestureRecognizer *rightRecognizer;
 - (void)handleSwipe:(UIGestureRecognizer *)gestureRecognizer;
+
+- (IBAction)didTapCancelButton:(id)sender;
+- (IBAction)didTapSkipButton:(id)sender;
 @end
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -60,7 +64,8 @@
 @synthesize descriptionText        = descriptionText_;
 @synthesize overlayTitleLabel      = overlayTitleLabel_;
 @synthesize descriptionLabel       = descriptionLabel_;
-@synthesize dismissLabel           = dismissLabel_;
+@synthesize cancelButton;
+@synthesize skipButton;
 @synthesize defaultDescriptionSize = defaultDescriptionSize_;
 @synthesize delegate               = delegate_;
 @synthesize upRecognizer           = upRecognizer_;
@@ -88,11 +93,11 @@
   [descriptionText_ release];
   [overlayTitleLabel_ release];
   [descriptionLabel_ release];
-  [dismissLabel_ release];
-  [upRecognizer_ release];
   [downRecognizer_ release];
   [leftRecognizer_ release];
   [rightRecognizer_ release];
+  [cancelButton release];
+  [skipButton release];
   [super dealloc];
 }
 
@@ -139,6 +144,13 @@
   rightRecognizer_ = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe:)];
   rightRecognizer_.direction = UISwipeGestureRecognizerDirectionRight;
   [self.view addGestureRecognizer:rightRecognizer_];
+  
+  //
+  //  Set up the button handlers.
+  //
+  
+  [self.cancelButton addTarget:self action:@selector(didTapCancelButton:) forControlEvents:UIControlEventTouchUpInside];
+  [self.skipButton   addTarget:self action:@selector(didTapSkipButton:)   forControlEvents:UIControlEventTouchUpInside];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -147,10 +159,9 @@
   
   [self setOverlayTitleLabel:nil];
   [self setDescriptionLabel:nil];
-  [self setDismissLabel:nil];
+  [self setCancelButton:nil];
+  [self setSkipButton:nil];
   [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -200,13 +211,16 @@
                                            frame.origin.y, 
                                            frame.size.width, 
                                            newSize.height);
-  frame = self.dismissLabel.frame;
-  self.dismissLabel.frame = CGRectMake(frame.origin.x, 
-                                       CGRectGetMaxY(self.descriptionLabel.frame) + 8, 
-                                       frame.size.width, 
-                                       frame.size.height);
+
+  frame = self.cancelButton.frame;
+  CGFloat targetY = CGRectGetMaxY(self.descriptionLabel.frame) + 8;
+  self.cancelButton.frame = CGRectOffset(frame, 0, targetY - frame.origin.y);
+  
+  frame = self.skipButton.frame;
+  self.skipButton.frame   = CGRectOffset(frame, 0, targetY - frame.origin.y);
+  
   frame = self.view.frame;
-  self.view.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, CGRectGetMaxY(self.dismissLabel.frame)+20);
+  self.view.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, CGRectGetMaxY(self.cancelButton.frame)+20);
 }
 
 #pragma mark - Swiping
@@ -235,6 +249,31 @@
     
     _GTMDevAssert(NO, @"Unrecognized swipe gesture recognizer: %@", gestureRecognizer);
   }
+}
+
+#pragma mark - Actions
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)setSkipDisabled:(BOOL)disabled {
+  
+  self.skipButton.enabled = !disabled;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (IBAction)didTapCancelButton:(id)sender {
+  
+  _GTMDevAssert(self.delegate != nil, nil);
+  [self.delegate overlayViewController:self didFinishWithSwipeDirection:UISwipeGestureRecognizerDirectionDown];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (IBAction)didTapSkipButton:(id)sender {
+
+  _GTMDevAssert(self.delegate != nil, nil);
+  [self.delegate overlayViewControllerDidSkip:self];
 }
 
 @end

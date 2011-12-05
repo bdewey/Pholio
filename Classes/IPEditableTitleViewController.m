@@ -102,7 +102,6 @@
 @synthesize backgroundImage     = backgroundImage_;
 @synthesize backgroundImageName = backgroundImageName_;
 @synthesize tutorialManager     = tutorialManager_;
-@synthesize tutorialController  = tutorialController_;
 @synthesize overlayController   = overlayController_;
 @synthesize alertManager        = alertManager_;
 @synthesize userDefaults        = userDefaults_;
@@ -135,7 +134,6 @@
   [backgroundImage_ release];
   [backgroundImageName_ release];
   [tutorialManager_ release];
-  [tutorialController_ release];
   [overlayController_ release];
   [alertManager_ release];
   [userDefaults_ release];
@@ -348,6 +346,43 @@
     tutorialManager_ = [[IPTutorialManager sharedManager] retain];
   }
   return tutorialManager_;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Potentially animate replacing the overlay controller.
+//
+
+- (void)setOverlayController:(BDOverlayViewController *)overlayController animated:(BOOL)animated {
+
+  if (overlayController == self.overlayController) {
+    
+    return;
+  }
+  
+  BDOverlayViewController *oldController = overlayController_;
+  overlayController_ = [overlayController retain];
+  overlayController.view.alpha = 0.0;
+  [self.view addSubview:overlayController.view];
+  NSTimeInterval duration = (animated) ? 0.2 : 0.0;
+  
+  [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+    
+    overlayController.view.alpha = 1.0;
+    oldController.view.alpha = 0.0;
+    
+  } completion:^(BOOL finished) {
+    
+    [oldController.view removeFromSuperview];
+    [oldController release];
+  }];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)setOverlayController:(BDOverlayViewController *)overlayController {
+  
+  [self setOverlayController:overlayController animated:NO];
 }
 
 #pragma mark - Image picking
@@ -742,13 +777,13 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
   [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
 }
 
-#pragma mark - IPTutorialControllerDelegate
+#pragma mark - BDOverlayViewControllerDelegate
 
 ////////////////////////////////////////////////////////////////////////////////
 
 - (void)startTutorial {
- 
-  if (self.tutorialController != nil) {
+  
+  if (self.overlayController != nil) {
     
     //
     //  Abort if there's already an active tutorial.
@@ -764,8 +799,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
 - (BDOverlayViewController *)overlayControllerForCurrentState {
   
-  if (self.tutorialManager.state == IPTutorialManagerStateNoTutorial ||
-      self.tutorialManager.state == IPTutorialManagerStateWelcome) {
+  if (self.tutorialManager.state == IPTutorialManagerStateNoTutorial) {
     
     return nil;
   }
@@ -776,8 +810,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
   overlay.view.alpha       = 0.0;
   return overlay;
 }
-
-#pragma mark - BDOverlayViewControllerDelegate
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -817,9 +849,18 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
   } completion:^(BOOL finished) {
     
-    [controller.view removeFromSuperview];
     self.overlayController = nil;
   }];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)overlayViewControllerDidSkip:(BDOverlayViewController *)controller {
+  
+  if ([self.tutorialManager updateTutorialStateForEvent:IPTutorialManagerEventNext]) {
+    
+    [self setOverlayController:[self overlayControllerForCurrentState] animated:YES];
+  }
 }
 
 @end

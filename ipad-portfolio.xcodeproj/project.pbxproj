@@ -150,11 +150,6 @@
 		D30E437C13646AA90025BDAB /* IPSetGridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30E437913646AA90025BDAB /* IPSetGridViewController.xib */; };
 		D30E437D13646AA90025BDAB /* IPSetGridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30E437913646AA90025BDAB /* IPSetGridViewController.xib */; };
 		D30E438013646BB50025BDAB /* IPSetGridViewController-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D30E437F13646BB50025BDAB /* IPSetGridViewController-test.m */; };
-		D312726114708C26004CAAAC /* IPTutorialController.m in Sources */ = {isa = PBXBuildFile; fileRef = D312725F14708C26004CAAAC /* IPTutorialController.m */; };
-		D312726214708C26004CAAAC /* IPTutorialController.m in Sources */ = {isa = PBXBuildFile; fileRef = D312725F14708C26004CAAAC /* IPTutorialController.m */; };
-		D312726314708C26004CAAAC /* IPTutorialController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D312726014708C26004CAAAC /* IPTutorialController.xib */; };
-		D312726414708C26004CAAAC /* IPTutorialController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D312726014708C26004CAAAC /* IPTutorialController.xib */; };
-		D312726714708E40004CAAAC /* IPTutorialController-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D312726614708E40004CAAAC /* IPTutorialController-test.m */; };
 		D318CB7F13B571AA00F90860 /* IPPhotoOptimizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB7E13B571AA00F90860 /* IPPhotoOptimizationManager.m */; };
 		D318CB8013B571AA00F90860 /* IPPhotoOptimizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB7E13B571AA00F90860 /* IPPhotoOptimizationManager.m */; };
 		D318CB8313B572FD00F90860 /* IPPhotoOptimizationManager-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB8213B572FD00F90860 /* IPPhotoOptimizationManager-test.m */; };
@@ -505,10 +500,6 @@
 		D30E437813646AA90025BDAB /* IPSetGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPSetGridViewController.m; sourceTree = "<group>"; };
 		D30E437913646AA90025BDAB /* IPSetGridViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IPSetGridViewController.xib; sourceTree = "<group>"; };
 		D30E437F13646BB50025BDAB /* IPSetGridViewController-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPSetGridViewController-test.m"; sourceTree = "<group>"; };
-		D312725E14708C26004CAAAC /* IPTutorialController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPTutorialController.h; sourceTree = "<group>"; };
-		D312725F14708C26004CAAAC /* IPTutorialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPTutorialController.m; sourceTree = "<group>"; };
-		D312726014708C26004CAAAC /* IPTutorialController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IPTutorialController.xib; sourceTree = "<group>"; };
-		D312726614708E40004CAAAC /* IPTutorialController-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPTutorialController-test.m"; sourceTree = "<group>"; };
 		D318CB7D13B571AA00F90860 /* IPPhotoOptimizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPhotoOptimizationManager.h; sourceTree = "<group>"; };
 		D318CB7E13B571AA00F90860 /* IPPhotoOptimizationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPPhotoOptimizationManager.m; sourceTree = "<group>"; };
 		D318CB8213B572FD00F90860 /* IPPhotoOptimizationManager-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPhotoOptimizationManager-test.m"; sourceTree = "<group>"; };
@@ -791,9 +782,6 @@
 				D3E7C5E613672AED00DE4A98 /* IPColors.m */,
 				D352E513139D3ECA00549DBB /* BDCustomAlert.h */,
 				D352E514139D3ECA00549DBB /* BDCustomAlert.m */,
-				D312725E14708C26004CAAAC /* IPTutorialController.h */,
-				D312725F14708C26004CAAAC /* IPTutorialController.m */,
-				D312726014708C26004CAAAC /* IPTutorialController.xib */,
 				D3D843421480A59700819497 /* BDOverlayViewController.h */,
 				D3D843431480A59700819497 /* BDOverlayViewController.m */,
 				D3D843441480A59700819497 /* BDOverlayViewController.xib */,
@@ -1083,7 +1071,6 @@
 				0A31C00A142CF9B9007E95E1 /* IPDropBoxAssetsSource-test.m */,
 				D31E936A134D6EB5000F5494 /* TestHelpers */,
 				D30A433513138E7800E6EBB7 /* Supporting Files */,
-				D312726614708E40004CAAAC /* IPTutorialController-test.m */,
 				D3D8434B1480AD5A00819497 /* BDOverlayViewController-test.m */,
 			);
 			path = UnitTests;
@@ -1472,7 +1459,6 @@
 				0A8EB78314153B0500E4ACA7 /* db_logo@2x.png in Resources */,
 				0A373C3C141E7F4600EBEAB0 /* dropbox.png in Resources */,
 				0AEDDB08141E9E6C0091D8E7 /* folder48.gif in Resources */,
-				D312726314708C26004CAAAC /* IPTutorialController.xib in Resources */,
 				D3D843471480A59700819497 /* BDOverlayViewController.xib in Resources */,
 				D3787C831482192C000F0B6D /* Across the Lake (2008).jpg in Resources */,
 				D3787C841482192C000F0B6D /* Count the Balloons (2009).jpg in Resources */,
@@ -1517,7 +1503,6 @@
 				0A8EB78014153B0500E4ACA7 /* db_link_header@2x.png in Resources */,
 				0A8EB78214153B0500E4ACA7 /* db_logo.png in Resources */,
 				0A8EB78414153B0500E4ACA7 /* db_logo@2x.png in Resources */,
-				D312726414708C26004CAAAC /* IPTutorialController.xib in Resources */,
 				D3D843481480A59700819497 /* BDOverlayViewController.xib in Resources */,
 				D3D843551480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png in Resources */,
 				D3D843571480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png in Resources */,
@@ -1643,7 +1628,6 @@
 				0A8EB7A114188B5600E4ACA7 /* IPDropBoxSelectableAsset.m in Sources */,
 				0A8EB7A51418996E00E4ACA7 /* IPDropBoxAssetsSource.m in Sources */,
 				D37E6CD4141BE3D100AE4FCA /* BDAssetsSourceCell.m in Sources */,
-				D312726114708C26004CAAAC /* IPTutorialController.m in Sources */,
 				D3D843451480A59700819497 /* BDOverlayViewController.m in Sources */,
 				D3FF3ADF1480D6050088D350 /* IPTutorialManager.m in Sources */,
 			);
@@ -1779,8 +1763,6 @@
 				D37E6CD5141BE3D100AE4FCA /* BDAssetsSourceCell.m in Sources */,
 				0AEDDB0C141EA1190091D8E7 /* IPDropBoxSelectableAsset-test.m in Sources */,
 				0A31C00D142CF9F6007E95E1 /* IPDropBoxAssetsSource-test.m in Sources */,
-				D312726214708C26004CAAAC /* IPTutorialController.m in Sources */,
-				D312726714708E40004CAAAC /* IPTutorialController-test.m in Sources */,
 				D3D843461480A59700819497 /* BDOverlayViewController.m in Sources */,
 				D3D8434C1480AD5A00819497 /* BDOverlayViewController-test.m in Sources */,
 				D3D8434F1480B1D100819497 /* GTMUIKit+UnitTesting.m in Sources */,

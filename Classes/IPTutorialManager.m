@@ -25,6 +25,7 @@
 @property (nonatomic, retain) NSArray *tutorialTitles;
 @property (nonatomic, retain) NSArray *tutorialDescriptions;
 
+- (void)advanceState;
 @end
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -47,13 +48,15 @@
   self = [super init];
   if (self) {
     
-    tutorialTitles_ = [[NSArray alloc] initWithObjects:@"No Tutorial",
-                       @"Welcome",
+    tutorialTitles_ = [[NSArray alloc] initWithObjects:
+                       @"Welcome to Pholio!",
                        @"Drag and Drop",
+                       @"No tutorial",
                        nil];
-    tutorialDescriptions_ = [[NSArray alloc] initWithObjects:@"No Tutorial",
-                             @"Welcome to Pholio!",
+    tutorialDescriptions_ = [[NSArray alloc] initWithObjects:
+                             @"Pholio helps you build, organize, and display beautiful portfolios of your images.",
                              @"(Add some text about how you can drag and drop here...)",
+                             @"No tutorial",
                              nil];
   }
   return self;
@@ -82,52 +85,50 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+//
+//  This algorithm is a simple linear state machine. All you can do is move 
+//  from one state to the next on either a "next" event, or with an event that
+//  exactly matches the current state.
+//
+//  This depends on the event & state enumerations matching.
+//
 
 - (BOOL)updateTutorialStateForEvent:(IPTutorialManagerEvent)event {
-  
-  if (event == IPTutorialManagerEventDidSelectLearnMore) {
+
+  if (event == IPTutorialManagerEventNext) {
     
-    //
-    //  The resulting state is always IPTutorialManagerStateDragDrop.
-    //
-    
-    if (self.state == IPTutorialManagerStateDragDrop) {
-      
-      //
-      //  Already there.
-      //
-      
-      return NO;
-      
-    } else {
-      
-      self.state = IPTutorialManagerStateDragDrop;
-      return YES;
-    }
+    [self advanceState];
+    return YES;
   }
   
-  switch (self.state) {
-      
-    case IPTutorialManagerStateNoTutorial:
-      
-      break;
-      
-    case IPTutorialManagerStateWelcome:
-      break;
-      
-    case IPTutorialManagerStateDragDrop:
-      if (event == IPTutorialManagerEventDidDragDrop) {
-        
-        self.state = IPTutorialManagerStateNoTutorial;
-        return YES;
-      }
-      return NO;
-      
-    default:
-      break;
+  //
+  //  Look for state matches.
+  //
+  
+  if (event == self.state) {
+    
+    [self advanceState];
+    return YES;
   }
   
   return NO;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Move the state machine one state forward.
+//
+
+- (void)advanceState {
+  
+  if (self.state == kTutorialManagerStateLast) {
+    
+    self.state = IPTutorialManagerStateNoTutorial;
+    
+  } else {
+    
+    self.state++;
+  }
 }
 
 #pragma mark - Properties

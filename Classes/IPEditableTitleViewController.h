@@ -38,7 +38,6 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
 @class IPUserDefaults;
 @class IPPortfolio;
 @class IPTutorialManager;
-@class IPTutorialController;
 @interface IPEditableTitleViewController : UIViewController<
   UITextFieldDelegate,
   UIImagePickerControllerDelegate,
@@ -111,12 +110,6 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
 @property (nonatomic, retain) IPTutorialManager *tutorialManager;
 
 //
-//  If we're showing a tutorial, this is the controller.
-//
-
-@property (nonatomic, retain) IPTutorialController *tutorialController;
-
-//
 //  Overlay. You can have at most one, but it can be used for many things.
 //
 
@@ -161,5 +154,10 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
 
 - (BDOverlayViewController *)overlayControllerForCurrentState;
 
+//
+//  Animate the replacing of |overlayController| with a new controller.
+//
+
+- (void)setOverlayController:(BDOverlayViewController *)overlayController animated:(BOOL)animated;
 
 @end

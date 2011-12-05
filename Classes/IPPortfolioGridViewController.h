@@ -26,7 +26,6 @@
 #import "IPEditableTitleViewController.h"
 #import "BDGridView.h"
 #import "IPGridHeader.h"
-#import "IPTutorialController.h"
 
 @class IPPortfolio;
 
@@ -37,8 +36,7 @@
 @interface IPPortfolioGridViewController : IPEditableTitleViewController<
   BDGridViewDataSource,
   BDGridViewDelegate,
-  IPGridHeaderDelegate,
-  IPTutorialControllerDelegate
+  IPGridHeaderDelegate
 > {
     
 }

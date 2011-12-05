@@ -36,6 +36,7 @@
 
 - (id)initWithDelegate:(id<BDOverlayViewControllerDelegate>)delegate;
 - (void)layoutLabels;
+- (void)setSkipDisabled:(BOOL)disabled;
 
 @end
 
@@ -46,5 +47,6 @@
 @protocol BDOverlayViewControllerDelegate <NSObject>
 
 - (void)overlayViewController:(BDOverlayViewController *)controller didFinishWithSwipeDirection:(UISwipeGestureRecognizerDirection)direction;
+- (void)overlayViewControllerDidSkip:(BDOverlayViewController *)controller;
 
 @end

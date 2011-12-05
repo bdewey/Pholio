@@ -22,14 +22,23 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum {
-  IPTutorialManagerStateNoTutorial,
-  IPTutorialManagerStateWelcome,
-  IPTutorialManagerStateDragDrop
-} IPTutorialManagerState;
+//
+//  Nota bene: the events & states need to match. I.e., make sure that
+//  IPTutorialManagerStateDragDrop (the "we're waiting for a drag/drop") state
+//  has the same numeric value as:
+//  IPTutorialManagerEventDidDragDrop (a "drag drop just happened").
+//
 
 typedef enum {
-  IPTutorialManagerEventDidSelectLearnMore,
+  IPTutorialManagerStateWelcome,
+  IPTutorialManagerStateDragDrop,
+  IPTutorialManagerStateNoTutorial
+} IPTutorialManagerState;
+
+#define kTutorialManagerStateLast     IPTutorialManagerStateNoTutorial
+
+typedef enum {
+  IPTutorialManagerEventNext,
   IPTutorialManagerEventDidDragDrop
 } IPTutorialManagerEvent;
 
