@@ -1179,6 +1179,7 @@
     return;
   }
   self.tutorialController = [[[IPTutorialController alloc] initWithDelegate:self] autorelease];
+  self.tutorialController.view.frame = self.view.bounds;
   [self.view addSubview:self.tutorialController.view];
   self.tutorialManager.state = IPTutorialManagerStateWelcome;
 }
