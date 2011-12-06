@@ -305,6 +305,7 @@
 		D3D843521480B29A00819497 /* GTMCALayer+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D843511480B29A00819497 /* GTMCALayer+UnitTesting.m */; };
 		D3D843551480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D843541480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png */; };
 		D3D843571480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D843561480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png */; };
+		D3DD1C99148DF81600F4F4E6 /* BDOverlayViewController_skipDisabled.10.7.2.iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = D3DD1C98148DF81600F4F4E6 /* BDOverlayViewController_skipDisabled.10.7.2.iPhone.png */; };
 		D3DF753A134E6C6A00439546 /* IPPortfolio+TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF7539134E6C6A00439546 /* IPPortfolio+TestHelpers.m */; };
 		D3DF753B134E6CF600439546 /* IPPortfolio.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20FBA120BBEBD008F247D /* IPPortfolio.m */; };
 		D3DF7545134E70A000439546 /* IPPortfolio-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF7544134E70A000439546 /* IPPortfolio-test.m */; };
@@ -659,6 +660,7 @@
 		D3D843511480B29A00819497 /* GTMCALayer+UnitTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMCALayer+UnitTesting.m"; sourceTree = "<group>"; };
 		D3D843541480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BDOverlayViewController_testDrawing.10.7.2.iPhone.png; sourceTree = "<group>"; };
 		D3D843561480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png; sourceTree = "<group>"; };
+		D3DD1C98148DF81600F4F4E6 /* BDOverlayViewController_skipDisabled.10.7.2.iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BDOverlayViewController_skipDisabled.10.7.2.iPhone.png; sourceTree = "<group>"; };
 		D3DF7538134E6C6A00439546 /* IPPortfolio+TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IPPortfolio+TestHelpers.h"; sourceTree = "<group>"; };
 		D3DF7539134E6C6A00439546 /* IPPortfolio+TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPortfolio+TestHelpers.m"; sourceTree = "<group>"; };
 		D3DF7544134E70A000439546 /* IPPortfolio-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPortfolio-test.m"; sourceTree = "<group>"; };
@@ -1303,6 +1305,7 @@
 		D3D843531480BDA600819497 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D3DD1C98148DF81600F4F4E6 /* BDOverlayViewController_skipDisabled.10.7.2.iPhone.png */,
 				D3D843561480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png */,
 				D3D843541480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png */,
 			);
@@ -1506,6 +1509,7 @@
 				D3D843481480A59700819497 /* BDOverlayViewController.xib in Resources */,
 				D3D843551480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png in Resources */,
 				D3D843571480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png in Resources */,
+				D3DD1C99148DF81600F4F4E6 /* BDOverlayViewController_skipDisabled.10.7.2.iPhone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

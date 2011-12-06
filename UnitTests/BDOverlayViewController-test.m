@@ -102,6 +102,18 @@
   STAssertEquals((NSUInteger)0, expectedDirections, @"Should cover all directions");
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+- (void)testSkipDisabled {
+  
+  BDOverlayViewController *controller = [[[BDOverlayViewController alloc] initWithDelegate:self] autorelease];
+  controller.overlayTitleText = @"No skip button";
+  controller.descriptionText  = @"I've removed the skip button from this screen. You should see the Dismiss button centered.";
+  [controller view];
+  [controller setSkipDisabled:YES];
+  GTMAssertObjectImageEqualToImageNamed([controller view], @"BDOverlayViewController_skipDisabled", nil);
+}
+
 #pragma mark - BDOverlayViewControllerDelegate
 
 ////////////////////////////////////////////////////////////////////////////////

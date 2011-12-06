@@ -799,6 +799,17 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+- (BOOL)gridViewShouldEdit:(BDGridView *)gridView {
+  
+  if ([self.tutorialManager updateTutorialStateForEvent:IPTutorialManagerEventLongPressExisting]) {
+    
+    self.overlayController = [self overlayControllerForCurrentState];
+  }
+  return [super gridViewShouldEdit:gridView];
+}
+
+////////////////////////////////////////////////////////////////////////////////
 //
 //  The user tapped a set. Navigate to it.
 //
@@ -1155,6 +1166,10 @@
   
   self.portfolio.title = textField.text;
   [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+  if ([self.tutorialManager updateTutorialStateForEvent:IPTutorialManagerEventEditTitle]) {
+    
+    self.overlayController = [self overlayControllerForCurrentState];
+  }
 }
 
 #pragma mark - Tutorial

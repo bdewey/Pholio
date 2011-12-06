@@ -93,6 +93,7 @@
   [descriptionText_ release];
   [overlayTitleLabel_ release];
   [descriptionLabel_ release];
+  [upRecognizer_ release];
   [downRecognizer_ release];
   [leftRecognizer_ release];
   [rightRecognizer_ release];
@@ -198,6 +199,7 @@
 
 - (void)layoutLabels {
   
+  _GTMDevAssert([self isViewLoaded], @"The view needs to be loaded to perform the layout.");
   CGSize newSize = [self.descriptionText sizeWithFont:self.descriptionLabel.font 
                                     constrainedToSize:self.defaultDescriptionSize];
   _GTMDevLog(@"%s -- computed new description label size: (%f, %f). Original = (%f, %f)",
@@ -215,6 +217,23 @@
   frame = self.cancelButton.frame;
   CGFloat targetY = CGRectGetMaxY(self.descriptionLabel.frame) + 8;
   self.cancelButton.frame = CGRectOffset(frame, 0, targetY - frame.origin.y);
+  if (self.skipButton.hidden) {
+    
+    //
+    //  If the skip button is hidden, move cancelButton over to center it in the 
+    //  frame.
+    //
+    
+    _GTMDevLog(@"%s -- skip button is hidden. Self = %@, cancel = %@",
+               __PRETTY_FUNCTION__,
+               self.view,
+               self.cancelButton);
+    self.cancelButton.frame = CGRectOffset(self.cancelButton.frame, 
+                                           CGRectGetMidX(self.view.bounds) - CGRectGetMidX(self.cancelButton.frame),
+                                           0);
+    _GTMDevAssert(CGRectGetMidX(self.view.bounds) == CGRectGetMidX(self.cancelButton.frame), 
+                  @"Button should be centered");
+  }
   
   frame = self.skipButton.frame;
   self.skipButton.frame   = CGRectOffset(frame, 0, targetY - frame.origin.y);
@@ -257,7 +276,9 @@
 
 - (void)setSkipDisabled:(BOOL)disabled {
   
-  self.skipButton.enabled = !disabled;
+  _GTMDevAssert([self isViewLoaded], @"View must be loaded to hide skip button");
+  self.skipButton.hidden = disabled;
+  [self layoutLabels];
 }
 
 ////////////////////////////////////////////////////////////////////////////////

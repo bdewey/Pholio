@@ -31,15 +31,21 @@
 
 typedef enum {
   IPTutorialManagerStateWelcome,
+  IPTutorialManagerStateLongPressExisting,
   IPTutorialManagerStateDragDrop,
+  IPTutorialManagerStateEditTitle,
+  IPTutorialManagerStateHaveFun,
   IPTutorialManagerStateNoTutorial
 } IPTutorialManagerState;
 
-#define kTutorialManagerStateLast     IPTutorialManagerStateNoTutorial
+#define kTutorialManagerStateLast     IPTutorialManagerStateHaveFun
 
 typedef enum {
   IPTutorialManagerEventNext,
-  IPTutorialManagerEventDidDragDrop
+  IPTutorialManagerEventLongPressExisting,
+  IPTutorialManagerEventDidDragDrop,
+  IPTutorialManagerEventEditTitle,
+  IPTutorialManagerEventHaveFun
 } IPTutorialManagerEvent;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -51,6 +57,7 @@ typedef enum {
 @property (nonatomic, assign) IPTutorialManagerState state;
 @property (nonatomic, readonly) NSString *tutorialTitle;
 @property (nonatomic, readonly) NSString *tutorialDescription;
+@property (nonatomic, readonly) BOOL isLastState;
 
 + (IPTutorialManager *)sharedManager;
 

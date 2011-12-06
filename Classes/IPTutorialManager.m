@@ -37,7 +37,7 @@
 @synthesize state                = state_;
 @synthesize tutorialTitles       = tutorialTitles_;
 @synthesize tutorialDescriptions = tutorialDescriptions_;
-
+@dynamic isLastState;
 @dynamic tutorialTitle;
 @dynamic tutorialDescription;
 
@@ -50,12 +50,18 @@
     
     tutorialTitles_ = [[NSArray alloc] initWithObjects:
                        @"Welcome to Pholio!",
+                       @"The Long Press",
                        @"Drag and Drop",
+                       @"Editing titles",
+                       @"Have fun!",
                        @"No tutorial",
                        nil];
     tutorialDescriptions_ = [[NSArray alloc] initWithObjects:
                              @"Pholio helps you build, organize, and display beautiful portfolios of your images.",
-                             @"(Add some text about how you can drag and drop here...)",
+                             @"The key gesture for using Pholio is the long press. Doing a long press on the screen brings up a menu of actions. Not only can you do a long press on existing galleries or photos, you can do a long press on empty space to create new photos or galleries. Try a long press now.",
+                             @"It's easy to rearrange anything: Just drag and drop. Try it now!",
+                             @"You can also edit the title of anything. Just tap the title bar and you can start editing. You can even put your name or your photo business name as the title of the main screen. Try it now.",
+                             @"That's it! I hope you find Pholio easy to use, and I hope you enjoy using it to show off your work to friends, family, and clients.",
                              @"No tutorial",
                              nil];
   }
@@ -123,7 +129,7 @@
   
   if (self.state == kTutorialManagerStateLast) {
     
-    self.state = IPTutorialManagerStateNoTutorial;
+    return;
     
   } else {
     
@@ -145,6 +151,13 @@
 - (NSString *)tutorialDescription {
   
   return [self.tutorialDescriptions objectAtIndex:self.state];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+- (BOOL)isLastState {
+  
+  return (self.state == kTutorialManagerStateLast);
 }
 
 @end

@@ -1,0 +1,38 @@
+#!/usr/bin/ruby
+
+require 'getoptlong'
+require 'FileUtils'
+
+opts = GetoptLong.new(
+  [ '--help', '-?', GetoptLong::NO_ARGUMENT ],
+  [ '--inspect', GetoptLong::NO_ARGUMENT ],
+  [ '--source', GetoptLong::REQUIRED_ARGUMENT ],
+  [ '--dest', GetoptLong::REQUIRED_ARGUMENT ]
+)
+
+source_dir = ENV['DERIVED_DESKTOP_URBANSPIN'] || '~/Library/Developer/Xcode/DerivedData/Pholio-bsnachgzposwkcduxhqdzioesqyq/Build/Intermediates/Desktop'
+dest_dir   = ENV['UNITTEST_IMAGE_URBANSPIN']  || '~/Documents/Projects/Pholio/UnitTests/Images'
+
+opts.each do |opt, arg|
+  case opt
+  when '--help'
+    puts opts
+  when '--inspect'
+    system("open #{source_dir}")
+    system("open #{dest_dir}")
+    exit
+  end
+end
+
+puts "Copying from #{source_dir} to #{dest_dir}..."
+
+source_dir = File.expand_path(source_dir)
+dest_dir   = File.expand_path(dest_dir)
+
+Dir.glob("#{source_dir}/*_Failed.10*.png") do |filename|
+  basename = File.basename(filename)
+  target_name = basename.sub(/_Failed/, "")
+  puts "Copying #{basename} to #{target_name}..."
+  FileUtils.cp(filename, "#{dest_dir}/#{target_name}")
+  FileUtils.rm(filename)
+end

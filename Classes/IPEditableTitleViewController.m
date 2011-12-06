@@ -808,6 +808,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
   overlay.descriptionText  = self.tutorialManager.tutorialDescription;
   overlay.view.center      = self.view.center;
   overlay.view.alpha       = 0.0;
+  [overlay setSkipDisabled:self.tutorialManager.isLastState];
   return overlay;
 }
 
