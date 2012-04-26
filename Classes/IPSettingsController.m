@@ -706,7 +706,7 @@ enum IPSettingsDisplay {
 //  Handle mailing the developer.
 //
 
-- (IBAction)mailDeveloper {
+- (void)mailDeveloper {
   
   [self.delegate ipSettingsMailDeveloper];
 }
@@ -716,7 +716,7 @@ enum IPSettingsDisplay {
 //  Let the user rate the application.
 //
 
-- (IBAction)rateApplication {
+- (void)rateApplication {
   
   self.userDefaults.lastRatedVersion = kAppRatingVersion;
   self.userDefaults.lastTimeAskedToRate = [NSDate date];

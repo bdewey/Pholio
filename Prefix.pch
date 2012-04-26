@@ -6,6 +6,10 @@
     #import <Foundation/Foundation.h>
     #import <UIKit/UIKit.h>
 #import "GTMDefines.h"
+#import "TestFlight.h"
+#include "TestFlight/Pholio-TestFlight.h"
+#undef _GTMDevLog
+#define _GTMDevLog TFLog
 #endif
 
 #import "IPStrings.h"
