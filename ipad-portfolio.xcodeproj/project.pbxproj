@@ -1349,7 +1349,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "Brian's Brain";
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ipad-portfolio" */;
@@ -1781,8 +1781,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-bpcczbmozlyfwaerlxsfbwsdqgeh/Build/Products/Debug-iphoneos\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = Pholio;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -1804,8 +1802,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-bpcczbmozlyfwaerlxsfbwsdqgeh/Build/Products/Debug-iphoneos\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = Pholio;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -1879,8 +1875,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-bpcczbmozlyfwaerlxsfbwsdqgeh/Build/Products/Debug-iphoneos\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = Pholio;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -2015,8 +2009,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-bpcczbmozlyfwaerlxsfbwsdqgeh/Build/Products/Debug-iphoneos\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = Pholio;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

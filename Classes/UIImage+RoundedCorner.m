@@ -7,7 +7,7 @@
 #import "UIImage+Alpha.h"
 
 // Private helper methods
-@interface UIImage ()
+@interface UIImage (RoundedCorner_Private)
 - (void)addRoundedRectToPath:(CGRect)rect context:(CGContextRef)context ovalWidth:(CGFloat)ovalWidth ovalHeight:(CGFloat)ovalHeight;
 @end
 
@@ -51,6 +51,10 @@
     
     return roundedImage;
 }
+
+@end
+
+@implementation UIImage (RoundedCorner_Private)
 
 #pragma mark -
 #pragma mark Private helper methods

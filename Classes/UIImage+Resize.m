@@ -8,7 +8,7 @@
 #import "UIImage+Alpha.h"
 
 // Private helper methods
-@interface UIImage ()
+@interface UIImage (Resize_Private)
 - (UIImage *)resizedImage:(CGSize)newSize
                 transform:(CGAffineTransform)transform
            drawTransposed:(BOOL)transpose
@@ -100,6 +100,10 @@
   
   return [self resizedImage:newSize interpolationQuality:quality];
 }
+
+@end
+
+@implementation UIImage (Resize_Private)
 
 #pragma mark -
 #pragma mark Private helper methods
