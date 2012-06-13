@@ -156,6 +156,10 @@
 		D318CB8713B5BD8C00F90860 /* IPOptimizingPhotoNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB8513B5BD8B00F90860 /* IPOptimizingPhotoNotification.m */; };
 		D318CB8813B5BD8C00F90860 /* IPOptimizingPhotoNotification.xib in Resources */ = {isa = PBXBuildFile; fileRef = D318CB8613B5BD8B00F90860 /* IPOptimizingPhotoNotification.xib */; };
 		D318CB8913B5C79100F90860 /* IPOptimizingPhotoNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB8513B5BD8B00F90860 /* IPOptimizingPhotoNotification.m */; };
+		D3197C241549126A00F0DAC0 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3197C201549126A00F0DAC0 /* libTestFlight.a */; };
+		D3197C251549126A00F0DAC0 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3197C211549126A00F0DAC0 /* README.txt */; };
+		D3197C261549126A00F0DAC0 /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3197C221549126A00F0DAC0 /* release_notes.txt */; };
+		D3197C28154912A900F0DAC0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3197C27154912A900F0DAC0 /* libz.dylib */; };
 		D31E9369134D6E29000F5494 /* IPSet-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D31E9368134D6E29000F5494 /* IPSet-test.m */; };
 		D31E936D134D6EDD000F5494 /* IPPage+TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D31E936C134D6EDD000F5494 /* IPPage+TestHelpers.m */; };
 		D31E936E134D71F8000F5494 /* IPSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20FB3120BBB40008F247D /* IPSet.m */; };
@@ -504,6 +508,13 @@
 		D318CB8413B5BD8B00F90860 /* IPOptimizingPhotoNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPOptimizingPhotoNotification.h; sourceTree = "<group>"; };
 		D318CB8513B5BD8B00F90860 /* IPOptimizingPhotoNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPOptimizingPhotoNotification.m; sourceTree = "<group>"; };
 		D318CB8613B5BD8B00F90860 /* IPOptimizingPhotoNotification.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IPOptimizingPhotoNotification.xib; sourceTree = "<group>"; };
+		D3197C201549126A00F0DAC0 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		D3197C211549126A00F0DAC0 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		D3197C221549126A00F0DAC0 /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
+		D3197C231549126A00F0DAC0 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		D3197C27154912A900F0DAC0 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		D3197C291549138700F0DAC0 /* Pholio-TestFlight_template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pholio-TestFlight_template.h"; sourceTree = "<group>"; };
+		D3197C2B15491C6F00F0DAC0 /* Entitlements.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Entitlements.entitlements; sourceTree = "<group>"; };
 		D31E9368134D6E29000F5494 /* IPSet-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPSet-test.m"; sourceTree = "<group>"; };
 		D31E936B134D6EDD000F5494 /* IPPage+TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IPPage+TestHelpers.h"; sourceTree = "<group>"; };
 		D31E936C134D6EDD000F5494 /* IPPage+TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPage+TestHelpers.m"; sourceTree = "<group>"; };
@@ -512,7 +523,7 @@
 		D31E9372134D8232000F5494 /* IPSet+TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IPSet+TestHelpers.h"; sourceTree = "<group>"; };
 		D31E9373134D8232000F5494 /* IPSet+TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPSet+TestHelpers.m"; sourceTree = "<group>"; };
 		D32ADFC5136B1CFD009EA22E /* IPEditableTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPEditableTitleViewController.h; sourceTree = "<group>"; };
-		D32ADFC6136B1CFD009EA22E /* IPEditableTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPEditableTitleViewController.m; sourceTree = "<group>"; };
+		D32ADFC6136B1CFD009EA22E /* IPEditableTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = IPEditableTitleViewController.m; sourceTree = "<group>"; tabWidth = 2; };
 		D32ADFD713727261009EA22E /* IPPasteboardObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPasteboardObject.h; sourceTree = "<group>"; };
 		D32ADFD813727262009EA22E /* IPPasteboardObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPPasteboardObject.m; sourceTree = "<group>"; };
 		D33C0178137452E600030DD9 /* BDSmartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSmartTableViewCell.h; sourceTree = "<group>"; };
@@ -620,7 +631,7 @@
 		D3AEA45113613C080025C334 /* BDGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDGridView.h; sourceTree = "<group>"; };
 		D3AEA45213613C080025C334 /* BDGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDGridView.m; sourceTree = "<group>"; };
 		D3AEA46613628F4B0025C334 /* BDGridView-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BDGridView-test.m"; sourceTree = "<group>"; };
-		D3B09AAF13BC46AF0001C3F4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D3B09AAF13BC46AF0001C3F4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; tabWidth = 2; };
 		D3CADAD413B7744B00834CAC /* IPFlickrApiKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFlickrApiKeys.h; sourceTree = "<group>"; };
 		D3D01473138B1F5A00181DE7 /* ChooseYourBest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChooseYourBest.png; sourceTree = "<group>"; };
 		D3D01475138C1EC400181DE7 /* GiveItYourLook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GiveItYourLook.png; sourceTree = "<group>"; };
@@ -702,6 +713,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3197C28154912A900F0DAC0 /* libz.dylib in Frameworks */,
 				0AB0C80E13E26A5700B204BC /* CoreLocation.framework in Frameworks */,
 				0A4F0C7A13D938F8008759F5 /* Security.framework in Frameworks */,
 				D35F88BC13C6C50600EB2706 /* ImageIO.framework in Frameworks */,
@@ -714,6 +726,7 @@
 				D3A4A923122CC4D300A37F78 /* MessageUI.framework in Frameworks */,
 				D3A4AD1612319C4600A37F78 /* StoreKit.framework in Frameworks */,
 				D3E7C5C2136496AE00DE4A98 /* QuartzCore.framework in Frameworks */,
+				D3197C241549126A00F0DAC0 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -924,7 +937,10 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				D3197C2B15491C6F00F0DAC0 /* Entitlements.entitlements */,
+				D3197C27154912A900F0DAC0 /* libz.dylib */,
 				D38B0CE813C2EF180042D7E4 /* libObjectiveFlickr.a */,
+				D3197C1E1549123E00F0DAC0 /* TestFlight */,
 				D30A42D5130F9DEE00E6EBB7 /* GTM */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -1104,6 +1120,18 @@
 				0AB426DD13DCE7A600895092 /* IPGridHeader.xib */,
 			);
 			name = "Grid Controllers";
+			sourceTree = "<group>";
+		};
+		D3197C1E1549123E00F0DAC0 /* TestFlight */ = {
+			isa = PBXGroup;
+			children = (
+				D3197C201549126A00F0DAC0 /* libTestFlight.a */,
+				D3197C211549126A00F0DAC0 /* README.txt */,
+				D3197C221549126A00F0DAC0 /* release_notes.txt */,
+				D3197C231549126A00F0DAC0 /* TestFlight.h */,
+				D3197C291549138700F0DAC0 /* Pholio-TestFlight_template.h */,
+			);
+			path = TestFlight;
 			sourceTree = "<group>";
 		};
 		D31E936A134D6EB5000F5494 /* TestHelpers */ = {
@@ -1351,7 +1379,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "Brian's Brain";
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ipad-portfolio" */;
@@ -1438,6 +1466,8 @@
 				0A8EB78314153B0500E4ACA7 /* db_logo@2x.png in Resources */,
 				0A373C3C141E7F4600EBEAB0 /* dropbox.png in Resources */,
 				0AEDDB08141E9E6C0091D8E7 /* folder48.gif in Resources */,
+				D3197C251549126A00F0DAC0 /* README.txt in Resources */,
+				D3197C261549126A00F0DAC0 /* release_notes.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1767,6 +1797,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = Entitlements.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1783,8 +1814,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-bpcczbmozlyfwaerlxsfbwsdqgeh/Build/Products/Debug-iphoneos\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/TestFlight\"",
 				);
 				PRODUCT_NAME = Pholio;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -1796,6 +1826,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = Entitlements.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1806,8 +1837,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-bpcczbmozlyfwaerlxsfbwsdqgeh/Build/Products/Debug-iphoneos\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/TestFlight\"",
 				);
 				PRODUCT_NAME = Pholio;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -1871,6 +1901,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = Entitlements.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1881,8 +1912,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-bpcczbmozlyfwaerlxsfbwsdqgeh/Build/Products/Debug-iphoneos\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/TestFlight\"",
 				);
 				PRODUCT_NAME = Pholio;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -2007,6 +2037,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = Entitlements.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2017,8 +2048,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-bpcczbmozlyfwaerlxsfbwsdqgeh/Build/Products/Debug-iphoneos\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Pholio-hfrgcqmljwgznmdtmjckrthtyunw/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/TestFlight\"",
 				);
 				PRODUCT_NAME = Pholio;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

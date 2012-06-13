@@ -6,7 +6,7 @@
 #import "UIImage+Alpha.h"
 
 // Private helper methods
-@interface UIImage ()
+@interface UIImage (Alpha_Private)
 - (CGImageRef)newBorderMask:(NSUInteger)borderSize size:(CGSize)size;
 @end
 
@@ -87,6 +87,10 @@
     
     return transparentBorderImage;
 }
+
+@end
+
+@implementation UIImage (Alpha_Private)
 
 #pragma mark -
 #pragma mark Private helper methods

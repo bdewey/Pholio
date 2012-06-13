@@ -167,6 +167,8 @@
 - (void)viewDidLoad {
 
   [super viewDidLoad];
+  NSString *checkpoint = [NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__];
+  [TestFlight passCheckpoint:checkpoint];
   
   //
   //  Create the editable title field. 
