@@ -95,7 +95,7 @@
 #endif // DEBUG
 #endif // PHOLIO_TESTFLIGHT_TEAM_TOKEN
   
-  [window addSubview:self.navigationController.view];
+  [window setRootViewController:self.navigationController];
   [window makeKeyAndVisible];
   
   //

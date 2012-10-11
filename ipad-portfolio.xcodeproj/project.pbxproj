@@ -498,7 +498,7 @@
 		D30A434113138E7800E6EBB7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		D30A435113138F5C00E6EBB7 /* IPPhoto-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPhoto-test.m"; sourceTree = "<group>"; };
 		D30E436D1363D9FD0025BDAB /* IPPortfolioGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPortfolioGridViewController.h; sourceTree = "<group>"; };
-		D30E436E1363D9FD0025BDAB /* IPPortfolioGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPPortfolioGridViewController.m; sourceTree = "<group>"; };
+		D30E436E1363D9FD0025BDAB /* IPPortfolioGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = IPPortfolioGridViewController.m; sourceTree = "<group>"; tabWidth = 2; };
 		D30E436F1363D9FD0025BDAB /* IPPortfolioGridViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IPPortfolioGridViewController.xib; sourceTree = "<group>"; };
 		D30E43751363DF050025BDAB /* IPPortfolioGridViewController-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPortfolioGridViewController-test.m"; sourceTree = "<group>"; };
 		D30E437713646AA90025BDAB /* IPSetGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPSetGridViewController.h; sourceTree = "<group>"; };
@@ -965,8 +965,10 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
+			indentWidth = 2;
 			name = CustomTemplate;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
