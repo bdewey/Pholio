@@ -649,6 +649,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 - (void)ipSettingsShowUserGuide {
   
   [self dismissPopover];
+  self.tutorialManager.state = IPTutorialManagerStateWelcome;
   [self startTutorial];
 }
 

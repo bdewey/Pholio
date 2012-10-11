@@ -1185,7 +1185,7 @@
 
 - (void)startTutorial {
   
-  self.tutorialManager.state = IPTutorialManagerStateWelcome;
+//  self.tutorialManager.state = IPTutorialManagerStateWelcome;
   [self setOverlayController:[self overlayControllerForCurrentState] animated:YES];
 }
 

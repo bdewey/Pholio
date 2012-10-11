@@ -20,6 +20,8 @@
 
 #import "IPTutorialManager.h"
 
+#define kIPTutorialManagerStateKey            @"kIPTutorialManagerStateKey"
+
 @interface IPTutorialManager()
 
 @property (nonatomic, retain) NSArray *tutorialTitles;
@@ -34,13 +36,6 @@
 
 @implementation IPTutorialManager
 
-@synthesize state                = state_;
-@synthesize tutorialTitles       = tutorialTitles_;
-@synthesize tutorialDescriptions = tutorialDescriptions_;
-@dynamic isLastState;
-@dynamic tutorialTitle;
-@dynamic tutorialDescription;
-
 ////////////////////////////////////////////////////////////////////////////////
 
 - (id)init {
@@ -48,7 +43,7 @@
   self = [super init];
   if (self) {
     
-    tutorialTitles_ = [[NSArray alloc] initWithObjects:
+    _tutorialTitles = [[NSArray alloc] initWithObjects:
                        @"Welcome to Pholio!",
                        @"The Long Press",
                        @"Drag and Drop",
@@ -56,7 +51,7 @@
                        @"Have fun!",
                        @"No tutorial",
                        nil];
-    tutorialDescriptions_ = [[NSArray alloc] initWithObjects:
+    _tutorialDescriptions = [[NSArray alloc] initWithObjects:
                              @"Pholio helps you build, organize, and display beautiful portfolios of your images.",
                              @"The key gesture for using Pholio is the long press. Doing a long press on the screen brings up a menu of actions. Not only can you do a long press on existing galleries or photos, you can do a long press on empty space to create new photos or galleries. Try a long press now.",
                              @"It's easy to rearrange anything: Just drag and drop. Try it now!",
@@ -64,6 +59,7 @@
                              @"That's it! I hope you find Pholio easy to use, and I hope you enjoy using it to show off your work to friends, family, and clients.",
                              @"No tutorial",
                              nil];
+    _state = [[NSUserDefaults standardUserDefaults] integerForKey:kIPTutorialManagerStateKey];
   }
   return self;
 }
@@ -72,8 +68,8 @@
 
 - (void)dealloc {
   
-  [tutorialTitles_ release];
-  [tutorialDescriptions_ release];
+  [_tutorialTitles release];
+  [_tutorialDescriptions release];
   
   [super dealloc];
 }
@@ -158,6 +154,15 @@
 - (BOOL)isLastState {
   
   return (self.state == kTutorialManagerStateLast);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)setState:(IPTutorialManagerState)state {
+  
+  _state = state;
+  [[NSUserDefaults standardUserDefaults] setInteger:_state forKey:kIPTutorialManagerStateKey];
+  [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end
