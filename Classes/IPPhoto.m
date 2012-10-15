@@ -27,6 +27,8 @@
 #import "NSString+TestHelper.h"
 #import "IPPortfolio.h"
 
+CGFloat kIPPhotoMaxEdgeSize;
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -63,6 +65,16 @@
 @synthesize thumbnail = thumbnail_;
 @synthesize parent = parent_;
 @synthesize optimizedVersion = optimizedVersion_;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
++ (void)initialize {
+  
+  UIScreen *mainScreen = [UIScreen mainScreen];
+  CGFloat maxDimension = MAX(mainScreen.bounds.size.width, mainScreen.bounds.size.height);
+  maxDimension *= mainScreen.scale;
+  kIPPhotoMaxEdgeSize = maxDimension * 1.5;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -796,6 +808,17 @@
 //
 
 - (size_t)levelsOfDetail {
+
+  //
+  //  TODO -- with tiling currently out, we actually never have any more levels of
+  //  detail. If tiling comes back, remove this.
+  //
+  
+  return 1;
+  
+  //
+  //  THE FOLLOWING IS DEAD CODE.
+  //
   
   CGFloat longEdge = MAX(self.imageSize.width, self.imageSize.height);
   if (longEdge == 0) {

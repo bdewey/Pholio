@@ -39,7 +39,7 @@
 
 #define kImageLongEdgeMinRescaleSize  768
 
-#define kIPPhotoMaxEdgeSize           1500
+extern CGFloat kIPPhotoMaxEdgeSize;
 
 //
 //  The version number of the image optimization algorithm we use. 
