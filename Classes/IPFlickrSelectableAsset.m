@@ -119,6 +119,31 @@
   });
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  The URLs we should search for when downloading a Flickr image. We act differently if we're
+//  on a retina versus non-retina device. On retina, we look for the original image first; on
+//  non-retina, we look for "large" first.
+//
+
++ (NSArray *)urlProperties {
+
+  static NSArray *_urlProperties = nil;
+  if (!_urlProperties) {
+    
+    CGFloat scale = [[UIScreen mainScreen] scale];
+    if (scale >= 2) {
+      
+      _urlProperties = [[NSArray arrayWithObjects:@"url_o", @"url_l", @"url_m", nil] retain];
+      
+    } else {
+      
+      _urlProperties = [[NSArray arrayWithObjects:@"url_l", @"url_o", @"url_m", nil] retain];
+    }
+  }
+  return _urlProperties;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  Gets the corresponding Flickr image.
@@ -141,7 +166,7 @@
     //  These are the URL properties that we should try, in order.
     //
     
-    NSArray *urlProperties = [NSArray arrayWithObjects:@"url_l", @"url_o", @"url_m", nil];
+    NSArray *urlProperties = [IPFlickrSelectableAsset urlProperties];
     NSURL *imageUrl = nil;
     
     for (NSString *property in urlProperties) {
