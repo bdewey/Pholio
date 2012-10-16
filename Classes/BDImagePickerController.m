@@ -201,6 +201,12 @@
   
   CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
   
+  //
+  //  HACK -- on iOS 5 and greater, apparently we don't need to authorize. so never prompt.
+  //
+  
+  authorizationStatus = kCLAuthorizationStatusAuthorized;
+  
   switch (authorizationStatus) {
     case kCLAuthorizationStatusRestricted:
     case kCLAuthorizationStatusDenied:
