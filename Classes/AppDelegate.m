@@ -378,6 +378,7 @@
       
       IPPhoto *photo = [[[IPPhoto alloc] init] autorelease];
       photo.filename = [imageName asPathInDocumentsFolder];
+      photo.title = [imageName stringByDeletingPathExtension];
       [photo optimize];
       IPPage *page = [IPPage pageWithPhoto:photo];
       [theSet.pages addObject:page];
@@ -421,15 +422,15 @@
     //  looks for unrecognized files. This should be fast-ish.
     //
     
+    IPSet *landscapes = [self sampleLandscapes];
+    if (landscapes) {
+      
+      [portfolio insertObject:landscapes inSetsAtIndex:[portfolio countOfSets]];
+    }
     IPSet *welcomeSet = [self welcomeSet];
     if (welcomeSet) {
       
       [portfolio insertObject:welcomeSet inSetsAtIndex:[portfolio countOfSets]];
-    }
-    IPSet *landscapes = [self sampleLandscapes];
-    if (landscapes) {
-
-      [portfolio insertObject:landscapes inSetsAtIndex:[portfolio countOfSets]];
     }
     userDefaults.welcomeVersion = welcomeSetVersion;
     [portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
