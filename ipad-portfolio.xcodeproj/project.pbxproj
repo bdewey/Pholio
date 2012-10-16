@@ -348,7 +348,6 @@
 		D3E7C5EB1367C3D800DE4A98 /* BDContrainPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E7C5EA1367C3D700DE4A98 /* BDContrainPanGestureRecognizer.m */; };
 		D3E7C5EC1367C3D800DE4A98 /* BDContrainPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E7C5EA1367C3D700DE4A98 /* BDContrainPanGestureRecognizer.m */; };
 		D3EB04131380EA2000CA6CC8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3EB04121380EA2000CA6CC8 /* CFNetwork.framework */; };
-		D3EB04241380F4A300CA6CC8 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3EB04231380F4A300CA6CC8 /* Entitlements.plist */; };
 		D3F0F75B134C2A0C0059EA0F /* IPPage-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F75A134C2A0C0059EA0F /* IPPage-test.m */; };
 		D3F0F75E134C2BA90059EA0F /* NSString+TestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F75D134C2BA90059EA0F /* NSString+TestHelper.m */; };
 		D3F0F762134C2F3F0059EA0F /* IPPage.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20FA3120B4BFA008F247D /* IPPage.m */; };
@@ -712,7 +711,6 @@
 		D3E7C5EA1367C3D700DE4A98 /* BDContrainPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDContrainPanGestureRecognizer.m; sourceTree = "<group>"; };
 		D3EB04121380EA2000CA6CC8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		D3EB04171380F1CE00CA6CC8 /* libObjectiveFlickr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libObjectiveFlickr.a; sourceTree = SOURCE_ROOT; };
-		D3EB04231380F4A300CA6CC8 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		D3F0F75A134C2A0C0059EA0F /* IPPage-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPage-test.m"; sourceTree = "<group>"; };
 		D3F0F75C134C2BA90059EA0F /* NSString+TestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+TestHelper.h"; path = "../UnitTests/NSString+TestHelper.h"; sourceTree = "<group>"; };
 		D3F0F75D134C2BA90059EA0F /* NSString+TestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+TestHelper.m"; path = "../UnitTests/NSString+TestHelper.m"; sourceTree = "<group>"; };
@@ -979,7 +977,6 @@
 				8D1107310486CEB800E47090 /* Info.plist */,
 				32CA4F630368D1EE00C91783 /* Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
-				D3EB04231380F4A300CA6CC8 /* Entitlements.plist */,
 				D3E0E5B113B1CE7500203A79 /* remove-keys.pl */,
 				D3A4A8DB122CBB2C00A37F78 /* Settings.bundle */,
 			);
@@ -1464,7 +1461,6 @@
 				D3E166CC136935BD00B72591 /* IPSetPagingViewController.xib in Resources */,
 				D33C019113749D4300030DD9 /* Overlay.png in Resources */,
 				D33C019213749D4300030DD9 /* Overlay@2x.png in Resources */,
-				D3EB04241380F4A300CA6CC8 /* Entitlements.plist in Resources */,
 				D3A25E8913880DB800FA80B7 /* FlickrTabBarIcon.png in Resources */,
 				D3A25E8B1388104400FA80B7 /* 42-photos.png in Resources */,
 				D3D01474138B1F5A00181DE7 /* Choose Your Best.png in Resources */,

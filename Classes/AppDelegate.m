@@ -298,18 +298,27 @@
     //  Set appearance defaults.
     //
     
+    BOOL saveNeeded = NO;
     if ([portfolio.backgroundImageName length] == 0) {
       
-      portfolio.backgroundImageName = @"black.jpg";
-      [portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+      portfolio.backgroundImageName = @"drops.jpg";
+      saveNeeded = YES;
     }
     
     if (portfolio.fontColor == nil) {
       
       portfolio.fontColor = [UIColor whiteColor];
-      [portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+      saveNeeded = YES;
     }
     
+    saveNeeded = [portfolio setDefaultNavigationColor:[UIColor colorWithRed:0.0 green:0.04 blue:0.0 alpha:1.0]] || saveNeeded;
+    saveNeeded = [portfolio setDefaultTitleFont:[UIFont fontWithName:@"Futura-Medium" size:kIPPortfolioTitleFontSize]] || saveNeeded;
+    saveNeeded = [portfolio setDefaultTextFont:[UIFont fontWithName:@"GillSans" size:[UIFont labelFontSize]]] || saveNeeded;
+    
+    if (saveNeeded) {
+      
+      [portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
+    }
     //
     //  Make sure we have our welcome content.
     //

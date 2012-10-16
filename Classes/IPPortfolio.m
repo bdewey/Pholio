@@ -353,6 +353,17 @@
   return navigationColor_;
 }
 
+- (BOOL)setDefaultNavigationColor:(UIColor *)navigationColor {
+  
+  if (navigationColor_ == nil) {
+    
+    [navigationColor_ autorelease];
+    navigationColor_ = [navigationColor retain];
+    return YES;
+  }
+  return NO;
+}
+
 - (UIFont *)titleFont {
   
   if (titleFont_ == nil) {
@@ -362,6 +373,16 @@
   return titleFont_;
 }
 
+- (BOOL)setDefaultTitleFont:(UIFont *)titleFont {
+  
+  if (!titleFont_) {
+    
+    titleFont_ = [titleFont retain];
+    return YES;
+  }
+  return NO;
+}
+
 - (UIFont *)textFont {
   
   if (textFont_ == nil) {
@@ -369,6 +390,16 @@
     textFont_ = [[UIFont systemFontOfSize:[UIFont systemFontSize]] retain];
   }
   return textFont_;
+}
+
+- (BOOL)setDefaultTextFont:(UIFont *)textFont {
+  
+  if (!textFont_) {
+    
+    textFont_ = [textFont retain];
+    return YES;
+  }
+  return NO;
 }
 
 #pragma mark -

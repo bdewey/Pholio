@@ -94,6 +94,13 @@ typedef enum {
 @property (nonatomic, retain) UIColor *navigationColor;
 
 //
+//  Sets a nav bar color if and only if one has not already been set.
+//  Returns YES if changed.
+//
+
+- (BOOL)setDefaultNavigationColor:(UIColor *)navigationColor;
+
+//
 //  The color for the set title & captions.
 //
 
@@ -104,12 +111,14 @@ typedef enum {
 //
 
 @property (nonatomic, retain) UIFont *titleFont;
+- (BOOL)setDefaultTitleFont:(UIFont *)titleFont;
 
 //
 //  The font for displaying all other text.
 //
 
 @property (nonatomic, retain) UIFont *textFont;
+- (BOOL)setDefaultTextFont:(UIFont *)textFont;
 
 //
 //  The portfolio layout style.
