@@ -197,6 +197,7 @@
 		D33C01AF1379094A00030DD9 /* IPButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D33C01A11378964D00030DD9 /* IPButtonCell.m */; };
 		D33C01B01379094A00030DD9 /* IPCustomBackgroundCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D33C01A41378F1EB00030DD9 /* IPCustomBackgroundCell.m */; };
 		D33C01B11379094A00030DD9 /* IPCustomAppearanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33C01A71378FF1C00030DD9 /* IPCustomAppearanceController.m */; };
+		D33C3628162E165200772BA6 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D33C3627162E165200772BA6 /* Icon-72@2x.png */; };
 		D343E28113C96065007330D6 /* gold-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D343E27A13C96065007330D6 /* gold-thumb.jpg */; };
 		D343E28213C96065007330D6 /* blue-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D343E27B13C96065007330D6 /* blue-thumb.jpg */; };
 		D343E28313C96065007330D6 /* drops-thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D343E27C13C96065007330D6 /* drops-thumb.jpg */; };
@@ -275,8 +276,8 @@
 		D3AEA46713628F4B0025C334 /* BDGridView-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA46613628F4B0025C334 /* BDGridView-test.m */; };
 		D3B09AB013BC46B00001C3F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B09AAF13BC46AF0001C3F4 /* AppDelegate.m */; };
 		D3B09AB113BC46B00001C3F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B09AAF13BC46AF0001C3F4 /* AppDelegate.m */; };
-		D3D01474138B1F5A00181DE7 /* ChooseYourBest.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D01473138B1F5A00181DE7 /* ChooseYourBest.png */; };
-		D3D01476138C1EC400181DE7 /* GiveItYourLook.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D01475138C1EC400181DE7 /* GiveItYourLook.png */; };
+		D3D01474138B1F5A00181DE7 /* Choose Your Best.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D01473138B1F5A00181DE7 /* Choose Your Best.png */; };
+		D3D01476138C1EC400181DE7 /* Give It Your Look.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D01475138C1EC400181DE7 /* Give It Your Look.png */; };
 		D3D0148B138C25AF00181DE7 /* BDFontPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D0148A138C25AF00181DE7 /* BDFontPickerController.m */; };
 		D3D0148C138C25AF00181DE7 /* BDFontPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D0148A138C25AF00181DE7 /* BDFontPickerController.m */; };
 		D3D0148F138C262D00181DE7 /* BDFontCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D0148E138C262D00181DE7 /* BDFontCell.m */; };
@@ -293,7 +294,7 @@
 		D3D014AE138CCC5F00181DE7 /* IPColorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D014AD138CCC5F00181DE7 /* IPColorCell.m */; };
 		D3D014AF138CCC5F00181DE7 /* IPColorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D014AD138CCC5F00181DE7 /* IPColorCell.m */; };
 		D3D014B2138D948400181DE7 /* IPEditableTitleViewController-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D014B1138D948300181DE7 /* IPEditableTitleViewController-test.m */; };
-		D3D014B5138DD24F00181DE7 /* CutTheCord.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D014B3138DD24F00181DE7 /* CutTheCord.png */; };
+		D3D014B5138DD24F00181DE7 /* Cut The Cord.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D014B3138DD24F00181DE7 /* Cut The Cord.png */; };
 		D3D014B6138DD24F00181DE7 /* Tips.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D014B4138DD24F00181DE7 /* Tips.png */; };
 		D3D2B7D9121F9D2300F1B2BD /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D2B7D6121F9D2300F1B2BD /* UIImage+Alpha.m */; };
 		D3D2B7DA121F9D2300F1B2BD /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D2B7D7121F9D2300F1B2BD /* UIImage+Resize.m */; };
@@ -557,6 +558,7 @@
 		D33C01A41378F1EB00030DD9 /* IPCustomBackgroundCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPCustomBackgroundCell.m; sourceTree = "<group>"; };
 		D33C01A61378FF1C00030DD9 /* IPCustomAppearanceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPCustomAppearanceController.h; sourceTree = "<group>"; };
 		D33C01A71378FF1C00030DD9 /* IPCustomAppearanceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPCustomAppearanceController.m; sourceTree = "<group>"; };
+		D33C3627162E165200772BA6 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		D343E27A13C96065007330D6 /* gold-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "gold-thumb.jpg"; sourceTree = "<group>"; };
 		D343E27B13C96065007330D6 /* blue-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "blue-thumb.jpg"; sourceTree = "<group>"; };
 		D343E27C13C96065007330D6 /* drops-thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "drops-thumb.jpg"; sourceTree = "<group>"; };
@@ -634,8 +636,8 @@
 		D3AEA46613628F4B0025C334 /* BDGridView-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BDGridView-test.m"; sourceTree = "<group>"; };
 		D3B09AAF13BC46AF0001C3F4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; tabWidth = 2; };
 		D3CADAD413B7744B00834CAC /* IPFlickrApiKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFlickrApiKeys.h; sourceTree = "<group>"; };
-		D3D01473138B1F5A00181DE7 /* ChooseYourBest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChooseYourBest.png; sourceTree = "<group>"; };
-		D3D01475138C1EC400181DE7 /* GiveItYourLook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GiveItYourLook.png; sourceTree = "<group>"; };
+		D3D01473138B1F5A00181DE7 /* Choose Your Best.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Choose Your Best.png"; sourceTree = "<group>"; };
+		D3D01475138C1EC400181DE7 /* Give It Your Look.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Give It Your Look.png"; sourceTree = "<group>"; };
 		D3D01489138C25AF00181DE7 /* BDFontPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDFontPickerController.h; sourceTree = "<group>"; };
 		D3D0148A138C25AF00181DE7 /* BDFontPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDFontPickerController.m; sourceTree = "<group>"; };
 		D3D0148D138C262D00181DE7 /* BDFontCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDFontCell.h; sourceTree = "<group>"; };
@@ -651,7 +653,7 @@
 		D3D014AC138CCC5F00181DE7 /* IPColorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPColorCell.h; sourceTree = "<group>"; };
 		D3D014AD138CCC5F00181DE7 /* IPColorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPColorCell.m; sourceTree = "<group>"; };
 		D3D014B1138D948300181DE7 /* IPEditableTitleViewController-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPEditableTitleViewController-test.m"; sourceTree = "<group>"; };
-		D3D014B3138DD24F00181DE7 /* CutTheCord.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CutTheCord.png; sourceTree = "<group>"; };
+		D3D014B3138DD24F00181DE7 /* Cut The Cord.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cut The Cord.png"; sourceTree = "<group>"; };
 		D3D014B4138DD24F00181DE7 /* Tips.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tips.png; sourceTree = "<group>"; };
 		D3D2B7D3121F9D2300F1B2BD /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
 		D3D2B7D4121F9D2300F1B2BD /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
@@ -953,6 +955,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				D33C3627162E165200772BA6 /* Icon-72@2x.png */,
 				D3197C2B15491C6F00F0DAC0 /* Entitlements.entitlements */,
 				D3197C27154912A900F0DAC0 /* libz.dylib */,
 				D38B0CE813C2EF180042D7E4 /* libObjectiveFlickr.a */,
@@ -1284,10 +1287,10 @@
 		D3D01477138C1ECB00181DE7 /* Welcome Set Images */ = {
 			isa = PBXGroup;
 			children = (
-				D3D014B3138DD24F00181DE7 /* CutTheCord.png */,
+				D3D014B3138DD24F00181DE7 /* Cut The Cord.png */,
 				D3D014B4138DD24F00181DE7 /* Tips.png */,
-				D3D01475138C1EC400181DE7 /* GiveItYourLook.png */,
-				D3D01473138B1F5A00181DE7 /* ChooseYourBest.png */,
+				D3D01475138C1EC400181DE7 /* Give It Your Look.png */,
+				D3D01473138B1F5A00181DE7 /* Choose Your Best.png */,
 			);
 			name = "Welcome Set Images";
 			sourceTree = "<group>";
@@ -1464,10 +1467,10 @@
 				D3EB04241380F4A300CA6CC8 /* Entitlements.plist in Resources */,
 				D3A25E8913880DB800FA80B7 /* FlickrTabBarIcon.png in Resources */,
 				D3A25E8B1388104400FA80B7 /* 42-photos.png in Resources */,
-				D3D01474138B1F5A00181DE7 /* ChooseYourBest.png in Resources */,
-				D3D01476138C1EC400181DE7 /* GiveItYourLook.png in Resources */,
+				D3D01474138B1F5A00181DE7 /* Choose Your Best.png in Resources */,
+				D3D01476138C1EC400181DE7 /* Give It Your Look.png in Resources */,
 				D3D0149A138CB39F00181DE7 /* BDColorPicker.xib in Resources */,
-				D3D014B5138DD24F00181DE7 /* CutTheCord.png in Resources */,
+				D3D014B5138DD24F00181DE7 /* Cut The Cord.png in Resources */,
 				D3D014B6138DD24F00181DE7 /* Tips.png in Resources */,
 				D318CB8813B5BD8C00F90860 /* IPOptimizingPhotoNotification.xib in Resources */,
 				D343E28113C96065007330D6 /* gold-thumb.jpg in Resources */,
@@ -1503,6 +1506,7 @@
 				D3787C8A1482192C000F0B6D /* To the Sky (2008).jpg in Resources */,
 				D3197C251549126A00F0DAC0 /* README.txt in Resources */,
 				D3197C261549126A00F0DAC0 /* release_notes.txt in Resources */,
+				D33C3628162E165200772BA6 /* Icon-72@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

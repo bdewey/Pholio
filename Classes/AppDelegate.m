@@ -332,9 +332,9 @@
 - (IPSet *)welcomeSet {
   
   NSArray *imageNames = [NSArray arrayWithObjects:
-                         @"ChooseYourBest.png",
-                         @"GiveItYourLook.png",
-                         @"CutTheCord.png",
+                         @"Choose Your Best.png",
+                         @"Give It Your Look.png",
+                         @"Cut The Cord.png",
                          @"Tips.png",
                          nil];
   return [self setNamed:kWelcomeGalleryName fromImagesNamed:imageNames];
