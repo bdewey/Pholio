@@ -87,14 +87,6 @@
 - (BOOL)application:(UIApplication *)application 
   didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
   
-#ifdef PHOLIO_TESTFLIGHT_TEAM_TOKEN
-  [TestFlight takeOff:PHOLIO_TESTFLIGHT_TEAM_TOKEN];
-  
-#ifdef DEBUG
-  [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-#endif // DEBUG
-#endif // PHOLIO_TESTFLIGHT_TEAM_TOKEN
-  
   [window setRootViewController:self.navigationController];
   [window makeKeyAndVisible];
   

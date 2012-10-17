@@ -156,9 +156,6 @@
 		D318CB8713B5BD8C00F90860 /* IPOptimizingPhotoNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB8513B5BD8B00F90860 /* IPOptimizingPhotoNotification.m */; };
 		D318CB8813B5BD8C00F90860 /* IPOptimizingPhotoNotification.xib in Resources */ = {isa = PBXBuildFile; fileRef = D318CB8613B5BD8B00F90860 /* IPOptimizingPhotoNotification.xib */; };
 		D318CB8913B5C79100F90860 /* IPOptimizingPhotoNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB8513B5BD8B00F90860 /* IPOptimizingPhotoNotification.m */; };
-		D3197C241549126A00F0DAC0 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3197C201549126A00F0DAC0 /* libTestFlight.a */; };
-		D3197C251549126A00F0DAC0 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3197C211549126A00F0DAC0 /* README.txt */; };
-		D3197C261549126A00F0DAC0 /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = D3197C221549126A00F0DAC0 /* release_notes.txt */; };
 		D3197C28154912A900F0DAC0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3197C27154912A900F0DAC0 /* libz.dylib */; };
 		D31E9369134D6E29000F5494 /* IPSet-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D31E9368134D6E29000F5494 /* IPSet-test.m */; };
 		D31E936D134D6EDD000F5494 /* IPPage+TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D31E936C134D6EDD000F5494 /* IPPage+TestHelpers.m */; };
@@ -511,12 +508,7 @@
 		D318CB8413B5BD8B00F90860 /* IPOptimizingPhotoNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPOptimizingPhotoNotification.h; sourceTree = "<group>"; };
 		D318CB8513B5BD8B00F90860 /* IPOptimizingPhotoNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPOptimizingPhotoNotification.m; sourceTree = "<group>"; };
 		D318CB8613B5BD8B00F90860 /* IPOptimizingPhotoNotification.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IPOptimizingPhotoNotification.xib; sourceTree = "<group>"; };
-		D3197C201549126A00F0DAC0 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		D3197C211549126A00F0DAC0 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		D3197C221549126A00F0DAC0 /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
-		D3197C231549126A00F0DAC0 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		D3197C27154912A900F0DAC0 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		D3197C291549138700F0DAC0 /* Pholio-TestFlight_template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pholio-TestFlight_template.h"; sourceTree = "<group>"; };
 		D3197C2B15491C6F00F0DAC0 /* Entitlements.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Entitlements.entitlements; sourceTree = "<group>"; };
 		D31E9368134D6E29000F5494 /* IPSet-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPSet-test.m"; sourceTree = "<group>"; };
 		D31E936B134D6EDD000F5494 /* IPPage+TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IPPage+TestHelpers.h"; sourceTree = "<group>"; };
@@ -740,7 +732,6 @@
 				D3A4A923122CC4D300A37F78 /* MessageUI.framework in Frameworks */,
 				D3A4AD1612319C4600A37F78 /* StoreKit.framework in Frameworks */,
 				D3E7C5C2136496AE00DE4A98 /* QuartzCore.framework in Frameworks */,
-				D3197C241549126A00F0DAC0 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -957,7 +948,6 @@
 				D3197C2B15491C6F00F0DAC0 /* Entitlements.entitlements */,
 				D3197C27154912A900F0DAC0 /* libz.dylib */,
 				D38B0CE813C2EF180042D7E4 /* libObjectiveFlickr.a */,
-				D3197C1E1549123E00F0DAC0 /* TestFlight */,
 				D30A42D5130F9DEE00E6EBB7 /* GTM */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -1141,18 +1131,6 @@
 				0AB426DD13DCE7A600895092 /* IPGridHeader.xib */,
 			);
 			name = "Grid Controllers";
-			sourceTree = "<group>";
-		};
-		D3197C1E1549123E00F0DAC0 /* TestFlight */ = {
-			isa = PBXGroup;
-			children = (
-				D3197C201549126A00F0DAC0 /* libTestFlight.a */,
-				D3197C211549126A00F0DAC0 /* README.txt */,
-				D3197C221549126A00F0DAC0 /* release_notes.txt */,
-				D3197C231549126A00F0DAC0 /* TestFlight.h */,
-				D3197C291549138700F0DAC0 /* Pholio-TestFlight_template.h */,
-			);
-			path = TestFlight;
 			sourceTree = "<group>";
 		};
 		D31E936A134D6EB5000F5494 /* TestHelpers */ = {
@@ -1500,8 +1478,6 @@
 				D3787C881482192C000F0B6D /* Lone Photographer (2008).jpg in Resources */,
 				D3787C891482192C000F0B6D /* Misty Morning (2008).jpg in Resources */,
 				D3787C8A1482192C000F0B6D /* To the Sky (2008).jpg in Resources */,
-				D3197C251549126A00F0DAC0 /* README.txt in Resources */,
-				D3197C261549126A00F0DAC0 /* release_notes.txt in Resources */,
 				D33C3628162E165200772BA6 /* Icon-72@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
