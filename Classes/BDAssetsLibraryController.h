@@ -35,9 +35,9 @@
 //  The asset groups that we are showing in this controller.
 //
 
-@property (nonatomic, retain) NSMutableArray *groups;
+@property (nonatomic, strong) NSMutableArray *groups;
 
-@property (nonatomic, retain) id<BDImagePickerControllerDelegate> delegate;
+@property (nonatomic, strong) id<BDImagePickerControllerDelegate> delegate;
 
 @end
 

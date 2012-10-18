@@ -19,12 +19,12 @@
 //
 
 #import <CoreLocation/CoreLocation.h>
+#import <DropboxSDK/DropboxSDK.h>
 #import "IPAlert.h"
 #import "BDImagePickerController.h"
 #import "BDAssetsLibraryController.h"
 #import "IPFlickrAuthorizationManager.h"
 #import "IPFlickrSetPickerController.h"
-#import "DropboxSDK.h"
 #import "IPDropBoxAssetsSource.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -49,7 +49,7 @@
 //  The popover we're shown in.
 //
 
-@property (nonatomic, assign) UIPopoverController *popover;
+@property (nonatomic, weak) UIPopoverController *popover;
 
 //
 //  Creates an assets library controller wrapped in a UINavigationController.
@@ -101,8 +101,8 @@
 
 - (UINavigationController *)assetsLibraryController {
   
-  BDAssetsLibraryController *libraryController = [[[BDAssetsLibraryController alloc] init] autorelease];
-  UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:libraryController] autorelease];
+  BDAssetsLibraryController *libraryController = [[BDAssetsLibraryController alloc] init];
+  UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:libraryController];
   nav.navigationBar.barStyle = UIBarStyleBlack;
   libraryController.delegate = self;
   return nav;
@@ -115,9 +115,9 @@
 
 - (UINavigationController *)flickrController {
   
-  IPFlickrSetPickerController *controller = [[[IPFlickrSetPickerController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
+  IPFlickrSetPickerController *controller = [[IPFlickrSetPickerController alloc] initWithStyle:UITableViewStyleGrouped];
   controller.delegate = self;
-  UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:controller] autorelease];
+  UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
   nav.navigationBar.barStyle = UIBarStyleBlack;
   return nav;
 }
@@ -126,14 +126,14 @@
 
 - (UINavigationController *)dropBoxController {
   
-  IPDropBoxAssetsSource *root = [[[IPDropBoxAssetsSource alloc] init] autorelease];
+  IPDropBoxAssetsSource *root = [[IPDropBoxAssetsSource alloc] init];
   root.path = @"/";
-  BDAssetsGroupController *assetsController = [[[BDAssetsGroupController alloc] initWithStyle:UITableViewStylePlain] autorelease];
+  BDAssetsGroupController *assetsController = [[BDAssetsGroupController alloc] initWithStyle:UITableViewStylePlain];
   assetsController.assetsSource = root;
   assetsController.title = kDropBox;
   assetsController.tabBarItem.image = [UIImage imageNamed:@"dropbox.png"];
   assetsController.delegate = self;
-  UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:assetsController] autorelease];
+  UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:assetsController];
   nav.navigationBar.barStyle = UIBarStyleBlack;
   return nav;
 }
@@ -145,9 +145,8 @@
 
 - (void)dealloc {
 
-  [imageBlock_ release], imageBlock_ = nil;
-  [cancelBlock_ release], cancelBlock_ = nil;
-  [super dealloc];
+  imageBlock_ = nil;
+  cancelBlock_ = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -159,11 +158,11 @@
                                          inView:(UIView *)view 
                                     onSelection:(BDImagePickerControllerImageBlock)imageBlock {
 
-  BDImagePickerController *controller = [[[BDImagePickerController alloc] init] autorelease];
+  BDImagePickerController *controller = [[BDImagePickerController alloc] init];
   controller.imageBlock = imageBlock;
   UIViewController *picker;
   IPFlickrAuthorizationManager *authManager = [IPFlickrAuthorizationManager sharedManager];
-  NSMutableArray *childControllers = [[[NSMutableArray alloc] init] autorelease];
+  NSMutableArray *childControllers = [[NSMutableArray alloc] init];
   
   [childControllers addObject:[controller assetsLibraryController]];
   if (authManager.authToken != nil) {
@@ -177,7 +176,7 @@
   
   if ([childControllers count] > 1) {
     
-    UITabBarController *tab = [[[UITabBarController alloc] init] autorelease];
+    UITabBarController *tab = [[UITabBarController alloc] init];
     [tab setViewControllers:childControllers];
     picker = tab;
     
@@ -186,7 +185,7 @@
     picker = [childControllers objectAtIndex:0];
   }
 
-  UIPopoverController *popover = [[[UIPopoverController alloc] initWithContentViewController:picker] autorelease];
+  UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:picker];
   controller.popover = popover;
   [popover presentPopoverFromRect:rect inView:view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
   return popover;
@@ -220,7 +219,6 @@
         
         UIPopoverController *popover = [BDImagePickerController presentPopoverFromRect:rect inView:view onSelection:imageBlock];
         setPopover(popover);
-        [setPopover release];
       }];
     }
       break;

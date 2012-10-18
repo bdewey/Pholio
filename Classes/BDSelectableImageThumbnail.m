@@ -31,19 +31,19 @@
 //  The main image
 //
 
-@property (nonatomic, retain) UIImageView *mainImage;
+@property (nonatomic, strong) UIImageView *mainImage;
 
 //
 //  Contains our overlay image
 //
 
-@property (nonatomic, retain) UIImageView *overlay;
+@property (nonatomic, strong) UIImageView *overlay;
 
 //
 //  Activity indicator; spins until we have an image.
 //
 
-@property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -70,14 +70,14 @@
   self = [super initWithFrame:frame];
   if (self) {
 
-    self.mainImage = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
+    self.mainImage = [[UIImageView alloc] initWithFrame:self.bounds];
     self.mainImage.contentMode = UIViewContentModeScaleAspectFill;
     self.mainImage.clipsToBounds = YES;
-    self.overlay   = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
+    self.overlay   = [[UIImageView alloc] initWithFrame:self.bounds];
     self.overlay.image = [UIImage imageNamed:@"Overlay.png"];
     self.selected  = NO;
     
-    self.activityIndicator = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray] autorelease];
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.activityIndicator.hidesWhenStopped = YES;
     self.activityIndicator.center = self.center;
     [self.activityIndicator startAnimating];
@@ -86,7 +86,7 @@
     [self addSubview:self.overlay];
     [self addSubview:self.activityIndicator];
     
-    UITapGestureRecognizer *tap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleSelection)] autorelease];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleSelection)];
     [self addGestureRecognizer:tap];
   }
   return self;
@@ -97,14 +97,6 @@
 //  Release retained properties.
 //
 
-- (void)dealloc {
-
-  [mainImage_ release];
-  [overlay_ release];
-  [activityIndicator_ release];
-  
-  [super dealloc];
-}
 
 #pragma mark - Properties
 

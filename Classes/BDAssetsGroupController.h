@@ -38,13 +38,13 @@
 //  The source of the assets that we show and pick.
 //
 
-@property (nonatomic, retain) id<BDAssetsSource> assetsSource;
+@property (nonatomic, strong) id<BDAssetsSource> assetsSource;
 
 //
 //  Delegate -- gets informed if the user selects some assets.
 //
 
-@property (nonatomic, assign) id<BDImagePickerControllerDelegate> delegate;
+@property (nonatomic, weak) id<BDImagePickerControllerDelegate> delegate;
 
 @end
 

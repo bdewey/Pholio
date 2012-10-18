@@ -27,7 +27,7 @@
 //  Color swatch.
 //
 
-@property (nonatomic, retain) UIView *swatch;
+@property (nonatomic, strong) UIView *swatch;
 
 @end
 ////////////////////////////////////////////////////////////////////////////////
@@ -50,7 +50,7 @@
   self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
   if (self != nil) {
     
-    self.swatch = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    self.swatch = [[UIView alloc] initWithFrame:CGRectZero];
     [[self.swatch layer] setCornerRadius:5.0];
     [[self.swatch layer] setMasksToBounds:YES];
     [[self.swatch layer] setBorderWidth:1.0];
@@ -65,12 +65,6 @@
 //  Release retained properties.
 //
 
-- (void)dealloc {
-  
-  [color_ release];
-  [swatch_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -102,8 +96,7 @@
 
 - (void)setColor:(UIColor *)color {
   
-  [color_ autorelease];
-  color_ = [color retain];
+  color_ = color;
   
   self.swatch.backgroundColor = color;
   [self setNeedsLayout];

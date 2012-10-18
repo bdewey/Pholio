@@ -27,7 +27,7 @@
 
 @interface IPCustomBackgroundCell ()
 
-@property (nonatomic, retain) UIImageView *thumbnailImageView;
+@property (nonatomic, strong) UIImageView *thumbnailImageView;
 
 - (void)getThumbnailForImageNamed:(NSString *)image completion:(void (^)(UIImage *))completion;
 
@@ -61,12 +61,6 @@
 //  Release all retained properties.
 //
 
-- (void)dealloc {
-  
-  [imageName_ release];
-  [thumbnailImageView_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -112,7 +106,6 @@
     dispatch_async(dispatch_get_main_queue(), ^(void) {
       
       completion(image);
-      [completion release];
     });
   });
 }
@@ -124,13 +117,12 @@
 
 - (void)setImageName:(NSString *)imageName {
   
-  [imageName_ autorelease];
   imageName_ = [imageName copy];
   
   [self getThumbnailForImageNamed:imageName completion:^(UIImage *image) {
 
     [self.thumbnailImageView removeFromSuperview];
-    self.thumbnailImageView = [[[UIImageView alloc] initWithImage:image] autorelease];
+    self.thumbnailImageView = [[UIImageView alloc] initWithImage:image];
 
     //
     //  Right-align |thumbnailImageView|.

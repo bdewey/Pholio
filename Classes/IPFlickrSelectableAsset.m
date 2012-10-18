@@ -37,11 +37,6 @@
 //  Release retained properties.
 //
 
-- (void)dealloc {
-  
-  [photoProperties_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -113,8 +108,6 @@
     dispatch_async(dispatch_get_main_queue(), ^ {
       
       completion(thumbnailImage);
-      [thumbnailImage release];
-      [completion release];
     });
   });
 }
@@ -134,11 +127,11 @@
     CGFloat scale = [[UIScreen mainScreen] scale];
     if (scale >= 2) {
       
-      _urlProperties = [[NSArray arrayWithObjects:@"url_o", @"url_l", @"url_m", nil] retain];
+      _urlProperties = [NSArray arrayWithObjects:@"url_o", @"url_l", @"url_m", nil];
       
     } else {
       
-      _urlProperties = [[NSArray arrayWithObjects:@"url_l", @"url_o", @"url_m", nil] retain];
+      _urlProperties = [NSArray arrayWithObjects:@"url_l", @"url_o", @"url_m", nil];
     }
   }
   return _urlProperties;
@@ -160,48 +153,47 @@
              [self.photoProperties description]);
   dispatch_async(defaultQueue, ^{
     
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    //
-    //  These are the URL properties that we should try, in order.
-    //
-    
-    NSArray *urlProperties = [IPFlickrSelectableAsset urlProperties];
-    NSURL *imageUrl = nil;
-    
-    for (NSString *property in urlProperties) {
+    NSString *filename = nil;
+    @autoreleasepool {
+      //
+      //  These are the URL properties that we should try, in order.
+      //
       
-      NSString *urlString = [self.photoProperties objectForKey:property];
-      if (urlString != nil) {
+      NSArray *urlProperties = [IPFlickrSelectableAsset urlProperties];
+      NSURL *imageUrl = nil;
+      
+      for (NSString *property in urlProperties) {
         
-        imageUrl = [NSURL URLWithString:urlString];
-        break;
+        NSString *urlString = [self.photoProperties objectForKey:property];
+        if (urlString != nil) {
+          
+          imageUrl = [NSURL URLWithString:urlString];
+          break;
+        }
+      }
+      
+      if (imageUrl != nil) {
+        
+        _GTMDevLog(@"%s -- requesting image from %@",
+                   __PRETTY_FUNCTION__,
+                   imageUrl);
+        NSURLRequest *request = [NSURLRequest requestWithURL:imageUrl];
+        NSURLResponse *response;
+        NSData *imageData = [NSURLConnection sendSynchronousRequest:request
+                                                  returningResponse:&response
+                                                              error:NULL];
+        
+        filename = [IPPhoto filenameForNewPhoto];
+        [imageData writeToFile:filename atomically:YES];
+        
+      } else {
+        
+        _GTMDevLog(@"%s -- cannot find the image for photo %@",
+                   __PRETTY_FUNCTION__,
+                   [self.photoProperties description]);
       }
     }
-
-    NSString *filename = nil;
     
-    if (imageUrl != nil) {
-
-      _GTMDevLog(@"%s -- requesting image from %@", 
-                 __PRETTY_FUNCTION__,
-                 imageUrl);
-      NSURLRequest *request = [NSURLRequest requestWithURL:imageUrl];
-      NSURLResponse *response;
-      NSData *imageData = [NSURLConnection sendSynchronousRequest:request 
-                                                returningResponse:&response 
-                                                            error:NULL];
-      
-      filename = [[IPPhoto filenameForNewPhoto] retain];
-      [imageData writeToFile:filename atomically:YES];
-      
-    } else {
-      
-      _GTMDevLog(@"%s -- cannot find the image for photo %@",
-                 __PRETTY_FUNCTION__,
-                 [self.photoProperties description]);
-    }
-    [pool drain];
     dispatch_async(dispatch_get_main_queue(), ^{
       
       //
@@ -209,8 +201,6 @@
       //
       
       completion(filename, @"public.jpeg");
-      [filename release];
-      [completion release];
     });
   });
 }

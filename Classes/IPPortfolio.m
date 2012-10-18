@@ -51,20 +51,10 @@
   return self;
 }
 
--(void)dealloc {
-  [title_ release];
-  [sets_ release];
-  [backgroundImageName_ release];
-  [navigationColor_ release];
-  [fontColor_ release];
-  [titleFont_ release];
-  [textFont_ release];
-  [super dealloc];
-}
 
 + (IPPortfolio *)portfolioWithSets:(IPSet *)firstSet, ... {
   
-  IPPortfolio *portfolio = [[[IPPortfolio alloc] init] autorelease];
+  IPPortfolio *portfolio = [[IPPortfolio alloc] init];
   va_list argList;
   IPSet *eachSet;
   
@@ -129,10 +119,10 @@
 
 -(id)copyWithZone:(NSZone *)zone {
   IPPortfolio *copy = [[IPPortfolio allocWithZone:zone] init];
-  copy.title = [[title_ copyWithZone:zone] autorelease];
-  copy.sets = [[[NSMutableArray alloc] initWithArray:sets_ copyItems:YES] autorelease];
-  copy.backgroundImageName = [[backgroundImageName_ copyWithZone:zone] autorelease];
-  copy.fontColor = [[fontColor_ copy] autorelease];
+  copy.title = [title_ copyWithZone:zone];
+  copy.sets = [[NSMutableArray alloc] initWithArray:sets_ copyItems:YES];
+  copy.backgroundImageName = [backgroundImageName_ copyWithZone:zone];
+  copy.fontColor = [fontColor_ copy];
   copy.layoutStyle = layoutStyle_;
   return copy;
 }
@@ -162,8 +152,8 @@
 
 -(void)savePortfolioToPath:(NSString *)portfolioPath {
 
-  NSMutableData *data = [[[NSMutableData alloc] init] autorelease];
-  NSKeyedArchiver *archiver = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:data] autorelease];
+  NSMutableData *data = [[NSMutableData alloc] init];
+  NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
   [archiver encodeObject:self forKey:kAppDelegatePortfolio];
   [archiver finishEncoding];
   [data writeToFile:portfolioPath atomically:YES];
@@ -247,12 +237,10 @@
   dispatch_queue_t defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
   dispatch_async(defaultQueue, ^(void) {
     
-    IPSet *foundSet = [[self setWithFoundPictures] retain];
+    IPSet *foundSet = [self setWithFoundPictures];
     dispatch_async(dispatch_get_main_queue(), ^(void) {
       
       completion(foundSet);
-      [completion release];
-      [foundSet release];
     });
   });
 }
@@ -306,12 +294,12 @@
     //  Put all "found" photographs into a new set.
     //
     
-    IPSet *newSet = [[[IPSet alloc] init] autorelease];
+    IPSet *newSet = [[IPSet alloc] init];
     newSet.title = kFoundPicturesGalleryName;
     for (NSString *filename in newFilenames) {
-      IPPage *newPage = [[[IPPage alloc] init] autorelease];
+      IPPage *newPage = [[IPPage alloc] init];
       [newSet.pages addObject:newPage];
-      IPPhoto *newPhoto = [[[IPPhoto alloc] init] autorelease];
+      IPPhoto *newPhoto = [[IPPhoto alloc] init];
       newPhoto.filename = [docDirectory stringByAppendingPathComponent:filename];
       newPhoto.title = [filename stringByDeletingPathExtension];
       _GTMDevLog(@"%s -- Created new photo. Filename = %@, thumbnail = %@", 
@@ -332,11 +320,11 @@
 +(IPPortfolio *)loadPortfolioFromPath:(NSString *)portfolioPath {
 
   NSData *data = [NSData dataWithContentsOfFile:portfolioPath];
-  NSKeyedUnarchiver *unarchiver = [[[NSKeyedUnarchiver alloc] initForReadingWithData:data] autorelease];
+  NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
   IPPortfolio *portfolio = [unarchiver decodeObjectForKey:kAppDelegatePortfolio];
   [unarchiver finishDecoding];
   if (portfolio == nil) {
-    portfolio = [[[IPPortfolio alloc] init] autorelease];    
+    portfolio = [[IPPortfolio alloc] init];    
   }
   [portfolio fixPhotoFileNames];
   return portfolio;
@@ -348,7 +336,7 @@
   
   if (navigationColor_ == nil) {
     
-    navigationColor_ = [[UIColor blackColor] retain];
+    navigationColor_ = [UIColor blackColor];
   }
   return navigationColor_;
 }
@@ -357,8 +345,7 @@
   
   if (navigationColor_ == nil) {
     
-    [navigationColor_ autorelease];
-    navigationColor_ = [navigationColor retain];
+    navigationColor_ = navigationColor;
     return YES;
   }
   return NO;
@@ -368,7 +355,7 @@
   
   if (titleFont_ == nil) {
     
-    titleFont_ = [[UIFont boldSystemFontOfSize:kIPPortfolioTitleFontSize] retain];
+    titleFont_ = [UIFont boldSystemFontOfSize:kIPPortfolioTitleFontSize];
   }
   return titleFont_;
 }
@@ -377,7 +364,7 @@
   
   if (!titleFont_) {
     
-    titleFont_ = [titleFont retain];
+    titleFont_ = titleFont;
     return YES;
   }
   return NO;
@@ -387,7 +374,7 @@
   
   if (textFont_ == nil) {
     
-    textFont_ = [[UIFont systemFontOfSize:[UIFont systemFontSize]] retain];
+    textFont_ = [UIFont systemFontOfSize:[UIFont systemFontSize]];
   }
   return textFont_;
 }
@@ -396,7 +383,7 @@
   
   if (!textFont_) {
     
-    textFont_ = [textFont retain];
+    textFont_ = textFont;
     return YES;
   }
   return NO;

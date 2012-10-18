@@ -33,6 +33,6 @@
 //  |BDSelectableAsset| objects.
 //
 
-@property (nonatomic, retain) NSArray *assets;
+@property (nonatomic, strong) NSArray *assets;
 
 @end

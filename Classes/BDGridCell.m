@@ -27,9 +27,9 @@
 //  Private methods & properties
 
 @interface BDGridCell ()
-@property (nonatomic, retain) UIImageView *imageView;
-@property (nonatomic, retain) UILabel *label;
-@property (nonatomic, retain) UIView *labelView;
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) UIView *labelView;
 
 - (void)repositionImageAndLabel;
 @end
@@ -71,18 +71,18 @@
     //  Construct a view for holding our label.
     //
     
-    self.labelView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    self.labelView = [[UIView alloc] initWithFrame:CGRectZero];
     self.labelView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
 
     
-    self.label = [[[UILabel alloc] init] autorelease];
+    self.label = [[UILabel alloc] init];
     self.label.textAlignment = UITextAlignmentCenter;
     self.label.textColor = [UIColor whiteColor];
     self.label.backgroundColor = [UIColor clearColor];
     self.label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.labelView addSubview:self.label];
     
-    self.imageView = [[[UIImageView alloc] init] autorelease];
+    self.imageView = [[UIImageView alloc] init];
     self.imageView.clipsToBounds = YES;
     self.imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | 
       UIViewAutoresizingFlexibleHeight | 
@@ -99,15 +99,6 @@
 //  Deallocate
 //
 
-- (void)dealloc {
-  
-  [imageView_ release];
-  [label_ release];
-  [labelView_ release];
-  [labelBackgroundColor_ release];
-  
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -329,8 +320,7 @@
     
     return;
   }
-  [labelBackgroundColor_ release];
-  labelBackgroundColor_ = [[labelBackgroundColor colorWithAlphaComponent:0.5] retain];
+  labelBackgroundColor_ = [labelBackgroundColor colorWithAlphaComponent:0.5];
   
   if (self.style == BDGridCellStyleTile) {
     

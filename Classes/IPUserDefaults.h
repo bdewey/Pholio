@@ -65,7 +65,7 @@
 
 @property (nonatomic, assign) NSInteger numberOfTimesAskedToRate;
 
-@property (nonatomic, assign) NSDate *lastTimeAskedToRate;
+@property (nonatomic, weak) NSDate *lastTimeAskedToRate;
 
 //
 //  This gets the default settings object.

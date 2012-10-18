@@ -125,21 +125,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  Dealloc.
-- (void)dealloc {
-
-  [portfolio_ release];
-  [titleTextField_ release];
-  [defaultPicker_ release];
-  [popoverController_ release];
-  [backgroundImage_ release];
-  [backgroundImageName_ release];
-  [tutorialManager_ release];
-  [overlayController_ release];
-  [alertManager_ release];
-  [userDefaults_ release];
-  [currentImagePickerBlock_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -177,7 +162,7 @@
   //  Create the editable title field. 
   //
   
-  self.titleTextField = [[[IPAlwaysCenteredTextField alloc] init] autorelease];
+  self.titleTextField = [[IPAlwaysCenteredTextField alloc] init];
   self.titleTextField.textColor = [UIColor whiteColor];
   self.titleTextField.textAlignment = UITextAlignmentCenter;
   self.titleTextField.font = self.portfolio.titleFont;
@@ -210,10 +195,9 @@
   if ([self.userDefaults editingEnabled] && 
       (self.navigationItem.rightBarButtonItem == nil)) {
 
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction 
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction 
                                                                                             target:self 
-                                                                                            action:@selector(showSettings)] 
-                                              autorelease];
+                                                                                            action:@selector(showSettings)];
     
   } else if (![self.userDefaults editingEnabled] && 
              (self.navigationItem.rightBarButtonItem != nil)) {
@@ -287,7 +271,7 @@
 - (IPAlert *)alertManager {
   
   if (alertManager_ == nil) {
-    alertManager_ = [[IPAlert defaultAlert] retain];
+    alertManager_ = [IPAlert defaultAlert];
   }
   return alertManager_;
 }
@@ -301,7 +285,7 @@
   
   if (userDefaults_ == nil) {
     
-    userDefaults_ = [[IPUserDefaults defaultSettings] retain];
+    userDefaults_ = [IPUserDefaults defaultSettings];
   }
   return userDefaults_;
 }
@@ -329,7 +313,6 @@
 
 - (void)setBackgroundImageName:(NSString *)backgroundImageName {
   
-  [backgroundImageName_ autorelease];
   backgroundImageName_ = [backgroundImageName copy];
   [self updateBackgroundImage];
 }
@@ -350,7 +333,7 @@
   
   if (tutorialManager_ == nil) {
     
-    tutorialManager_ = [[IPTutorialManager sharedManager] retain];
+    tutorialManager_ = [IPTutorialManager sharedManager];
   }
   return tutorialManager_;
 }
@@ -368,7 +351,7 @@
   }
   
   BDOverlayViewController *oldController = overlayController_;
-  overlayController_ = [overlayController retain];
+  overlayController_ = overlayController;
   overlayController.view.alpha = 0.0;
   [self.view addSubview:overlayController.view];
   NSTimeInterval duration = (animated) ? 0.2 : 0.0;
@@ -381,7 +364,6 @@
   } completion:^(BOOL finished) {
     
     [oldController.view removeFromSuperview];
-    [oldController release];
   }];
 }
 
@@ -406,7 +388,7 @@
   
   self.currentImagePickerBlock = block;
   [self dismissPopover];
-  self.popoverController = [[[UIPopoverController alloc] initWithContentViewController:self.defaultPicker] autorelease];
+  self.popoverController = [[UIPopoverController alloc] initWithContentViewController:self.defaultPicker];
   [self.popoverController presentPopoverFromRect:rect 
                                           inView:view 
                         permittedArrowDirections:UIPopoverArrowDirectionAny 
@@ -485,12 +467,12 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
 - (UIPopoverController *)settingsPopover {
   
-  IPSettingsController *settingsController = [[[IPSettingsController alloc] init] autorelease];
+  IPSettingsController *settingsController = [[IPSettingsController alloc] init];
   settingsController.delegate = self;
-  UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:settingsController] autorelease];
+  UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:settingsController];
   nav.navigationBar.tintColor = self.portfolio.navigationColor;
   nav.navigationBar.translucent = NO;
-  return [[[UIPopoverController alloc] initWithContentViewController:nav] autorelease];
+  return [[UIPopoverController alloc] initWithContentViewController:nav];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -542,8 +524,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
 - (void)setPopoverController:(UIPopoverController *)popoverController {
 
-  [popoverController_ autorelease];
-  popoverController_ = [popoverController retain];
+  popoverController_ = popoverController;
   
   _GTMDevAssert(self.popoverController.delegate == nil,
                 @"Popover controller should not already have a delegate");
@@ -630,7 +611,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
       [picker setToRecipients:[NSArray arrayWithObject:@"thebrain@brians-brain.org"]];
       
       [self presentModalViewController:picker animated:YES];
-      [picker release];
       
     } else {
       
@@ -811,7 +791,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     return nil;
   }
-  BDOverlayViewController *overlay = [[[BDOverlayViewController alloc] initWithDelegate:self] autorelease];
+  BDOverlayViewController *overlay = [[BDOverlayViewController alloc] initWithDelegate:self];
   overlay.overlayTitleText = self.tutorialManager.tutorialTitle;
   overlay.descriptionText  = self.tutorialManager.tutorialDescription;
   overlay.view.center      = self.view.center;

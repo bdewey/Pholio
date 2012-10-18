@@ -63,11 +63,6 @@
 //  Release retained properties.
 //
 
-- (void)dealloc {
-  
-  [optimizationQueue_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -103,7 +98,6 @@
       if (completion != nil) {
         
         completion();
-        [completion release];
       }
       self.activeOptimizations--;
       [self.delegate optimizationManager:self 
@@ -135,7 +129,6 @@
       if (completion != nil) {
         
         completion();
-        [completion release];
       }
       self.activeOptimizations -= [photos count];
       [self.delegate optimizationManager:self 
@@ -181,7 +174,6 @@
       if (completion != nil) {
         
         completion();
-        [completion release];
       }
       self.activeOptimizations--;
       [self.delegate optimizationManager:self 

@@ -29,6 +29,6 @@
 
 @property (nonatomic, copy) NSString *title;
 
-@property (nonatomic, retain) UIColor *color;
+@property (nonatomic, strong) UIColor *color;
 
 @end

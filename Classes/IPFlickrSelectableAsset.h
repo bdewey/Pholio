@@ -29,8 +29,8 @@
 
 @property (nonatomic, assign, getter = isSelected) BOOL selected;
 
-@property (nonatomic, retain) NSDictionary *photoProperties;
+@property (nonatomic, strong) NSDictionary *photoProperties;
 
-@property (nonatomic, assign) id<BDSelectableAssetDelegate> delegate;
+@property (nonatomic, weak) id<BDSelectableAssetDelegate> delegate;
 
 @end

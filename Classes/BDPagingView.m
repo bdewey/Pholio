@@ -29,7 +29,7 @@
 
 @interface BDPagingViewCell: NSObject {}
 
-@property (nonatomic, retain) UIView *subview;
+@property (nonatomic, strong) UIView *subview;
 @property (nonatomic, assign) NSUInteger index;
 
 @end
@@ -50,11 +50,6 @@
   return self;
 }
 
-- (void)dealloc {
-  
-  [subview_ release];
-  [super dealloc];
-}
 
 @end
 
@@ -73,13 +68,13 @@
 //  Views that we can currently see in the scroll view.
 //
 
-@property (nonatomic, retain) NSMutableSet *visibleViews;
+@property (nonatomic, strong) NSMutableSet *visibleViews;
 
 //
 //  Views that have recycled off the screen.
 //
 
-@property (nonatomic, retain) NSMutableSet *recycledViews;
+@property (nonatomic, strong) NSMutableSet *recycledViews;
 
 - (void)setup;
 - (BDPagingViewCell *)isViewVisible:(NSInteger)pageIndex;
@@ -147,12 +142,6 @@
 //  Dealloc.
 //
 
-- (void)dealloc {
-  
-  [visibleViews_ release];
-  [recycledViews_ release];
-  [super dealloc];
-}
 
 #pragma mark - Properties
 
@@ -205,7 +194,6 @@
   BDPagingViewCell *cell = [self.recycledViews anyObject];
   if (cell != nil) {
     
-    [[cell retain] autorelease];
     [self.recycledViews removeObject:cell];
   }
   return cell.subview;
@@ -329,7 +317,7 @@
   
   UIView *subview = [self.pagingViewDelegate pagingView:self pageAtIndex:pageIndex];
   subview.frame = [self frameForPage:pageIndex];
-  return [[[BDPagingViewCell alloc] initWithSubview:subview andIndex:pageIndex] autorelease];
+  return [[BDPagingViewCell alloc] initWithSubview:subview andIndex:pageIndex];
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -81,15 +81,6 @@ CGFloat kIPPhotoMaxEdgeSize;
 //  Release all retained properties.
 //
 
--(void)dealloc {
-  
-  [filename_ release];
-  [title_ release];
-  [caption_ release];
-  [image_ release];
-  [thumbnail_ release];
-  [super dealloc];
-}
 
 #pragma mark NSCoding
 
@@ -159,9 +150,9 @@ CGFloat kIPPhotoMaxEdgeSize;
 -(id)copyWithZone:(NSZone *)zone {
   
   IPPhoto *myCopy = [[IPPhoto allocWithZone:zone] init];
-  myCopy.filename = [[self.filename copyWithZone:zone] autorelease];
-  myCopy.title    = [[self.title copyWithZone:zone] autorelease];
-  myCopy.caption  = [[self.caption copyWithZone:zone] autorelease];
+  myCopy.filename = [self.filename copyWithZone:zone];
+  myCopy.title    = [self.title copyWithZone:zone];
+  myCopy.caption  = [self.caption copyWithZone:zone];
   return myCopy;
 }
 
@@ -240,7 +231,7 @@ CGFloat kIPPhotoMaxEdgeSize;
 
 + (IPPhoto *)photoWithImage:(UIImage *)image andTitle:(NSString *)title {
   
-  IPPhoto *photo = [[[IPPhoto alloc] init] autorelease];
+  IPPhoto *photo = [[IPPhoto alloc] init];
   photo.image = image;
   photo.title = title;
   [photo optimize];
@@ -254,7 +245,7 @@ CGFloat kIPPhotoMaxEdgeSize;
 
 + (IPPhoto *)photoWithFilename:(NSString *)filename andTitle:(NSString *)title {
   
-  IPPhoto *photo = [[[IPPhoto alloc] init] autorelease];
+  IPPhoto *photo = [[IPPhoto alloc] init];
   photo.filename = filename;
   photo.title = title;
   [photo optimize];
@@ -364,12 +355,12 @@ CGFloat kIPPhotoMaxEdgeSize;
 - (UIImage *)thumbnailFromImage:(UIImage *)image {
 
   NSURL *imageUrl = [NSURL fileURLWithPath:self.filename];
-  CGImageSourceRef imageSource = CGImageSourceCreateWithURL((CFURLRef)imageUrl, NULL);
+  CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)imageUrl, NULL);
   NSDictionary *thumbnailOptions = [NSDictionary dictionaryWithObjectsAndKeys:(id)kCFBooleanTrue, kCGImageSourceCreateThumbnailWithTransform,
                                     kCFBooleanTrue, kCGImageSourceCreateThumbnailFromImageAlways,
                                     [NSNumber numberWithFloat:kThumbnailSize], kCGImageSourceThumbnailMaxPixelSize,
                                     nil];
-  CGImageRef thumbnail = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, (CFDictionaryRef)thumbnailOptions);
+  CGImageRef thumbnail = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, (__bridge CFDictionaryRef)thumbnailOptions);
   UIImage *resizedImage = [UIImage imageWithCGImage:thumbnail];
   CFRelease(thumbnail);
   CFRelease(imageSource);
@@ -432,7 +423,7 @@ CGFloat kIPPhotoMaxEdgeSize;
 
 - (void)unloadImage {
   
-  [image_ release], image_ = nil;
+  image_ = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -464,7 +455,6 @@ CGFloat kIPPhotoMaxEdgeSize;
 
 - (void)setImage:(UIImage *)theImage {
   
-  [image_ autorelease];
   [self deletePhotoFiles];
   self.optimizedVersion = 0;
   
@@ -491,10 +481,15 @@ CGFloat kIPPhotoMaxEdgeSize;
   //  as I'm done with it.
   //
   
-  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-  NSData *data = UIImageJPEGRepresentation(theImage, 0.8);
-  [data writeToFile:self.filename atomically:YES];
-  [pool drain];
+  @autoreleasepool {
+    NSData *data = UIImageJPEGRepresentation(theImage, 0.8);
+    [data writeToFile:self.filename atomically:YES];
+  }
+  
+  //
+  //  TODO -- wait, why do I read & decode the image here? I should just
+  //  assign |theImage|, right?
+  //
   
   image_ = [[UIImage alloc] initWithContentsOfFile:self.filename];
   self.imageSize = [image_ size];
@@ -503,7 +498,7 @@ CGFloat kIPPhotoMaxEdgeSize;
   //  Invalidate any existing thumbnail.
   //
   
-  [thumbnail_ release], thumbnail_ = nil;
+  thumbnail_ = nil;
 
   //
   //  Let the grandparent in the hierarchy know we've changed. This is to
@@ -597,68 +592,68 @@ CGFloat kIPPhotoMaxEdgeSize;
     return;
   }
   
-  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  @autoreleasepool {
   
   //
   //  Use ImageIO to inspect the size of the image, and generate a 
   //  resized image if needed.
   //
   
-  NSURL *imageUrl = [NSURL fileURLWithPath:self.filename];
-  CGImageSourceRef imageSource = CGImageSourceCreateWithURL((CFURLRef)imageUrl, NULL);
-  CFDictionaryRef imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, NULL);
-  _GTMDevLog(@"%s -- got properties %@", 
-             __PRETTY_FUNCTION__,
-             imageProperties);
-  CFNumberRef pixelWidthRef  = CFDictionaryGetValue(imageProperties, kCGImagePropertyPixelWidth);
-  CFNumberRef pixelHeightRef = CFDictionaryGetValue(imageProperties, kCGImagePropertyPixelHeight);
-  CGFloat pixelWidth = [(NSNumber *)pixelWidthRef floatValue];
-  CGFloat pixelHeight = [(NSNumber *)pixelHeightRef floatValue];
-  CGFloat maxEdge = MAX(pixelWidth, pixelHeight);
-  _GTMDevLog(@"%s -- found max edge = %f (%f, %f)",
-             __PRETTY_FUNCTION__,
-             maxEdge,
-             pixelWidth,
-             pixelHeight);
-  
-  if (maxEdge > kIPPhotoMaxEdgeSize) {
+    NSURL *imageUrl = [NSURL fileURLWithPath:self.filename];
+    CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)imageUrl, NULL);
+    CFDictionaryRef imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, NULL);
+    _GTMDevLog(@"%s -- got properties %@", 
+               __PRETTY_FUNCTION__,
+               imageProperties);
+    CFNumberRef pixelWidthRef  = CFDictionaryGetValue(imageProperties, kCGImagePropertyPixelWidth);
+    CFNumberRef pixelHeightRef = CFDictionaryGetValue(imageProperties, kCGImagePropertyPixelHeight);
+    CGFloat pixelWidth = [(__bridge NSNumber *)pixelWidthRef floatValue];
+    CGFloat pixelHeight = [(__bridge NSNumber *)pixelHeightRef floatValue];
+    CGFloat maxEdge = MAX(pixelWidth, pixelHeight);
+    _GTMDevLog(@"%s -- found max edge = %f (%f, %f)",
+               __PRETTY_FUNCTION__,
+               maxEdge,
+               pixelWidth,
+               pixelHeight);
     
-    //
-    //  We need to rescale the image. Ask ImageIO to make a thumbnail for us.
-    //
+    if (maxEdge > kIPPhotoMaxEdgeSize) {
+      
+      //
+      //  We need to rescale the image. Ask ImageIO to make a thumbnail for us.
+      //
+      
+      NSDictionary *thumbnailOptions = [NSDictionary dictionaryWithObjectsAndKeys:(id)kCFBooleanTrue, kCGImageSourceCreateThumbnailWithTransform,
+                                        kCFBooleanTrue, kCGImageSourceCreateThumbnailFromImageAlways,
+                                        [NSNumber numberWithFloat:kIPPhotoMaxEdgeSize], kCGImageSourceThumbnailMaxPixelSize,
+                                        nil];
+      CGImageRef thumbnail = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, (__bridge CFDictionaryRef)thumbnailOptions);
+      UIImage *resizedImage = [UIImage imageWithCGImage:thumbnail];
+      NSData *jpegData = UIImageJPEGRepresentation(resizedImage, 0.8);
+      [jpegData writeToFile:self.filename atomically:YES];
+      CFRelease(thumbnail);
+    }
     
-    NSDictionary *thumbnailOptions = [NSDictionary dictionaryWithObjectsAndKeys:(id)kCFBooleanTrue, kCGImageSourceCreateThumbnailWithTransform,
-                                      kCFBooleanTrue, kCGImageSourceCreateThumbnailFromImageAlways,
-                                      [NSNumber numberWithFloat:kIPPhotoMaxEdgeSize], kCGImageSourceThumbnailMaxPixelSize,
-                                      nil];
-    CGImageRef thumbnail = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, (CFDictionaryRef)thumbnailOptions);
-    UIImage *resizedImage = [UIImage imageWithCGImage:thumbnail];
-    NSData *jpegData = UIImageJPEGRepresentation(resizedImage, 0.8);
-    [jpegData writeToFile:self.filename atomically:YES];
-    CFRelease(thumbnail);
-  }
-  
-  CFRelease(imageSource);
-  CFRelease(imageProperties);
+    CFRelease(imageSource);
+    CFRelease(imageProperties);
 
-  //
-  //  Force a thumbnail, even if one was there already.
-  //
+    //
+    //  Force a thumbnail, even if one was there already.
+    //
+    
+    [self image];
+    UIImage *tempThumbnail = [self thumbnailFromImage:image_];
+    [self saveThumbnail:tempThumbnail toPath:self.thumbnailFilename];
+    thumbnail_ = [[UIImage alloc] initWithContentsOfFile:self.thumbnailFilename];
+    _GTMDevAssert([[NSFileManager defaultManager] fileExistsAtPath:self.thumbnailFilename],
+                  @"Thumbnail file should have been saved");
+    
+    //
+    //  Update this photo's optimization version.
+    //
+    
+    self.optimizedVersion = kIPPhotoCurrentOptimizationVersion;
   
-  [self image];
-  UIImage *tempThumbnail = [self thumbnailFromImage:image_];
-  [self saveThumbnail:tempThumbnail toPath:self.thumbnailFilename];
-  thumbnail_ = [[UIImage alloc] initWithContentsOfFile:self.thumbnailFilename];
-  _GTMDevAssert([[NSFileManager defaultManager] fileExistsAtPath:self.thumbnailFilename],
-                @"Thumbnail file should have been saved");
-  
-  //
-  //  Update this photo's optimization version.
-  //
-  
-  self.optimizedVersion = kIPPhotoCurrentOptimizationVersion;
-  
-  [pool drain];
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -736,42 +731,43 @@ CGFloat kIPPhotoMaxEdgeSize;
   CFRetain(fullImage);
   
   for (int y = 0; y < fullRows; ++y) {
+    
     for (int x = 0; x < fullColumns; ++x) {
 
-      NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-      NSString *path = [NSString stringWithFormat:@"%@/%@%d_%d.jpg", 
-                        directoryPath, prefix, x, y];
-      
-      if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+      @autoreleasepool {
         
-        //
-        //  Short-circuit -- the file already exists. The tile's already
-        //  been computed.
-        //
+        NSString *path = [NSString stringWithFormat:@"%@/%@%d_%d.jpg",
+                          directoryPath, prefix, x, y];
         
-        [pool drain];
-        continue;
-      }
-      CGSize tileSize = size;
-      if (x + 1 == fullColumns && remainderWidth > 0) {
-        // Last column
-        tileSize.width = remainderWidth;
-      }
-      if (y + 1 == fullRows && remainderHeight > 0) {
-        // Last row
-        tileSize.height = remainderHeight;
-      }
-      
-      CGImageRef tileImage = CGImageCreateWithImageInRect(fullImage, 
-                                                          (CGRect){{x*size.width, y*size.height}, 
-                                                            tileSize});
-      if (tileImage != NULL) {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+          
+          //
+          //  Short-circuit -- the file already exists. The tile's already
+          //  been computed.
+          //
+          
+          continue;
+        }
+        CGSize tileSize = size;
+        if (x + 1 == fullColumns && remainderWidth > 0) {
+          // Last column
+          tileSize.width = remainderWidth;
+        }
+        if (y + 1 == fullRows && remainderHeight > 0) {
+          // Last row
+          tileSize.height = remainderHeight;
+        }
         
-        NSData *imageData = UIImageJPEGRepresentation([UIImage imageWithCGImage:tileImage], 0.8);
-        [imageData writeToFile:path atomically:YES];
-        CFRelease(tileImage);
+        CGImageRef tileImage = CGImageCreateWithImageInRect(fullImage,
+                                                            (CGRect){{x*size.width, y*size.height},
+                                                              tileSize});
+        if (tileImage != NULL) {
+          
+          NSData *imageData = UIImageJPEGRepresentation([UIImage imageWithCGImage:tileImage], 0.8);
+          [imageData writeToFile:path atomically:YES];
+          CFRelease(tileImage);
+        }
       }
-      [pool drain];
     }
   } 
   CFRelease(fullImage);

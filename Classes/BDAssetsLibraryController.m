@@ -35,7 +35,7 @@
 
 @interface BDALAssetGroupSource: NSObject<BDAssetsSource> { }
 
-@property (nonatomic, retain) ALAssetsGroup *assetsGroup;
+@property (nonatomic, strong) ALAssetsGroup *assetsGroup;
 
 + (BDALAssetGroupSource *)sourceWithGroup:(ALAssetsGroup *)assetsGroup;
 
@@ -47,16 +47,11 @@
 
 + (BDALAssetGroupSource *)sourceWithGroup:(ALAssetsGroup *)assetsGroup {
   
-  BDALAssetGroupSource *source = [[[BDALAssetGroupSource alloc] init] autorelease];
+  BDALAssetGroupSource *source = [[BDALAssetGroupSource alloc] init];
   source.assetsGroup = assetsGroup;
   return source;
 }
 
-- (void)dealloc {
-  
-  [assetsGroup_ release];
-  [super dealloc];
-}
 
 - (NSString *)title {
   
@@ -72,7 +67,7 @@
     
     if (result != nil) {
       
-      BDSelectableALAsset *asset = [[[BDSelectableALAsset alloc] initWithAsset:result] autorelease];
+      BDSelectableALAsset *asset = [[BDSelectableALAsset alloc] initWithAsset:result];
       asset.delegate = delegate;
       [assets addObject:asset];
       
@@ -95,7 +90,7 @@
 
 @interface BDAssetsLibraryController ()
 
-@property (nonatomic, retain) ALAssetsLibrary *library;
+@property (nonatomic, strong) ALAssetsLibrary *library;
 - (void)didCancel;
 
 @end
@@ -139,9 +134,8 @@
 
 - (void)dealloc {
 
-  [groups_ release], groups_ = nil;
-  [library_ release], library_ = nil;
-  [super dealloc];
+  groups_ = nil;
+  library_ = nil;
 }
 
 #pragma mark - View lifecycle
@@ -154,9 +148,9 @@
 
   [super viewDidLoad];
   
-  self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel 
+  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel 
                                                                                           target:self 
-                                                                                          action:@selector(didCancel)] autorelease];
+                                                                                          action:@selector(didCancel)];
   
   //
   //  Note that enumerateGroupsWithTypes already executes this in a multithreaded
@@ -288,7 +282,7 @@
 
   NSUInteger row = [indexPath row];
   ALAssetsGroup *group = [self.groups objectAtIndex:row];
-  BDAssetsGroupController *groupController = [[[BDAssetsGroupController alloc] initWithStyle:UITableViewStylePlain] autorelease];
+  BDAssetsGroupController *groupController = [[BDAssetsGroupController alloc] initWithStyle:UITableViewStylePlain];
   groupController.assetsSource = [BDALAssetGroupSource sourceWithGroup:group];
   groupController.title = [group valueForProperty:ALAssetsGroupPropertyName];
   groupController.delegate = self;

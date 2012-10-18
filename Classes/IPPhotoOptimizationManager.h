@@ -68,14 +68,14 @@ typedef void (^IPPhotoOptimizationCompletion)(void);
 //  Delegate, gets to show UI.
 //
 
-@property (nonatomic, assign) id<IPPhotoOptimizationManagerDelegate> delegate;
+@property (nonatomic, weak) id<IPPhotoOptimizationManagerDelegate> delegate;
 
 //
 //  The queue on which we work. This is a good place to put all resource-intensive
 //  background tasks.
 //
 
-@property (nonatomic, retain) NSOperationQueue *optimizationQueue;
+@property (nonatomic, strong) NSOperationQueue *optimizationQueue;
 
 //
 //  Flag for debugging. 

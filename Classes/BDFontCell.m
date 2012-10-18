@@ -44,11 +44,6 @@
 //  Release retained properties.
 //
 
-- (void)dealloc {
-  
-  [fontFamilyName_ release];
-  [super dealloc];
-}
 
 #pragma mark - Properties
 
@@ -59,7 +54,6 @@
 
 - (void)setFontFamilyName:(NSString *)fontFamilyName {
   
-  [fontFamilyName_ autorelease];
   fontFamilyName_ = [fontFamilyName copy];
   
   self.textLabel.text = fontFamilyName;

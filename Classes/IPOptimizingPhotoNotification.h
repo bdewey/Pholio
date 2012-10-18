@@ -28,6 +28,6 @@
 
 @interface IPOptimizingPhotoNotification : UIViewController { }
 
-@property (nonatomic, retain) IBOutlet UILabel *mainLabel;
+@property (nonatomic, strong) IBOutlet UILabel *mainLabel;
 @property (nonatomic, assign) NSUInteger activeOptimizations;
 @end

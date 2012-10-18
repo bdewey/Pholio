@@ -39,7 +39,7 @@
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
   if (cell == nil) {
     
-    cell = [[[self alloc] initWithCellIdentifier:cellIdentifier] autorelease];
+    cell = [[self alloc] initWithCellIdentifier:cellIdentifier];
   }
   return cell;
 }

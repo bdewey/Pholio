@@ -57,14 +57,6 @@
 //  Release all retained properties.
 //
 
-- (void)dealloc {
-  
-  [context_ release];
-  [request_ release];
-  [flickrUserName_ release];
-  [sharedApplication_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -128,7 +120,7 @@
   
   if (sharedApplication_ == nil) {
     
-    sharedApplication_ = [[UIApplication sharedApplication] retain];
+    sharedApplication_ = [UIApplication sharedApplication];
   }
   return sharedApplication_;
 }

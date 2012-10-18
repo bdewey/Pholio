@@ -39,14 +39,14 @@
 //  The piece of the model that we are archiving.
 //
 
-@property (nonatomic, retain) id<IPPasteboardObjectDelegate> modelObject;
+@property (nonatomic, strong) id<IPPasteboardObjectDelegate> modelObject;
 
 //
 //  A dictionary mapping file names to |NSData| objects containing the file
 //  data.
 //
 
-@property (nonatomic, retain) NSMutableDictionary *imageDataDictionary;
+@property (nonatomic, strong) NSMutableDictionary *imageDataDictionary;
 
 @end
 

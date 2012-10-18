@@ -27,9 +27,9 @@
     
 }
 
-@property (nonatomic, retain) UIImage *splashImage;
+@property (nonatomic, strong) UIImage *splashImage;
 @property (nonatomic, assign) BOOL showsStatusBarOnDismissal;
-@property (nonatomic, assign) IBOutlet id<BDSplashScreenDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id<BDSplashScreenDelegate> delegate;
 
 - (void)hide;
 

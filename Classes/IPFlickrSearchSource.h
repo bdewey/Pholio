@@ -33,7 +33,7 @@
 //  result key path).
 //
 
-@property (nonatomic, retain) IPFlickrSearchCell *searchCell;
+@property (nonatomic, strong) IPFlickrSearchCell *searchCell;
 
 //
 //  Designated initializer.

@@ -54,7 +54,7 @@
 //  [UIApplication sharedApplication].
 //
 
-@property (nonatomic, retain) UIApplication *sharedApplication;
+@property (nonatomic, strong) UIApplication *sharedApplication;
 
 //
 //  Launch the Flickr login screen.

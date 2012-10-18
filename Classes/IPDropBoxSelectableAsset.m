@@ -19,7 +19,7 @@
 //
 
 #import "IPDropBoxSelectableAsset.h"
-#import "DropboxSDK.h"
+#import <DropboxSDK/DropboxSDK.h>
 #import "NSString+TestHelper.h"
 #import "IPPhoto.h"
 
@@ -58,11 +58,10 @@
 
 - (void)dealloc {
   
-  [metadata_ release], metadata_ = nil;
-  [thumbnailCompletion_ release], thumbnailCompletion_ = nil;
-  [imageCompletion_ release], imageCompletion_ = nil;
-  [restClient_ release], restClient_ = nil;
-  [super dealloc];
+  metadata_ = nil;
+  thumbnailCompletion_ = nil;
+  imageCompletion_ = nil;
+  restClient_ = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

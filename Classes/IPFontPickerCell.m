@@ -49,11 +49,6 @@
 //  Release retained properties.
 //
 
-- (void)dealloc {
-  
-  [selectedFont_ release];
-  [super dealloc];
-}
 
 #pragma mark - Properties
 
@@ -84,8 +79,7 @@
 
 - (void)setSelectedFont:(UIFont *)selectedFont {
   
-  [selectedFont_ autorelease];
-  selectedFont_ = [selectedFont retain];
+  selectedFont_ = selectedFont;
   
   self.detailTextLabel.text = [self.selectedFont familyName];
 }

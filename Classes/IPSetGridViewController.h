@@ -45,7 +45,7 @@ UINavigationControllerDelegate
 //  This is the portfolio that we are showing.
 //
 
-@property (nonatomic, retain) IPSet *currentSet;
+@property (nonatomic, strong) IPSet *currentSet;
 
 //
 //  Optional text to use for the "Back" button.
@@ -57,6 +57,6 @@ UINavigationControllerDelegate
 //  Interface Builder outlets.
 //
 
-@property (nonatomic, retain) IBOutlet BDGridView *gridView;
+@property (nonatomic, strong) IBOutlet BDGridView *gridView;
 
 @end

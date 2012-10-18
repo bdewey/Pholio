@@ -68,20 +68,6 @@
 //  Release retained properties.
 //
 
-- (void)dealloc {
-
-  [currentColor_ release];
-  [hexCode release];
-  [redSlider release];
-  [greenSlider release];
-  [blueSlider release];
-  [redValue release];
-  [greenValue release];
-  [blueValue release];
-  [colorSwatch release];
-  [transparencySlider release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -157,7 +143,7 @@
   
   if (currentColor_ == nil) {
     
-    currentColor_ = [[UIColor blackColor] retain];
+    currentColor_ = [UIColor blackColor];
   }
   return currentColor_;
 }
@@ -169,8 +155,7 @@
 
 - (void)setCurrentColor:(UIColor *)currentColor {
   
-  [currentColor_ autorelease];
-  currentColor_ = [currentColor retain];
+  currentColor_ = currentColor;
   
   [self.delegate colorPicker:self didPickColor:self.currentColor];
 }

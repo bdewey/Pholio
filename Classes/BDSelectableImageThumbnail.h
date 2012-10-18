@@ -31,13 +31,13 @@
 //  The thumbnail image.
 //
 
-@property (nonatomic, retain) UIImage *image;
+@property (nonatomic, strong) UIImage *image;
 
 //
 //  Delegate that controls our selection state.
 //
 
-@property (nonatomic, assign) id<BDSelectableAsset> delegate;
+@property (nonatomic, weak) id<BDSelectableAsset> delegate;
 
 //
 //  Selection state of this thumbnail image.

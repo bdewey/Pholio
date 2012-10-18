@@ -45,7 +45,7 @@
 //  Interface Builder outlets.
 //
 
-@property (nonatomic, retain) IBOutlet BDGridView *gridView;
+@property (nonatomic, strong) IBOutlet BDGridView *gridView;
 
 //
 //  Tell the controller to look for images.

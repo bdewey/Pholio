@@ -32,27 +32,27 @@
 //  Delegate that receives notifications when the color changes.
 //
 
-@property (nonatomic, assign) id<BDColorPickerDelegate> delegate;
+@property (nonatomic, weak) id<BDColorPickerDelegate> delegate;
 
 //
 //  The color we're working with.
 //
 
-@property (nonatomic, retain) UIColor *currentColor;
+@property (nonatomic, strong) UIColor *currentColor;
 
 //
 //  Interface builder outlets
 //
 
-@property (nonatomic, retain) IBOutlet UITextField *hexCode;
-@property (nonatomic, retain) IBOutlet UISlider *redSlider;
-@property (nonatomic, retain) IBOutlet UISlider *greenSlider;
-@property (nonatomic, retain) IBOutlet UISlider *blueSlider;
-@property (nonatomic, retain) IBOutlet UITextField *redValue;
-@property (nonatomic, retain) IBOutlet UITextField *greenValue;
-@property (nonatomic, retain) IBOutlet UITextField *blueValue;
-@property (nonatomic, retain) IBOutlet UIButton *colorSwatch;
-@property (nonatomic, retain) IBOutlet UISlider *transparencySlider;
+@property (nonatomic, strong) IBOutlet UITextField *hexCode;
+@property (nonatomic, strong) IBOutlet UISlider *redSlider;
+@property (nonatomic, strong) IBOutlet UISlider *greenSlider;
+@property (nonatomic, strong) IBOutlet UISlider *blueSlider;
+@property (nonatomic, strong) IBOutlet UITextField *redValue;
+@property (nonatomic, strong) IBOutlet UITextField *greenValue;
+@property (nonatomic, strong) IBOutlet UITextField *blueValue;
+@property (nonatomic, strong) IBOutlet UIButton *colorSwatch;
+@property (nonatomic, strong) IBOutlet UISlider *transparencySlider;
 
 //
 //  Designated initializer.

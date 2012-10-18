@@ -47,7 +47,7 @@ typedef void (^BDImagePickerControllerCancelBlock)();
 
 @interface BDImagePickerController : NSObject<BDImagePickerControllerDelegate> { }
 
-@property (nonatomic, assign) id<BDImagePickerControllerDelegate> delegate;
+@property (nonatomic, weak) id<BDImagePickerControllerDelegate> delegate;
 
 + (UIPopoverController *)presentPopoverFromRect:(CGRect)rect
                                          inView:(UIView *)view

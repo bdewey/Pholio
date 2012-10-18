@@ -64,12 +64,6 @@
 //  Release all retained properties.
 //
 
-- (void)dealloc {
-  
-  [asset_ release];
-  [imageUTIs_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -78,7 +72,7 @@
 
 + (BDSelectableALAsset *)selectableAssetWithAsset:(ALAsset *)asset {
   
-  return [[[BDSelectableALAsset alloc] initWithAsset:asset] autorelease];
+  return [[BDSelectableALAsset alloc] initWithAsset:asset];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -109,17 +103,17 @@
   
   NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^(void) {
       
-      //
-      //  General strategy: Create a CGImageSourceRef from the raw asset image.
-      //  If the image size would be too big, have ImageIO thumbnail the image for
-      //  us. Otherwise, get the full image. Then, save to JPEG.
-      //
-      
-      NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    //
+    //  General strategy: Create a CGImageSourceRef from the raw asset image.
+    //  If the image size would be too big, have ImageIO thumbnail the image for
+    //  us. Otherwise, get the full image. Then, save to JPEG.
+    //
+    
+    NSString *filename = nil;
+    @autoreleasepool {
       
       UIImageOrientation orientation = [[self.asset valueForProperty:ALAssetPropertyOrientation] intValue];
       ALAssetRepresentation *representation = [self.asset defaultRepresentation];
-      NSString *filename = nil;
       NSDictionary *metadata = [representation metadata];
       CGFloat width = [[metadata objectForKey:(id)kCGImagePropertyPixelWidth] floatValue];
       CGFloat height = [[metadata objectForKey:(id)kCGImagePropertyPixelHeight] floatValue];
@@ -133,7 +127,7 @@
       NSMutableData *imageBytes = [[NSMutableData alloc] initWithLength:[representation size]];
       [representation getBytes:[imageBytes mutableBytes] fromOffset:0 length:[representation size] error:NULL];
       
-      CGImageSourceRef imageSource = CGImageSourceCreateWithData((CFDataRef)imageBytes, NULL);
+      CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageBytes, NULL);
       CGImageRef theImage = NULL;
       
       if (maxEdge > kIPPhotoMaxEdgeSize) {
@@ -146,7 +140,7 @@
                                           kCFBooleanTrue, kCGImageSourceCreateThumbnailFromImageAlways,
                                           [NSNumber numberWithFloat:kIPPhotoMaxEdgeSize], kCGImageSourceThumbnailMaxPixelSize,
                                           nil];
-        theImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, (CFDictionaryRef)thumbnailOptions);
+        theImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, (__bridge CFDictionaryRef)thumbnailOptions);
         
       } else {
         
@@ -154,24 +148,21 @@
       }
       
       CFRelease(imageSource);
-      [imageBytes release];
       
       if (theImage != NULL) {
         
         UIImage *uiImage = [[UIImage alloc] initWithCGImage:theImage scale:1.0 orientation:orientation];
         NSData *jpegData = UIImageJPEGRepresentation(uiImage, 0.8);
-        filename = [[IPPhoto filenameForNewPhoto] retain];
+        filename = [IPPhoto filenameForNewPhoto];
         [jpegData writeToFile:filename atomically:YES];
-        [uiImage release];
         CFRelease(theImage);
       }
-      [pool drain];
-      [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-        
-        completion(filename, @"public.jpeg");
-        [filename release];
-        [completion release];
-      }];
+    }
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+      
+      completion(filename, @"public.jpeg");
+    }];
   }];
   
   [operation setQueuePriority:NSOperationQueuePriorityNormal];

@@ -29,7 +29,7 @@
 
 @interface BDAssetRowCell ()
 
-@property (nonatomic, retain) NSMutableArray *assetViews;
+@property (nonatomic, strong) NSMutableArray *assetViews;
 
 - (void)createAssetViews;
 
@@ -64,12 +64,6 @@
 //  Release all retained properties.
 //
 
-- (void)dealloc {
-  
-  [assets_ release];
-  [assetViews_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -78,8 +72,7 @@
 
 - (void)setAssets:(NSArray *)assets {
   
-  [assets_ autorelease];
-  assets_ = [assets retain];
+  assets_ = assets;
   
   for (UIView *subview in self.assetViews) {
     
@@ -98,7 +91,7 @@
   
   for (id<BDSelectableAsset> selectableAsset in self.assets) {
     
-    BDSelectableImageThumbnail *imageView = [[[BDSelectableImageThumbnail alloc] initWithFrame:CGRectMake(0, 0, 75, 75)] autorelease];
+    BDSelectableImageThumbnail *imageView = [[BDSelectableImageThumbnail alloc] initWithFrame:CGRectMake(0, 0, 75, 75)];
     imageView.delegate = selectableAsset;
     [self.assetViews addObject:imageView];
     [self addSubview:imageView];

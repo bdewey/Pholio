@@ -53,7 +53,7 @@
 //  This is the set associated with this cell.
 //
 
-@property (nonatomic, retain) IPSet *currentSet;
+@property (nonatomic, strong) IPSet *currentSet;
 
 @end
 
@@ -67,11 +67,6 @@
 //  observers.
 //
 
-- (void)dealloc {
-
-  self.currentSet = nil;
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -90,7 +85,7 @@
     return [UIImage imageNamed:@"Portfolio-72.png"];
   }
   
-  UIView *compositeView = [[[UIView alloc] initWithFrame:self.bounds] autorelease];
+  UIView *compositeView = [[UIView alloc] initWithFrame:self.bounds];
   
   //
   //  Build a thumbnail from 5 images.
@@ -101,24 +96,24 @@
     if (i >= [self.currentSet countOfPages]) {
       break;
     }
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    IPPage *page = [self.currentSet objectInPagesAtIndex:i];
-    IPPhoto *photo = [page objectInPhotosAtIndex:0];
-    UIImage *bordered = [photo.thumbnail imageWithBorderWidth:10.0 andColor:[[UIColor whiteColor] CGColor]];
-    bordered = [bordered imageWithBorderWidth:1.0 andColor:[[UIColor lightGrayColor] CGColor]];
-    UIImageView *photoView = [[[UIImageView alloc] initWithImage:bordered] autorelease];
-    CGAffineTransform transform = CGAffineTransformMakeRotation(i * 0.15);
-    CGRect postTransformViewSize = CGRectApplyAffineTransform(photoView.frame, transform);
-    CGFloat heightScale = compositeView.bounds.size.height / postTransformViewSize.size.height;
-    CGFloat widthScale  = compositeView.bounds.size.width  / postTransformViewSize.size.width;
-    CGFloat finalScale = MIN(heightScale, widthScale);
-    transform = CGAffineTransformScale(transform, finalScale, finalScale);
-    photoView.center = compositeView.center;
-    photoView.transform = transform;
-    photoView.contentMode = UIViewContentModeScaleAspectFit;
-    [compositeView addSubview:photoView];
-    [compositeView sendSubviewToBack:photoView];
-    [pool drain];
+    @autoreleasepool {
+      IPPage *page = [self.currentSet objectInPagesAtIndex:i];
+      IPPhoto *photo = [page objectInPhotosAtIndex:0];
+      UIImage *bordered = [photo.thumbnail imageWithBorderWidth:10.0 andColor:[[UIColor whiteColor] CGColor]];
+      bordered = [bordered imageWithBorderWidth:1.0 andColor:[[UIColor lightGrayColor] CGColor]];
+      UIImageView *photoView = [[UIImageView alloc] initWithImage:bordered];
+      CGAffineTransform transform = CGAffineTransformMakeRotation(i * 0.15);
+      CGRect postTransformViewSize = CGRectApplyAffineTransform(photoView.frame, transform);
+      CGFloat heightScale = compositeView.bounds.size.height / postTransformViewSize.size.height;
+      CGFloat widthScale  = compositeView.bounds.size.width  / postTransformViewSize.size.width;
+      CGFloat finalScale = MIN(heightScale, widthScale);
+      transform = CGAffineTransformScale(transform, finalScale, finalScale);
+      photoView.center = compositeView.center;
+      photoView.transform = transform;
+      photoView.contentMode = UIViewContentModeScaleAspectFit;
+      [compositeView addSubview:photoView];
+      [compositeView sendSubviewToBack:photoView];
+    }
   }
   
   UIGraphicsBeginImageContextWithOptions(compositeView.frame.size, NO, 0);
@@ -146,10 +141,8 @@
   //
   
   [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
-    UIImage *composite = [[self compositeImage] retain];
+    UIImage *composite = [self compositeImage];
     completion(composite);
-    [composite release];
-    [completion release];
   }];
 }
 
@@ -172,13 +165,14 @@
   IPPhoto *photo = [page objectInPhotosAtIndex:0];
   
   switch (self.style) {
-    case BDGridCellStyleDefault:
+    case BDGridCellStyleDefault: {
       [self compositeAsyncWithCompletion:^(UIImage *compositeImage) {
         self.image = compositeImage;
       }];
       break;
+    }
       
-    case BDGridCellStyleTile:
+    case BDGridCellStyleTile: {
       if (self.frame.size.width <= kThumbnailSize) {
         
         self.image = photo.thumbnail;
@@ -188,6 +182,7 @@
         self.image = photo.image;
       }
       break;
+    }
   }
 }
 
@@ -214,8 +209,7 @@
   [self.currentSet removeObserver:self forKeyPath:kIPSetTitle];
   [self.currentSet removeObserver:self forKeyPath:kIPSetThumbnailFilename];
   
-  [currentSet_ autorelease];
-  currentSet_ = [currentSet retain];
+  currentSet_ = currentSet;
   
   if (self.currentSet != nil) {
     
@@ -257,13 +251,13 @@
 //  This is the header label that we've displayed over our content.
 //
 
-@property (nonatomic, retain) IPGridHeader *gridHeader;
+@property (nonatomic, strong) IPGridHeader *gridHeader;
 
 //
 //  The font we use for showing the header label. 
 //
 
-@property (nonatomic, readonly) UIFont *headerFont;
+@property (weak, nonatomic, readonly) UIFont *headerFont;
 
 - (void)configureDropCap;
 - (void)setTitleToPortfolioTitle;
@@ -306,9 +300,6 @@
   //
   
   self.portfolio = nil;
-  [gridView_ release];
-  [gridHeader_ release];
-  [super dealloc];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -358,12 +349,12 @@
   [self setTitleToPortfolioTitle];
   self.navigationController.navigationBar.translucent = YES;
   
-  UISwipeGestureRecognizer *swipeDown = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDown)] autorelease];
+  UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDown)];
   swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
   swipeDown.numberOfTouchesRequired = 2;
   [self.gridView addGestureRecognizer:swipeDown];
   
-  UISwipeGestureRecognizer *swipeUp = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeUp)] autorelease];
+  UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeUp)];
   swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
   swipeUp.numberOfTouchesRequired = 2;
   [self.gridView addGestureRecognizer:swipeUp];
@@ -636,7 +627,7 @@
       
       NSUInteger insertionIndex = [self.portfolio countOfSets];
       __block NSUInteger currentIndex = 0;
-      IPSet *optimizedSet = [[[IPSet alloc] init] autorelease];
+      IPSet *optimizedSet = [[IPSet alloc] init];
       optimizedSet.title = foundSet.title;
       [self.portfolio insertObject:optimizedSet inSetsAtIndex:insertionIndex];
       IPSetCell *cell = (IPSetCell *)[self.gridView insertCellAtIndex:insertionIndex];
@@ -765,7 +756,7 @@
   IPSetCell *cell = (IPSetCell *)[gridView dequeueCell];
   if (cell == nil) {
     
-    cell = [[[IPSetCell alloc] initWithStyle:BDGridCellStyleTile] autorelease];
+    cell = [[IPSetCell alloc] initWithStyle:BDGridCellStyleTile];
     cell.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
   }
   
@@ -798,7 +789,7 @@
 
 - (void)pushControllerForSet:(IPSet *)set {
   
-  IPSetGridViewController *setController = [[[IPSetGridViewController alloc] initWithNibName:@"IPSetGridViewController" bundle:nil] autorelease];
+  IPSetGridViewController *setController = [[IPSetGridViewController alloc] initWithNibName:@"IPSetGridViewController" bundle:nil];
 //  IPSetPagingViewController *setController = [[[IPSetPagingViewController alloc] initWithNibName:@"IPSetPagingViewController" bundle:nil] autorelease];
   setController.backButtonText = self.titleTextField.text;
   setController.currentSet = set;
@@ -836,7 +827,7 @@
 - (void)gridView:(BDGridView *)gridView didMoveItemFromIndex:(NSUInteger)initialIndex 
          toIndex:(NSUInteger)finalIndex {
   
-  IPSet *set = [[[self.portfolio objectInSetsAtIndex:initialIndex] retain] autorelease];
+  IPSet *set = [self.portfolio objectInSetsAtIndex:initialIndex];
   [self.portfolio removeObjectFromSetsAtIndex:initialIndex];
   [self.portfolio insertObject:set inSetsAtIndex:finalIndex];
   [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
@@ -884,7 +875,6 @@
       [[IPPhotoOptimizationManager sharedManager] asyncOptimizePhoto:photo withCompletion:^(void) {
         
         IPPage *page = [IPPage pageWithPhoto:photo];
-        [photo release];
         [workersDone lock];
         progress(page, [assets count] - [workersDone condition]);
         [workersDone unlockWithCondition:[workersDone condition] - 1];
@@ -900,11 +890,8 @@
     dispatch_async(dispatch_get_main_queue(), ^(void) {
       
       completion();
-      [progress release];
-      [completion release];
     });
     [workersDone unlockWithCondition:0];
-    [workersDone release];
   });
 }
 
@@ -923,7 +910,7 @@
                                                                 onSelection:
    ^(NSArray *assets) {
      
-     IPSet *set = [[[IPSet alloc] init] autorelease];
+     IPSet *set = [[IPSet alloc] init];
      set.title = kNewGalleryName;
      [self.portfolio insertObject:set inSetsAtIndex:insertionPoint];
      IPSetCell *cell = (IPSetCell *)[gridView insertCellAtIndex:insertionPoint];
@@ -984,7 +971,7 @@
   
   _GTMDevAssert([indexes count] == 1, @"Only know how to copy single sets");
   NSUInteger index = [[indexes anyObject] unsignedIntegerValue];
-  IPPasteboardObject *pasteboardObject = [[[IPPasteboardObject alloc] init] autorelease];
+  IPPasteboardObject *pasteboardObject = [[IPPasteboardObject alloc] init];
   pasteboardObject.modelObject = [self.portfolio objectInSetsAtIndex:index];
   NSData *data = [NSKeyedArchiver archivedDataWithRootObject:pasteboardObject];
   if (data) {
@@ -1006,7 +993,7 @@
   
   _GTMDevAssert([indexes count] == 1, @"Only know how to cut single sets");
   NSUInteger index = [[indexes anyObject] unsignedIntegerValue];
-  IPPasteboardObject *pasteboardObject = [[[IPPasteboardObject alloc] init] autorelease];
+  IPPasteboardObject *pasteboardObject = [[IPPasteboardObject alloc] init];
   IPSet *set = [self.portfolio objectInSetsAtIndex:index];
   pasteboardObject.modelObject = set;
   NSData *data = [NSKeyedArchiver archivedDataWithRootObject:pasteboardObject];
@@ -1075,7 +1062,7 @@
   IPSet *unoptimizedSet = [self setFromPasteboard];
   if (unoptimizedSet != nil) {
 
-    IPSet *optimizedSet = [[[IPSet alloc] init] autorelease];
+    IPSet *optimizedSet = [[IPSet alloc] init];
     optimizedSet.title = unoptimizedSet.title;
     
     //

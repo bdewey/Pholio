@@ -57,7 +57,7 @@ extern CGFloat kIPPhotoMaxEdgeSize;
 @interface IPPhoto : NSObject <NSCoding, NSCopying> { }
 
 @property (nonatomic, copy) NSString *filename;
-@property (nonatomic, readonly) NSString *thumbnailFilename;
+@property (weak, nonatomic, readonly) NSString *thumbnailFilename;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *caption;
 @property (nonatomic, copy) UIImage  *image;
@@ -76,7 +76,7 @@ extern CGFloat kIPPhotoMaxEdgeSize;
 //
 
 @property (nonatomic, readonly) UIImage *thumbnail;
-@property (nonatomic, assign) IPPage *parent;
+@property (nonatomic, weak) IPPage *parent;
 
 //
 //  Unload the image.

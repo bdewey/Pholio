@@ -48,12 +48,6 @@
 //  Release all retained properties.
 //
 
-- (void)dealloc {
-  
-  [modelObject_ release];
-  [imageDataDictionary_ release];
-  [super dealloc];
-}
 
 #pragma mark - NSCoding
 

@@ -79,7 +79,7 @@ typedef enum {
 //  All of the sets ("galleries") in the portfolio.
 //
 
-@property (nonatomic, retain) NSMutableArray *sets;
+@property (nonatomic, strong) NSMutableArray *sets;
 
 //
 //  The background image.
@@ -91,7 +91,7 @@ typedef enum {
 //  The color for the navigation bar.
 //
 
-@property (nonatomic, retain) UIColor *navigationColor;
+@property (nonatomic, strong) UIColor *navigationColor;
 
 //
 //  Sets a nav bar color if and only if one has not already been set.
@@ -104,20 +104,20 @@ typedef enum {
 //  The color for the set title & captions.
 //
 
-@property (nonatomic, retain) UIColor *fontColor;
+@property (nonatomic, strong) UIColor *fontColor;
 
 //
 //  The font for displaying titles.
 //
 
-@property (nonatomic, retain) UIFont *titleFont;
+@property (nonatomic, strong) UIFont *titleFont;
 - (BOOL)setDefaultTitleFont:(UIFont *)titleFont;
 
 //
 //  The font for displaying all other text.
 //
 
-@property (nonatomic, retain) UIFont *textFont;
+@property (nonatomic, strong) UIFont *textFont;
 - (BOOL)setDefaultTextFont:(UIFont *)textFont;
 
 //

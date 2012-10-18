@@ -29,6 +29,6 @@
     
 }
 
-@property (nonatomic, assign) id<BDImagePickerControllerDelegate> delegate;
+@property (nonatomic, weak) id<BDImagePickerControllerDelegate> delegate;
 
 @end

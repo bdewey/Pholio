@@ -35,11 +35,6 @@
   return self;
 }
 
--(void)dealloc {
-  [title_ release];
-  [pages_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -48,7 +43,7 @@
 
 + (IPSet *)setWithPages:(IPPage *)firstPage, ... {
   
-  IPSet *set = [[[IPSet alloc] init] autorelease];
+  IPSet *set = [[IPSet alloc] init];
   set.title = kNewGalleryName;
   id eachPage;
   va_list argumentList;
@@ -163,8 +158,8 @@
 
 -(id)copyWithZone:(NSZone *)zone {
   IPSet *copy = [[IPSet allocWithZone:zone] init];
-  copy.title  = [[title_ copyWithZone:zone] autorelease];
-  copy.pages = [[[NSMutableArray alloc] initWithArray:pages_ copyItems:YES] autorelease];
+  copy.title  = [title_ copyWithZone:zone];
+  copy.pages = [[NSMutableArray alloc] initWithArray:pages_ copyItems:YES];
   
   //
   //  Fix up the parent pointers

@@ -33,6 +33,6 @@
 //  This is the assets group that we are displaying in this cell.
 //
 
-@property (nonatomic, retain) ALAssetsGroup *assetsGroup;
+@property (nonatomic, strong) ALAssetsGroup *assetsGroup;
 
 @end

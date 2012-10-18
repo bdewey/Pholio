@@ -35,7 +35,7 @@
 //  The target of the action.
 //
 
-@property (nonatomic, assign) id target;
+@property (nonatomic, weak) id target;
 
 //
 //  The action to perform.

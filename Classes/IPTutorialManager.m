@@ -24,8 +24,8 @@
 
 @interface IPTutorialManager()
 
-@property (nonatomic, retain) NSArray *tutorialTitles;
-@property (nonatomic, retain) NSArray *tutorialDescriptions;
+@property (nonatomic, strong) NSArray *tutorialTitles;
+@property (nonatomic, strong) NSArray *tutorialDescriptions;
 
 - (void)advanceState;
 @end
@@ -66,13 +66,6 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-- (void)dealloc {
-  
-  [_tutorialTitles release];
-  [_tutorialDescriptions release];
-  
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 

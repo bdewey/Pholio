@@ -60,13 +60,6 @@
 //  Dealloc.
 //
 
-- (void)dealloc {
-
-  [currentSet_ release];
-  [backButtonText_ release];
-  [pagingView_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -90,8 +83,7 @@
 
 - (void)setCurrentSet:(IPSet *)currentSet {
   
-  [currentSet_ autorelease];
-  currentSet_ = [currentSet retain];
+  currentSet_ = currentSet;
   
   self.portfolio = self.currentSet.parent;
   [self.pagingView setNeedsLayout];
@@ -148,7 +140,6 @@
       [picker addAttachmentData:photoData mimeType:@"image/jpeg" fileName:@"photo.jpg"];
       
       [self presentModalViewController:picker animated:YES];
-      [picker release];
       
     } else {
       
@@ -183,18 +174,18 @@
   [super viewDidLoad];
 
   self.pagingView.pagingViewDelegate = self;
-  self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:self.backButtonText 
+  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.backButtonText 
                                                                             style:UIBarButtonItemStyleBordered 
                                                                            target:self 
-                                                                           action:@selector(popView)] autorelease];
+                                                                           action:@selector(popView)];
 
   
   //
   //  On tap, toggle visibility of navigation bar.
   //
   
-  UITapGestureRecognizer *tap = [[[UITapGestureRecognizer alloc] initWithTarget:self 
-                                                                         action:@selector(toggleNavigationBarVisible)] autorelease];
+  UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self 
+                                                                         action:@selector(toggleNavigationBarVisible)];
   [self.view addGestureRecognizer:tap];
 }
 
@@ -324,7 +315,7 @@
   IPPhotoScrollView *cell;
   if ((cell = (IPPhotoScrollView *)[pagingView dequeueView]) == nil) {
     
-    cell = [[[IPPhotoScrollView alloc] initWithFrame:CGRectZero] autorelease];
+    cell = [[IPPhotoScrollView alloc] initWithFrame:CGRectZero];
 //    cell.contentMode = UIViewContentModeScaleAspectFit;
   }
   cell.photo = photo;

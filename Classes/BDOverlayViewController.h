@@ -30,7 +30,7 @@
 
 @interface BDOverlayViewController : UIViewController
 
-@property (nonatomic, assign) id<BDOverlayViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<BDOverlayViewControllerDelegate> delegate;
 @property (nonatomic, copy) NSString *overlayTitleText;
 @property (nonatomic, copy) NSString *descriptionText;
 

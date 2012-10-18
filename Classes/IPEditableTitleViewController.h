@@ -56,44 +56,44 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
 //  the portfolio to pick things like fonts.
 //
 
-@property (nonatomic, retain) IPPortfolio *portfolio;
+@property (nonatomic, strong) IPPortfolio *portfolio;
 
 //
 //  We put our title in a text field so it can be editable.
 //
 
-@property (nonatomic, retain) UITextField *titleTextField;
+@property (nonatomic, strong) UITextField *titleTextField;
 
 //
 //  Image picker.
 //
 
-@property (nonatomic, retain) UIImagePickerController *defaultPicker;
+@property (nonatomic, strong) UIImagePickerController *defaultPicker;
 
 //
 //  Currently active popover controller.
 //
 
-@property (nonatomic, retain) UIPopoverController *popoverController;
+@property (nonatomic, strong) UIPopoverController *popoverController;
 
 //
 //  |IPAlert| object for communicating with the user. Setting this object
 //  is completely optional; primarily done for unit testing.
 //
 
-@property (nonatomic, retain) IPAlert *alertManager;
+@property (nonatomic, strong) IPAlert *alertManager;
 
 //
 //  Access the user defaults.
 //
 
-@property (nonatomic, retain) IPUserDefaults *userDefaults;
+@property (nonatomic, strong) IPUserDefaults *userDefaults;
 
 //
 //  The background view.
 //
 
-@property (nonatomic, retain) IBOutlet UIImageView *backgroundImage;
+@property (nonatomic, strong) IBOutlet UIImageView *backgroundImage;
 
 //
 //  The name of the background image. You can set this property and change
@@ -107,13 +107,13 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
 //  in the tutorial.
 //
 
-@property (nonatomic, retain) IPTutorialManager *tutorialManager;
+@property (nonatomic, strong) IPTutorialManager *tutorialManager;
 
 //
 //  Overlay. You can have at most one, but it can be used for many things.
 //
 
-@property (nonatomic, retain) BDOverlayViewController *overlayController;
+@property (nonatomic, strong) BDOverlayViewController *overlayController;
 
 //
 //  Dismisses our popover controller.

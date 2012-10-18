@@ -15,16 +15,16 @@
 @protocol IPGridHeaderDelegate;
 @interface IPGridHeader : UIViewController { }
 
-@property (nonatomic, retain) IBOutlet UILabel *label;
-@property (nonatomic, retain) IBOutlet UIButton *settingsButton;
+@property (nonatomic, strong) IBOutlet UILabel *label;
+@property (nonatomic, strong) IBOutlet UIButton *settingsButton;
 
-@property (nonatomic, assign) id<IPGridHeaderDelegate> delegate;
+@property (nonatomic, weak) id<IPGridHeaderDelegate> delegate;
 
 //
 //  The color used to draw text and buttons.
 //
 
-@property (nonatomic, retain) UIColor *foregroundColor;
+@property (nonatomic, strong) UIColor *foregroundColor;
 
 - (IBAction)didTapSettings:(id)sender;
 

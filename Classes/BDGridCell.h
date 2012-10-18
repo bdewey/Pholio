@@ -54,7 +54,7 @@ typedef enum {
 //  The main image to show.
 //
 
-@property (nonatomic, retain) UIImage *image;
+@property (nonatomic, strong) UIImage *image;
 
 //
 //  The cell display style.
@@ -72,19 +72,19 @@ typedef enum {
 //  Font color.
 //
 
-@property (nonatomic, retain) UIColor *fontColor;
+@property (nonatomic, strong) UIColor *fontColor;
 
 //
 //  Color behind the label in a tile view.
 //
 
-@property (nonatomic, retain) UIColor *labelBackgroundColor;
+@property (nonatomic, strong) UIColor *labelBackgroundColor;
 
 //
 //  font.
 //
 
-@property (nonatomic, retain) UIFont *font;
+@property (nonatomic, strong) UIFont *font;
 
 //
 //  The index of the image in the grid.

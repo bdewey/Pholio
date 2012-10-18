@@ -27,10 +27,10 @@
 //  Interface builder properties.
 //
 
-@property (retain, nonatomic) IBOutlet UILabel *overlayTitleLabel;
-@property (retain, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (retain, nonatomic) IBOutlet UIButton *cancelButton;
-@property (retain, nonatomic) IBOutlet UIButton *skipButton;
+@property (strong, nonatomic) IBOutlet UILabel *overlayTitleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (strong, nonatomic) IBOutlet UIButton *cancelButton;
+@property (strong, nonatomic) IBOutlet UIButton *skipButton;
 
 //
 //  The default size of the description label. Comes from the XIB, remembered
@@ -44,10 +44,10 @@
 //  direction the user swiped and can report that to our delegate.
 //
 
-@property (nonatomic, retain) UISwipeGestureRecognizer *upRecognizer;
-@property (nonatomic, retain) UISwipeGestureRecognizer *downRecognizer;
-@property (nonatomic, retain) UISwipeGestureRecognizer *leftRecognizer;
-@property (nonatomic, retain) UISwipeGestureRecognizer *rightRecognizer;
+@property (nonatomic, strong) UISwipeGestureRecognizer *upRecognizer;
+@property (nonatomic, strong) UISwipeGestureRecognizer *downRecognizer;
+@property (nonatomic, strong) UISwipeGestureRecognizer *leftRecognizer;
+@property (nonatomic, strong) UISwipeGestureRecognizer *rightRecognizer;
 - (void)handleSwipe:(UIGestureRecognizer *)gestureRecognizer;
 
 - (IBAction)didTapCancelButton:(id)sender;
@@ -87,20 +87,6 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-- (void)dealloc {
-
-  [overlayTitleText_ release];
-  [descriptionText_ release];
-  [overlayTitleLabel_ release];
-  [descriptionLabel_ release];
-  [upRecognizer_ release];
-  [downRecognizer_ release];
-  [leftRecognizer_ release];
-  [rightRecognizer_ release];
-  [cancelButton release];
-  [skipButton release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -179,7 +165,6 @@
 
 - (void)setOverlayTitleText:(NSString *)overlayTitleText {
   
-  [overlayTitleText_ autorelease];
   overlayTitleText_ = [overlayTitleText copy];
   self.overlayTitleLabel.text = self.overlayTitleText;
 }
@@ -188,7 +173,6 @@
 
 - (void)setDescriptionText:(NSString *)descriptionText {
   
-  [descriptionText_ autorelease];
   descriptionText_ = [descriptionText copy];
   self.descriptionLabel.text = self.descriptionText;
 }

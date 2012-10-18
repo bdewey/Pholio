@@ -79,14 +79,6 @@
 //  Release retained properties.
 //
 
-- (void)dealloc {
-  
-  [cancelTitle_ release];
-  [cancelBlock_ release];
-  [otherTitle_ release];
-  [otherBlock_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -100,12 +92,12 @@
            otherTitle:(NSString *)otherTitle 
            otherBlock:(BDCustomAlertAction)otherBlock {
   
-  BDCustomAlert *alert = [[[BDCustomAlert alloc] initWithTitle:title 
+  BDCustomAlert *alert = [[BDCustomAlert alloc] initWithTitle:title 
                                                        message:message 
                                                    cancelTitle:cancelTitle 
                                                    cancelBlock:cancelBlock 
                                                     otherTitle:otherTitle 
-                                                    otherBlock:otherBlock] autorelease];
+                                                    otherBlock:otherBlock];
   [alert show];
 }
 

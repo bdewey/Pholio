@@ -42,19 +42,19 @@
 //  The cells that are currently in view.
 //
 
-@property (nonatomic, retain) NSMutableSet *viewCells;
+@property (nonatomic, strong) NSMutableSet *viewCells;
 
 //
 //  The cells that have been recycled.
 //
 
-@property (nonatomic, retain) NSMutableSet *recycledCells;
+@property (nonatomic, strong) NSMutableSet *recycledCells;
 
 //
 //  The cells that are currently selected.
 //
 
-@property (nonatomic, retain) NSMutableSet *selectedCells;
+@property (nonatomic, strong) NSMutableSet *selectedCells;
 
 //
 //  The active insertion point (for pasting).
@@ -74,7 +74,7 @@
 //  This is the cell that the user is panning around the screen.
 //
 
-@property (nonatomic, retain) BDGridCell *pannedCell;
+@property (nonatomic, strong) BDGridCell *pannedCell;
 
 //
 //  The target rectangle of the edit menu.
@@ -86,7 +86,7 @@
 //  The gesture recognizer for rearranging cells.
 //
 
-@property (nonatomic, retain) BDContrainPanGestureRecognizer *cellPanRecognizer;
+@property (nonatomic, strong) BDContrainPanGestureRecognizer *cellPanRecognizer;
 
 //
 //  Private methods; commented with the code.
@@ -172,19 +172,6 @@
 //  Dealloc.
 //
 
-- (void)dealloc {
-  
-  [headerView_ release];
-  [viewCells_ release];
-  [recycledCells_ release];
-  [selectedCells_ release];
-  [labelBackgroundColor_ release];
-  [fontColor_ release];
-  [font_ release];
-  [pannedCell_ release];
-  [cellPanRecognizer_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -206,19 +193,19 @@
   
   dropCapWidth_ = dropCapHeight_ = 1;
   
-  UITapGestureRecognizer *tap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)] autorelease];
+  UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
   tap.cancelsTouchesInView = NO;
   [self addGestureRecognizer:tap];
   
-  UILongPressGestureRecognizer *longPress = [[[UILongPressGestureRecognizer alloc] 
+  UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] 
                                               initWithTarget:self 
-                                              action:@selector(handleLongTap:)] autorelease];
+                                              action:@selector(handleLongTap:)];
   longPress.delegate = self;
   [self addGestureRecognizer:longPress];
   
-  self.cellPanRecognizer = [[[BDContrainPanGestureRecognizer alloc]
+  self.cellPanRecognizer = [[BDContrainPanGestureRecognizer alloc]
                              initWithTarget:self 
-                             action:@selector(handleCellPan:)] autorelease];
+                             action:@selector(handleCellPan:)];
   self.cellPanRecognizer.delegate = self;
   self.cellPanRecognizer.dx = kMoveCellMinX;
   self.cellPanRecognizer.dy = kMoveCellMaxY;
@@ -236,7 +223,7 @@
   //
   
   UIMenuController *editMenu = [UIMenuController sharedMenuController];
-  UIMenuItem *addItem = [[[UIMenuItem alloc] initWithTitle:@"Add" action:@selector(addNew)] autorelease];
+  UIMenuItem *addItem = [[UIMenuItem alloc] initWithTitle:@"Add" action:@selector(addNew)];
   editMenu.menuItems = [NSArray arrayWithObject:addItem];
 }
 
@@ -346,8 +333,7 @@
     self.pannedCell.index = self.activeGap;
     [self.viewCells addObject:self.pannedCell];
   }
-  [pannedCell_ autorelease];
-  pannedCell_ = [pannedCell retain];
+  pannedCell_ = pannedCell;
   if (self.pannedCell != nil) {
     
     [self.viewCells removeObject:self.pannedCell];
@@ -369,8 +355,7 @@
     
     return;
   }
-  [labelBackgroundColor_ release];
-  labelBackgroundColor_ = [labelBackgroundColor retain];
+  labelBackgroundColor_ = labelBackgroundColor;
   
   for (BDGridCell *cell in self.viewCells) {
     
@@ -387,8 +372,7 @@
 - (void)setFontColor:(UIColor *)fontColor {
 
   _GTMDevAssert(fontColor != nil, @"Font color must not be nil");
-  [fontColor_ autorelease];
-  fontColor_ = [fontColor retain];
+  fontColor_ = fontColor;
   
   for (BDGridCell *cell in self.viewCells) {
     
@@ -404,8 +388,7 @@
 
 - (void)setFont:(UIFont *)font {
   
-  [font_ autorelease];
-  font_ = [font retain];
+  font_ = font;
   
   for (BDGridCell *cell in self.viewCells) {
     
@@ -429,8 +412,7 @@
     
     [headerView_ removeFromSuperview];
   }
-  [headerView_ release];
-  headerView_ = [headerView retain];
+  headerView_ = headerView;
   if (headerView_ != nil) {
     
     CGSize frameSize = headerView_.frame.size;
@@ -1101,7 +1083,7 @@
   
   BDGridCell *cell = [self.recycledCells anyObject];
   if (cell != nil) {
-    [[cell retain] autorelease];
+
     [self.recycledCells removeObject:cell];
   }
   return cell;
@@ -1297,7 +1279,7 @@
       self.pannedCell = nil;
       break;
       
-    case UIGestureRecognizerStateEnded:
+    case UIGestureRecognizerStateEnded: {
       _GTMDevLog(@"%s -- gesture recognizer ended", __PRETTY_FUNCTION__);
       if ((self.pannedCell != nil) && (self.activeGap != self.pannedCell.index)) {
       
@@ -1323,6 +1305,7 @@
         [self adjustAllVisibleCellFrames];
       } completion:nil];
       break;
+    }
       
     default:
       

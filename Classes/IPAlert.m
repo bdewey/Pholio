@@ -43,17 +43,12 @@ static IPAlert *defaultAlert;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-- (void)dealloc {
-  
-  [currentAction_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 
 + (IPAlert *)defaultAlert {
   if (defaultAlert == nil) {
-    defaultAlert = [[IPAlert alloc] retain];
+    defaultAlert = [IPAlert alloc];
   }
   return defaultAlert;
 }
@@ -62,11 +57,11 @@ static IPAlert *defaultAlert;
 
 - (void)showErrorMessage:(NSString *)errorMessage {
   
-  UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:kProductName 
+  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kProductName 
                                                    message:errorMessage 
                                                   delegate:nil 
                                          cancelButtonTitle:@"OK" 
-                                         otherButtonTitles:nil] autorelease];
+                                         otherButtonTitles:nil];
   [alert show];
 }
 
@@ -79,11 +74,11 @@ static IPAlert *defaultAlert;
                  performAction:(IPAlertAction)action {
   
   self.currentAction = action;
-  UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:description 
+  UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:description 
                                                             delegate:self 
                                                    cancelButtonTitle:nil 
                                               destructiveButtonTitle:buttonTitle 
-                                                   otherButtonTitles:nil] autorelease];
+                                                   otherButtonTitles:nil];
   [actionSheet showFromRect:rect inView:view animated:YES];
 }
 

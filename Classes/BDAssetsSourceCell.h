@@ -28,5 +28,5 @@
 @protocol BDAssetsSource;
 @interface BDAssetsSourceCell : BDSmartTableViewCell
 
-@property (nonatomic, retain) id<BDAssetsSource> assetsSource;
+@property (nonatomic, strong) id<BDAssetsSource> assetsSource;
 @end

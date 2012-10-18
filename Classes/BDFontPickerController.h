@@ -32,7 +32,7 @@
 //  The delegate responds to changes in the font family name.
 //
 
-@property (nonatomic, assign) id<BDFontPickerControllerDelegate> delegate;
+@property (nonatomic, weak) id<BDFontPickerControllerDelegate> delegate;
 
 //
 //  Name of the selected font family name.
@@ -46,7 +46,7 @@
 //  of the font family name.
 //
 
-@property (nonatomic, retain) NSDictionary *fontFamilyToFont;
+@property (nonatomic, strong) NSDictionary *fontFamilyToFont;
 
 //
 //  Do we show all font families, or only the families that have an entry

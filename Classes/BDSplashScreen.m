@@ -48,7 +48,7 @@
 
 - (void)loadView {
   
-  UIImageView *iv = [[[UIImageView alloc] initWithImage:self.splashImage] autorelease];
+  UIImageView *iv = [[UIImageView alloc] initWithImage:self.splashImage];
   iv.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   iv.contentMode = UIViewContentModeCenter;
   self.view = iv;
@@ -116,10 +116,5 @@
 //  Dispose of the object.
 //
 
-- (void)dealloc {
-  
-  [splashImage_ release];
-  [super dealloc];
-}
 
 @end

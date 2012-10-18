@@ -26,6 +26,7 @@
 @property (nonatomic, readonly) OFFlickrAPIRequest *request;
 @property (nonatomic, copy) IPFlickrRequestSuccessCompletion successCompletion;
 @property (nonatomic, copy) IPFlickrRequestErrorCompletion errorCompletion;
+@property (nonatomic, strong) IPFlickrRequest *selfReference;
 
 //
 //  Private initializer.
@@ -91,6 +92,7 @@
     self.successCompletion = successCompletion;
     self.errorCompletion = errorCompletion;
     [self.request callAPIMethodWithGET:apiName arguments:arguments];
+    self.selfReference = self;
   }
   return self;
 }
@@ -100,13 +102,6 @@
 //  Release retained properties.
 //
 
-- (void)dealloc {
-  
-  [request_ release];
-  [successCompletion_ release];
-  [errorCompletion_ release];
-  [super dealloc];
-}
 
 #pragma mark - OFFlickrAPIRequestDelegate
 
@@ -121,7 +116,7 @@
     
     self.successCompletion(inResponseDictionary);
   }
-  [self release];
+  self.selfReference = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -135,7 +130,7 @@
     
     self.errorCompletion(inError);
   }
-  [self release];
+  self.selfReference = nil;
 }
 
 @end

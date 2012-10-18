@@ -23,7 +23,7 @@
 
 @interface BDFontPickerController ()
 
-@property (nonatomic, retain) NSArray *fontFamilyNames;
+@property (nonatomic, strong) NSArray *fontFamilyNames;
 
 @end
 
@@ -60,13 +60,6 @@
 //  Release retained properties.
 //
 
-- (void)dealloc {
-  
-  [fontFamilyName_ release];
-  [fontFamilyToFont_ release];
-  [fontFamilyNames_ release];
-  [super dealloc];
-}
 
 #pragma mark - View lifecycle
 

@@ -22,7 +22,7 @@
 
 @interface IPToggleCell ()
 
-@property (nonatomic, retain) UISwitch *visibleSwitch;
+@property (nonatomic, strong) UISwitch *visibleSwitch;
 
 - (void)didToggle;
 @end
@@ -54,11 +54,6 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-- (void)dealloc {
-  
-  [visibleSwitch_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 

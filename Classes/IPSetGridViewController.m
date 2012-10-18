@@ -44,7 +44,7 @@
 //  The photo visualized by this cell.
 //
 
-@property (nonatomic, retain) IPPhoto *photo;
+@property (nonatomic, strong) IPPhoto *photo;
 
 @end
 
@@ -61,7 +61,6 @@
 - (void)dealloc {
   
   self.photo = nil;
-  [super dealloc];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -73,8 +72,7 @@
 - (void)setPhoto:(IPPhoto *)photo {
   
   [self.photo removeObserver:self forKeyPath:kIPPhotoTitle];
-  [photo_ autorelease];
-  photo_ = [photo retain];
+  photo_ = photo;
   
   self.image = nil;
   if (photo == nil) {
@@ -88,14 +86,12 @@
   }
   [self.photo addObserver:self forKeyPath:kIPPhotoTitle options:0 context:NULL];
   self.caption = self.photo.title;
-  UIImage *thumbnail = [self.photo.thumbnail retain];
+  UIImage *thumbnail = self.photo.thumbnail;
   [[[IPPhotoOptimizationManager sharedManager] optimizationQueue] addOperationWithBlock:^(void) {
-    UIImage *bordered = [[thumbnail imageWithBorderWidth:10.0 andColor:[[UIColor whiteColor] CGColor]] retain];
+    UIImage *bordered = [thumbnail imageWithBorderWidth:10.0 andColor:[[UIColor whiteColor] CGColor]];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
       
       self.image = bordered;
-      [thumbnail release];
-      [bordered release];
     }];
   }];
 }
@@ -158,13 +154,6 @@
 //  Deallocator.
 //
 
-- (void)dealloc {
-  
-  [currentSet_ release];
-  [backButtonText_ release];
-  [gridView_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -199,10 +188,10 @@
   }
   self.gridView.font = self.currentSet.parent.textFont;
 
-  self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:self.backButtonText 
+  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.backButtonText 
                                                                             style:UIBarButtonItemStylePlain 
                                                                            target:self 
-                                                                           action:@selector(popView)] autorelease];
+                                                                           action:@selector(popView)];
   self.titleTextField.text = self.title;
   
   //
@@ -298,8 +287,7 @@
 
 - (void)setCurrentSet:(IPSet *)currentSet {
   
-  [currentSet_ autorelease];
-  currentSet_ = [currentSet retain];
+  currentSet_ = currentSet;
   
   self.portfolio = self.currentSet.parent;
   self.title = self.currentSet.title;
@@ -382,7 +370,7 @@
   IPPageCell *cell = (IPPageCell *)[gridView dequeueCell];
   if (cell == nil) {
     
-    cell = [[[IPPageCell alloc] initWithStyle:BDGridCellStyleDefault] autorelease];
+    cell = [[IPPageCell alloc] initWithStyle:BDGridCellStyleDefault];
     cell.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
   }
   
@@ -406,7 +394,7 @@
 - (void)gridView:(BDGridView *)gridView didTapCell:(BDGridCell *)cell {
   
   NSUInteger index = cell.index;
-  IPSetPagingViewController *controller = [[[IPSetPagingViewController alloc] initWithNibName:@"IPSetPagingViewController" bundle:nil] autorelease];
+  IPSetPagingViewController *controller = [[IPSetPagingViewController alloc] initWithNibName:@"IPSetPagingViewController" bundle:nil];
 
   controller.currentSet = self.currentSet;
   controller.currentPageIndex = index;
@@ -442,7 +430,6 @@
           [self.currentSet.parent savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
           [self.gridView insertCellAtIndex:currentInsertionPoint];
           currentInsertionPoint++;
-          [photo release];
         }];
       }];
     }
@@ -468,7 +455,7 @@
     _GTMDevAssert(index < [self.currentSet countOfPages], 
                   @"Should have a valid index");
     IPPage *page = [self.currentSet objectInPagesAtIndex:index];
-    IPPasteboardObject *pasteboardObject = [[[IPPasteboardObject alloc] init] autorelease];
+    IPPasteboardObject *pasteboardObject = [[IPPasteboardObject alloc] init];
     pasteboardObject.modelObject = page;
     NSData *pageData = [NSKeyedArchiver archivedDataWithRootObject:pasteboardObject];
     [pasteboard setData:pageData forPasteboardType:kIPPasteboardObjectUTI];
@@ -491,7 +478,7 @@
   NSUInteger index = [[indexes anyObject] unsignedIntegerValue];
   _GTMDevAssert(index < [self.currentSet countOfPages], 
                 @"index must be in bounds");
-  IPPasteboardObject *pasteboardObject = [[[IPPasteboardObject alloc] init] autorelease];
+  IPPasteboardObject *pasteboardObject = [[IPPasteboardObject alloc] init];
   pasteboardObject.modelObject = [self.currentSet objectInPagesAtIndex:index];
   NSData *pasteData = [NSKeyedArchiver archivedDataWithRootObject:pasteboardObject];
   if (pasteData != nil) {
@@ -627,7 +614,7 @@
 - (void)gridView:(BDGridView *)gridView didMoveItemFromIndex:(NSUInteger)initialIndex 
          toIndex:(NSUInteger)finalIndex {
   
-  IPPage *page = [[[self.currentSet objectInPagesAtIndex:initialIndex] retain] autorelease];
+  IPPage *page = [self.currentSet objectInPagesAtIndex:initialIndex];
   [self.currentSet removeObjectFromPagesAtIndex:initialIndex];
   [self.currentSet insertObject:page inPagesAtIndex:finalIndex];
   [self.currentSet.parent savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];

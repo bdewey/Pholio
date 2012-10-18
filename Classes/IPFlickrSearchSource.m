@@ -53,7 +53,7 @@
 
 + (IPFlickrSearchSource *)sourceWithSearchCell:(IPFlickrSearchCell *)cell {
   
-  IPFlickrSearchSource *source = [[[IPFlickrSearchSource alloc] initWithSearchCell:cell] autorelease];
+  IPFlickrSearchSource *source = [[IPFlickrSearchSource alloc] initWithSearchCell:cell];
   return source;
 }
 
@@ -62,11 +62,6 @@
 //  Release retained properties.
 //
 
-- (void)dealloc {
-
-  [searchCell_ release];
-  [super dealloc];
-}
 
 #pragma mark - BDAssetsSource
 
@@ -90,7 +85,6 @@
       ((IPFlickrSelectableAsset *)obj).delegate = delegate;
     }];
     completion();
-    [completion release];
   } 
                          onError:^(NSError *error) {
                            

@@ -55,8 +55,8 @@ typedef enum {
 @interface IPTutorialManager : NSObject
 
 @property (nonatomic, assign) IPTutorialManagerState state;
-@property (nonatomic, readonly) NSString *tutorialTitle;
-@property (nonatomic, readonly) NSString *tutorialDescription;
+@property (weak, nonatomic, readonly) NSString *tutorialTitle;
+@property (weak, nonatomic, readonly) NSString *tutorialDescription;
 @property (nonatomic, readonly) BOOL isLastState;
 
 + (IPTutorialManager *)sharedManager;

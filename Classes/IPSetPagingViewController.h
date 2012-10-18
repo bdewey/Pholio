@@ -35,7 +35,7 @@
 //  The set we are viewing.
 //
 
-@property (nonatomic, retain) IPSet *currentSet;
+@property (nonatomic, strong) IPSet *currentSet;
 
 //
 //  Our current page in the set.
@@ -53,6 +53,6 @@
 //  Interface builder outlets.
 //
 
-@property (nonatomic, retain) IBOutlet BDPagingView *pagingView;
+@property (nonatomic, strong) IBOutlet BDPagingView *pagingView;
 
 @end

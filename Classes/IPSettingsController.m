@@ -33,7 +33,7 @@
 #import "IPUserDefaults.h"
 #import "IPToggleCell.h"
 #import "IPDropBoxConnectionCell.h"
-#import "DropboxSDK.h"
+#import <DropboxSDK/DropboxSDK.h>
 
 enum IPSettingsControllerSections {
   IPSettingsControllerUserGuide,
@@ -103,7 +103,7 @@ enum IPSettingsDisplay {
 
 @interface IPSettingsController ()
 
-@property (nonatomic, retain) IPCustomAppearanceController *activeCustomBackgroundController;
+@property (nonatomic, strong) IPCustomAppearanceController *activeCustomBackgroundController;
 
 //
 //  This is set to 1 if we should hide the "email current photo" action.
@@ -155,11 +155,6 @@ enum IPSettingsDisplay {
 //
 //  Release any retained properties.
 
-- (void)dealloc {
-
-  [activeCustomBackgroundController_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -236,7 +231,7 @@ enum IPSettingsDisplay {
   
   if (userDefaults_ == nil) {
     
-    userDefaults_ = [[IPUserDefaults defaultSettings] retain];
+    userDefaults_ = [IPUserDefaults defaultSettings];
   }
   return userDefaults_;
 }
@@ -544,7 +539,7 @@ enum IPSettingsDisplay {
     //
     
     IPCustomBackgroundCell *cell = (IPCustomBackgroundCell *)[tableView cellForRowAtIndexPath:indexPath];
-    self.activeCustomBackgroundController = [[[IPCustomAppearanceController alloc] init] autorelease];
+    self.activeCustomBackgroundController = [[IPCustomAppearanceController alloc] init];
     self.activeCustomBackgroundController.selectedImageName = cell.imageName;
     
     //
@@ -568,26 +563,24 @@ enum IPSettingsDisplay {
     
   } else if ([tableViewCell isKindOfClass:[IPFlickrConnectionCell class]]) {
     
-    IPFlickrLoginController *loginController = [[[IPFlickrLoginController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
+    IPFlickrLoginController *loginController = [[IPFlickrLoginController alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:loginController animated:YES];
     
   } else if ([tableViewCell isKindOfClass:[IPDropBoxConnectionCell class]]) {
 
     if ([[DBSession sharedSession] isLinked]) {
       
-      [[DBSession sharedSession] unlink];
+      [[DBSession sharedSession] unlinkAll];
       [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
       
     } else {
       
-      DBLoginController *loginController = [[[DBLoginController alloc] init] autorelease];
-      loginController.delegate = self;
-      [self.navigationController pushViewController:loginController animated:YES];
+      [[DBSession sharedSession] linkFromController:self];
     }
     
   } else if ([tableViewCell isKindOfClass:[IPFontPickerCell class]]) {
     
-    BDFontPickerController *fontController = [[[BDFontPickerController alloc] init] autorelease];
+    BDFontPickerController *fontController = [[BDFontPickerController alloc] init];
     fontController.title = ((IPFontPickerCell *)tableViewCell).title;
     fontController.fontFamilyName = [((IPFontPickerCell *)tableViewCell).selectedFont familyName];
     fontController.delegate = self;
@@ -604,27 +597,13 @@ enum IPSettingsDisplay {
     
   } else if ([tableViewCell isKindOfClass:[IPColorCell class]]) {
     
-    BDColorPicker *colorPicker = [[[BDColorPicker alloc] init] autorelease];
+    BDColorPicker *colorPicker = [[BDColorPicker alloc] init];
     colorPicker.delegate = self;
     IPColorCell *colorCell = (IPColorCell *)tableViewCell;
     colorPicker.title = colorCell.title;
     colorPicker.currentColor = colorCell.color;
     [self.navigationController pushViewController:colorPicker animated:YES];
   }
-}
-
-#pragma mark - DBLoginControllerDelegate
-
-////////////////////////////////////////////////////////////////////////////////
-
-- (void)loginControllerDidLogin:(DBLoginController *)controller {
-  
-  [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)loginControllerDidCancel:(DBLoginController *)controller {
-  
-  [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - BDFontPickerControllerDelegate

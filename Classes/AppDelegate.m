@@ -25,7 +25,7 @@
 #import "IPOptimizingPhotoNotification.h"
 #import "NSString+TestHelper.h"
 #import "IPDropBoxApiKeys.h"
-#import "DropboxSDK.h"
+#import <DropboxSDK/DropboxSDK.h>
 
 //
 //  Private methods
@@ -37,13 +37,13 @@
 //  Helper property to get the top-level |IPPortfolioGridViewController|.
 //
 
-@property (nonatomic, readonly) IPPortfolioGridViewController *portfolioGridView;
+@property (weak, nonatomic, readonly) IPPortfolioGridViewController *portfolioGridView;
 
 //
 //  If we're showing UI about optimizing photos, this is the UI.
 //
 
-@property (nonatomic, retain) IPOptimizingPhotoNotification *optimizingNotification;
+@property (nonatomic, strong) IPOptimizingPhotoNotification *optimizingNotification;
 
 - (IPSet *)welcomeSet;
 - (IPSet *)sampleLandscapes;
@@ -68,12 +68,6 @@
 //  Dealloc.
 //
 
-- (void)dealloc {
-  [window release];
-  [navigationController_ release];
-  [optimizingNotification_ release];
-  [super dealloc];
-}
 
 
 #pragma mark -
@@ -108,8 +102,7 @@
   //
   
 #ifdef PHOLIO_DROPBOX_API_KEY
-  DBSession *session = [[[DBSession alloc] initWithConsumerKey:PHOLIO_DROPBOX_API_KEY 
-                                                consumerSecret:PHOLIO_DROPBOX_API_SHARED_SECRET] autorelease];
+  DBSession *session = [[DBSession alloc] initWithAppKey:PHOLIO_DROPBOX_API_KEY appSecret:PHOLIO_DROPBOX_API_SHARED_SECRET root:kDBRootDropbox];
   [DBSession setSharedSession:session];
 #endif
   
@@ -129,6 +122,10 @@
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
   
+  if ([[DBSession sharedSession] handleOpenURL:url]) {
+    
+    return YES;
+  }
   [[IPFlickrAuthorizationManager sharedManager] processFlickrAuthUrl:url];
   return YES;
 }
@@ -222,7 +219,7 @@
       
       if (self.optimizingNotification == nil) {
         
-        self.optimizingNotification = [[[IPOptimizingPhotoNotification alloc] initWithNibName:nil bundle:nil] autorelease];
+        self.optimizingNotification = [[IPOptimizingPhotoNotification alloc] initWithNibName:nil bundle:nil];
         self.optimizingNotification.modalPresentationStyle = UIModalPresentationFormSheet;
         CGRect navBounds = self.navigationController.view.bounds;
         self.optimizingNotification.view.center = CGPointMake(CGRectGetMidX(navBounds), 
@@ -362,7 +359,7 @@
 
 - (IPSet *)setNamed:(NSString *)setName fromImagesNamed:(NSArray *)imageNames {
   
-  IPSet *theSet = [[[IPSet alloc] init] autorelease];
+  IPSet *theSet = [[IPSet alloc] init];
   theSet.title = setName;
   for (NSString *imageName in imageNames) {
     
@@ -377,7 +374,7 @@
                                                        error:&error];
     if (success) {
       
-      IPPhoto *photo = [[[IPPhoto alloc] init] autorelease];
+      IPPhoto *photo = [[IPPhoto alloc] init];
       photo.filename = [imageName asPathInDocumentsFolder];
       photo.title = [imageName stringByDeletingPathExtension];
       [photo optimize];
@@ -460,7 +457,6 @@
       [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
 
         completion();
-        [completion release];
       }];
     }
     return;
@@ -490,10 +486,8 @@
       [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
         
         completion();
-        [completion release];
       }];
     }
-    [toOptimize release];
     return;
   }
   
@@ -504,9 +498,7 @@
     if (completion != nil) {
       
       completion();
-      [completion release];
     }
-    [toOptimize release];
   }];
 }
 @end

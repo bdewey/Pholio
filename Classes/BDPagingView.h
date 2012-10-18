@@ -40,7 +40,7 @@
 //  The data source for this paging view.
 //
 
-@property (nonatomic, assign) id<BDPagingViewDelegate> pagingViewDelegate;
+@property (nonatomic, weak) id<BDPagingViewDelegate> pagingViewDelegate;
 
 //
 //  Tiles the subviews.

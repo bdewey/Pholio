@@ -19,10 +19,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <DropboxSDK/DropboxSDK.h>
 #import "BDFontPickerController.h"
 #import "BDColorPicker.h"
 #import "IPToggleCell.h"
-#import "DropboxSDK.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -33,17 +33,16 @@
 @interface IPSettingsController : UITableViewController<
   BDFontPickerControllerDelegate,
   BDColorPickerDelegate,
-  IPToggleCellDelegate,
-  DBLoginControllerDelegate
+  IPToggleCellDelegate
 > { }
 
-@property (nonatomic, retain) IPUserDefaults *userDefaults;
+@property (nonatomic, strong) IPUserDefaults *userDefaults;
 
 //
 //  Delegate.
 //
 
-@property (nonatomic, assign) id <IPSettingsControllerDelegate> delegate;
+@property (nonatomic, weak) id <IPSettingsControllerDelegate> delegate;
 
 //
 //  Designated initializer.

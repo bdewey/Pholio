@@ -31,7 +31,7 @@
 //  The color for highlighting items.
 //
 
-@property (nonatomic, retain) UIColor *highlightColor;
+@property (nonatomic, strong) UIColor *highlightColor;
 
 //
 //  Gets the default color scheme.

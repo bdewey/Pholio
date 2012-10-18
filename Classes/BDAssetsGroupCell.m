@@ -49,11 +49,6 @@
 //  Release any retained properties.
 //
 
-- (void)dealloc {
-
-  [assetsGroup_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -62,8 +57,7 @@
 
 - (void)setAssetsGroup:(ALAssetsGroup *)assetsGroup {
   
-  [assetsGroup_ autorelease];
-  assetsGroup_ = [assetsGroup retain];
+  assetsGroup_ = assetsGroup;
   
   [self.assetsGroup setAssetsFilter:[ALAssetsFilter allPhotos]];
   self.textLabel.text = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyName];

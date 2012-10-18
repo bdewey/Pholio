@@ -70,7 +70,7 @@
 //  Optional header to display at the top of the grid.
 //
 
-@property (nonatomic, retain) UIView *headerView;
+@property (nonatomic, strong) UIView *headerView;
 
 //
 //  The computed number of cells per row. Based on |numberOfCells|, |cellSize|, 
@@ -102,31 +102,31 @@
 //  If the cell label uses a background color, it will use this one.
 //
 
-@property (nonatomic, retain) UIColor *labelBackgroundColor;
+@property (nonatomic, strong) UIColor *labelBackgroundColor;
 
 //
 //  The font color to use for the text in all cells.
 //
 
-@property (nonatomic, retain) UIColor *fontColor;
+@property (nonatomic, strong) UIColor *fontColor;
 
 //
 //  The font to use for the text in all cells.
 //
 
-@property (nonatomic, retain) UIFont *font;
+@property (nonatomic, strong) UIFont *font;
 
 //
 //  The data source for this grid view.
 //
 
-@property (nonatomic, assign) id<BDGridViewDataSource> dataSource;
+@property (nonatomic, weak) id<BDGridViewDataSource> dataSource;
 
 //
 //  Delegate that responds to interaction events.
 //
 
-@property (nonatomic, assign) id<BDGridViewDelegate> gridViewDelegate;
+@property (nonatomic, weak) id<BDGridViewDelegate> gridViewDelegate;
 
 //
 //  Purely here for testability. Note that, in spite of the name, |lastVisibleIndex|

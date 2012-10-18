@@ -31,7 +31,7 @@
 
 + (IPPage *)pageWithPhoto:(IPPhoto *)photo {
   
-  IPPage *page = [[[IPPage alloc] init] autorelease];
+  IPPage *page = [[IPPage alloc] init];
   [page insertObject:photo inPhotosAtIndex:0];
   return page;
 }
@@ -71,11 +71,6 @@
 //  Object deallocation.
 //
 
--(void)dealloc {
-
-  [photos_ release];
-  [super dealloc];
-}
 
 #pragma mark NSCoding
 
@@ -88,7 +83,7 @@
   if ((self = [super init]) != nil) {
     self.photos = [aDecoder decodeObjectForKey:kIPPagePhotos];
     if (self.photos == nil) {
-      self.photos = [[[NSMutableArray alloc] init] autorelease];
+      self.photos = [[NSMutableArray alloc] init];
     }
     [self.photos makeObjectsPerformSelector:@selector(setParent:) withObject:self];
   }
@@ -111,7 +106,7 @@
 
 -(id)copyWithZone:(NSZone *)zone {
   IPPage *copy = [[IPPage allocWithZone:zone] init];
-  copy.photos = [[[NSMutableArray alloc] initWithArray:self.photos copyItems:YES] autorelease];
+  copy.photos = [[NSMutableArray alloc] initWithArray:self.photos copyItems:YES];
   return copy;
 }
 
@@ -187,7 +182,7 @@
                 @"imageDictionary must not be nil");
   for (IPPhoto *photo in self.photos) {
 
-    NSString *oldFilename = [[photo.filename retain] autorelease];
+    NSString *oldFilename = photo.filename;
     NSData *data = [pasteboardObject.imageDataDictionary objectForKey:oldFilename];
     UIImage *image = [UIImage imageWithData:data];
     if (image != nil) {

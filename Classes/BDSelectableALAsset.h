@@ -34,7 +34,7 @@
 //  the asset.
 //
 
-@property (nonatomic, retain) ALAsset *asset;
+@property (nonatomic, strong) ALAsset *asset;
 
 //
 //  Its selection state.
@@ -46,7 +46,7 @@
 //  Delegate.
 //
 
-@property (nonatomic, assign) id<BDSelectableAssetDelegate> delegate;
+@property (nonatomic, weak) id<BDSelectableAssetDelegate> delegate;
 
 //
 //  Designated initializer.

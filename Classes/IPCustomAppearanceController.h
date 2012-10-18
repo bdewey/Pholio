@@ -38,6 +38,6 @@
 //  The delegate will get notified when |selectedImageName| changes.
 //
 
-@property (nonatomic, assign) id<IPSettingsControllerDelegate> delegate;
+@property (nonatomic, weak) id<IPSettingsControllerDelegate> delegate;
 
 @end

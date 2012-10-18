@@ -21,14 +21,14 @@
 #import "IPDropBoxAssetsSource.h"
 #import "BDSelectableAsset.h"
 #import "IPDropBoxSelectableAsset.h"
-#import "DropboxSDK.h"
+#import <DropboxSDK/DropboxSDK.h>
 
 @interface IPDropBoxAssetsSource ()
 
 @property (nonatomic, copy) void (^completion)();
-@property (nonatomic, retain) id<BDSelectableAssetDelegate> assetDelegate;
-@property (nonatomic, retain) NSMutableArray *children;
-@property (nonatomic, retain) NSMutableArray *assets;
+@property (nonatomic, strong) id<BDSelectableAssetDelegate> assetDelegate;
+@property (nonatomic, strong) NSMutableArray *children;
+@property (nonatomic, strong) NSMutableArray *assets;
 
 @end
 
@@ -61,13 +61,12 @@
 
 - (void)dealloc {
   
-  [path_ release], path_ = nil;
-  [completion_ release], completion_ = nil;
-  [assetDelegate_ release], assetDelegate_ = nil;
-  [children_ release], children_ = nil;
-  [assets_ release], assets_ = nil;
-  [restClient_ release], restClient_ = nil;
-  [super dealloc];
+  path_ = nil;
+  completion_ = nil;
+  assetDelegate_ = nil;
+  children_ = nil;
+  assets_ = nil;
+  restClient_ = nil;
 }
 
 #pragma mark - Properties
@@ -135,13 +134,13 @@
     
     if (child.isDirectory) {
       
-      IPDropBoxAssetsSource *childSource = [[[IPDropBoxAssetsSource alloc] init] autorelease];
+      IPDropBoxAssetsSource *childSource = [[IPDropBoxAssetsSource alloc] init];
       childSource.path = child.path;
       [self.children addObject:childSource];
     }
     if (child.thumbnailExists) {
       
-      IPDropBoxSelectableAsset *asset = [[[IPDropBoxSelectableAsset alloc] init] autorelease];
+      IPDropBoxSelectableAsset *asset = [[IPDropBoxSelectableAsset alloc] init];
       asset.metadata = child;
       asset.delegate = self.assetDelegate;
       [self.assets addObject:asset];

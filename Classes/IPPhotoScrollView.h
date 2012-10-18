@@ -33,5 +33,5 @@
 //  The photo we are displaying.
 //
 
-@property (nonatomic, retain) IPPhoto *photo;
+@property (nonatomic, strong) IPPhoto *photo;
 @end

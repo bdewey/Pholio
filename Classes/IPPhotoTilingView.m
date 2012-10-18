@@ -52,11 +52,6 @@
 //  Release retained properties.
 //
 
-- (void)dealloc {
-
-  [photo_ release];
-  [super dealloc];
-}
 
 #pragma mark - Properties
 
@@ -67,8 +62,7 @@
 
 - (void)setPhoto:(IPPhoto *)photo {
   
-  [photo_ autorelease];
-  photo_ = [photo retain];
+  photo_ = photo;
   
   CATiledLayer *layer = (CATiledLayer *)[self layer];
   layer.levelsOfDetail = [photo levelsOfDetail];
@@ -170,23 +164,23 @@
   
   for (int row = firstRow; row <= lastRow; row++) {
     for (int col = firstCol; col <= lastCol; col++) {
-      NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-      UIImage *tile = [self.photo tileForScale:scale row:row column:col];
-      CGRect tileRect = CGRectMake(tileSize.width * col, tileSize.height * row,
-                                   tileSize.width, tileSize.height);
-      
-      // if the tile would stick outside of our bounds, we need to truncate it so as to avoid
-      // stretching out the partial tiles at the right and bottom edges
-      tileRect = CGRectIntersection(self.bounds, tileRect);
-      
-      [tile drawInRect:tileRect];
-      
-      if (self.annotates) {
-        [[UIColor whiteColor] set];
-        CGContextSetLineWidth(context, 6.0 / scale);
-        CGContextStrokeRect(context, tileRect);
+      @autoreleasepool {
+        UIImage *tile = [self.photo tileForScale:scale row:row column:col];
+        CGRect tileRect = CGRectMake(tileSize.width * col, tileSize.height * row,
+                                     tileSize.width, tileSize.height);
+        
+        // if the tile would stick outside of our bounds, we need to truncate it so as to avoid
+        // stretching out the partial tiles at the right and bottom edges
+        tileRect = CGRectIntersection(self.bounds, tileRect);
+        
+        [tile drawInRect:tileRect];
+        
+        if (self.annotates) {
+          [[UIColor whiteColor] set];
+          CGContextSetLineWidth(context, 6.0 / scale);
+          CGContextStrokeRect(context, tileRect);
+        }
       }
-      [pool drain];
     }
   }
 }

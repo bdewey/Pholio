@@ -33,13 +33,6 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-- (void)dealloc {
-  
-  [label_ release];
-  [settingsButton_ release];
-  [foregroundColor_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -88,8 +81,7 @@
     
     return;
   }
-  [foregroundColor_ release];
-  foregroundColor_ = [foregroundColor retain];
+  foregroundColor_ = foregroundColor;
   
   self.label.textColor = foregroundColor;
   self.settingsButton.imageView.image = [[UIImage imageNamed:@"19-gear.png"] imageAsMaskOnColor:foregroundColor];

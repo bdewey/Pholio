@@ -24,7 +24,7 @@
 
 @interface IPFlickrSearchCell ()
 
-@property (nonatomic, retain) NSArray *searchResults;
+@property (nonatomic, strong) NSArray *searchResults;
 
 @property (nonatomic, assign) NSUInteger epoch;
 
@@ -69,14 +69,6 @@
 //  Release retained properties.
 //
 
-- (void)dealloc {
-  
-  [searchApi_ release];
-  [searchArguments_ release];
-  [resultKeyPath_ release];
-  [searchResults_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -150,19 +142,13 @@
                          
                          NSError *mismatchedEpoch = [NSError errorWithDomain:@"Pholio" code:-2 userInfo:nil];
                          errorCompletion(mismatchedEpoch);
-                         [completion release];
-                         [errorCompletion release];
                          return;
                        }
                        completion(responseDictionary);
-                       [completion release];
-                       [errorCompletion release];
                      } 
                        onError:^(NSError *error) {
                          
                          errorCompletion(error);
-                         [completion release];
-                         [errorCompletion release];
                        }
    ];
 }
@@ -194,8 +180,6 @@
                  [responseDictionary description]);
       NSError *noResults = [NSError errorWithDomain:@"Pholio" code:-1 userInfo:nil];
       errorCompletion(noResults);
-      [resultsCompletion release];
-      [errorCompletion release];
       return;
     }
     if (![results isKindOfClass:[NSArray class]]) {
@@ -209,21 +193,17 @@
     NSMutableArray *assets = [NSMutableArray arrayWithCapacity:[results count]];
     for (NSDictionary *properties in results) {
       
-      IPFlickrSelectableAsset *asset = [[[IPFlickrSelectableAsset alloc] init] autorelease];
+      IPFlickrSelectableAsset *asset = [[IPFlickrSelectableAsset alloc] init];
       asset.photoProperties = properties;
       [assets addObject:asset];
     }
 
     self.searchResults = assets;
     resultsCompletion(assets);
-    [resultsCompletion release];
-    [errorCompletion release];
 
   } onError:^(NSError *error) {
     
     errorCompletion(error);
-    [resultsCompletion release];
-    [errorCompletion release];
   }];
 }
 @end

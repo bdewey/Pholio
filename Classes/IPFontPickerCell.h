@@ -28,6 +28,6 @@
 @interface IPFontPickerCell : BDSmartTableViewCell { }
 
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, retain) UIFont *selectedFont;
+@property (nonatomic, strong) UIFont *selectedFont;
 
 @end

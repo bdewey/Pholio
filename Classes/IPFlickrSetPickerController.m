@@ -39,7 +39,7 @@ enum IPFlickrSetPickerSections {
 //  The user's photosets.
 //
 
-@property (nonatomic, retain) NSMutableArray *flickrSets;
+@property (nonatomic, strong) NSMutableArray *flickrSets;
 
 - (void)didCancel;
 
@@ -79,11 +79,6 @@ enum IPFlickrSetPickerSections {
 //  Release retained properties.
 //
 
-- (void)dealloc {
-
-  [flickrSets_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -107,9 +102,9 @@ enum IPFlickrSetPickerSections {
 
 - (void)viewDidLoad {
   
-  self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel 
+  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel 
                                                                                           target:self 
-                                                                                          action:@selector(didCancel)] autorelease];
+                                                                                          action:@selector(didCancel)];
   
   [IPFlickrRequest callWithGet:@"flickr.photosets.getList" 
                   andArguments:nil 
@@ -260,7 +255,7 @@ enum IPFlickrSetPickerSections {
 
   IPFlickrSearchCell *cell = (IPFlickrSearchCell *)[tableView cellForRowAtIndexPath:indexPath];
   IPFlickrSearchSource *source = [IPFlickrSearchSource sourceWithSearchCell:cell];
-  BDAssetsGroupController *controller = [[[BDAssetsGroupController alloc] initWithStyle:UITableViewStylePlain] autorelease];
+  BDAssetsGroupController *controller = [[BDAssetsGroupController alloc] initWithStyle:UITableViewStylePlain];
   controller.assetsSource = source;
   controller.delegate = self.delegate;
   [self.navigationController pushViewController:controller animated:YES];

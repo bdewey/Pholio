@@ -39,7 +39,7 @@
     @private
     NSString *title_;
     NSMutableArray *pages_;
-    IPPortfolio *parent_;
+    IPPortfolio *__weak parent_;
 }
 
 //
@@ -52,25 +52,25 @@
 //  The filename of the image that is the thumbnail for this set.
 //
 
-@property (nonatomic, readonly) NSString *thumbnailFilename;
+@property (weak, nonatomic, readonly) NSString *thumbnailFilename;
 
 //
 //  The actual thumbnail image for this set.
 //
 
-@property (nonatomic, readonly) UIImage *thumbnail;
+@property (weak, nonatomic, readonly) UIImage *thumbnail;
 
 //
 //  The pages that comprise the set.
 //
 
-@property (nonatomic, retain) NSMutableArray *pages;
+@property (nonatomic, strong) NSMutableArray *pages;
 
 //
 //  And the parent portfolio.
 //
 
-@property (nonatomic, assign) IPPortfolio *parent;
+@property (nonatomic, weak) IPPortfolio *parent;
 
 //
 //  Convenience constructor.

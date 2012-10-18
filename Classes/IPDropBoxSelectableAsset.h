@@ -19,8 +19,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <DropboxSDK/DropboxSDK.h>
 #import "BDSelectableAsset.h"
-#import "DropboxSDK.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@
 //  The metadata object that identifies the file to download from DropBox.
 //
 
-@property (nonatomic, retain) DBMetadata *metadata;
+@property (nonatomic, strong) DBMetadata *metadata;
 
 //
 //  Whether or not this image is selected for download.
@@ -47,13 +47,13 @@
 //  Gets notified when selection state changes.
 //
 
-@property (nonatomic, assign) id<BDSelectableAssetDelegate> delegate;
+@property (nonatomic, weak) id<BDSelectableAssetDelegate> delegate;
 
 //
 //  For debugging only.
 //
 
-@property (nonatomic, retain) DBRestClient *restClient;
+@property (nonatomic, strong) DBRestClient *restClient;
 
 //
 //  Gets the thumbnail for the asset.

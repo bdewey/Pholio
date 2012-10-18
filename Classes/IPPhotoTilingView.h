@@ -32,7 +32,7 @@
 //  The photo to display.
 //
 
-@property (nonatomic, retain) IPPhoto *photo;
+@property (nonatomic, strong) IPPhoto *photo;
 
 //
 //  Set to YES to draw borders around each tile.

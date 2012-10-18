@@ -30,7 +30,7 @@
 //  over this view.
 //
 
-@property (nonatomic, retain) UIView *imageView;
+@property (nonatomic, strong) UIView *imageView;
 
 - (void)setMaxMinZoomScalesForCurrentBounds;
 
@@ -68,9 +68,6 @@
 - (void)dealloc {
 
   [photo_ unloadImage];
-  [photo_ release];
-  [imageView_ release];
-  [super dealloc];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -118,8 +115,7 @@
     return;
   }
   [photo_ unloadImage];
-  [photo_ release];
-  photo_ = [photo retain];
+  photo_ = photo;
   
   //
   //  Clear the previous imageView.
@@ -143,7 +139,7 @@
     //  With only one level, no point in using a tiling view.
     //
     
-    self.imageView = [[[UIImageView alloc] initWithImage:self.photo.image] autorelease];
+    self.imageView = [[UIImageView alloc] initWithImage:self.photo.image];
     
   } else { 
 
@@ -152,7 +148,7 @@
     //
     
     CGRect imageFrame = CGRectMake(0, 0, self.photo.imageSize.width, self.photo.imageSize.height);
-    IPPhotoTilingView *tilingView = [[[IPPhotoTilingView alloc] initWithFrame:imageFrame] autorelease];
+    IPPhotoTilingView *tilingView = [[IPPhotoTilingView alloc] initWithFrame:imageFrame];
     tilingView.photo = self.photo;
     self.imageView = tilingView;
     

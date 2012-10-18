@@ -46,8 +46,7 @@
 
 - (void)dealloc {
   
-  [assetsSource_ release], assetsSource_ = nil;
-  [super dealloc];
+  assetsSource_ = nil;
 }
 
 #pragma mark - Properties
@@ -60,8 +59,7 @@
     
     return;
   }
-  [assetsSource_ release];
-  assetsSource_ = [assetsSource retain];
+  assetsSource_ = assetsSource;
   self.textLabel.text = [self.assetsSource title];
   if ([self.assetsSource respondsToSelector:@selector(asyncThumbnail:)]) {
     

@@ -34,20 +34,20 @@
 @interface IPPage : NSObject <NSCoding, NSCopying, IPPasteboardObjectDelegate> {
 @private
   NSMutableArray *photos_;
-  IPSet *parent_;
+  IPSet *__weak parent_;
 }
 
 //
 //  These are the photos that go on this page.
 //
 
-@property (nonatomic, retain) NSMutableArray *photos;
+@property (nonatomic, strong) NSMutableArray *photos;
 
 //
 //  Pointer to our parent.
 //
 
-@property (nonatomic, assign) IPSet *parent;
+@property (nonatomic, weak) IPSet *parent;
 
 //
 //  Helper...

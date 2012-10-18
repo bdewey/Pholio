@@ -29,7 +29,7 @@
 
 @interface IPToggleCell : BDSmartTableViewCell
 
-@property (nonatomic, assign) id<IPToggleCellDelegate> delegate;
+@property (nonatomic, weak) id<IPToggleCellDelegate> delegate;
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, assign, getter=isOn) BOOL on;
 

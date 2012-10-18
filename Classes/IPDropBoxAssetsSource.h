@@ -19,8 +19,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <DropboxSDK/DropboxSDK.h>
 #import "BDAssetsSource.h"
-#import "DropboxSDK.h"
 
 @interface IPDropBoxAssetsSource : NSObject<BDAssetsSource, DBRestClientDelegate>
 
@@ -34,14 +34,14 @@
 //  The title of this asset source.
 //
 
-@property (nonatomic, readonly) NSString *title;
+@property (weak, nonatomic, readonly) NSString *title;
 
 //
 //  For debugging only... this is the |DBRestClient| used for talking to DropBox.
 //  It will get lazily created if needed.
 //
 
-@property (nonatomic, retain) DBRestClient *restClient;
+@property (nonatomic, strong) DBRestClient *restClient;
 
 //
 //  Return immediately. In the background, fill in |assets| with the appropriate

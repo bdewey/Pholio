@@ -34,9 +34,9 @@
 
 @interface BDAssetsGroupController()
 
-@property (nonatomic, retain) NSMutableArray *children;
-@property (nonatomic, retain) NSMutableArray *assets;
-@property (nonatomic, retain) NSMutableSet *selectedAssets;
+@property (nonatomic, strong) NSMutableArray *children;
+@property (nonatomic, strong) NSMutableArray *assets;
+@property (nonatomic, strong) NSMutableSet *selectedAssets;
 
 - (void)configureTitle;
 - (void)didSelectDone;
@@ -75,14 +75,6 @@
 //  Release all retained properties.
 //
 
-- (void)dealloc {
-
-  [assetsSource_ release];
-  [children_ release];
-  [assets_ release];
-  [selectedAssets_ release];
-  [super dealloc];
-}
 
 #pragma mark - View lifecycle
 
@@ -97,18 +89,18 @@
   self.tableView.separatorColor = [UIColor clearColor];
 //  self.tableView.allowsSelection = NO;
   
-  self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
+  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
                                                                                           target:self 
-                                                                                          action:@selector(didSelectDone)] autorelease];
+                                                                                          action:@selector(didSelectDone)];
   self.navigationItem.rightBarButtonItem.enabled = NO;
   
-  UIBarButtonItem *selectAll = [[[UIBarButtonItem alloc] initWithTitle:@"Select All" 
+  UIBarButtonItem *selectAll = [[UIBarButtonItem alloc] initWithTitle:@"Select All" 
                                                                  style:UIBarButtonItemStyleBordered 
                                                                 target:self 
-                                                                action:@selector(didSelectAll)] autorelease];
-  UIBarButtonItem *flexibleSpace = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace 
+                                                                action:@selector(didSelectAll)];
+  UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace 
                                                                                   target:nil 
-                                                                                  action:nil] autorelease];
+                                                                                  action:nil];
   self.toolbarItems = [NSArray arrayWithObjects:flexibleSpace, selectAll, flexibleSpace, nil];
   
   //
@@ -278,7 +270,7 @@
     return;
   }
   id<BDAssetsSource> source = [self.children objectAtIndex:row];
-  BDAssetsGroupController *childController = [[[BDAssetsGroupController alloc] initWithStyle:UITableViewStylePlain] autorelease];
+  BDAssetsGroupController *childController = [[BDAssetsGroupController alloc] initWithStyle:UITableViewStylePlain];
   childController.assetsSource = source;
   childController.delegate = self.delegate;
   [self.navigationController pushViewController:childController animated:YES];

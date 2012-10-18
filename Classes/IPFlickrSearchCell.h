@@ -43,7 +43,7 @@
 //  The search arguments associated with this cell.
 //
 
-@property (nonatomic, retain) NSDictionary *searchArguments;
+@property (nonatomic, strong) NSDictionary *searchArguments;
 
 //
 //  The key path that selects the returned photos.

@@ -83,11 +83,6 @@ typedef enum {
 //  Release retained properties.
 //
 
-- (void)dealloc {
-  
-  [selectedImageName_ release];
-  [super dealloc];
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -213,7 +208,7 @@ typedef enum {
   cell = [tableView dequeueReusableCellWithIdentifier:@"BDFontPickerController"];
   if (cell == nil) {
     
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BDFontPickerController"] autorelease];
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BDFontPickerController"];
   }
   cell.textLabel.text = @"Title font";
   cell.detailTextLabel.text = @"Futura";
@@ -273,7 +268,7 @@ typedef enum {
 
 - (void)tableView:(UITableView *)tableView didSelectFontRowAtIndexPath:(NSIndexPath *)indexPath {
   
-  BDFontPickerController *fontPicker = [[[BDFontPickerController alloc] init] autorelease];
+  BDFontPickerController *fontPicker = [[BDFontPickerController alloc] init];
   [self.navigationController pushViewController:fontPicker animated:YES];
 }
 
@@ -286,7 +281,6 @@ typedef enum {
 
 - (void)setSelectedImageName:(NSString *)selectedImageName {
   
-  [selectedImageName_ autorelease];
   selectedImageName_ = [selectedImageName copy];
   
   [self.delegate ipSettingsSetBackgroundImageName:self.selectedImageName];
