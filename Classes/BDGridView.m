@@ -224,7 +224,7 @@
   
   UIMenuController *editMenu = [UIMenuController sharedMenuController];
   UIMenuItem *addItem = [[UIMenuItem alloc] initWithTitle:@"Add" action:@selector(addNew)];
-  editMenu.menuItems = [NSArray arrayWithObject:addItem];
+  editMenu.menuItems = @[addItem];
 }
 
 #pragma mark -
@@ -1403,7 +1403,7 @@
   
   for (BDGridCell *cell in self.selectedCells) {
     
-    [indexSet addObject:[NSNumber numberWithUnsignedInteger:cell.index]];
+    [indexSet addObject:@(cell.index)];
   }
   [self unselectAllCells];
   [self.gridViewDelegate gridView:self didCut:indexSet];
@@ -1420,7 +1420,7 @@
   
   for (BDGridCell *cell in self.selectedCells) {
     
-    [indexSet addObject:[NSNumber numberWithUnsignedInteger:cell.index]];
+    [indexSet addObject:@(cell.index)];
   }
   [self unselectAllCells];
   [self.gridViewDelegate gridView:self didCopy:indexSet];
@@ -1459,7 +1459,7 @@
   
   for (BDGridCell *cell in self.selectedCells) {
     
-    [indexSet addObject:[NSNumber numberWithUnsignedInteger:cell.index]];
+    [indexSet addObject:@(cell.index)];
   }
   [self unselectAllCells];
   [self.gridViewDelegate gridView:self didDelete:indexSet];

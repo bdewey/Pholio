@@ -195,7 +195,7 @@
   //
   
   [IPFlickrRequest callWithGet:@"flickr.auth.getToken" 
-                  andArguments:[NSDictionary dictionaryWithObject:frob forKey:@"frob"] 
+                  andArguments:@{@"frob": frob} 
                      onSuccess:^(NSDictionary *responseDictionary) {
                        
                        self.authToken = [[responseDictionary valueForKeyPath:@"auth.token"] textContent];

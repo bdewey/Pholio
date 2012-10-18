@@ -1018,7 +1018,7 @@
 
 - (BOOL)gridViewCanPaste:(BDGridView *)gridView {
   
-  NSArray *types = [NSArray arrayWithObject:kIPPasteboardObjectUTI];
+  NSArray *types = @[kIPPasteboardObjectUTI];
   return [[UIPasteboard generalPasteboard] containsPasteboardTypes:types] ||
     ([[UIPasteboard generalPasteboard] image] != nil);
 }

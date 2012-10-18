@@ -115,7 +115,7 @@
       picker.mailComposeDelegate = self;
       
       IPPage *thePage = [self.currentSet objectInPagesAtIndex:self.pagingView.currentPageIndex];
-      IPPhoto *thePhoto = [thePage.photos objectAtIndex:0];
+      IPPhoto *thePhoto = (thePage.photos)[0];
       
       //
       //  Get a good subject for the mail

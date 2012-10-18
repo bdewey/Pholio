@@ -43,22 +43,18 @@
   self = [super init];
   if (self) {
     
-    _tutorialTitles = [[NSArray alloc] initWithObjects:
-                       @"Welcome to Pholio!",
+    _tutorialTitles = @[@"Welcome to Pholio!",
                        @"The Long Press",
                        @"Drag and Drop",
                        @"Editing titles",
                        @"Have fun!",
-                       @"No tutorial",
-                       nil];
-    _tutorialDescriptions = [[NSArray alloc] initWithObjects:
-                             @"Pholio helps you build, organize, and display beautiful portfolios of your images.",
+                       @"No tutorial"];
+    _tutorialDescriptions = @[@"Pholio helps you build, organize, and display beautiful portfolios of your images.",
                              @"The key gesture for using Pholio is the long press. Doing a long press on the screen brings up a menu of actions. Not only can you do a long press on existing galleries or photos, you can do a long press on empty space to create new photos or galleries. Try a long press now.",
                              @"It's easy to rearrange anything: Just drag and drop. Try it now!",
                              @"You can also edit the title of anything. Just tap the title bar and you can start editing. You can even put your name or your photo business name as the title of the main screen. Try it now.",
                              @"That's it! I hope you find Pholio easy to use, and I hope you enjoy using it to show off your work to friends, family, and clients.",
-                             @"No tutorial",
-                             nil];
+                             @"No tutorial"];
     _state = [[NSUserDefaults standardUserDefaults] integerForKey:kIPTutorialManagerStateKey];
   }
   return self;
@@ -132,14 +128,14 @@
 
 - (NSString *)tutorialTitle {
   
-  return [self.tutorialTitles objectAtIndex:self.state];
+  return (self.tutorialTitles)[self.state];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 - (NSString *)tutorialDescription {
   
-  return [self.tutorialDescriptions objectAtIndex:self.state];
+  return (self.tutorialDescriptions)[self.state];
 }
 
 ////////////////////////////////////////////////////////////////////////////////

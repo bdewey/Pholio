@@ -84,7 +84,7 @@
   
   [self searchResults:^(NSArray *results) {
     
-    IPFlickrSelectableAsset *asset = [results objectAtIndex:0];
+    IPFlickrSelectableAsset *asset = results[0];
     [asset thumbnailAsyncWithCompletion:^(UIImage *thumbnail) {
       
       self.imageView.image = thumbnail;
@@ -188,7 +188,7 @@
       //  Wrap our result in an array if it isn't one already.
       //
       
-      results = [NSArray arrayWithObject:results];
+      results = @[results];
     }
     NSMutableArray *assets = [NSMutableArray arrayWithCapacity:[results count]];
     for (NSDictionary *properties in results) {

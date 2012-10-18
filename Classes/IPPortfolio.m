@@ -142,7 +142,7 @@
 
 +(NSString *)defaultPortfolioPath {
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString *documentsDirectory = [paths objectAtIndex:0];
+  NSString *documentsDirectory = paths[0];
   return [documentsDirectory stringByAppendingPathComponent:@"portfolio"];
 }
 
@@ -165,7 +165,7 @@
 
 -(void)fixPhotoFileNames {
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString *docDirectory = [paths objectAtIndex:0];
+  NSString *docDirectory = paths[0];
   BOOL fileExists, isDirectory;
   NSMutableSet *photosToDelete = [NSMutableSet setWithCapacity:1];
   
@@ -253,10 +253,10 @@
 -(IPSet *)setWithFoundPictures {
 
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString *docDirectory = [paths objectAtIndex:0];
+  NSString *docDirectory = paths[0];
   NSError *error;
-  NSArray *imageExtensions = [NSArray arrayWithObjects:@"jpg", @"jpeg", @"png", nil];
-  NSArray *exclusionList   = [NSArray arrayWithObjects:kBackgroundFilename, kBrandingFilename, nil];
+  NSArray *imageExtensions = @[@"jpg", @"jpeg", @"png"];
+  NSArray *exclusionList   = @[kBackgroundFilename, kBrandingFilename];
   
   //
   //  Build up the set of all filenames that are in the portfolio.
@@ -397,7 +397,7 @@
 }
 
 -(IPSet *)objectInSetsAtIndex:(NSUInteger)index {
-  return (IPSet *)[sets_ objectAtIndex:index];
+  return (IPSet *)sets_[index];
 }
 
 -(void)insertObject:(IPSet *)set inSetsAtIndex:(NSUInteger)index {

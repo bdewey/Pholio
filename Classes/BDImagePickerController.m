@@ -182,7 +182,7 @@
     
   } else {
     
-    picker = [childControllers objectAtIndex:0];
+    picker = childControllers[0];
   }
 
   UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:picker];

@@ -95,7 +95,7 @@ CGFloat kIPPhotoMaxEdgeSize;
   [aCoder encodeObject:self.title forKey:kIPPhotoTitle];
   [aCoder encodeObject:self.caption forKey:kIPPhotoCaption];
   [aCoder encodeObject:[NSValue valueWithCGSize:self.imageSize] forKey:kIPPhotoImageSize];
-  [aCoder encodeObject:[NSNumber numberWithUnsignedInteger:self.optimizedVersion] 
+  [aCoder encodeObject:@(self.optimizedVersion) 
                 forKey:kIPPhotoOptimizedVersion];
 }
 
@@ -166,7 +166,7 @@ CGFloat kIPPhotoMaxEdgeSize;
 + (NSString *)thumbnailDirectory {
   
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString *docDirectory = [paths objectAtIndex:0];
+  NSString *docDirectory = paths[0];
   return [docDirectory stringByAppendingPathComponent:kThumbnailPathComponent];
 }
 
@@ -260,13 +260,13 @@ CGFloat kIPPhotoMaxEdgeSize;
 + (NSString *)filenameForNewPhoto {
   
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString *docDirectory = [paths objectAtIndex:0];
+  NSString *docDirectory = paths[0];
   
   //
   //  Generate a random filename. TODO: Check for collisions.
   //
   
-  NSNumber *random = [NSNumber numberWithUnsignedInt:arc4random()];
+  NSNumber *random = @(arc4random());
   NSString *_filename = [[random stringValue] stringByAppendingPathExtension:@"jpg"];
   return [docDirectory stringByAppendingPathComponent:_filename];
 }
@@ -281,7 +281,7 @@ CGFloat kIPPhotoMaxEdgeSize;
 - (NSString *)thumbnailFilename {
   
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString *docDirectory = [paths objectAtIndex:0];
+  NSString *docDirectory = paths[0];
   
   NSString *thumbnailFilename_ = [[[docDirectory stringByAppendingPathComponent:kThumbnailPathComponent] 
                                    stringByAppendingPathComponent:[[self.filename lastPathComponent] stringByDeletingPathExtension]] 
@@ -356,10 +356,9 @@ CGFloat kIPPhotoMaxEdgeSize;
 
   NSURL *imageUrl = [NSURL fileURLWithPath:self.filename];
   CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)imageUrl, NULL);
-  NSDictionary *thumbnailOptions = [NSDictionary dictionaryWithObjectsAndKeys:(id)kCFBooleanTrue, kCGImageSourceCreateThumbnailWithTransform,
-                                    kCFBooleanTrue, kCGImageSourceCreateThumbnailFromImageAlways,
-                                    [NSNumber numberWithFloat:kThumbnailSize], kCGImageSourceThumbnailMaxPixelSize,
-                                    nil];
+  NSDictionary *thumbnailOptions = @{(id)kCGImageSourceCreateThumbnailWithTransform: (id)kCFBooleanTrue,
+                                    (id)(id)kCGImageSourceCreateThumbnailFromImageAlways: (id)kCFBooleanTrue,
+                                    (id)kCGImageSourceThumbnailMaxPixelSize: [NSNumber numberWithFloat:kThumbnailSize]};
   CGImageRef thumbnail = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, (__bridge CFDictionaryRef)thumbnailOptions);
   UIImage *resizedImage = [UIImage imageWithCGImage:thumbnail];
   CFRelease(thumbnail);
@@ -622,10 +621,9 @@ CGFloat kIPPhotoMaxEdgeSize;
       //  We need to rescale the image. Ask ImageIO to make a thumbnail for us.
       //
       
-      NSDictionary *thumbnailOptions = [NSDictionary dictionaryWithObjectsAndKeys:(id)kCFBooleanTrue, kCGImageSourceCreateThumbnailWithTransform,
-                                        kCFBooleanTrue, kCGImageSourceCreateThumbnailFromImageAlways,
-                                        [NSNumber numberWithFloat:kIPPhotoMaxEdgeSize], kCGImageSourceThumbnailMaxPixelSize,
-                                        nil];
+      NSDictionary *thumbnailOptions = @{(id)kCGImageSourceCreateThumbnailWithTransform: (id)kCFBooleanTrue,
+                                        (id)(id)kCGImageSourceCreateThumbnailFromImageAlways: (id)kCFBooleanTrue,
+                                        (id)kCGImageSourceThumbnailMaxPixelSize: @(kIPPhotoMaxEdgeSize)};
       CGImageRef thumbnail = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, (__bridge CFDictionaryRef)thumbnailOptions);
       UIImage *resizedImage = [UIImage imageWithCGImage:thumbnail];
       NSData *jpegData = UIImageJPEGRepresentation(resizedImage, 0.8);

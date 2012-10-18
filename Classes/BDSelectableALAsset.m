@@ -115,8 +115,8 @@
       UIImageOrientation orientation = [[self.asset valueForProperty:ALAssetPropertyOrientation] intValue];
       ALAssetRepresentation *representation = [self.asset defaultRepresentation];
       NSDictionary *metadata = [representation metadata];
-      CGFloat width = [[metadata objectForKey:(id)kCGImagePropertyPixelWidth] floatValue];
-      CGFloat height = [[metadata objectForKey:(id)kCGImagePropertyPixelHeight] floatValue];
+      CGFloat width = [metadata[(id)kCGImagePropertyPixelWidth] floatValue];
+      CGFloat height = [metadata[(id)kCGImagePropertyPixelHeight] floatValue];
       CGFloat maxEdge = MAX(width, height);
       _GTMDevLog(@"%s -- maxEdge is %f (%f, %f)", __PRETTY_FUNCTION__, maxEdge, width, height);
       
@@ -136,10 +136,9 @@
         //  We need ImageIO to generate a thumbnail for us.
         //
         
-        NSDictionary *thumbnailOptions = [NSDictionary dictionaryWithObjectsAndKeys:(id)kCFBooleanFalse, kCGImageSourceCreateThumbnailWithTransform,
-                                          kCFBooleanTrue, kCGImageSourceCreateThumbnailFromImageAlways,
-                                          [NSNumber numberWithFloat:kIPPhotoMaxEdgeSize], kCGImageSourceThumbnailMaxPixelSize,
-                                          nil];
+        NSDictionary *thumbnailOptions = @{(id)kCGImageSourceCreateThumbnailWithTransform: (id)kCFBooleanFalse,
+                                          (id)(id)kCGImageSourceCreateThumbnailFromImageAlways: (id)kCFBooleanTrue,
+                                          (id)kCGImageSourceThumbnailMaxPixelSize: @(kIPPhotoMaxEdgeSize)};
         theImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, (__bridge CFDictionaryRef)thumbnailOptions);
         
       } else {
@@ -209,7 +208,7 @@
     
     return imageUTIs_;
   }
-  imageUTIs_ = [[NSArray alloc] initWithObjects:@"public.jpeg", @"public.png", nil];
+  imageUTIs_ = @[@"public.jpeg", @"public.png"];
   return imageUTIs_;
 }
 @end

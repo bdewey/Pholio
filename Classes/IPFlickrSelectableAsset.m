@@ -127,11 +127,11 @@
     CGFloat scale = [[UIScreen mainScreen] scale];
     if (scale >= 2) {
       
-      _urlProperties = [NSArray arrayWithObjects:@"url_o", @"url_l", @"url_m", nil];
+      _urlProperties = @[@"url_o", @"url_l", @"url_m"];
       
     } else {
       
-      _urlProperties = [NSArray arrayWithObjects:@"url_l", @"url_o", @"url_m", nil];
+      _urlProperties = @[@"url_l", @"url_o", @"url_m"];
     }
   }
   return _urlProperties;
@@ -164,7 +164,7 @@
       
       for (NSString *property in urlProperties) {
         
-        NSString *urlString = [self.photoProperties objectForKey:property];
+        NSString *urlString = (self.photoProperties)[property];
         if (urlString != nil) {
           
           imageUrl = [NSURL URLWithString:urlString];
@@ -212,7 +212,7 @@
 
 - (NSString *)title {
   
-  return [self.photoProperties objectForKey:@"title"];
+  return (self.photoProperties)[@"title"];
 }
 
 @end

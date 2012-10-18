@@ -254,7 +254,7 @@
 
 - (IPPortfolioGridViewController *)portfolioGridView {
   
-  return (IPPortfolioGridViewController *)[self.navigationController.viewControllers objectAtIndex:0];
+  return (IPPortfolioGridViewController *)(self.navigationController.viewControllers)[0];
 }
 
 #pragma mark - Portfolio manipulation
@@ -329,12 +329,10 @@
 
 - (IPSet *)welcomeSet {
   
-  NSArray *imageNames = [NSArray arrayWithObjects:
-                         @"Choose Your Best.png",
+  NSArray *imageNames = @[@"Choose Your Best.png",
                          @"Give It Your Look.png",
                          @"Cut The Cord.png",
-                         @"Tips.png",
-                         nil];
+                         @"Tips.png"];
   return [self setNamed:kWelcomeGalleryName fromImagesNamed:imageNames];
 }
 
@@ -342,16 +340,14 @@
 
 - (IPSet *)sampleLandscapes {
   
-  NSArray *imageNames = [NSArray arrayWithObjects:
-                         @"Across the Lake (2008).jpg",
+  NSArray *imageNames = @[@"Across the Lake (2008).jpg",
                          @"Count the Balloons (2009).jpg",
                          @"Everglades Sunrise (2009).jpg",
                          @"Frostscape (2008).jpg",
                          @"Haystack Rock (2009).jpg",
                          @"Lone Photographer (2008).jpg",
                          @"Misty Morning (2008).jpg",
-                         @"To the Sky (2008).jpg",
-                         nil];
+                         @"To the Sky (2008).jpg"];
   return [self setNamed:@"Example Landscapes" fromImagesNamed:imageNames];
 }
 

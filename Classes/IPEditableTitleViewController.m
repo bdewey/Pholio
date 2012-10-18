@@ -411,7 +411,7 @@
 didFinishPickingMediaWithInfo:(NSDictionary *)info {
   
   [self dismissPopover];
-  UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+  UIImage *image = info[UIImagePickerControllerOriginalImage];
   if (self.currentImagePickerBlock != nil) {
     
     self.currentImagePickerBlock(image, info);
@@ -600,15 +600,15 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
       //
       
       NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
-      NSString *version = [info objectForKey:@"CFBundleShortVersionString"];
-      NSString *build   = [info objectForKey:@"CFBundleVersion"];
+      NSString *version = info[@"CFBundleShortVersionString"];
+      NSString *build   = info[@"CFBundleVersion"];
       NSString *subject = [NSString stringWithFormat:@"Feedback on %@ %@ (%@)", 
                            __PRODUCT_NAME__, 
                            version,
                            build,
                            nil];
       [picker setSubject:subject];
-      [picker setToRecipients:[NSArray arrayWithObject:@"thebrain@brians-brain.org"]];
+      [picker setToRecipients:@[@"thebrain@brians-brain.org"]];
       
       [self presentModalViewController:picker animated:YES];
       

@@ -101,7 +101,7 @@
   UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace 
                                                                                   target:nil 
                                                                                   action:nil];
-  self.toolbarItems = [NSArray arrayWithObjects:flexibleSpace, selectAll, flexibleSpace, nil];
+  self.toolbarItems = @[flexibleSpace, selectAll, flexibleSpace];
   
   //
   //  TODO: Need to set the delegate for all of these selectable assets.
@@ -230,7 +230,7 @@
   if (row < [self.children count]) {
     
     BDAssetsSourceCell *cell = [BDAssetsSourceCell cellForTableView:tableView];
-    cell.assetsSource = [self.children objectAtIndex:row];
+    cell.assetsSource = (self.children)[row];
     return cell;
   }
   row -= [self.children count];
@@ -269,7 +269,7 @@
     
     return;
   }
-  id<BDAssetsSource> source = [self.children objectAtIndex:row];
+  id<BDAssetsSource> source = (self.children)[row];
   BDAssetsGroupController *childController = [[BDAssetsGroupController alloc] initWithStyle:UITableViewStylePlain];
   childController.assetsSource = source;
   childController.delegate = self.delegate;

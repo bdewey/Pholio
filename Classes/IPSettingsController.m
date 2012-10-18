@@ -571,7 +571,7 @@ enum IPSettingsDisplay {
     if ([[DBSession sharedSession] isLinked]) {
       
       [[DBSession sharedSession] unlinkAll];
-      [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+      [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
       
     } else {
       
@@ -633,23 +633,21 @@ enum IPSettingsDisplay {
 
 - (NSDictionary *)titleFonts {
   
-  return [NSDictionary dictionaryWithObjectsAndKeys:
-          @"Helvetica-Bold", @"Helvetica",
-          @"Futura-Medium", @"Futura",
-          @"GillSans-Bold", @"Gill Sans",
-          @"Baskerville-Bold", @"Baskerville",
-          @"AmericanTypewriter-Bold", @"American Typewriter",
-          @"Arial-BoldMT", @"Arial",
-          @"BodoniSvtyTwoOSITCTT-Bold", @"Bodoni 72 Oldstyle",
-          @"BodoniSvtyTwoSCITCTT-Book", @"Bodoni 72 Smallcaps",
-          @"CourierNewPS-BoldMT", @"Courier New",
-          @"Georgia-Bold", @"Georgia",
-          @"HoeflerText-Black", @"Hoefler Text",
-          @"Optima-Bold", @"Optima",
-          @"Palatino-Bold", @"Palatino",
-          @"Papyrus", @"Papyrus",
-          @"Verdana-Bold", @"Verdana",
-          nil];
+  return @{@"Helvetica": @"Helvetica-Bold",
+          @"Futura": @"Futura-Medium",
+          @"Gill Sans": @"GillSans-Bold",
+          @"Baskerville": @"Baskerville-Bold",
+          @"American Typewriter": @"AmericanTypewriter-Bold",
+          @"Arial": @"Arial-BoldMT",
+          @"Bodoni 72 Oldstyle": @"BodoniSvtyTwoOSITCTT-Bold",
+          @"Bodoni 72 Smallcaps": @"BodoniSvtyTwoSCITCTT-Book",
+          @"Courier New": @"CourierNewPS-BoldMT",
+          @"Georgia": @"Georgia-Bold",
+          @"Hoefler Text": @"HoeflerText-Black",
+          @"Optima": @"Optima-Bold",
+          @"Palatino": @"Palatino-Bold",
+          @"Papyrus": @"Papyrus",
+          @"Verdana": @"Verdana-Bold"};
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -659,23 +657,21 @@ enum IPSettingsDisplay {
 
 - (NSDictionary *)textFonts {
   
-  return [NSDictionary dictionaryWithObjectsAndKeys:
-          @"AmericanTypewriter", @"American Typewriter",
-          @"ArialMT", @"Arial",
-          @"Baskerville", @"Baskerville",
-          @"BodoniSvtyTwoOSITCTT-Book", @"Bodoni 72 Oldstyle",
-          @"BodoniSvtyTwoSCITCTT-Book", @"Bodoni 72 Smallcaps",
-          @"CourierNewPSMT", @"Courier New",
-          @"Futura-Medium", @"Futura",
-          @"Georgia", @"Georgia",
-          @"GillSans", @"Gill Sans",
-          @"Helvetica", @"Helvetica",
-          @"HoeflerText-Regular", @"Hoefler Text",
-          @"Optima-Regular", @"Optima",
-          @"Palatino-Roman", @"Palatino",
-          @"Papyrus", @"Papyrus",
-          @"Verdana", @"Verdana",
-          nil];
+  return @{@"American Typewriter": @"AmericanTypewriter",
+          @"Arial": @"ArialMT",
+          @"Baskerville": @"Baskerville",
+          @"Bodoni 72 Oldstyle": @"BodoniSvtyTwoOSITCTT-Book",
+          @"Bodoni 72 Smallcaps": @"BodoniSvtyTwoSCITCTT-Book",
+          @"Courier New": @"CourierNewPSMT",
+          @"Futura": @"Futura-Medium",
+          @"Georgia": @"Georgia",
+          @"Gill Sans": @"GillSans",
+          @"Helvetica": @"Helvetica",
+          @"Hoefler Text": @"HoeflerText-Regular",
+          @"Optima": @"Optima-Regular",
+          @"Palatino": @"Palatino-Roman",
+          @"Papyrus": @"Papyrus",
+          @"Verdana": @"Verdana"};
 }
 
 #pragma mark - Email actions

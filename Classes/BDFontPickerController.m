@@ -120,7 +120,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
   BDFontCell *cell = [BDFontCell cellForTableView:tableView];
-  cell.fontFamilyName = [self.fontFamilyNames objectAtIndex:indexPath.row];
+  cell.fontFamilyName = (self.fontFamilyNames)[indexPath.row];
   if ([cell.fontFamilyName isEqualToString:self.fontFamilyName]) {
     
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -145,7 +145,7 @@
   [cell setSelected:NO animated:NO];
   
   NSString *familyName = cell.fontFamilyName;
-  NSString *fontName = [self.fontFamilyToFont objectForKey:familyName];
+  NSString *fontName = (self.fontFamilyToFont)[familyName];
   
   if (fontName == nil) {
     

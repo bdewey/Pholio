@@ -191,8 +191,8 @@ typedef enum {
 
   IPCustomBackgroundCell *cell = [IPCustomBackgroundCell cellForTableView:tableView];
   NSUInteger row = [indexPath row];
-  cell.imageName = [[self imageNames] objectAtIndex:row];
-  cell.title     = [[self imageTitles] objectAtIndex:row];
+  cell.imageName = [self imageNames][row];
+  cell.title     = [self imageTitles][row];
   cell.checkmark = [self.selectedImageName isEqualToString:cell.imageName];
   return cell;
 }
@@ -258,7 +258,7 @@ typedef enum {
   //
   
   NSArray *fontColors = [self fontColors];
-  [self.delegate ipSettingsSetGridTextColor:[fontColors objectAtIndex:indexPath.row]];
+  [self.delegate ipSettingsSetGridTextColor:fontColors[indexPath.row]];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -296,15 +296,13 @@ typedef enum {
   static NSArray *imageNames_ = nil;
   
   if (imageNames_ == nil) {
-    imageNames_ = [[NSArray alloc] initWithObjects:
-                   @"black.jpg",
+    imageNames_ = @[@"black.jpg",
                    @"purple.jpg",
                    @"dark_texture.jpg",
                    @"light_texture.jpg",
                    @"drops.jpg",
                    @"blue.jpg",
-                   @"gold.jpg",
-                   nil];
+                   @"gold.jpg"];
   }
   return imageNames_;
 }
@@ -320,15 +318,13 @@ typedef enum {
   
   if (fontColors_ == nil) {
     
-    fontColors_ = [[NSArray alloc] initWithObjects:
-                   [UIColor whiteColor],
+    fontColors_ = @[[UIColor whiteColor],
                    [UIColor blackColor], 
                    [UIColor whiteColor],
                    [UIColor blackColor],
                    [UIColor blackColor],
                    [UIColor blackColor],
-                   [UIColor blackColor],
-                   nil];
+                   [UIColor blackColor]];
   }
   return fontColors_;
 }
@@ -343,15 +339,13 @@ typedef enum {
   static NSArray *imageTitles_ = nil;
   if (imageTitles_ == nil) {
     
-    imageTitles_ = [[NSArray alloc] initWithObjects:
-                    @"Black",
+    imageTitles_ = @[@"Black",
                     @"Purple", 
                     @"Dark texture",
                     @"Light texture",
                     @"Drops",
                     @"Blue",
-                    @"Gold",
-                    nil];
+                    @"Gold"];
   }
   return imageTitles_;
 }

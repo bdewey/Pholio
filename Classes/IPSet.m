@@ -176,7 +176,7 @@
 }
 
 -(IPPage *)objectInPagesAtIndex:(NSUInteger)index {
-  return (IPPage *)[pages_ objectAtIndex:index];
+  return (IPPage *)pages_[index];
 }
 
 -(void)insertObject:(IPPage *)page inPagesAtIndex:(NSUInteger) index {

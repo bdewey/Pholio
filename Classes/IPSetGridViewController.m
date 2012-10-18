@@ -494,7 +494,7 @@
 - (BOOL)gridViewCanPaste:(BDGridView *)gridView {
   
   UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-  NSArray *allowedTypes = [NSArray arrayWithObject:kIPPasteboardObjectUTI];
+  NSArray *allowedTypes = @[kIPPasteboardObjectUTI];
   _GTMDevLog(@"%s -- pasteboard contains %@",
              __PRETTY_FUNCTION__,
              [pasteboard.pasteboardTypes description]);

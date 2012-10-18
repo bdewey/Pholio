@@ -113,12 +113,12 @@
 #pragma mark Getting setting photo values
 
 -(NSString *)valueForKeyPath:(NSString *)keyPath forPhoto:(NSUInteger)index {
-  id photo = [self.photos objectAtIndex:index];
+  id photo = (self.photos)[index];
   return [photo valueForKeyPath:keyPath];
 }
 
 -(void)setValue:(id)value forKeyPath:(NSString *)keyPath forPhoto:(NSUInteger)index {
-  id photo = [self.photos objectAtIndex:index];
+  id photo = (self.photos)[index];
   [photo setValue:value forKeyPath:keyPath];
 }
 
@@ -135,7 +135,7 @@
 }
 
 -(IPPhoto *)objectInPhotosAtIndex:(NSUInteger)index {
-  return [self.photos objectAtIndex:index];
+  return (self.photos)[index];
 }
 
 -(void)insertObject:(IPPhoto *)photo inPhotosAtIndex:(NSUInteger) index {
@@ -165,7 +165,7 @@
     
     NSData *imageData = [NSData dataWithContentsOfFile:photo.filename];
     if (imageData) {
-      [pasteboardObject.imageDataDictionary setObject:imageData forKey:photo.filename];
+      (pasteboardObject.imageDataDictionary)[photo.filename] = imageData;
     }
   }
 }
@@ -183,7 +183,7 @@
   for (IPPhoto *photo in self.photos) {
 
     NSString *oldFilename = photo.filename;
-    NSData *data = [pasteboardObject.imageDataDictionary objectForKey:oldFilename];
+    NSData *data = (pasteboardObject.imageDataDictionary)[oldFilename];
     UIImage *image = [UIImage imageWithData:data];
     if (image != nil) {
       photo.filename = nil;

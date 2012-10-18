@@ -257,7 +257,7 @@
 
   BDAssetsGroupCell *cell = [BDAssetsGroupCell cellForTableView:tableView];
   NSUInteger row = [indexPath row];
-  cell.assetsGroup = [self.groups objectAtIndex:row];
+  cell.assetsGroup = (self.groups)[row];
   return cell;
 }
 
@@ -281,7 +281,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
   NSUInteger row = [indexPath row];
-  ALAssetsGroup *group = [self.groups objectAtIndex:row];
+  ALAssetsGroup *group = (self.groups)[row];
   BDAssetsGroupController *groupController = [[BDAssetsGroupController alloc] initWithStyle:UITableViewStylePlain];
   groupController.assetsSource = [BDALAssetGroupSource sourceWithGroup:group];
   groupController.title = [group valueForProperty:ALAssetsGroupPropertyName];

@@ -203,10 +203,8 @@ enum IPFlickrSetPickerSections {
     case IPFlickrSetPickerSectionPhotostream:
       cell.title = @"Photostream";
       cell.searchApi = @"flickr.photos.search";
-      cell.searchArguments = [NSDictionary dictionaryWithObjectsAndKeys:
-                              @"me", @"user_id",
-                              @"url_l,url_m,url_o", @"extras",
-                              nil];
+      cell.searchArguments = @{@"user_id": @"me",
+                              @"extras": @"url_l,url_m,url_o"};
       cell.resultKeyPath = @"photos.photo";
       [cell configureCell];
       break;
@@ -221,18 +219,16 @@ enum IPFlickrSetPickerSections {
         IPFlickrLoadingCell *loadingCell = [IPFlickrLoadingCell cellForTableView:tableView];
         return loadingCell;
       }
-      setProperties = [self.flickrSets objectAtIndex:indexPath.row];
-      setId = [setProperties objectForKey:@"id"];
+      setProperties = (self.flickrSets)[indexPath.row];
+      setId = setProperties[@"id"];
       _GTMDevLog(@"%s -- building a query for set %@ (id = %@)",
                  __PRETTY_FUNCTION__,
-                 [[setProperties objectForKey:@"title"] textContent],
+                 [setProperties[@"title"] textContent],
                  setId);
-      cell.title = [[setProperties objectForKey:@"title"] textContent];
+      cell.title = [setProperties[@"title"] textContent];
       cell.searchApi = @"flickr.photosets.getPhotos";
-      cell.searchArguments = [NSDictionary dictionaryWithObjectsAndKeys:
-                              setId, @"photoset_id", 
-                              @"url_l,url_m,url_o", @"extras",
-                              nil];
+      cell.searchArguments = @{@"photoset_id": setId, 
+                              @"extras": @"url_l,url_m,url_o"};
       cell.resultKeyPath = @"photoset.photo";
       [cell configureCell];
       break;
