@@ -562,7 +562,7 @@
   self.titleTextField.font = self.portfolio.titleFont;
   if (self.portfolio.navigationColor != nil) {
     
-    self.navigationController.navigationBar.tintColor = self.portfolio.navigationColor;
+    self.navigationController.navigationBar.barTintColor = self.portfolio.navigationColor;
     self.navigationController.navigationBar.translucent = YES;
   }
   self.gridHeader.label.font = self.headerFont;

@@ -140,7 +140,7 @@
   self.titleTextField.delegate = self;
   self.titleTextField.returnKeyType = UIReturnKeyDone;
   self.navigationItem.titleView = self.titleTextField;
-  self.navigationController.navigationBar.tintColor = self.portfolio.navigationColor;
+  self.navigationController.navigationBar.barTintColor = self.portfolio.navigationColor;
   
   [self updateBackgroundImage];
 }
@@ -430,7 +430,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
   IPSettingsController *settingsController = [[IPSettingsController alloc] init];
   settingsController.delegate = self;
   UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:settingsController];
-  nav.navigationBar.tintColor = self.portfolio.navigationColor;
+  nav.navigationBar.barTintColor = self.portfolio.navigationColor;
   nav.navigationBar.translucent = NO;
   return [[UIPopoverController alloc] initWithContentViewController:nav];
 }
@@ -633,7 +633,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
   self.portfolio.navigationColor = navigationColor;
   [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
   
-  self.navigationController.navigationBar.tintColor = navigationColor;
+  self.navigationController.navigationBar.barTintColor = navigationColor;
   self.navigationController.navigationBar.translucent = YES;
 }
 
