@@ -36,7 +36,7 @@ typedef void (^IPPhotoOptimizationCompletion)(void);
 @class IPSet;
 @protocol IPPhotoOptimizationManagerDelegate;
 
-@interface IPPhotoOptimizationManager : NSObject { }
+@interface IPPhotoOptimizationManager : NSObject
 
 //
 //  The shared manager.

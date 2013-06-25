@@ -34,11 +34,6 @@
 
 @implementation IPPhotoOptimizationManager
 
-@synthesize delegate = delegate_;
-@synthesize workSynchronouslyForDebugging = workSynchronouslyForDebugging_;
-@synthesize optimizationQueue = optimizationQueue_;
-@synthesize activeOptimizations = activeOptimizations_;
-
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  Initialization.
@@ -49,20 +44,14 @@
     self = [super init];
     if (self) {
       
-      optimizationQueue_ = [[NSOperationQueue alloc] init];
-      [self.optimizationQueue setMaxConcurrentOperationCount:1];
-      self.workSynchronouslyForDebugging = NO;
-      self.activeOptimizations = 0;
+      _optimizationQueue = [[NSOperationQueue alloc] init];
+      [_optimizationQueue setMaxConcurrentOperationCount:1];
+      _workSynchronouslyForDebugging = NO;
+      _activeOptimizations = 0;
     }
     
     return self;
 }
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Release retained properties.
-//
-
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -71,12 +60,12 @@
 
 + (IPPhotoOptimizationManager *)sharedManager {
   
-  static IPPhotoOptimizationManager *sharedManager_ = nil;
-  if (sharedManager_ == nil) {
+  static IPPhotoOptimizationManager *sharedManager = nil;
+  if (sharedManager == nil) {
     
-    sharedManager_ = [[IPPhotoOptimizationManager alloc] init];
+    sharedManager = [[IPPhotoOptimizationManager alloc] init];
   }
-  return sharedManager_;
+  return sharedManager;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -86,7 +75,6 @@
 
 - (void)asyncOptimizePhoto:(IPPhoto *)photo withCompletion:(IPPhotoOptimizationCompletion)completion {
 
-  completion = [completion copy];
   self.activeOptimizations++;
   [self.delegate optimizationManager:self 
             didHaveOptimizationCount:self.activeOptimizations];
@@ -115,7 +103,6 @@
 
 - (void)asyncOptimizePhotos:(NSArray *)photos withCompletion:(IPPhotoOptimizationCompletion)completion {
   
-  completion = [completion copy];
   self.activeOptimizations += [photos count];
   [self.delegate optimizationManager:self 
             didHaveOptimizationCount:self.activeOptimizations];
@@ -159,7 +146,6 @@
     return;
   }
   
-  completion = [completion copy];
   self.activeOptimizations++;
   [self.delegate optimizationManager:self 
             didHaveOptimizationCount:self.activeOptimizations];
