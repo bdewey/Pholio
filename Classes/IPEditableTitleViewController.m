@@ -65,7 +65,6 @@
     frame.size.width += 0.5 * (self.superview.center.x - midX);
   }
   [super setFrame:frame];
-  self.center = self.superview.center;
 }
 
 @end
