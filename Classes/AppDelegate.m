@@ -45,30 +45,10 @@
 
 @property (nonatomic, strong) IPOptimizingPhotoNotification *optimizingNotification;
 
-- (IPSet *)welcomeSet;
-- (IPSet *)sampleLandscapes;
-- (IPSet *)setNamed:(NSString *)setName fromImagesNamed:(NSArray *)imageNames;
-- (void)ensureWelcomeSetForPortfolio:(IPPortfolio *)portfolio;
-- (void)upgradePhotoOptimizationForPortfolio:(IPPortfolio *)portfolio completion:(IPPhotoOptimizationCompletion)completion;
-- (void)preparePortfolioForDisplay;
-
 @end
 
 
 @implementation AppDelegate
-
-@synthesize window;
-@synthesize navigationController = navigationController_;
-@synthesize avoidMultithreading = avoidMultithreading_;
-@dynamic portfolioGridView;
-@synthesize optimizingNotification = optimizingNotification_;
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Dealloc.
-//
-
-
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -81,8 +61,8 @@
 - (BOOL)application:(UIApplication *)application 
   didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
   
-  [window setRootViewController:self.navigationController];
-  [window makeKeyAndVisible];
+  [_window setRootViewController:self.navigationController];
+  [_window makeKeyAndVisible];
   
   //
   //  Validate any stored flickr token.

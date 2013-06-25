@@ -27,12 +27,7 @@
 @interface AppDelegate : NSObject <
   UIApplicationDelegate, 
   IPPhotoOptimizationManagerDelegate,
-  BDSplashScreenDelegate> {
-    
-  UIWindow *window;
-  UINavigationController *navigationController_;
-  BOOL avoidMultithreading_;
-}
+  BDSplashScreenDelegate>
 
 @property (nonatomic, strong) IBOutlet UIWindow *window;
 @property (nonatomic, strong) IBOutlet UINavigationController *navigationController;
