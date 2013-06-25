@@ -47,9 +47,7 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
   MFMailComposeViewControllerDelegate,
   BDOverlayViewControllerDelegate,
   BDGridViewDelegate
->{
-    
-}
+>
 
 //
 //  This is the portfolio that's being displayed. This base class uses
@@ -74,7 +72,7 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
 //  Currently active popover controller.
 //
 
-@property (nonatomic, strong) UIPopoverController *popoverController;
+@property (nonatomic, strong) UIPopoverController *activePopoverController;
 
 //
 //  |IPAlert| object for communicating with the user. Setting this object

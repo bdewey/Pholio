@@ -40,7 +40,7 @@
 //  the width and reset the center.
 //
 
-@interface IPAlwaysCenteredTextField: UITextField { }
+@interface IPAlwaysCenteredTextField: UITextField
 
 @end
 
@@ -81,9 +81,6 @@
 
 @property (nonatomic, copy) IPSetGridControllerDidPickImageBlock currentImagePickerBlock;
 
-- (void)showSettings;
-- (void)updateBackgroundImage;
-
 @end
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -93,38 +90,10 @@
 //  And finally, the class.
 //
 
-@implementation IPEditableTitleViewController
+@implementation IPEditableTitleViewController {
 
-@synthesize portfolio           = portfolio_;
-@synthesize titleTextField      = titleTextField_;
-@synthesize defaultPicker       = defaultPicker_;
-@synthesize popoverController   = popoverController_;
-@synthesize backgroundImage     = backgroundImage_;
-@synthesize backgroundImageName = backgroundImageName_;
-@synthesize tutorialManager     = tutorialManager_;
-@synthesize overlayController   = overlayController_;
-@synthesize alertManager        = alertManager_;
-@synthesize userDefaults        = userDefaults_;
-@synthesize currentImagePickerBlock = currentImagePickerBlock_;
-
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Initializer.
-//
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-    // Custom initialization
-  }
-  return self;
+  NSString *_backgroundImageName;
 }
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Dealloc.
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -140,14 +109,6 @@
 }
 
 #pragma mark - View lifecycle
-
-/*
- // Implement loadView to create a view hierarchy programmatically, without using a nib.
- - (void)loadView
- {
- }
- */
-
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -213,7 +174,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
 
-  [self.popoverController dismissPopoverAnimated:animated];
+  [self.activePopoverController dismissPopoverAnimated:animated];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -226,7 +187,7 @@
   [super viewDidUnload];
 
   self.titleTextField = nil;
-  self.popoverController = nil;
+  self.activePopoverController = nil;
   self.defaultPicker = nil;
   self.backgroundImage = nil;
 }
@@ -256,11 +217,11 @@
 
 - (UIImagePickerController *)defaultPicker {
   
-  if (defaultPicker_ == nil) {
-    defaultPicker_ = [[UIImagePickerController alloc] init];
-    defaultPicker_.delegate = self;
+  if (_defaultPicker == nil) {
+    _defaultPicker = [[UIImagePickerController alloc] init];
+    _defaultPicker.delegate = self;
   }
-  return defaultPicker_;
+  return _defaultPicker;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -270,10 +231,10 @@
 
 - (IPAlert *)alertManager {
   
-  if (alertManager_ == nil) {
-    alertManager_ = [IPAlert defaultAlert];
+  if (_alertManager == nil) {
+    _alertManager = [IPAlert defaultAlert];
   }
-  return alertManager_;
+  return _alertManager;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -283,11 +244,11 @@
 
 - (IPUserDefaults *)userDefaults {
   
-  if (userDefaults_ == nil) {
+  if (_userDefaults == nil) {
     
-    userDefaults_ = [IPUserDefaults defaultSettings];
+    _userDefaults = [IPUserDefaults defaultSettings];
   }
-  return userDefaults_;
+  return _userDefaults;
 }
 
 #pragma mark - Properties
@@ -299,11 +260,11 @@
 
 - (NSString *)backgroundImageName {
   
-  if (backgroundImageName_ == nil) {
+  if (_backgroundImageName == nil) {
     
-    backgroundImageName_ = kDefaultBackgroundImageName;
+    _backgroundImageName = kDefaultBackgroundImageName;
   }
-  return backgroundImageName_;
+  return _backgroundImageName;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -313,7 +274,7 @@
 
 - (void)setBackgroundImageName:(NSString *)backgroundImageName {
   
-  backgroundImageName_ = [backgroundImageName copy];
+  _backgroundImageName = [backgroundImageName copy];
   [self updateBackgroundImage];
 }
 
@@ -331,11 +292,11 @@
 
 - (IPTutorialManager *)tutorialManager {
   
-  if (tutorialManager_ == nil) {
+  if (_tutorialManager == nil) {
     
-    tutorialManager_ = [IPTutorialManager sharedManager];
+    _tutorialManager = [IPTutorialManager sharedManager];
   }
-  return tutorialManager_;
+  return _tutorialManager;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -350,8 +311,8 @@
     return;
   }
   
-  BDOverlayViewController *oldController = overlayController_;
-  overlayController_ = overlayController;
+  BDOverlayViewController *oldController = _overlayController;
+  _overlayController = overlayController;
   overlayController.view.alpha = 0.0;
   [self.view addSubview:overlayController.view];
   NSTimeInterval duration = (animated) ? 0.2 : 0.0;
@@ -388,8 +349,8 @@
   
   self.currentImagePickerBlock = block;
   [self dismissPopover];
-  self.popoverController = [[UIPopoverController alloc] initWithContentViewController:self.defaultPicker];
-  [self.popoverController presentPopoverFromRect:rect 
+  self.activePopoverController = [[UIPopoverController alloc] initWithContentViewController:self.defaultPicker];
+  [self.activePopoverController presentPopoverFromRect:rect 
                                           inView:view 
                         permittedArrowDirections:UIPopoverArrowDirectionAny 
                                         animated:YES];
@@ -480,8 +441,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 - (void)showSettings {
   
   [self dismissPopover];
-  self.popoverController = [self settingsPopover];
-  [self.popoverController presentPopoverFromBarButtonItem:self.navigationItem.rightBarButtonItem 
+  self.activePopoverController = [self settingsPopover];
+  [self.activePopoverController presentPopoverFromBarButtonItem:self.navigationItem.rightBarButtonItem 
                                  permittedArrowDirections:UIPopoverArrowDirectionAny 
                                                  animated:YES];
 }
@@ -495,7 +456,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
   
-  _GTMDevAssert(popoverController == self.popoverController, 
+  _GTMDevAssert(popoverController == self.activePopoverController, 
                 @"Got a dismiss notification for a popover controller we don't own!");
   
   //
@@ -503,7 +464,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
   //  send an extraneous |dismissPopoverAnimated:| message on |dismissPopover|.
   //
   
-  self.popoverController = nil;
+  self.activePopoverController = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -513,8 +474,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
 - (void)dismissPopover {
   
-  [self.popoverController dismissPopoverAnimated:YES];
-  self.popoverController = nil;
+  [self.activePopoverController dismissPopoverAnimated:YES];
+  self.activePopoverController = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -524,11 +485,11 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
 - (void)setPopoverController:(UIPopoverController *)popoverController {
 
-  popoverController_ = popoverController;
+  _activePopoverController = popoverController;
   
-  _GTMDevAssert(self.popoverController.delegate == nil,
+  _GTMDevAssert(self.activePopoverController.delegate == nil,
                 @"Popover controller should not already have a delegate");
-  self.popoverController.delegate = self;
+  self.activePopoverController.delegate = self;
 }
 
 #pragma mark - MFMailComposeControllerDelegate

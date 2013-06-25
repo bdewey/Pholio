@@ -654,11 +654,11 @@
   
   UIPopoverController *settingsPopover = [self settingsPopover];
   [self dismissPopover];
-  self.popoverController = settingsPopover;
-  [self.popoverController presentPopoverFromRect:self.gridHeader.settingsButton.frame 
-                                          inView:self.gridHeader.view 
-                        permittedArrowDirections:UIPopoverArrowDirectionAny 
-                                        animated:YES];
+  self.activePopoverController = settingsPopover;
+  [self.activePopoverController presentPopoverFromRect:self.gridHeader.settingsButton.frame
+                                                inView:self.gridHeader.view
+                              permittedArrowDirections:UIPopoverArrowDirectionAny
+                                              animated:YES];
 }
 
 #pragma mark - IPSettingsControllerDelegate
@@ -927,7 +927,7 @@
    }
                                                                  setPopover:
    ^(UIPopoverController *popover) {
-     self.popoverController = popover;
+     self.activePopoverController = popover;
    }];
 }
 
@@ -957,7 +957,7 @@
      }];
    }
    setPopover:^(UIPopoverController *popover) {
-     self.popoverController = popover;
+     self.activePopoverController = popover;
    }
    ];
 }

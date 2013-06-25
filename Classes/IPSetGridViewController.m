@@ -435,7 +435,7 @@
     }
   }
    setPopover:^(UIPopoverController *popover) {
-     self.popoverController = popover;
+     self.activePopoverController = popover;
    }
    ];
 }
