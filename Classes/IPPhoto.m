@@ -179,13 +179,13 @@ CGFloat kIPPhotoMaxEdgeSize;
 
   NSError *error;
   NSString *targetDirectory = [IPPhoto thumbnailDirectory];
-  _GTMDevLog(@"%s -- trying to create %@", __PRETTY_FUNCTION__, targetDirectory);
+  NSLog(@"%s -- trying to create %@", __PRETTY_FUNCTION__, targetDirectory);
   if(![[NSFileManager defaultManager] createDirectoryAtPath:targetDirectory
                                 withIntermediateDirectories:YES 
                                                  attributes:nil 
                                                       error:&error]) {
     
-    _GTMDevLog(@"%s -- unable to create thumbnails directory: %@ (%@)", 
+    NSLog(@"%s -- unable to create thumbnails directory: %@ (%@)", 
                __PRETTY_FUNCTION__, 
                [IPPhoto thumbnailDirectory], 
                error);
@@ -195,7 +195,7 @@ CGFloat kIPPhotoMaxEdgeSize;
                                                        isDirectory:&directory];
     if (exists && !directory) {
       
-      _GTMDevLog(@"%s -- %@ exists, but is not a directory. Deleting and retrying.",
+      NSLog(@"%s -- %@ exists, but is not a directory. Deleting and retrying.",
                  __PRETTY_FUNCTION__,
                  targetDirectory);
       [[NSFileManager defaultManager] removeItemAtPath:targetDirectory error:NULL];
@@ -204,7 +204,7 @@ CGFloat kIPPhotoMaxEdgeSize;
                                                       attributes:nil 
                                                            error:&error]) {
         
-        _GTMDevLog(@"%s -- still could not create %@ (%@)",
+        NSLog(@"%s -- still could not create %@ (%@)",
                    __PRETTY_FUNCTION__,
                    targetDirectory,
                    error);
@@ -330,7 +330,7 @@ CGFloat kIPPhotoMaxEdgeSize;
     NSRange location = [directoryName rangeOfString:prefix];
     if (location.location == 0) {
       
-      _GTMDevLog(@"%s -- removing directory %@", __PRETTY_FUNCTION__, directoryName);
+      NSLog(@"%s -- removing directory %@", __PRETTY_FUNCTION__, directoryName);
       [fileManager removeItemAtPath:[directoryName asPathInCachesFolder] error:NULL];
     }
   }
@@ -383,14 +383,14 @@ CGFloat kIPPhotoMaxEdgeSize;
     //  has not been properly created. Make it and retry.
     //
     
-    _GTMDevLog(@"%s -- failed to save to %@ (%@). Trying to create directory, and retrying",
+    NSLog(@"%s -- failed to save to %@ (%@). Trying to create directory, and retrying",
                __PRETTY_FUNCTION__,
                thumbnailPath,
                error);
     [IPPhoto createThumbnailDirectory];
     if (![thumbnailData writeToFile:thumbnailPath options:NSDataWritingAtomic error:&error]) {
       
-      _GTMDevLog(@"%s -- really finally failed to save %@ (%@)",
+      NSLog(@"%s -- really finally failed to save %@ (%@)",
                  __PRETTY_FUNCTION__,
                  thumbnailPath,
                  error);
@@ -406,12 +406,12 @@ CGFloat kIPPhotoMaxEdgeSize;
 - (void)saveImageData {
   
   NSData *imageData = UIImageJPEGRepresentation(image_, 0.8);
-  _GTMDevAssert(image_ != nil, @"Cannot save nil image");
-  _GTMDevAssert(imageData != nil, 
+  NSAssert(image_ != nil, @"Cannot save nil image");
+  NSAssert(imageData != nil, 
                 @"Cannot get JPEG representation of image %@",
                 image_);
   
-  _GTMDevLog(@"%s -- saving image to %@", __PRETTY_FUNCTION__, self.filename);
+  NSLog(@"%s -- saving image to %@", __PRETTY_FUNCTION__, self.filename);
   [imageData writeToFile:self.filename atomically:YES];
 }
 
@@ -537,7 +537,7 @@ CGFloat kIPPhotoMaxEdgeSize;
   }
   if (![[NSFileManager defaultManager] fileExistsAtPath:thumbnailFilename]) {
 
-    _GTMDevAssert(NO, @"Called -[IPPhoto thumbnail] before calling -[IPPhoto optimize]");
+    NSAssert(NO, @"Called -[IPPhoto thumbnail] before calling -[IPPhoto optimize]");
     return nil;
   }
   
@@ -601,7 +601,7 @@ CGFloat kIPPhotoMaxEdgeSize;
     NSURL *imageUrl = [NSURL fileURLWithPath:self.filename];
     CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)imageUrl, NULL);
     CFDictionaryRef imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, NULL);
-    _GTMDevLog(@"%s -- got properties %@", 
+    NSLog(@"%s -- got properties %@", 
                __PRETTY_FUNCTION__,
                imageProperties);
     CFNumberRef pixelWidthRef  = CFDictionaryGetValue(imageProperties, kCGImagePropertyPixelWidth);
@@ -609,7 +609,7 @@ CGFloat kIPPhotoMaxEdgeSize;
     CGFloat pixelWidth = [(__bridge NSNumber *)pixelWidthRef floatValue];
     CGFloat pixelHeight = [(__bridge NSNumber *)pixelHeightRef floatValue];
     CGFloat maxEdge = MAX(pixelWidth, pixelHeight);
-    _GTMDevLog(@"%s -- found max edge = %f (%f, %f)",
+    NSLog(@"%s -- found max edge = %f (%f, %f)",
                __PRETTY_FUNCTION__,
                maxEdge,
                pixelWidth,
@@ -642,7 +642,7 @@ CGFloat kIPPhotoMaxEdgeSize;
     UIImage *tempThumbnail = [self thumbnailFromImage:image_];
     [self saveThumbnail:tempThumbnail toPath:self.thumbnailFilename];
     thumbnail_ = [[UIImage alloc] initWithContentsOfFile:self.thumbnailFilename];
-    _GTMDevAssert([[NSFileManager defaultManager] fileExistsAtPath:self.thumbnailFilename],
+    NSAssert([[NSFileManager defaultManager] fileExistsAtPath:self.thumbnailFilename],
                   @"Thumbnail file should have been saved");
     
     //
@@ -824,7 +824,7 @@ CGFloat kIPPhotoMaxEdgeSize;
     
     [self image];
     longEdge = MAX(self.imageSize.width, self.imageSize.height);
-    _GTMDevAssert(longEdge != 0, @"Should not have zero edge dimension");
+    NSAssert(longEdge != 0, @"Should not have zero edge dimension");
     
     //
     //  Save the portfolio that contains this image, so the newly calcuated
@@ -833,7 +833,7 @@ CGFloat kIPPhotoMaxEdgeSize;
     
     IPPortfolio *portfolio = self.parent.parent.parent;
     [portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
-    _GTMDevLog(@"%s -- just saved portfolio to persist image size", __PRETTY_FUNCTION__);
+    NSLog(@"%s -- just saved portfolio to persist image size", __PRETTY_FUNCTION__);
   }
   CGFloat minScale = kImageLongEdgeMinRescaleSize / longEdge;
   CGFloat log = ceilf(log2f(minScale));
@@ -844,12 +844,12 @@ CGFloat kIPPhotoMaxEdgeSize;
     //  as one level.
     //
     
-    _GTMDevLog(@"%s -- image too small; reporting one level of detail", 
+    NSLog(@"%s -- image too small; reporting one level of detail", 
                __PRETTY_FUNCTION__);
     return 1;
   }
   size_t detail = -1.0 * log + 1;
-  _GTMDevLog(@"%s -- (%f x %f) minScale = %f, log = %f, detail = %ld",
+  NSLog(@"%s -- (%f x %f) minScale = %f, log = %f, detail = %ld",
              __PRETTY_FUNCTION__,
              self.imageSize.width,
              self.imageSize.height,
@@ -872,7 +872,7 @@ CGFloat kIPPhotoMaxEdgeSize;
   CGFloat minScale = kImageLongEdgeMinRescaleSize / longEdge;
   CGFloat log = ceilf(log2f(minScale));
   CGFloat scale = powf(2.0, log);
-  _GTMDevAssert(longEdge * scale >= kImageLongEdgeMinRescaleSize, 
+  NSAssert(longEdge * scale >= kImageLongEdgeMinRescaleSize, 
                 @"Scale should keep long edge less than %d, but it is %f",
                 kImageLongEdgeMinRescaleSize,
                 longEdge * scale);
@@ -952,7 +952,7 @@ CGFloat kIPPhotoMaxEdgeSize;
   NSUInteger expectedTileCount = ceilf(scaledSize.width / tileSize.width) *
                                  ceilf(scaledSize.height / tileSize.height);
   
-  _GTMDevLog(@"%s -- expected %d tiles, found %d",
+  NSLog(@"%s -- expected %d tiles, found %d",
              __PRETTY_FUNCTION__,
              expectedTileCount,
              [tiles count]);
