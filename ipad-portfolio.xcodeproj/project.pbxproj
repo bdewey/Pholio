@@ -51,14 +51,6 @@
 		D30A433913138E7800E6EBB7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D30A433713138E7800E6EBB7 /* InfoPlist.strings */; };
 		D30A433F13138E7800E6EBB7 /* UnitTestsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D30A433E13138E7800E6EBB7 /* UnitTestsAppDelegate.m */; };
 		D30A434213138E7800E6EBB7 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30A434013138E7800E6EBB7 /* MainWindow.xib */; };
-		D30A434813138EA200E6EBB7 /* GTMIPhoneUnitTestDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D30A42DB130F9E2A00E6EBB7 /* GTMIPhoneUnitTestDelegate.m */; };
-		D30A434913138EA200E6EBB7 /* GTMIPhoneUnitTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = D30A42DC130F9E2A00E6EBB7 /* GTMIPhoneUnitTestMain.m */; };
-		D30A434A13138EA200E6EBB7 /* GTMNSObject+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = D30A42DF130F9E2A00E6EBB7 /* GTMNSObject+UnitTesting.m */; };
-		D30A434B13138EA200E6EBB7 /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = D30A42E1130F9E2A00E6EBB7 /* GTMObjC2Runtime.m */; };
-		D30A434C13138EA200E6EBB7 /* GTMSenTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D30A42E5130F9E2A00E6EBB7 /* GTMSenTestCase.m */; };
-		D30A434D13138EA200E6EBB7 /* GTMSystemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = D30A42E7130F9E2A00E6EBB7 /* GTMSystemVersion.m */; };
-		D30A434E13138EA200E6EBB7 /* GTMUnitTestDevLog.m in Sources */ = {isa = PBXBuildFile; fileRef = D30A42EB130F9E2A00E6EBB7 /* GTMUnitTestDevLog.m */; };
-		D30A434F13138F1900E6EBB7 /* GTMRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = D30A42E3130F9E2A00E6EBB7 /* GTMRegex.m */; };
 		D30E43701363D9FD0025BDAB /* IPPortfolioGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D30E436E1363D9FD0025BDAB /* IPPortfolioGridViewController.m */; };
 		D30E43711363D9FD0025BDAB /* IPPortfolioGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D30E436E1363D9FD0025BDAB /* IPPortfolioGridViewController.m */; };
 		D30E43721363D9FD0025BDAB /* IPPortfolioGridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30E436F1363D9FD0025BDAB /* IPPortfolioGridViewController.xib */; };
@@ -221,8 +213,6 @@
 		D3D843471480A59700819497 /* BDOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D843441480A59700819497 /* BDOverlayViewController.xib */; };
 		D3D843481480A59700819497 /* BDOverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D843441480A59700819497 /* BDOverlayViewController.xib */; };
 		D3D8434C1480AD5A00819497 /* BDOverlayViewController-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D8434B1480AD5A00819497 /* BDOverlayViewController-test.m */; };
-		D3D8434F1480B1D100819497 /* GTMUIKit+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D8434E1480B1D100819497 /* GTMUIKit+UnitTesting.m */; };
-		D3D843521480B29A00819497 /* GTMCALayer+UnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D843511480B29A00819497 /* GTMCALayer+UnitTesting.m */; };
 		D3D843551480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D843541480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png */; };
 		D3D843571480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D843561480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png */; };
 		D3DD1C99148DF81600F4F4E6 /* BDOverlayViewController_skipDisabled.10.7.2.iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = D3DD1C98148DF81600F4F4E6 /* BDOverlayViewController_skipDisabled.10.7.2.iPhone.png */; };
@@ -267,7 +257,6 @@
 		D3F0F75E134C2BA90059EA0F /* NSString+TestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F75D134C2BA90059EA0F /* NSString+TestHelper.m */; };
 		D3F0F762134C2F3F0059EA0F /* IPPage.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20FA3120B4BFA008F247D /* IPPage.m */; };
 		D3F0F763134C2F680059EA0F /* IPPhoto+TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F760134C2D060059EA0F /* IPPhoto+TestHelpers.m */; };
-		D3F0F765134C3FCB0059EA0F /* GTMDevLogUnitTestingBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F764134C3FCB0059EA0F /* GTMDevLogUnitTestingBridge.m */; };
 		D3F61153123C043B007F789A /* 40-inbox.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F61151123C043B007F789A /* 40-inbox.png */; };
 		D3FF3ADF1480D6050088D350 /* IPTutorialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FF3ADE1480D6050088D350 /* IPTutorialManager.m */; };
 		D3FF3AE01480D6050088D350 /* IPTutorialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FF3ADE1480D6050088D350 /* IPTutorialManager.m */; };
@@ -321,24 +310,6 @@
 		4FA5F69416C1462F8064DEC5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		CF5D659A531043CE853DD75E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
-		D30A42D8130F9E2A00E6EBB7 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
-		D30A42D9130F9E2A00E6EBB7 /* GTMGarbageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMGarbageCollection.h; sourceTree = "<group>"; };
-		D30A42DA130F9E2A00E6EBB7 /* GTMIPhoneUnitTestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMIPhoneUnitTestDelegate.h; sourceTree = "<group>"; };
-		D30A42DB130F9E2A00E6EBB7 /* GTMIPhoneUnitTestDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMIPhoneUnitTestDelegate.m; sourceTree = "<group>"; };
-		D30A42DC130F9E2A00E6EBB7 /* GTMIPhoneUnitTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMIPhoneUnitTestMain.m; sourceTree = "<group>"; };
-		D30A42DD130F9E2A00E6EBB7 /* GTMNSNumber+64Bit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSNumber+64Bit.h"; sourceTree = "<group>"; };
-		D30A42DE130F9E2A00E6EBB7 /* GTMNSObject+UnitTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSObject+UnitTesting.h"; sourceTree = "<group>"; };
-		D30A42DF130F9E2A00E6EBB7 /* GTMNSObject+UnitTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSObject+UnitTesting.m"; sourceTree = "<group>"; };
-		D30A42E0130F9E2A00E6EBB7 /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMObjC2Runtime.h; sourceTree = "<group>"; };
-		D30A42E1130F9E2A00E6EBB7 /* GTMObjC2Runtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMObjC2Runtime.m; sourceTree = "<group>"; };
-		D30A42E2130F9E2A00E6EBB7 /* GTMRegex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMRegex.h; sourceTree = "<group>"; };
-		D30A42E3130F9E2A00E6EBB7 /* GTMRegex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMRegex.m; sourceTree = "<group>"; };
-		D30A42E4130F9E2A00E6EBB7 /* GTMSenTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMSenTestCase.h; sourceTree = "<group>"; };
-		D30A42E5130F9E2A00E6EBB7 /* GTMSenTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMSenTestCase.m; sourceTree = "<group>"; };
-		D30A42E6130F9E2A00E6EBB7 /* GTMSystemVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMSystemVersion.h; sourceTree = "<group>"; };
-		D30A42E7130F9E2A00E6EBB7 /* GTMSystemVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMSystemVersion.m; sourceTree = "<group>"; };
-		D30A42EA130F9E2A00E6EBB7 /* GTMUnitTestDevLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMUnitTestDevLog.h; sourceTree = "<group>"; };
-		D30A42EB130F9E2A00E6EBB7 /* GTMUnitTestDevLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMUnitTestDevLog.m; sourceTree = "<group>"; };
 		D30A432F13138E7800E6EBB7 /* UnitTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D30A433613138E7800E6EBB7 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		D30A433813138E7800E6EBB7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -511,10 +482,6 @@
 		D3D843431480A59700819497 /* BDOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDOverlayViewController.m; sourceTree = "<group>"; };
 		D3D843441480A59700819497 /* BDOverlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BDOverlayViewController.xib; sourceTree = "<group>"; };
 		D3D8434B1480AD5A00819497 /* BDOverlayViewController-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BDOverlayViewController-test.m"; sourceTree = "<group>"; };
-		D3D8434D1480B1D100819497 /* GTMUIKit+UnitTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMUIKit+UnitTesting.h"; sourceTree = "<group>"; };
-		D3D8434E1480B1D100819497 /* GTMUIKit+UnitTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMUIKit+UnitTesting.m"; sourceTree = "<group>"; };
-		D3D843501480B29A00819497 /* GTMCALayer+UnitTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMCALayer+UnitTesting.h"; sourceTree = "<group>"; };
-		D3D843511480B29A00819497 /* GTMCALayer+UnitTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMCALayer+UnitTesting.m"; sourceTree = "<group>"; };
 		D3D843541480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BDOverlayViewController_testDrawing.10.7.2.iPhone.png; sourceTree = "<group>"; };
 		D3D843561480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png; sourceTree = "<group>"; };
 		D3DD1C98148DF81600F4F4E6 /* BDOverlayViewController_skipDisabled.10.7.2.iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BDOverlayViewController_skipDisabled.10.7.2.iPhone.png; sourceTree = "<group>"; };
@@ -561,7 +528,6 @@
 		D3F0F75D134C2BA90059EA0F /* NSString+TestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+TestHelper.m"; path = "../UnitTests/NSString+TestHelper.m"; sourceTree = "<group>"; };
 		D3F0F75F134C2D060059EA0F /* IPPhoto+TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IPPhoto+TestHelpers.h"; sourceTree = "<group>"; };
 		D3F0F760134C2D060059EA0F /* IPPhoto+TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPhoto+TestHelpers.m"; sourceTree = "<group>"; };
-		D3F0F764134C3FCB0059EA0F /* GTMDevLogUnitTestingBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMDevLogUnitTestingBridge.m; sourceTree = "<group>"; };
 		D3F61151123C043B007F789A /* 40-inbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "40-inbox.png"; sourceTree = "<group>"; };
 		D3FF3ADD1480D6050088D350 /* IPTutorialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPTutorialManager.h; sourceTree = "<group>"; };
 		D3FF3ADE1480D6050088D350 /* IPTutorialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPTutorialManager.m; sourceTree = "<group>"; };
@@ -710,7 +676,6 @@
 				D33C3627162E165200772BA6 /* Icon-72@2x.png */,
 				D3197C2B15491C6F00F0DAC0 /* Entitlements.entitlements */,
 				D3197C27154912A900F0DAC0 /* libz.dylib */,
-				D30A42D5130F9DEE00E6EBB7 /* GTM */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -792,36 +757,6 @@
 				4FA5F69416C1462F8064DEC5 /* libPods.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		D30A42D5130F9DEE00E6EBB7 /* GTM */ = {
-			isa = PBXGroup;
-			children = (
-				D3D843501480B29A00819497 /* GTMCALayer+UnitTesting.h */,
-				D3D843511480B29A00819497 /* GTMCALayer+UnitTesting.m */,
-				D3D8434D1480B1D100819497 /* GTMUIKit+UnitTesting.h */,
-				D3D8434E1480B1D100819497 /* GTMUIKit+UnitTesting.m */,
-				D3F0F764134C3FCB0059EA0F /* GTMDevLogUnitTestingBridge.m */,
-				D30A42D8130F9E2A00E6EBB7 /* GTMDefines.h */,
-				D30A42D9130F9E2A00E6EBB7 /* GTMGarbageCollection.h */,
-				D30A42DA130F9E2A00E6EBB7 /* GTMIPhoneUnitTestDelegate.h */,
-				D30A42DB130F9E2A00E6EBB7 /* GTMIPhoneUnitTestDelegate.m */,
-				D30A42DC130F9E2A00E6EBB7 /* GTMIPhoneUnitTestMain.m */,
-				D30A42DD130F9E2A00E6EBB7 /* GTMNSNumber+64Bit.h */,
-				D30A42DE130F9E2A00E6EBB7 /* GTMNSObject+UnitTesting.h */,
-				D30A42DF130F9E2A00E6EBB7 /* GTMNSObject+UnitTesting.m */,
-				D30A42E0130F9E2A00E6EBB7 /* GTMObjC2Runtime.h */,
-				D30A42E1130F9E2A00E6EBB7 /* GTMObjC2Runtime.m */,
-				D30A42E2130F9E2A00E6EBB7 /* GTMRegex.h */,
-				D30A42E3130F9E2A00E6EBB7 /* GTMRegex.m */,
-				D30A42E4130F9E2A00E6EBB7 /* GTMSenTestCase.h */,
-				D30A42E5130F9E2A00E6EBB7 /* GTMSenTestCase.m */,
-				D30A42E6130F9E2A00E6EBB7 /* GTMSystemVersion.h */,
-				D30A42E7130F9E2A00E6EBB7 /* GTMSystemVersion.m */,
-				D30A42EA130F9E2A00E6EBB7 /* GTMUnitTestDevLog.h */,
-				D30A42EB130F9E2A00E6EBB7 /* GTMUnitTestDevLog.m */,
-			);
-			path = GTM;
 			sourceTree = "<group>";
 		};
 		D30A433413138E7800E6EBB7 /* UnitTests */ = {
@@ -1432,14 +1367,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D30A433F13138E7800E6EBB7 /* UnitTestsAppDelegate.m in Sources */,
-				D30A434813138EA200E6EBB7 /* GTMIPhoneUnitTestDelegate.m in Sources */,
-				D30A434913138EA200E6EBB7 /* GTMIPhoneUnitTestMain.m in Sources */,
-				D30A434A13138EA200E6EBB7 /* GTMNSObject+UnitTesting.m in Sources */,
-				D30A434B13138EA200E6EBB7 /* GTMObjC2Runtime.m in Sources */,
-				D30A434C13138EA200E6EBB7 /* GTMSenTestCase.m in Sources */,
-				D30A434D13138EA200E6EBB7 /* GTMSystemVersion.m in Sources */,
-				D30A434E13138EA200E6EBB7 /* GTMUnitTestDevLog.m in Sources */,
-				D30A434F13138F1900E6EBB7 /* GTMRegex.m in Sources */,
 				D37EAFA71314D061006FC137 /* UIImage+Alpha.m in Sources */,
 				D37EAFA81314D061006FC137 /* UIImage+Resize.m in Sources */,
 				D37EAFA91314D061006FC137 /* UIImage+RoundedCorner.m in Sources */,
@@ -1447,7 +1374,6 @@
 				D3F0F75E134C2BA90059EA0F /* NSString+TestHelper.m in Sources */,
 				D3F0F762134C2F3F0059EA0F /* IPPage.m in Sources */,
 				D3F0F763134C2F680059EA0F /* IPPhoto+TestHelpers.m in Sources */,
-				D3F0F765134C3FCB0059EA0F /* GTMDevLogUnitTestingBridge.m in Sources */,
 				D31E9369134D6E29000F5494 /* IPSet-test.m in Sources */,
 				D31E936D134D6EDD000F5494 /* IPPage+TestHelpers.m in Sources */,
 				D31E936E134D71F8000F5494 /* IPSet.m in Sources */,
@@ -1524,8 +1450,6 @@
 				0A31C00D142CF9F6007E95E1 /* IPDropBoxAssetsSource-test.m in Sources */,
 				D3D843461480A59700819497 /* BDOverlayViewController.m in Sources */,
 				D3D8434C1480AD5A00819497 /* BDOverlayViewController-test.m in Sources */,
-				D3D8434F1480B1D100819497 /* GTMUIKit+UnitTesting.m in Sources */,
-				D3D843521480B29A00819497 /* GTMCALayer+UnitTesting.m in Sources */,
 				D3FF3AE01480D6050088D350 /* IPTutorialManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

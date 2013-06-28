@@ -5,8 +5,7 @@
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
     #import <UIKit/UIKit.h>
-    #import "GTMDefines.h"
-#import <DDLog.h>
+    #import <DDLog.h>
 #endif
 
 #import "IPStrings.h"
