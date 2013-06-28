@@ -27,13 +27,13 @@
 
 + (IPPage *)pageWithPhotoCount:(NSUInteger)count {
   
-  IPPage *page = [[[IPPage alloc] init] autorelease];
+  IPPage *page = [[IPPage alloc] init];
   for (NSUInteger i = 0; i < count; i++) {
     IPPhoto *photo = [IPPhoto photoWithCaption:[NSString stringWithFormat:@"Photo %d", i]];
     [page insertObject:photo inPhotosAtIndex:i];
   }
-  _GTMDevAssert([page countOfPhotos] == count, 
-                @"Should have the expected number of photos");
+  NSAssert([page countOfPhotos] == count,
+           @"Should have the expected number of photos");
   return page;
 }
 

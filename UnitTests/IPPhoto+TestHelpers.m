@@ -24,7 +24,7 @@
 @implementation IPPhoto (TestHelpers)
 
 + (IPPhoto *)photoWithCaption:(NSString *)caption {
-  IPPhoto *photo = [[[IPPhoto alloc] init] autorelease];
+  IPPhoto *photo = [[IPPhoto alloc] init];
   photo.caption = caption;
   return photo;
 }

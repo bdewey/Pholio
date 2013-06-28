@@ -7,4 +7,8 @@
 #ifdef __OBJC__
   #import <UIKit/UIKit.h>
   #import <Foundation/Foundation.h>
+#import <DDLog.h>
 #endif
+
+#define ddLogLevel LOG_LEVEL_VERBOSE
+#import "IPStrings.h"

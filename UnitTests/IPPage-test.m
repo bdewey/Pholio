@@ -18,15 +18,14 @@
 //  limitations under the License.
 //
 
-#import "GTMSenTestCase.h"
+#import <SenTestingKit/SenTestingKit.h>
 #import <UIKit/UIKit.h>
 #import "IPPage.h"
 #import "IPPhoto+TestHelpers.h"
 #import "IPPage+TestHelpers.h"
-#import "NSObject+DeallocUnitTests.h"
 #import "NSString+TestHelper.h"
 
-@interface IPPage_test : GTMTestCase {
+@interface IPPage_test : SenTestCase {
   
 }
 
@@ -50,7 +49,7 @@
   //  Create a page. Put some photos in it. Save it.
   //
   
-  IPPage *page = [[[IPPage alloc] init] autorelease];
+  IPPage *page = [[IPPage alloc] init];
   [page insertObject:[IPPhoto photoWithCaption:@"Photo zero"] inPhotosAtIndex:0];
   [page insertObject:[IPPhoto photoWithCaption:@"Photo one"] inPhotosAtIndex:1];
   STAssertEquals((NSUInteger)2, [page countOfPhotos], @"Should have 2 photos");
@@ -62,10 +61,7 @@
   
   IPPage *newPage = (IPPage *)[NSKeyedUnarchiver unarchiveObjectWithFile:testFile];
   STAssertEquals((NSUInteger)2, [newPage countOfPhotos], @"Should get all photos");
-  
-  STAssertEqualStrings(@"Photo one", 
-                       [newPage valueForKeyPath:@"caption" forPhoto:1], 
-                       @"Should get photo caption");
+  STAssertTrue([[newPage valueForKeyPath:@"caption" forPhoto:1] isEqualToString:@"Photo one"], nil);
 }
 
 //
@@ -74,24 +70,21 @@
 
 - (void)testCopy {
   
-  IPPage *page = [[[IPPage alloc] init] autorelease];
+  IPPage *page = [[IPPage alloc] init];
   [page insertObject:[IPPhoto photoWithCaption:@"testCopy"] inPhotosAtIndex:0];
-  IPPage *page2 = [[page copy] autorelease];
+  IPPage *page2 = [page copy];
   STAssertNotNil(page2, @"Should have *something* after copy");
   STAssertEquals((NSUInteger)1, [page2 countOfPhotos], 
                  @"Should have the right number of photos");
-  STAssertEqualStrings(@"testCopy", 
-                       [page2 valueForKeyPath:@"caption" forPhoto:0],
-                       @"Should copy photo and caption");
+  STAssertTrue([[page2 valueForKeyPath:@"caption" forPhoto:0] isEqualToString:@"testCopy"], nil);
   [page insertObject:[IPPhoto photoWithCaption:@"testCopy2"] inPhotosAtIndex:1];
   STAssertEquals((NSUInteger)2, [page countOfPhotos], nil);
   STAssertEquals((NSUInteger)1,
                  [page2 countOfPhotos],
                  @"Pages should have independent photo arrays");
   [page setValue:@"modified" forKeyPath:@"caption" forPhoto:0];
-  STAssertEqualStrings(@"modified", [page valueForKeyPath:@"caption" forPhoto:0], nil);
-  STAssertEqualStrings(@"testCopy", [page2 valueForKeyPath:@"caption" forPhoto:0], 
-                       @"Photos should have independent captions");
+  STAssertTrue([[page valueForKeyPath:@"caption" forPhoto:0] isEqualToString:@"modified"], nil);
+  STAssertTrue([[page2 valueForKeyPath:@"caption" forPhoto:0] isEqualToString:@"testCopy"], nil);
 }
 
 //
@@ -102,22 +95,16 @@
   
   IPPage *page = [[IPPage alloc] init];
   NSUInteger desiredPhotos = 8;
-  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-  for (int i = 0; i < desiredPhotos; i++) {
-    [page insertObject:[IPPhoto photoWithCaption:@"testHierarchy"] inPhotosAtIndex:i];
+  @autoreleasepool {
+    for (int i = 0; i < desiredPhotos; i++) {
+      [page insertObject:[IPPhoto photoWithCaption:@"testHierarchy"] inPhotosAtIndex:i];
+    }
   }
-  [pool drain];
   
-  IPPhoto *firstPhoto = [[[page objectInPhotosAtIndex:0] retain] autorelease];
+  IPPhoto *firstPhoto = [page objectInPhotosAtIndex:0];
   STAssertEquals(page, firstPhoto.parent, @"Parent pointer should be set");
   [page removeObjectFromPhotosAtIndex:0];
   STAssertNil(firstPhoto.parent, @"Parent pointer should get cleared on removal");
-  
-  [NSObject clearDeallocCallCounter];
-  [page release];
-  STAssertEquals(desiredPhotos, 
-                 [NSObject deallocCallCounter], 
-                 @"Hierarchy should be gone");
 }
 
 @end

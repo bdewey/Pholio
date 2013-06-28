@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A02DD43177D628D009B5456 /* IPAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3A56513540F8B0058145D /* IPAlert.m */; };
+		0A02DD44177D629D009B5456 /* IPSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20FB3120BBB40008F247D /* IPSet.m */; };
+		0A02DD45177D629D009B5456 /* IPPortfolio.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20FBA120BBEBD008F247D /* IPPortfolio.m */; };
 		0A1372EC13E141EA004469E4 /* IPToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD8CF0D13E13CA000BD88E6 /* IPToggleCell.m */; };
 		0A1F10A1177D45C500D8A070 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A1F10A0177D45C500D8A070 /* SenTestingKit.framework */; };
 		0A1F10A2177D45C500D8A070 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -36,6 +39,15 @@
 		0AB426E413DCE87400895092 /* 19-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB426E213DCE87400895092 /* 19-gear.png */; };
 		0AB426EB13DD2D1700895092 /* UIImage+ColorMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB426EA13DD2D1700895092 /* UIImage+ColorMask.m */; };
 		0AB426EC13DD2D1700895092 /* UIImage+ColorMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB426EA13DD2D1700895092 /* UIImage+ColorMask.m */; };
+		0AB9B6AD177D5C8D000C79BC /* IPPage-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F75A134C2A0C0059EA0F /* IPPage-test.m */; };
+		0AB9B6AE177D5C99000C79BC /* IPPage.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20FA3120B4BFA008F247D /* IPPage.m */; };
+		0AB9B6AF177D5CA5000C79BC /* IPPage+TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D31E936C134D6EDD000F5494 /* IPPage+TestHelpers.m */; };
+		0AB9B6B1177D5D4A000C79BC /* IPPhoto+TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F760134C2D060059EA0F /* IPPhoto+TestHelpers.m */; };
+		0AB9B6B2177D5D58000C79BC /* IPSet+TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D31E9373134D8232000F5494 /* IPSet+TestHelpers.m */; };
+		0AB9B6B3177D5D58000C79BC /* IPPortfolio+TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF7539134E6C6A00439546 /* IPPortfolio+TestHelpers.m */; };
+		0AB9B6B4177D5D58000C79BC /* NSObject+NullAwareProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A392F11358A8AC00DBAA36 /* NSObject+NullAwareProperties.m */; };
+		0AB9B6B5177D5D58000C79BC /* IPAlertConfirmTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A25E921388D1C600FA80B7 /* IPAlertConfirmTest.m */; };
+		0AB9B6B7177D5FC6000C79BC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB9B6B6177D5FC6000C79BC /* libPods.a */; };
 		0AD8CF0E13E13CA000BD88E6 /* IPToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD8CF0D13E13CA000BD88E6 /* IPToggleCell.m */; };
 		0AEDDB08141E9E6C0091D8E7 /* folder48.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AEDDB07141E9E6C0091D8E7 /* folder48.gif */; };
 		0AEDDB0C141EA1190091D8E7 /* IPDropBoxSelectableAsset-test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEDDB0B141EA1190091D8E7 /* IPDropBoxSelectableAsset-test.m */; };
@@ -69,10 +81,6 @@
 		D318CB8913B5C79100F90860 /* IPOptimizingPhotoNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB8513B5BD8B00F90860 /* IPOptimizingPhotoNotification.m */; };
 		D3197C28154912A900F0DAC0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3197C27154912A900F0DAC0 /* libz.dylib */; };
 		D31E9369134D6E29000F5494 /* IPSet-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D31E9368134D6E29000F5494 /* IPSet-test.m */; };
-		D31E936D134D6EDD000F5494 /* IPPage+TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D31E936C134D6EDD000F5494 /* IPPage+TestHelpers.m */; };
-		D31E936E134D71F8000F5494 /* IPSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20FB3120BBB40008F247D /* IPSet.m */; };
-		D31E9371134D7A83000F5494 /* NSObject+DeallocUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D31E9370134D7A83000F5494 /* NSObject+DeallocUnitTests.m */; };
-		D31E9374134D8232000F5494 /* IPSet+TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D31E9373134D8232000F5494 /* IPSet+TestHelpers.m */; };
 		D32ADFC7136B1CFD009EA22E /* IPEditableTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D32ADFC6136B1CFD009EA22E /* IPEditableTitleViewController.m */; };
 		D32ADFC8136B1CFD009EA22E /* IPEditableTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D32ADFC6136B1CFD009EA22E /* IPEditableTitleViewController.m */; };
 		D32ADFD913727262009EA22E /* IPPasteboardObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D32ADFD813727262009EA22E /* IPPasteboardObject.m */; };
@@ -149,16 +157,13 @@
 		D3A25E8C1388104400FA80B7 /* 42-photos.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A25E8A1388104400FA80B7 /* 42-photos.png */; };
 		D3A25E8F138811DC00FA80B7 /* IPFlickrLoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A25E8E138811DC00FA80B7 /* IPFlickrLoadingCell.m */; };
 		D3A25E90138811DC00FA80B7 /* IPFlickrLoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A25E8E138811DC00FA80B7 /* IPFlickrLoadingCell.m */; };
-		D3A25E931388D1C600FA80B7 /* IPAlertConfirmTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A25E921388D1C600FA80B7 /* IPAlertConfirmTest.m */; };
 		D3A392E71356D73600DBAA36 /* version1-portfolio.dat in Resources */ = {isa = PBXBuildFile; fileRef = D3A392E61356D73600DBAA36 /* version1-portfolio.dat */; };
-		D3A392F21358A8AC00DBAA36 /* NSObject+NullAwareProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A392F11358A8AC00DBAA36 /* NSObject+NullAwareProperties.m */; };
 		D3A392F41358AD6800DBAA36 /* zoo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3A392F31358AD6800DBAA36 /* zoo.jpg */; };
 		D3A392F61358ADCF00DBAA36 /* zoo.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A392F51358ADCF00DBAA36 /* zoo.png */; };
 		D3A392F81358AF1200DBAA36 /* smoke.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3A392F71358AF1200DBAA36 /* smoke.jpg */; };
 		D3A3A55413527D500058145D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A4A922122CC4D300A37F78 /* MessageUI.framework */; };
 		D3A3A55513527D550058145D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A4AD1512319C4600A37F78 /* StoreKit.framework */; };
 		D3A3A56613540F8B0058145D /* IPAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3A56513540F8B0058145D /* IPAlert.m */; };
-		D3A3A56713540F8B0058145D /* IPAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3A56513540F8B0058145D /* IPAlert.m */; };
 		D3A4A604122634A900A37F78 /* dark_texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3A4A603122634A900A37F78 /* dark_texture.jpg */; };
 		D3A4A60C1226366600A37F78 /* light_texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D3A4A60B1226366600A37F78 /* light_texture.jpg */; };
 		D3A4A6671229B5B500A37F78 /* purple-button.png in Resources */ = {isa = PBXBuildFile; fileRef = D3A4A6661229B5B500A37F78 /* purple-button.png */; };
@@ -216,8 +221,6 @@
 		D3D843551480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D843541480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png */; };
 		D3D843571480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D843561480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png */; };
 		D3DD1C99148DF81600F4F4E6 /* BDOverlayViewController_skipDisabled.10.7.2.iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = D3DD1C98148DF81600F4F4E6 /* BDOverlayViewController_skipDisabled.10.7.2.iPhone.png */; };
-		D3DF753A134E6C6A00439546 /* IPPortfolio+TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF7539134E6C6A00439546 /* IPPortfolio+TestHelpers.m */; };
-		D3DF753B134E6CF600439546 /* IPPortfolio.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20FBA120BBEBD008F247D /* IPPortfolio.m */; };
 		D3DF7545134E70A000439546 /* IPPortfolio-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF7544134E70A000439546 /* IPPortfolio-test.m */; };
 		D3E166C51369281500B72591 /* BDPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E166C41369281400B72591 /* BDPagingView.m */; };
 		D3E166C61369281500B72591 /* BDPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E166C41369281400B72591 /* BDPagingView.m */; };
@@ -253,10 +256,7 @@
 		D3E7C5EB1367C3D800DE4A98 /* BDContrainPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E7C5EA1367C3D700DE4A98 /* BDContrainPanGestureRecognizer.m */; };
 		D3E7C5EC1367C3D800DE4A98 /* BDContrainPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E7C5EA1367C3D700DE4A98 /* BDContrainPanGestureRecognizer.m */; };
 		D3EB04131380EA2000CA6CC8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3EB04121380EA2000CA6CC8 /* CFNetwork.framework */; };
-		D3F0F75B134C2A0C0059EA0F /* IPPage-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F75A134C2A0C0059EA0F /* IPPage-test.m */; };
 		D3F0F75E134C2BA90059EA0F /* NSString+TestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F75D134C2BA90059EA0F /* NSString+TestHelper.m */; };
-		D3F0F762134C2F3F0059EA0F /* IPPage.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A20FA3120B4BFA008F247D /* IPPage.m */; };
-		D3F0F763134C2F680059EA0F /* IPPhoto+TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F0F760134C2D060059EA0F /* IPPhoto+TestHelpers.m */; };
 		D3F61153123C043B007F789A /* 40-inbox.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F61151123C043B007F789A /* 40-inbox.png */; };
 		D3FF3ADF1480D6050088D350 /* IPTutorialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FF3ADE1480D6050088D350 /* IPTutorialManager.m */; };
 		D3FF3AE01480D6050088D350 /* IPTutorialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FF3ADE1480D6050088D350 /* IPTutorialManager.m */; };
@@ -295,6 +295,7 @@
 		0AB426E213DCE87400895092 /* 19-gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-gear.png"; sourceTree = "<group>"; };
 		0AB426E913DD2D1700895092 /* UIImage+ColorMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ColorMask.h"; sourceTree = "<group>"; };
 		0AB426EA13DD2D1700895092 /* UIImage+ColorMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ColorMask.m"; sourceTree = "<group>"; };
+		0AB9B6B6177D5FC6000C79BC /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		0AD8CF0C13E13CA000BD88E6 /* IPToggleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPToggleCell.h; sourceTree = "<group>"; };
 		0AD8CF0D13E13CA000BD88E6 /* IPToggleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPToggleCell.m; sourceTree = "<group>"; };
 		0AEDDB07141E9E6C0091D8E7 /* folder48.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = folder48.gif; sourceTree = "<group>"; };
@@ -523,7 +524,7 @@
 		D3E7C5EA1367C3D700DE4A98 /* BDContrainPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDContrainPanGestureRecognizer.m; sourceTree = "<group>"; };
 		D3EB04121380EA2000CA6CC8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		D3EB04171380F1CE00CA6CC8 /* libObjectiveFlickr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libObjectiveFlickr.a; sourceTree = SOURCE_ROOT; };
-		D3F0F75A134C2A0C0059EA0F /* IPPage-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPage-test.m"; sourceTree = "<group>"; };
+		D3F0F75A134C2A0C0059EA0F /* IPPage-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "IPPage-test.m"; path = "../UnitTests/IPPage-test.m"; sourceTree = "<group>"; };
 		D3F0F75C134C2BA90059EA0F /* NSString+TestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+TestHelper.h"; path = "../UnitTests/NSString+TestHelper.h"; sourceTree = "<group>"; };
 		D3F0F75D134C2BA90059EA0F /* NSString+TestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+TestHelper.m"; path = "../UnitTests/NSString+TestHelper.m"; sourceTree = "<group>"; };
 		D3F0F75F134C2D060059EA0F /* IPPhoto+TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IPPhoto+TestHelpers.h"; sourceTree = "<group>"; };
@@ -538,6 +539,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AB9B6B7177D5FC6000C79BC /* libPods.a in Frameworks */,
 				0A1F10A1177D45C500D8A070 /* SenTestingKit.framework in Frameworks */,
 				0A1F10A3177D45C500D8A070 /* UIKit.framework in Frameworks */,
 				0A1F10A2177D45C500D8A070 /* Foundation.framework in Frameworks */,
@@ -630,6 +632,7 @@
 		0A1F10A4177D45C500D8A070 /* ipad-portfolio Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D3F0F75A134C2A0C0059EA0F /* IPPage-test.m */,
 				D30A435113138F5C00E6EBB7 /* IPPhoto-test.m */,
 				0A1F10A5177D45C500D8A070 /* Supporting Files */,
 			);
@@ -742,6 +745,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0AB9B6B6177D5FC6000C79BC /* libPods.a */,
 				0AB0C80D13E26A5700B204BC /* CoreLocation.framework */,
 				0A4F0C7913D938F8008759F5 /* Security.framework */,
 				D35F88BB13C6C50600EB2706 /* ImageIO.framework */,
@@ -766,7 +770,6 @@
 				D30A433D13138E7800E6EBB7 /* UnitTestsAppDelegate.h */,
 				D30A433E13138E7800E6EBB7 /* UnitTestsAppDelegate.m */,
 				D30A434013138E7800E6EBB7 /* MainWindow.xib */,
-				D3F0F75A134C2A0C0059EA0F /* IPPage-test.m */,
 				D31E9368134D6E29000F5494 /* IPSet-test.m */,
 				D3DF7544134E70A000439546 /* IPPortfolio-test.m */,
 				D3AEA44F136137560025C334 /* BDGridCell-test.m */,
@@ -1285,8 +1288,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A02DD43177D628D009B5456 /* IPAlert.m in Sources */,
+				0AB9B6B5177D5D58000C79BC /* IPAlertConfirmTest.m in Sources */,
+				0AB9B6AD177D5C8D000C79BC /* IPPage-test.m in Sources */,
+				0A02DD44177D629D009B5456 /* IPSet.m in Sources */,
+				0AB9B6B2177D5D58000C79BC /* IPSet+TestHelpers.m in Sources */,
+				0AB9B6AE177D5C99000C79BC /* IPPage.m in Sources */,
+				0A02DD45177D629D009B5456 /* IPPortfolio.m in Sources */,
 				0A1F10B4177D463000D8A070 /* IPPhoto-test.m in Sources */,
+				0AB9B6AF177D5CA5000C79BC /* IPPage+TestHelpers.m in Sources */,
+				0AB9B6B3177D5D58000C79BC /* IPPortfolio+TestHelpers.m in Sources */,
 				0A1F10B5177D47DD00D8A070 /* IPPhoto.m in Sources */,
+				0AB9B6B4177D5D58000C79BC /* NSObject+NullAwareProperties.m in Sources */,
+				0AB9B6B1177D5D4A000C79BC /* IPPhoto+TestHelpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1370,21 +1384,10 @@
 				D37EAFA71314D061006FC137 /* UIImage+Alpha.m in Sources */,
 				D37EAFA81314D061006FC137 /* UIImage+Resize.m in Sources */,
 				D37EAFA91314D061006FC137 /* UIImage+RoundedCorner.m in Sources */,
-				D3F0F75B134C2A0C0059EA0F /* IPPage-test.m in Sources */,
 				D3F0F75E134C2BA90059EA0F /* NSString+TestHelper.m in Sources */,
-				D3F0F762134C2F3F0059EA0F /* IPPage.m in Sources */,
-				D3F0F763134C2F680059EA0F /* IPPhoto+TestHelpers.m in Sources */,
 				D31E9369134D6E29000F5494 /* IPSet-test.m in Sources */,
-				D31E936D134D6EDD000F5494 /* IPPage+TestHelpers.m in Sources */,
-				D31E936E134D71F8000F5494 /* IPSet.m in Sources */,
-				D31E9371134D7A83000F5494 /* NSObject+DeallocUnitTests.m in Sources */,
-				D31E9374134D8232000F5494 /* IPSet+TestHelpers.m in Sources */,
-				D3DF753A134E6C6A00439546 /* IPPortfolio+TestHelpers.m in Sources */,
-				D3DF753B134E6CF600439546 /* IPPortfolio.m in Sources */,
 				D3DF7545134E70A000439546 /* IPPortfolio-test.m in Sources */,
 				D3D541B913503EE50027DCB4 /* IPUserDefaults.m in Sources */,
-				D3A3A56713540F8B0058145D /* IPAlert.m in Sources */,
-				D3A392F21358A8AC00DBAA36 /* NSObject+NullAwareProperties.m in Sources */,
 				D35934C8135AA8B5001048E2 /* BDSplashScreen.m in Sources */,
 				D3AEA44D135FE71D0025C334 /* BDGridCell.m in Sources */,
 				D3AEA450136137560025C334 /* BDGridCell-test.m in Sources */,
@@ -1423,7 +1426,6 @@
 				D3E57EA81385D0100027534B /* IPFlickrSelectableAsset.m in Sources */,
 				D3E57EAD13864D000027534B /* IPFlickrSearchSource.m in Sources */,
 				D3A25E90138811DC00FA80B7 /* IPFlickrLoadingCell.m in Sources */,
-				D3A25E931388D1C600FA80B7 /* IPAlertConfirmTest.m in Sources */,
 				D3D0148C138C25AF00181DE7 /* BDFontPickerController.m in Sources */,
 				D3D01490138C262D00181DE7 /* BDFontCell.m in Sources */,
 				D3D01494138C401700181DE7 /* IPFontPickerCell.m in Sources */,
@@ -1494,6 +1496,7 @@
 /* Begin XCBuildConfiguration section */
 		0A1F10B0177D45C500D8A070 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CF5D659A531043CE853DD75E /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Pholio.app/Pholio";
@@ -1529,6 +1532,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
 				INFOPLIST_FILE = "ipad-portfolio Tests/ipad-portfolio Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1568,6 +1572,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
 				INFOPLIST_FILE = "ipad-portfolio Tests/ipad-portfolio Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1608,6 +1613,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
 				INFOPLIST_FILE = "ipad-portfolio Tests/ipad-portfolio Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1648,6 +1654,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = "${PODS_HEADERS_SEARCH_PATHS}";
 				INFOPLIST_FILE = "ipad-portfolio Tests/ipad-portfolio Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";

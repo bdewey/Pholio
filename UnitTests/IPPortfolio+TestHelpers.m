@@ -21,7 +21,7 @@
 
 + (IPPortfolio *)portfolioWithSetCount:(NSUInteger)setCount {
   
-  IPPortfolio *portfolio = [[[IPPortfolio alloc] init] autorelease];
+  IPPortfolio *portfolio = [[IPPortfolio alloc] init];
   for (int i = 0; i < setCount; i++) {
     IPSet *set = [IPSet setWithPageCount:5];
     set.title = [NSString stringWithFormat:@"Set %d", i];

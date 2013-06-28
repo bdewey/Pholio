@@ -12,7 +12,7 @@
 @implementation IPSet (TestHelpers)
 
 + (IPSet *)setWithPageCount:(NSUInteger)count {
-  IPSet *set = [[[IPSet alloc] init] autorelease];
+  IPSet *set = [[IPSet alloc] init];
   for (NSUInteger i = 0; i < count; i++) {
     IPPage *page = [IPPage pageWithPhotoCount:1];
     [page setValue:[NSString stringWithFormat:@"Page %d", i] 
