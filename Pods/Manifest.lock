@@ -1,10 +1,13 @@
 PODS:
+  - CocoaLumberjack (1.6.2)
   - objectiveflickr (2.0.2)
 
 DEPENDENCIES:
+  - CocoaLumberjack
   - objectiveflickr
 
 SPEC CHECKSUMS:
+  CocoaLumberjack: d73e1e317ced14ab930797dda6c17156ff17aaa1
   objectiveflickr: 17f5f1fd4b9b9d6761a9545493c79221f65604c3
 
 COCOAPODS: 0.20.2

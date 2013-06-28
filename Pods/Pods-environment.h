@@ -6,6 +6,12 @@
 // project.
 
 
+// CocoaLumberjack
+#define COCOAPODS_POD_AVAILABLE_CocoaLumberjack
+#define COCOAPODS_VERSION_MAJOR_CocoaLumberjack 1
+#define COCOAPODS_VERSION_MINOR_CocoaLumberjack 6
+#define COCOAPODS_VERSION_PATCH_CocoaLumberjack 2
+
 // objectiveflickr
 #define COCOAPODS_POD_AVAILABLE_objectiveflickr
 #define COCOAPODS_VERSION_MAJOR_objectiveflickr 2
