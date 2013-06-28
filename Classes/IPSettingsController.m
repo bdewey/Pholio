@@ -273,7 +273,7 @@ enum IPSettingsDisplay {
 #endif
       
     default:
-      _GTMDevAssert(NO, @"Unrecognized section");
+      NSAssert(NO, @"Unrecognized section");
       return @"Unknown";
   }
 }
@@ -304,7 +304,7 @@ enum IPSettingsDisplay {
 #endif
       
     default:
-      _GTMDevAssert(NO, @"Should not get here");
+      NSAssert(NO, @"Should not get here");
       break;
   }
   return 0;
@@ -341,7 +341,7 @@ enum IPSettingsDisplay {
       return [self cellForDisplayInTableView:tableView atIndexPath:indexPath];
       
     default:
-      _GTMDevAssert(NO, @"Unrecognized section");
+      NSAssert(NO, @"Unrecognized section");
       break;
   }
   return cell;
@@ -392,7 +392,7 @@ enum IPSettingsDisplay {
       break;
       
     default:
-      _GTMDevAssert(NO, @"Unrecognized action");
+      NSAssert(NO, @"Unrecognized action");
       break;
   }
   return cell;
@@ -445,7 +445,7 @@ enum IPSettingsDisplay {
       break;
       
     default:
-      _GTMDevAssert(NO, @"Unrecognized action for in-app purchases");
+      NSAssert(NO, @"Unrecognized action for in-app purchases");
       break;
   }
   return cell;

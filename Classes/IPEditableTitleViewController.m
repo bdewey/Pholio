@@ -455,7 +455,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
   
-  _GTMDevAssert(popoverController == self.activePopoverController, 
+  NSAssert(popoverController == self.activePopoverController, 
                 @"Got a dismiss notification for a popover controller we don't own!");
   
   //
@@ -486,7 +486,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
   _activePopoverController = popoverController;
   
-  _GTMDevAssert(self.activePopoverController.delegate == nil,
+  NSAssert(self.activePopoverController.delegate == nil,
                 @"Popover controller should not already have a delegate");
   self.activePopoverController.delegate = self;
 }
@@ -769,7 +769,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
   
   if (controller != self.overlayController) {
     
-    _GTMDevAssert(NO, @"Got notification from unexpected controller");
+    NSAssert(NO, @"Got notification from unexpected controller");
     return;
   }
   CGRect finalFrame;

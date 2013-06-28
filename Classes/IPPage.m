@@ -159,7 +159,7 @@
 
 - (void)pasteboardObjectWillArchive:(IPPasteboardObject *)pasteboardObject {
   
-  _GTMDevAssert(pasteboardObject.imageDataDictionary != nil, 
+  NSAssert(pasteboardObject.imageDataDictionary != nil, 
                 @"imageDictionary must not be nil");
   for (IPPhoto *photo in self.photos) {
     
@@ -178,7 +178,7 @@
 
 - (void)pasteboardObjectDidUnarchive:(IPPasteboardObject *)pasteboardObject {
   
-  _GTMDevAssert(pasteboardObject.imageDataDictionary != nil, 
+  NSAssert(pasteboardObject.imageDataDictionary != nil, 
                 @"imageDictionary must not be nil");
   for (IPPhoto *photo in self.photos) {
 

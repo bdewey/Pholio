@@ -969,7 +969,7 @@
 
 - (void)gridView:(BDGridView *)gridView didCopy:(NSSet *)indexes {
   
-  _GTMDevAssert([indexes count] == 1, @"Only know how to copy single sets");
+  NSAssert([indexes count] == 1, @"Only know how to copy single sets");
   NSUInteger index = [[indexes anyObject] unsignedIntegerValue];
   IPPasteboardObject *pasteboardObject = [[IPPasteboardObject alloc] init];
   pasteboardObject.modelObject = [self.portfolio objectInSetsAtIndex:index];
@@ -991,7 +991,7 @@
 
 - (void)gridView:(BDGridView *)gridView didCut:(NSSet *)indexes {
   
-  _GTMDevAssert([indexes count] == 1, @"Only know how to cut single sets");
+  NSAssert([indexes count] == 1, @"Only know how to cut single sets");
   NSUInteger index = [[indexes anyObject] unsignedIntegerValue];
   IPPasteboardObject *pasteboardObject = [[IPPasteboardObject alloc] init];
   IPSet *set = [self.portfolio objectInSetsAtIndex:index];
@@ -1122,7 +1122,7 @@
 
 - (void)gridView:(BDGridView *)gridView didDelete:(NSSet *)indexes {
 
-  _GTMDevAssert([indexes count] == 1, @"Only know how to delete single portfolios");
+  NSAssert([indexes count] == 1, @"Only know how to delete single portfolios");
   NSUInteger index = [[indexes anyObject] unsignedIntegerValue];
   IPSet *set = [self.portfolio objectInSetsAtIndex:index];
   CGRect frame = [self.gridView frameForCellAtIndex:index];

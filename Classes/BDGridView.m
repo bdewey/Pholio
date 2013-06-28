@@ -240,7 +240,7 @@
   
   for (BDGridCell *cell in self.viewCells) {
     
-    _GTMDevAssert(cell.index != self.activeGap, 
+    NSAssert(cell.index != self.activeGap, 
                   @"Found cell with index %d!", cell.index);
   }
 }
@@ -343,7 +343,7 @@
     
     activeGap_ = NSNotFound;
   }
-  _GTMDevAssert(![self.viewCells containsObject:pannedCell], 
+  NSAssert(![self.viewCells containsObject:pannedCell], 
                 @"Panned cell should no longer be visible");
 }
 
@@ -371,7 +371,7 @@
 
 - (void)setFontColor:(UIColor *)fontColor {
 
-  _GTMDevAssert(fontColor != nil, @"Font color must not be nil");
+  NSAssert(fontColor != nil, @"Font color must not be nil");
   fontColor_ = fontColor;
   
   for (BDGridCell *cell in self.viewCells) {
@@ -468,9 +468,9 @@
     //  row is taken up by the drop cap.
     //
     
-    _GTMDevAssert(self.cellsPerRow > self.dropCapWidth, 
+    NSAssert(self.cellsPerRow > self.dropCapWidth, 
                   @"Must have enough cells per row to accomodate the drop cap");
-    _GTMDevAssert(column >= self.dropCapWidth,
+    NSAssert(column >= self.dropCapWidth,
                   @"The column value must be in the truncated region of the grid");
     NSUInteger truncatedCellsPerRow = self.cellsPerRow - self.dropCapWidth;
     return 1 + (row * truncatedCellsPerRow) + (column - self.dropCapWidth);
@@ -729,7 +729,7 @@
 
 - (void)selectCell:(BDGridCell *)cell {
   
-  _GTMDevAssert(selectedCells_ != nil, @"selectedCells_ should be initialized");
+  NSAssert(selectedCells_ != nil, @"selectedCells_ should be initialized");
   
   //
   //  If a cell is selected, the insertion point is before the cell.
@@ -753,7 +753,7 @@
 
 - (void)unselectCell:(BDGridCell *)cell {
   
-  _GTMDevAssert(selectedCells_ != nil, @"selectedCells_ should be initialized");
+  NSAssert(selectedCells_ != nil, @"selectedCells_ should be initialized");
   [selectedCells_ removeObject:cell];
   cell.selected = NO;
 }
@@ -879,8 +879,8 @@
   
   firstNonVisibleIndex = MIN(countOfCells, firstNonVisibleIndex);
   
-  _GTMDevAssert(viewCells_ != nil, @"viewCells must not be nil");
-  _GTMDevAssert(recycledCells_ != nil, @"recycledCells must not be nil");
+  NSAssert(viewCells_ != nil, @"viewCells must not be nil");
+  NSAssert(recycledCells_ != nil, @"recycledCells must not be nil");
   firstVisibleIndex_ = firstVisibleCell;
   lastVisibleIndex_ = firstNonVisibleIndex;
   
@@ -910,7 +910,7 @@
   //
   
   for (NSInteger i = firstVisibleCell; i < firstNonVisibleIndex; i++) {
-    _GTMDevAssert(i < countOfCells, 
+    NSAssert(i < countOfCells, 
                   @"Should not look for something out of bounds");
     if (![self isCellVisible:i]) {
 
@@ -940,7 +940,7 @@
     [cell removeFromSuperview];
   }
   [viewCells_ minusSet:recycledCells_];
-  _GTMDevAssert([self.viewCells count] == 0, @"Should be no visible cells");
+  NSAssert([self.viewCells count] == 0, @"Should be no visible cells");
   [self recomputeContentSize];
   [self tileCells];
   [self adjustAllVisibleCellFrames];
@@ -1030,7 +1030,7 @@
   //  Fade out all deleted cells.
   //
   
-  _GTMDevAssert([victims count] <= 1, @"Shouldn't be more than one victim");
+  NSAssert([victims count] <= 1, @"Shouldn't be more than one victim");
   [UIView animateWithDuration:0.5 animations:^(void) {
     
     for (BDGridCell *victim in victims) {
@@ -1265,7 +1265,7 @@
                                                panGesture.translation.y);
           
         } completion:nil];
-        _GTMDevAssert([self indexForPoint:panGesture.initialTouchPoint] == self.pannedCell.index,
+        NSAssert([self indexForPoint:panGesture.initialTouchPoint] == self.pannedCell.index,
                       @"Should compute the right gap index");
         
       } else {

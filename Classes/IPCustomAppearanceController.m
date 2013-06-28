@@ -137,7 +137,7 @@ typedef enum {
       return [[self imageNames] count];
       
     default:
-      _GTMDevAssert(NO, @"Unrecognized section: %d", section);
+      NSAssert(NO, @"Unrecognized section: %d", section);
       return 0;
   }
 }
@@ -157,7 +157,7 @@ typedef enum {
       return kIPCustomAppearanceSectionTitleFonts;
       
     default:
-      _GTMDevAssert(NO, @"Unrecognized section: %d", section);
+      NSAssert(NO, @"Unrecognized section: %d", section);
       return nil;
   }
 }
@@ -177,7 +177,7 @@ typedef enum {
       return [self tableView:tableView cellForFontRowAtIndexPath:indexPath];
       
     default:
-      _GTMDevAssert(NO, @"Unrecognized section: %d", indexPath.section);
+      NSAssert(NO, @"Unrecognized section: %d", indexPath.section);
       return nil;
   }
 }
@@ -235,7 +235,7 @@ typedef enum {
       break;
       
     default:
-      _GTMDevAssert(NO, @"Unrecognized section: %d", indexPath.section);
+      NSAssert(NO, @"Unrecognized section: %d", indexPath.section);
       break;
   }
 }

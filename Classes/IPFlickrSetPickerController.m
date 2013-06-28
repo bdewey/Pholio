@@ -67,9 +67,9 @@ enum IPFlickrSetPickerSections {
     self.title = kFlickr;
     self.flickrSets = [NSMutableArray arrayWithCapacity:5];
     UIImage *flickrIcon = [UIImage imageNamed:@"FlickrTabBarIcon.png"];
-    _GTMDevAssert(flickrIcon != nil, @"Should get flickr icon");
+    NSAssert(flickrIcon != nil, @"Should get flickr icon");
     self.tabBarItem.image = flickrIcon;
-    _GTMDevAssert(self.tabBarItem != nil, @"Controller should have a tab bar item");
+    NSAssert(self.tabBarItem != nil, @"Controller should have a tab bar item");
   }
   return self;
 }
@@ -183,7 +183,7 @@ enum IPFlickrSetPickerSections {
       return [self.flickrSets count];
       
     default:
-      _GTMDevAssert(NO, @"Unrecognized section %d", section);
+      NSAssert(NO, @"Unrecognized section %d", section);
       return 0;
   }
 }
@@ -234,7 +234,7 @@ enum IPFlickrSetPickerSections {
       break;
       
     default:
-      _GTMDevAssert(NO, @"Unrecognized section %d", indexPath.section);
+      NSAssert(NO, @"Unrecognized section %d", indexPath.section);
       break;
   }
   return cell;

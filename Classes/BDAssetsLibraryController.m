@@ -119,7 +119,7 @@
     self.groups = [NSMutableArray arrayWithCapacity:10];
     self.title  = kPhotoAlbums;
     UIImage *tabBarIcon = [UIImage imageNamed:@"42-photos.png"];
-    _GTMDevAssert(tabBarIcon != nil, @"Should get tab bar icon");
+    NSAssert(tabBarIcon != nil, @"Should get tab bar icon");
     self.tabBarItem.image = tabBarIcon;
     
     library_ = [[ALAssetsLibrary alloc] init];

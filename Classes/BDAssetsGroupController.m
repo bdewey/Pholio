@@ -285,7 +285,7 @@
 
 - (void)selectableAssetDidSelect:(id<BDSelectableAsset>)selectableAsset {
   
-  _GTMDevAssert(self.selectedAssets != nil, @"selectedAssets must not be nil");
+  NSAssert(self.selectedAssets != nil, @"selectedAssets must not be nil");
   [self.selectedAssets addObject:selectableAsset];
   [self configureTitle];
 }
@@ -297,7 +297,7 @@
 
 - (void)selectableAssetDidUnselect:(id<BDSelectableAsset>)selectableAsset {
   
-  _GTMDevAssert(self.selectedAssets != nil, @"selectedAssets must not be nil");
+  NSAssert(self.selectedAssets != nil, @"selectedAssets must not be nil");
   [self.selectedAssets removeObject:selectableAsset];
   [self configureTitle];
 }

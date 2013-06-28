@@ -216,7 +216,7 @@
 
   [super viewWillAppear:animated];
   [self setBackgroundImageName:self.currentSet.parent.backgroundImageName];
-  _GTMDevAssert(self.currentSet.parent != nil, @"Set must have a parent");
+  NSAssert(self.currentSet.parent != nil, @"Set must have a parent");
   self.gridView.fontColor = self.currentSet.parent.fontColor;
 }
 
@@ -448,11 +448,11 @@
 - (void)gridView:(BDGridView *)gridView didCut:(NSSet *)indexes {
   
   UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-  _GTMDevAssert([indexes count] == 1, @"Should only cut one item");
+  NSAssert([indexes count] == 1, @"Should only cut one item");
   for (NSNumber *indexNumber in indexes) {
     
     NSUInteger index = [indexNumber unsignedIntegerValue];
-    _GTMDevAssert(index < [self.currentSet countOfPages], 
+    NSAssert(index < [self.currentSet countOfPages], 
                   @"Should have a valid index");
     IPPage *page = [self.currentSet objectInPagesAtIndex:index];
     IPPasteboardObject *pasteboardObject = [[IPPasteboardObject alloc] init];
@@ -474,9 +474,9 @@
 - (void)gridView:(BDGridView *)gridView didCopy:(NSSet *)indexes {
   
   UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-  _GTMDevAssert([indexes count] == 1, @"Can only copy one item");
+  NSAssert([indexes count] == 1, @"Can only copy one item");
   NSUInteger index = [[indexes anyObject] unsignedIntegerValue];
-  _GTMDevAssert(index < [self.currentSet countOfPages], 
+  NSAssert(index < [self.currentSet countOfPages], 
                 @"index must be in bounds");
   IPPasteboardObject *pasteboardObject = [[IPPasteboardObject alloc] init];
   pasteboardObject.modelObject = [self.currentSet objectInPagesAtIndex:index];
@@ -575,7 +575,7 @@
 
 - (void)gridView:(BDGridView *)gridView didDelete:(NSSet *)indexes {
   
-  _GTMDevAssert([indexes count] == 1, @"Only know how to delete one page");
+  NSAssert([indexes count] == 1, @"Only know how to delete one page");
   NSUInteger index = [[indexes anyObject] unsignedIntegerValue];
   IPPage *page = [self.currentSet objectInPagesAtIndex:index];
   CGRect frame = [self.gridView frameForCellAtIndex:index];

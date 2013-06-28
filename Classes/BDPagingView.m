@@ -224,8 +224,8 @@
     [self.pagingViewDelegate pagingView:self didMoveToPage:self.currentPageIndex];
   }
   
-  _GTMDevAssert(self.visibleViews != nil, @"visibleViews should be initialized");
-  _GTMDevAssert(self.recycledViews != nil, @"recycledViews should be initialized");
+  NSAssert(self.visibleViews != nil, @"visibleViews should be initialized");
+  NSAssert(self.recycledViews != nil, @"recycledViews should be initialized");
   
   //
   //  Loop through the active visible cells, looking for ones we no longer need

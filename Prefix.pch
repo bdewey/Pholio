@@ -12,3 +12,5 @@
 #import "IPStrings.h"
 
 #define kGridCellSize             (220)
+
+extern const int ddLogLevel;      // Find it in AppDelegate.m

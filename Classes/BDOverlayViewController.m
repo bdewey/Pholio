@@ -183,7 +183,7 @@
 
 - (void)layoutLabels {
   
-  _GTMDevAssert([self isViewLoaded], @"The view needs to be loaded to perform the layout.");
+  NSAssert([self isViewLoaded], @"The view needs to be loaded to perform the layout.");
   CGSize newSize = [self.descriptionText sizeWithFont:self.descriptionLabel.font 
                                     constrainedToSize:self.defaultDescriptionSize];
   DDLogVerbose(@"%s -- computed new description label size: (%f, %f). Original = (%f, %f)",
@@ -215,7 +215,7 @@
     self.cancelButton.frame = CGRectOffset(self.cancelButton.frame, 
                                            CGRectGetMidX(self.view.bounds) - CGRectGetMidX(self.cancelButton.frame),
                                            0);
-    _GTMDevAssert(CGRectGetMidX(self.view.bounds) == CGRectGetMidX(self.cancelButton.frame), 
+    NSAssert(CGRectGetMidX(self.view.bounds) == CGRectGetMidX(self.cancelButton.frame), 
                   @"Button should be centered");
   }
   
@@ -250,7 +250,7 @@
     
   } else {
     
-    _GTMDevAssert(NO, @"Unrecognized swipe gesture recognizer: %@", gestureRecognizer);
+    NSAssert(NO, @"Unrecognized swipe gesture recognizer: %@", gestureRecognizer);
   }
 }
 
@@ -260,7 +260,7 @@
 
 - (void)setSkipDisabled:(BOOL)disabled {
   
-  _GTMDevAssert([self isViewLoaded], @"View must be loaded to hide skip button");
+  NSAssert([self isViewLoaded], @"View must be loaded to hide skip button");
   self.skipButton.hidden = disabled;
   [self layoutLabels];
 }
@@ -269,7 +269,7 @@
 
 - (IBAction)didTapCancelButton:(id)sender {
   
-  _GTMDevAssert(self.delegate != nil, nil);
+  NSAssert(self.delegate != nil, nil);
   [self.delegate overlayViewController:self didFinishWithSwipeDirection:UISwipeGestureRecognizerDirectionDown];
 }
 
@@ -277,7 +277,7 @@
 
 - (IBAction)didTapSkipButton:(id)sender {
 
-  _GTMDevAssert(self.delegate != nil, nil);
+  NSAssert(self.delegate != nil, nil);
   [self.delegate overlayViewControllerDidSkip:self];
 }
 
