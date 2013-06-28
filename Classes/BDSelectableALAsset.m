@@ -118,7 +118,7 @@
       CGFloat width = [metadata[(id)kCGImagePropertyPixelWidth] floatValue];
       CGFloat height = [metadata[(id)kCGImagePropertyPixelHeight] floatValue];
       CGFloat maxEdge = MAX(width, height);
-      _GTMDevLog(@"%s -- maxEdge is %f (%f, %f)", __PRETTY_FUNCTION__, maxEdge, width, height);
+      DDLogVerbose(@"%s -- maxEdge is %f (%f, %f)", __PRETTY_FUNCTION__, maxEdge, width, height);
       
       //
       //  Get the raw bytes and create a CGImageSourceRef.

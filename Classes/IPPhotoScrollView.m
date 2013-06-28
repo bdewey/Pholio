@@ -126,7 +126,7 @@
   
   if (![photo isOptimized]) {
 
-    _GTMDevLog(@"%s -- unexpectedly optimizing a photo", __PRETTY_FUNCTION__);
+    DDLogVerbose(@"%s -- unexpectedly optimizing a photo", __PRETTY_FUNCTION__);
     [photo optimize];
   }
   
@@ -206,7 +206,7 @@
   
   CFDictionaryRef boundsSizeDict = CGSizeCreateDictionaryRepresentation(boundsSize);
   CFDictionaryRef imageSizeDict  = CGSizeCreateDictionaryRepresentation(self.imageView.bounds.size);
-  _GTMDevLog(@"%s -- min scale = %f, max scale = %f. Bounds size = %@, image bounds = %@",
+  DDLogVerbose(@"%s -- min scale = %f, max scale = %f. Bounds size = %@, image bounds = %@",
         __PRETTY_FUNCTION__,
         minScale,
         maxScale,

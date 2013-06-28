@@ -201,7 +201,7 @@ enum IPSettingsDisplay {
   //  Actually, always reload data... so many things can change b/c of subviews.
   //
   
-  _GTMDevLog(@"%s -- reloading data", __PRETTY_FUNCTION__);
+  DDLogVerbose(@"%s -- reloading data", __PRETTY_FUNCTION__);
   [self.tableView reloadData];
   if (self.activeCustomBackgroundController != nil) {
     
@@ -423,7 +423,7 @@ enum IPSettingsDisplay {
     }
       
       default:
-      _GTMDevLog(@"Unexpected row: %d", row);
+      DDLogVerbose(@"Unexpected row: %d", row);
       return nil;
   }
 }

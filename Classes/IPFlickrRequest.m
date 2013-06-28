@@ -59,7 +59,7 @@
           onSuccess:(IPFlickrRequestSuccessCompletion)successCompletion 
             onError:(IPFlickrRequestErrorCompletion)errorCompletion {
   
-  _GTMDevLog(@"%s -- doing call %@ with arguments %@",
+  DDLogVerbose(@"%s -- doing call %@ with arguments %@",
              __PRETTY_FUNCTION__,
              apiName,
              arguments);

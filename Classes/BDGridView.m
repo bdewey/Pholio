@@ -1151,7 +1151,7 @@
     
     CGPoint tapLocation = [tapGesture locationInView:self];
     UIView *subview = [self hitTest:tapLocation withEvent:nil];
-    _GTMDevLog(@"%s -- hit test %@", __PRETTY_FUNCTION__, [subview description]);
+    DDLogVerbose(@"%s -- hit test %@", __PRETTY_FUNCTION__, [subview description]);
     UIMenuController *editMenu = [UIMenuController sharedMenuController];
     if (editMenu.menuVisible) {
 
@@ -1275,12 +1275,12 @@
       break;
       
     case UIGestureRecognizerStateFailed:
-      _GTMDevLog(@"%s -- gesture recognizer failed", __PRETTY_FUNCTION__);
+      DDLogVerbose(@"%s -- gesture recognizer failed", __PRETTY_FUNCTION__);
       self.pannedCell = nil;
       break;
       
     case UIGestureRecognizerStateEnded: {
-      _GTMDevLog(@"%s -- gesture recognizer ended", __PRETTY_FUNCTION__);
+      DDLogVerbose(@"%s -- gesture recognizer ended", __PRETTY_FUNCTION__);
       if ((self.pannedCell != nil) && (self.activeGap != self.pannedCell.index)) {
       
         NSUInteger maxIndex = [self.dataSource gridViewCountOfCells:self] - 1;
@@ -1398,7 +1398,7 @@
 
 - (void)cut:(id)sender {
   
-  _GTMDevLog(@"%s", __PRETTY_FUNCTION__);
+  DDLogVerbose(@"%s", __PRETTY_FUNCTION__);
   NSMutableSet *indexSet = [NSMutableSet setWithCapacity:[self.selectedCells count]];
   
   for (BDGridCell *cell in self.selectedCells) {
@@ -1433,7 +1433,7 @@
 
 - (void)paste:(id)sender {
   
-  _GTMDevLog(@"%s", __PRETTY_FUNCTION__);
+  DDLogVerbose(@"%s", __PRETTY_FUNCTION__);
   if (([self.selectedCells count] == 1) && 
       ([self.gridViewDelegate respondsToSelector:@selector(gridView:didPasteIntoCell:)])) {
     

@@ -86,7 +86,7 @@ static IPAlert *defaultAlert;
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
   
-  _GTMDevLog(@"%s -- clicked button index = %d", __PRETTY_FUNCTION__, buttonIndex);
+  DDLogVerbose(@"%s -- clicked button index = %d", __PRETTY_FUNCTION__, buttonIndex);
   if ((buttonIndex != -1) && 
       (self.currentAction != nil)) {
     

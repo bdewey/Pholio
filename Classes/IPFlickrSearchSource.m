@@ -88,7 +88,7 @@
   } 
                          onError:^(NSError *error) {
                            
-                           _GTMDevLog(@"%s -- error performing search: %@",
+                           DDLogVerbose(@"%s -- error performing search: %@",
                                       __PRETTY_FUNCTION__,
                                       error);
                          }

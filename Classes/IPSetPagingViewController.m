@@ -107,7 +107,7 @@
 
 - (void)ipSettingsMailCurrentPhoto {
   
-  _GTMDevLog(@"%s", __PRETTY_FUNCTION__);
+  DDLogVerbose(@"%s", __PRETTY_FUNCTION__);
   Class mailClass = (NSClassFromString(@"MFMailComposeViewController"));
   if (mailClass != nil) {
     if ([mailClass canSendMail]) {

@@ -26,6 +26,9 @@
 #import "NSString+TestHelper.h"
 #import "IPDropBoxApiKeys.h"
 #import <DropboxSDK/DropboxSDK.h>
+#import <DDTTYLogger.h>
+
+const int ddLogLevel = LOG_LEVEL_INFO;
 
 //
 //  Private methods
@@ -64,6 +67,10 @@
   [_window setRootViewController:self.navigationController];
   [_window makeKeyAndVisible];
   
+  [DDLog addLogger:[DDTTYLogger sharedInstance]];
+  
+  DDLogInfo(@"Launching application");
+  
   //
   //  Validate any stored flickr token.
   //
@@ -71,7 +78,7 @@
   IPFlickrAuthorizationManager *authManager = [IPFlickrAuthorizationManager sharedManager];
   if (authManager.authToken != nil) {
     
-    _GTMDevLog(@"%s -- found stored token %@, checking validity",
+    DDLogVerbose(@"%s -- found stored token %@, checking validity",
                __PRETTY_FUNCTION__,
                authManager.authToken);
     [authManager checkToken];
@@ -189,7 +196,7 @@
    didHaveOptimizationCount:(NSUInteger)optimizationCount {
   
   [[NSOperationQueue mainQueue] addOperationWithBlock:^(void) {
-    _GTMDevLog(@"%s -- count is %d", __PRETTY_FUNCTION__, optimizationCount);
+    DDLogVerbose(@"%s -- count is %d", __PRETTY_FUNCTION__, optimizationCount);
     if (optimizationCount == 0) {
       
       [self.optimizingNotification.view removeFromSuperview];
@@ -250,7 +257,7 @@
 
     IPPortfolio *portfolio = [IPPortfolio loadPortfolioFromPath:[IPPortfolio defaultPortfolioPath]];
     
-    _GTMDevLog(@"%s -- saved version = %d, in memory version = %d",
+    DDLogVerbose(@"%s -- saved version = %d, in memory version = %d",
                __PRETTY_FUNCTION__,
                portfolio.version,
                self.portfolioGridView.portfolio.version);
@@ -359,7 +366,7 @@
       
     } else {
       
-      _GTMDevLog(@"%s -- unexpected error copying image %@: %@",
+      DDLogVerbose(@"%s -- unexpected error copying image %@: %@",
                  __PRETTY_FUNCTION__,
                  imageName,
                  error);
@@ -419,7 +426,7 @@
 - (void)upgradePhotoOptimizationForPortfolio:(IPPortfolio *)portfolio completion:(IPPhotoOptimizationCompletion)completion {
   
   completion = [completion copy];
-  _GTMDevLog(@"%s -- Portfolio image optimization version = %d, current = %d",
+  DDLogVerbose(@"%s -- Portfolio image optimization version = %d, current = %d",
              __PRETTY_FUNCTION__,
              portfolio.imageOptimizationVersion,
              kIPPhotoCurrentOptimizationVersion);

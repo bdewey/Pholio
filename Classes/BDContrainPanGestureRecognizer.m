@@ -27,14 +27,14 @@
 //#define __TRACE_RECOGNIZER__
 
 //
-//  Redefine _GTMDevLog based upon the __TRACE_RECOGNIZER__ #define.
+//  Redefine DDLogVerbose based upon the __TRACE_RECOGNIZER__ #define.
 //
 
-#undef _GTMDevLog
+#undef DDLogVerbose
 #ifdef __TRACE_RECOGNIZER__
-#define _GTMDevLog(...) NSLog(__VA_ARGS__)
+#define DDLogVerbose(...) NSLog(__VA_ARGS__)
 #else
-#define _GTMDevLog(...) do { } while (0)
+#define DDLogVerbose(...) do { } while (0)
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -94,7 +94,7 @@
   self.initialTouchPoint = [[touches anyObject] locationInView:self.view];
 #ifdef __TRACE_RECOGNIZER__
   CFDictionaryRef pointDebug = CGPointCreateDictionaryRepresentation(self.initialTouchPoint);
-  _GTMDevLog(@"%s -- state = %d, initial touch %@",
+  DDLogVerbose(@"%s -- state = %d, initial touch %@",
              __PRETTY_FUNCTION__,
              self.state,
              pointDebug);
@@ -167,7 +167,7 @@
   
 #ifdef __TRACE_RECOGNIZER__
   CFDictionaryRef pointDebug = CGPointCreateDictionaryRepresentation(self.translation);
-  _GTMDevLog(@"%s -- state %d, translation = %@",
+  DDLogVerbose(@"%s -- state %d, translation = %@",
              __PRETTY_FUNCTION__,
              self.state,
              pointDebug);
@@ -188,7 +188,7 @@
     
     self.state = UIGestureRecognizerStateEnded;
   }
-  _GTMDevLog(@"%s -- state %d",
+  DDLogVerbose(@"%s -- state %d",
              __PRETTY_FUNCTION__,
              self.state);
 }

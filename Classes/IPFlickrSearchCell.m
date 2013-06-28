@@ -92,7 +92,7 @@
     }];
   } onError:^(NSError *error) {
     
-    _GTMDevLog(@"%s -- error getting results: %@",
+    DDLogVerbose(@"%s -- error getting results: %@",
                __PRETTY_FUNCTION__,
                error);
   }];
@@ -175,7 +175,7 @@
     id results = [responseDictionary valueForKeyPath:self.resultKeyPath];
     if (results == nil) {
       
-      _GTMDevLog(@"%s -- unable to find any results in %@",
+      DDLogVerbose(@"%s -- unable to find any results in %@",
                  __PRETTY_FUNCTION__,
                  [responseDictionary description]);
       NSError *noResults = [NSError errorWithDomain:@"Pholio" code:-1 userInfo:nil];

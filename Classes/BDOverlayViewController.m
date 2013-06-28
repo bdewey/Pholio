@@ -186,7 +186,7 @@
   _GTMDevAssert([self isViewLoaded], @"The view needs to be loaded to perform the layout.");
   CGSize newSize = [self.descriptionText sizeWithFont:self.descriptionLabel.font 
                                     constrainedToSize:self.defaultDescriptionSize];
-  _GTMDevLog(@"%s -- computed new description label size: (%f, %f). Original = (%f, %f)",
+  DDLogVerbose(@"%s -- computed new description label size: (%f, %f). Original = (%f, %f)",
              __PRETTY_FUNCTION__,
              newSize.width,
              newSize.height,
@@ -208,7 +208,7 @@
     //  frame.
     //
     
-    _GTMDevLog(@"%s -- skip button is hidden. Self = %@, cancel = %@",
+    DDLogVerbose(@"%s -- skip button is hidden. Self = %@, cancel = %@",
                __PRETTY_FUNCTION__,
                self.view,
                self.cancelButton);

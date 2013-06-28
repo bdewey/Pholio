@@ -256,7 +256,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
   
-  _GTMDevLog(@"%s", __PRETTY_FUNCTION__);
+  DDLogVerbose(@"%s", __PRETTY_FUNCTION__);
   if (textField == self.hexCode) {
     
     //

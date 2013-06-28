@@ -187,7 +187,7 @@
         fileExists = [[NSFileManager defaultManager] fileExistsAtPath:thePhoto.filename isDirectory:&isDirectory];
         if (!fileExists || isDirectory) {
           
-          _GTMDevLog(@"%s -- deleting page from set %@; image file %@ does not exist",
+          DDLogVerbose(@"%s -- deleting page from set %@; image file %@ does not exist",
                      __PRETTY_FUNCTION__,
                      theSet.title,
                      thePhoto.filename);
@@ -203,7 +203,7 @@
         fileExists = [[NSFileManager defaultManager] fileExistsAtPath:thePhoto.thumbnailFilename isDirectory:&isDirectory];
         if (!fileExists || isDirectory) {
           
-          _GTMDevLog(@"%s -- marking page for optimization from set %@: no thumbnail",
+          DDLogVerbose(@"%s -- marking page for optimization from set %@: no thumbnail",
                      __PRETTY_FUNCTION__,
                      theSet.title);
           thePhoto.optimizedVersion = NSNotFound;
@@ -302,7 +302,7 @@
       IPPhoto *newPhoto = [[IPPhoto alloc] init];
       newPhoto.filename = [docDirectory stringByAppendingPathComponent:filename];
       newPhoto.title = [filename stringByDeletingPathExtension];
-      _GTMDevLog(@"%s -- Created new photo. Filename = %@, thumbnail = %@", 
+      DDLogVerbose(@"%s -- Created new photo. Filename = %@, thumbnail = %@", 
             __PRETTY_FUNCTION__, 
             newPhoto.filename, 
             newPhoto.thumbnailFilename);

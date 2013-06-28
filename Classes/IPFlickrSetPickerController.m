@@ -221,7 +221,7 @@ enum IPFlickrSetPickerSections {
       }
       setProperties = (self.flickrSets)[indexPath.row];
       setId = setProperties[@"id"];
-      _GTMDevLog(@"%s -- building a query for set %@ (id = %@)",
+      DDLogVerbose(@"%s -- building a query for set %@ (id = %@)",
                  __PRETTY_FUNCTION__,
                  [setProperties[@"title"] textContent],
                  setId);

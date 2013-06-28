@@ -518,7 +518,7 @@
     self.titleTextField.text = kProductName;
   }
   self.gridHeader.label.text = self.titleTextField.text;
-  _GTMDevLog(@"%s -- titleTextField is %@", 
+  DDLogVerbose(@"%s -- titleTextField is %@", 
              __PRETTY_FUNCTION__,
              self.titleTextField.text);
 }
@@ -568,10 +568,10 @@
   self.gridHeader.label.font = self.headerFont;
   self.gridHeader.foregroundColor = self.portfolio.fontColor;
 
-  _GTMDevLog(@"%s -- looking at a portfolio with %d set(s)",
+  DDLogVerbose(@"%s -- looking at a portfolio with %d set(s)",
              __PRETTY_FUNCTION__,
              [self.portfolio countOfSets]);
-  _GTMDevLog(@"%s -- portfolio background image is %@",
+  DDLogVerbose(@"%s -- portfolio background image is %@",
              __PRETTY_FUNCTION__,
              self.portfolio.backgroundImageName);
   [self setBackgroundImageName:self.portfolio.backgroundImageName];
@@ -617,10 +617,10 @@
 
 - (void)lookForFoundPictures {
   
-  _GTMDevLog(@"%s", __PRETTY_FUNCTION__);
+  DDLogVerbose(@"%s", __PRETTY_FUNCTION__);
   [self.portfolio lookForFoundPicturesAsyncWithCompletion:^(IPSet *foundSet) {
     
-    _GTMDevLog(@"%s -- in completion routine. foundSet = %@",
+    DDLogVerbose(@"%s -- in completion routine. foundSet = %@",
                __PRETTY_FUNCTION__,
                [foundSet description]);
     if (foundSet != nil) {

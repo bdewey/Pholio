@@ -151,7 +151,7 @@
     
     fontName = familyName;
 
-    _GTMDevLog(@"%s -- no specific font name found for family %@. Available fonts: %@",
+    DDLogVerbose(@"%s -- no specific font name found for family %@. Available fonts: %@",
                __PRETTY_FUNCTION__,
                familyName,
                [[UIFont fontNamesForFamilyName:familyName] description]);

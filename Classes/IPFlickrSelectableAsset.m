@@ -80,7 +80,7 @@
   //  Compute the URL that has the thumbnail image.
   //
   
-  _GTMDevLog(@"%s -- deriving thumbnail URL from %@",
+  DDLogVerbose(@"%s -- deriving thumbnail URL from %@",
              __PRETTY_FUNCTION__,
              [self.photoProperties description]);
   NSURL *thumbnailUrl = [context photoSourceURLFromDictionary:self.photoProperties 
@@ -148,7 +148,7 @@
   
   dispatch_queue_t defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
   
-  _GTMDevLog(@"%s -- getting image for photo %@", 
+  DDLogVerbose(@"%s -- getting image for photo %@", 
              __PRETTY_FUNCTION__,
              [self.photoProperties description]);
   dispatch_async(defaultQueue, ^{
@@ -174,7 +174,7 @@
       
       if (imageUrl != nil) {
         
-        _GTMDevLog(@"%s -- requesting image from %@",
+        DDLogVerbose(@"%s -- requesting image from %@",
                    __PRETTY_FUNCTION__,
                    imageUrl);
         NSURLRequest *request = [NSURLRequest requestWithURL:imageUrl];
@@ -188,7 +188,7 @@
         
       } else {
         
-        _GTMDevLog(@"%s -- cannot find the image for photo %@",
+        DDLogVerbose(@"%s -- cannot find the image for photo %@",
                    __PRETTY_FUNCTION__,
                    [self.photoProperties description]);
       }

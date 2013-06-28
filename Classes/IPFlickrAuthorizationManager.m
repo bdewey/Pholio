@@ -186,7 +186,7 @@
   //
   
   NSString *frob = [[authUrl query] substringFromIndex:6];
-  _GTMDevLog(@"%s -- getting a token for frob %@", 
+  DDLogVerbose(@"%s -- getting a token for frob %@", 
              __PRETTY_FUNCTION__,
              frob);
   
@@ -200,14 +200,14 @@
                        
                        self.authToken = [[responseDictionary valueForKeyPath:@"auth.token"] textContent];
                        self.flickrUserName = [responseDictionary valueForKeyPath:@"auth.user.username"];
-                       _GTMDevLog(@"%s -- successfully got token for user %@: %@",
+                       DDLogVerbose(@"%s -- successfully got token for user %@: %@",
                                   __PRETTY_FUNCTION__,
                                   self.flickrUserName,
                                   self.authToken);
                      } 
                        onError:^(NSError *error) {
                          
-                         _GTMDevLog(@"%s -- unexpected error %@",
+                         DDLogVerbose(@"%s -- unexpected error %@",
                                     __PRETTY_FUNCTION__,
                                     error);
                        }];
@@ -225,13 +225,13 @@
                      onSuccess:^(NSDictionary *responseDictionary) {
                        
                        self.flickrUserName = [responseDictionary valueForKeyPath:@"auth.user.username"];
-                       _GTMDevLog(@"%s -- validated token; user is %@", 
+                       DDLogVerbose(@"%s -- validated token; user is %@", 
                                   __PRETTY_FUNCTION__,
                                   self.flickrUserName);
                      } onError:^(NSError *error) {
                        
                        self.authToken = nil;
-                       _GTMDevLog(@"%s -- could not validate token. Discarding.",
+                       DDLogVerbose(@"%s -- could not validate token. Discarding.",
                                   __PRETTY_FUNCTION__);
                      }
    ];

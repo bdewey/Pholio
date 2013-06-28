@@ -67,7 +67,7 @@
   CATiledLayer *layer = (CATiledLayer *)[self layer];
   layer.levelsOfDetail = [photo levelsOfDetail];
   layer.tileSize = [photo defaultTileSize];
-  _GTMDevLog(@"%s -- set levels of detail to %ld", 
+  DDLogVerbose(@"%s -- set levels of detail to %ld", 
              __PRETTY_FUNCTION__, 
              layer.levelsOfDetail);
 }
@@ -101,7 +101,7 @@
   CGFloat scale = CGContextGetCTM(context).a;
   
   CFDictionaryRef rectDict = CGRectCreateDictionaryRepresentation(rect);
-  _GTMDevLog(@"%s -- scale = %f, rect = %@", 
+  DDLogVerbose(@"%s -- scale = %f, rect = %@", 
              __PRETTY_FUNCTION__,
              scale,
              rectDict);
@@ -121,7 +121,7 @@
   
   if (scale > self.maximumScale) {
     
-    _GTMDevLog(@"%s -- scale = %f, maximum scale = %f; clamping.",
+    DDLogVerbose(@"%s -- scale = %f, maximum scale = %f; clamping.",
                __PRETTY_FUNCTION__,
                scale,
                self.maximumScale);
@@ -130,7 +130,7 @@
   
   if (scale < [self.photo minimumTileScale]) {
     
-    _GTMDevLog(@"%s -- scale is %f. Minimum scale is %f. Levels of detail: photo %ld, layer %ld",
+    DDLogVerbose(@"%s -- scale is %f. Minimum scale is %f. Levels of detail: photo %ld, layer %ld",
                __PRETTY_FUNCTION__,
                scale,
                [self.photo minimumTileScale],

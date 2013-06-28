@@ -296,7 +296,7 @@
     self.gridView.fontColor = self.currentSet.parent.fontColor;
   }
   [self.gridView reloadData];
-  _GTMDevLog(@"%s -- looking at a set with %d pages",
+  DDLogVerbose(@"%s -- looking at a set with %d pages",
              __PRETTY_FUNCTION__,
              [self.currentSet countOfPages]);
 }
@@ -495,7 +495,7 @@
   
   UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
   NSArray *allowedTypes = @[kIPPasteboardObjectUTI];
-  _GTMDevLog(@"%s -- pasteboard contains %@",
+  DDLogVerbose(@"%s -- pasteboard contains %@",
              __PRETTY_FUNCTION__,
              [pasteboard.pasteboardTypes description]);
   

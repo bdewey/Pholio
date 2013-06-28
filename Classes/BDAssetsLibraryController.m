@@ -172,7 +172,7 @@
                              //
                              
                              [group numberOfAssets];
-                             _GTMDevLog(@"%s (%@) -- Found group with %d assets",
+                             DDLogVerbose(@"%s (%@) -- Found group with %d assets",
                                         __PRETTY_FUNCTION__,
                                         [[NSOperationQueue currentQueue] name],
                                         [group numberOfAssets]);
@@ -192,7 +192,7 @@
                            
                        }
    ];
-  _GTMDevLog(@"%s -- enumeration method has returned", __PRETTY_FUNCTION__);
+  DDLogVerbose(@"%s -- enumeration method has returned", __PRETTY_FUNCTION__);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

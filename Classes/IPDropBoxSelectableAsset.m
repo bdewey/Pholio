@@ -70,7 +70,7 @@
   
   self.thumbnailCompletion = completion;
   NSString *localPath = [[self.metadata.path lastPathComponent] asPathInCachesFolder];
-  _GTMDevLog(@"Loading thumbnail into %@", localPath);
+  DDLogVerbose(@"Loading thumbnail into %@", localPath);
   [self.restClient loadThumbnail:self.metadata.path ofSize:@"large" intoPath:localPath];
 }
 
@@ -80,7 +80,7 @@
   
   self.imageCompletion = completion;
   NSString *localPath = [IPPhoto filenameForNewPhoto];
-  _GTMDevLog(@"Loading image into %@", localPath);
+  DDLogVerbose(@"Loading image into %@", localPath);
   [self.restClient loadFile:self.metadata.path intoPath:localPath];
 }
 
@@ -127,7 +127,7 @@
 
 - (void)restClient:(DBRestClient *)client loadedThumbnail:(NSString *)destPath {
   
-  _GTMDevLog(@"Loaded thumbnail into %@", destPath);
+  DDLogVerbose(@"Loaded thumbnail into %@", destPath);
   UIImage *thumbnail = [UIImage imageWithContentsOfFile:destPath];
   self.thumbnailCompletion(thumbnail);
 }
@@ -136,7 +136,7 @@
 
 - (void)restClient:(DBRestClient *)client loadedFile:(NSString *)destPath contentType:(NSString *)contentType {
   
-  _GTMDevLog(@"%s -- loaded file from DropBox (%@, %@)", __PRETTY_FUNCTION__, destPath, contentType);
+  DDLogVerbose(@"%s -- loaded file from DropBox (%@, %@)", __PRETTY_FUNCTION__, destPath, contentType);
   self.imageCompletion(destPath, contentType);
 }
 
@@ -144,7 +144,7 @@
 
 - (void)restClient:(DBRestClient *)client loadFileFailedWithError:(NSError *)error {
   
-  _GTMDevLog(@"%s -- load file failed: %@", __PRETTY_FUNCTION__, error);
+  DDLogVerbose(@"%s -- load file failed: %@", __PRETTY_FUNCTION__, error);
 }
 
 @end

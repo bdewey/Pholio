@@ -179,13 +179,13 @@ CGFloat kIPPhotoMaxEdgeSize;
 
   NSError *error;
   NSString *targetDirectory = [IPPhoto thumbnailDirectory];
-  NSLog(@"%s -- trying to create %@", __PRETTY_FUNCTION__, targetDirectory);
+  DDLogVerbose(@"%s -- trying to create %@", __PRETTY_FUNCTION__, targetDirectory);
   if(![[NSFileManager defaultManager] createDirectoryAtPath:targetDirectory
                                 withIntermediateDirectories:YES 
                                                  attributes:nil 
                                                       error:&error]) {
     
-    NSLog(@"%s -- unable to create thumbnails directory: %@ (%@)", 
+    DDLogError(@"%s -- unable to create thumbnails directory: %@ (%@)",
                __PRETTY_FUNCTION__, 
                [IPPhoto thumbnailDirectory], 
                error);
@@ -195,7 +195,7 @@ CGFloat kIPPhotoMaxEdgeSize;
                                                        isDirectory:&directory];
     if (exists && !directory) {
       
-      NSLog(@"%s -- %@ exists, but is not a directory. Deleting and retrying.",
+      DDLogVerbose(@"%s -- %@ exists, but is not a directory. Deleting and retrying.",
                  __PRETTY_FUNCTION__,
                  targetDirectory);
       [[NSFileManager defaultManager] removeItemAtPath:targetDirectory error:NULL];
@@ -204,7 +204,7 @@ CGFloat kIPPhotoMaxEdgeSize;
                                                       attributes:nil 
                                                            error:&error]) {
         
-        NSLog(@"%s -- still could not create %@ (%@)",
+        DDLogVerbose(@"%s -- still could not create %@ (%@)",
                    __PRETTY_FUNCTION__,
                    targetDirectory,
                    error);
@@ -330,7 +330,7 @@ CGFloat kIPPhotoMaxEdgeSize;
     NSRange location = [directoryName rangeOfString:prefix];
     if (location.location == 0) {
       
-      NSLog(@"%s -- removing directory %@", __PRETTY_FUNCTION__, directoryName);
+      DDLogVerbose(@"%s -- removing directory %@", __PRETTY_FUNCTION__, directoryName);
       [fileManager removeItemAtPath:[directoryName asPathInCachesFolder] error:NULL];
     }
   }
@@ -383,14 +383,14 @@ CGFloat kIPPhotoMaxEdgeSize;
     //  has not been properly created. Make it and retry.
     //
     
-    NSLog(@"%s -- failed to save to %@ (%@). Trying to create directory, and retrying",
+    DDLogVerbose(@"%s -- failed to save to %@ (%@). Trying to create directory, and retrying",
                __PRETTY_FUNCTION__,
                thumbnailPath,
                error);
     [IPPhoto createThumbnailDirectory];
     if (![thumbnailData writeToFile:thumbnailPath options:NSDataWritingAtomic error:&error]) {
       
-      NSLog(@"%s -- really finally failed to save %@ (%@)",
+      DDLogVerbose(@"%s -- really finally failed to save %@ (%@)",
                  __PRETTY_FUNCTION__,
                  thumbnailPath,
                  error);
@@ -411,7 +411,7 @@ CGFloat kIPPhotoMaxEdgeSize;
                 @"Cannot get JPEG representation of image %@",
                 image_);
   
-  NSLog(@"%s -- saving image to %@", __PRETTY_FUNCTION__, self.filename);
+  DDLogVerbose(@"%s -- saving image to %@", __PRETTY_FUNCTION__, self.filename);
   [imageData writeToFile:self.filename atomically:YES];
 }
 
@@ -601,7 +601,7 @@ CGFloat kIPPhotoMaxEdgeSize;
     NSURL *imageUrl = [NSURL fileURLWithPath:self.filename];
     CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)imageUrl, NULL);
     CFDictionaryRef imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, NULL);
-    NSLog(@"%s -- got properties %@", 
+    DDLogVerbose(@"%s -- got properties %@", 
                __PRETTY_FUNCTION__,
                imageProperties);
     CFNumberRef pixelWidthRef  = CFDictionaryGetValue(imageProperties, kCGImagePropertyPixelWidth);
@@ -609,7 +609,7 @@ CGFloat kIPPhotoMaxEdgeSize;
     CGFloat pixelWidth = [(__bridge NSNumber *)pixelWidthRef floatValue];
     CGFloat pixelHeight = [(__bridge NSNumber *)pixelHeightRef floatValue];
     CGFloat maxEdge = MAX(pixelWidth, pixelHeight);
-    NSLog(@"%s -- found max edge = %f (%f, %f)",
+    DDLogVerbose(@"%s -- found max edge = %f (%f, %f)",
                __PRETTY_FUNCTION__,
                maxEdge,
                pixelWidth,
@@ -833,7 +833,7 @@ CGFloat kIPPhotoMaxEdgeSize;
     
     IPPortfolio *portfolio = self.parent.parent.parent;
     [portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
-    NSLog(@"%s -- just saved portfolio to persist image size", __PRETTY_FUNCTION__);
+    DDLogVerbose(@"%s -- just saved portfolio to persist image size", __PRETTY_FUNCTION__);
   }
   CGFloat minScale = kImageLongEdgeMinRescaleSize / longEdge;
   CGFloat log = ceilf(log2f(minScale));
@@ -844,12 +844,12 @@ CGFloat kIPPhotoMaxEdgeSize;
     //  as one level.
     //
     
-    NSLog(@"%s -- image too small; reporting one level of detail", 
+    DDLogVerbose(@"%s -- image too small; reporting one level of detail", 
                __PRETTY_FUNCTION__);
     return 1;
   }
   size_t detail = -1.0 * log + 1;
-  NSLog(@"%s -- (%f x %f) minScale = %f, log = %f, detail = %ld",
+  DDLogVerbose(@"%s -- (%f x %f) minScale = %f, log = %f, detail = %ld",
              __PRETTY_FUNCTION__,
              self.imageSize.width,
              self.imageSize.height,
@@ -952,7 +952,7 @@ CGFloat kIPPhotoMaxEdgeSize;
   NSUInteger expectedTileCount = ceilf(scaledSize.width / tileSize.width) *
                                  ceilf(scaledSize.height / tileSize.height);
   
-  NSLog(@"%s -- expected %d tiles, found %d",
+  DDLogVerbose(@"%s -- expected %d tiles, found %d",
              __PRETTY_FUNCTION__,
              expectedTileCount,
              [tiles count]);
