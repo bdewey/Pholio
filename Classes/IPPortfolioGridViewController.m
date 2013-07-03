@@ -750,48 +750,6 @@ static NSString * const IPPortfolioCellIdentifier = @"IPPortfolioCellIdentifier"
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-
-- (BOOL)gridViewShouldEdit:(BDGridView *)gridView {
-  
-  if ([self.tutorialManager updateTutorialStateForEvent:IPTutorialManagerEventLongPressExisting]) {
-    
-    self.overlayController = [self overlayControllerForCurrentState];
-  }
-  return [super gridViewShouldEdit:gridView];
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  The user tapped a set. Navigate to it.
-//
-
-- (void)gridView:(BDGridView *)gridView didTapCell:(BDGridCell *)cell {
-  
-  NSUInteger index = cell.index;
-  IPSet *nextSet = [self.portfolio objectInSetsAtIndex:index];
-  [self _pushControllerForSet:nextSet];
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  The user wants to rearrange sets.
-//
-
-- (void)gridView:(BDGridView *)gridView didMoveItemFromIndex:(NSUInteger)initialIndex 
-         toIndex:(NSUInteger)finalIndex {
-  
-  IPSet *set = [self.portfolio objectInSetsAtIndex:initialIndex];
-  [self.portfolio removeObjectFromSetsAtIndex:initialIndex];
-  [self.portfolio insertObject:set inSetsAtIndex:finalIndex];
-  [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
-  
-  if ([self.tutorialManager updateTutorialStateForEvent:IPTutorialManagerEventDidDragDrop]) {
-    
-    [self setOverlayController:[self overlayControllerForCurrentState] animated:YES];
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////
 //
 //  Helper. Asynchronously creates |IPPage| objects for each image in |images|.
 //  For each page, calls back to |progress| on the main thread. At the end of
@@ -846,73 +804,6 @@ static NSString * const IPPortfolioCellIdentifier = @"IPPortfolioCellIdentifier"
     });
     [workersDone unlockWithCondition:0];
   });
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Add a new set.
-//
-//  I can't decide if this is beautiful, or an abomination of blocks.
-//
-
-- (void)gridView:(BDGridView *)gridView didInsertAtPoint:(NSUInteger)insertionPoint 
-        fromRect:(CGRect)rect {
-  
-  [BDImagePickerController confirmLocationServicesAndPresentPopoverFromRect:rect
-                                                                     inView:gridView 
-                                                                onSelection:
-   ^(NSArray *assets) {
-     
-     IPSet *set = [[IPSet alloc] init];
-     set.title = kNewGalleryName;
-     [self.portfolio insertObject:set inSetsAtIndex:insertionPoint];
-     IPSetCell *cell = (IPSetCell *)[gridView insertCellAtIndex:insertionPoint];
-     [self asyncLoadImages:assets pageProgress:^(IPPage *nextPage, NSUInteger count) {
-       
-       [set.pages addObject:nextPage];
-       [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
-       [cell updateThumbnail];
-     } completion:^ {
-       
-       [cell updateThumbnail];
-       [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
-     }];
-   }
-                                                                 setPopover:
-   ^(UIPopoverController *popover) {
-     self.activePopoverController = popover;
-   }];
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Insert photos into an existing set.
-//
-
-- (void)gridView:(BDGridView *)gridView didInsertIntoCell :(BDGridCell *)cell {
-  
-  IPSetCell *setCell = (IPSetCell *)cell;
-  [BDImagePickerController confirmLocationServicesAndPresentPopoverFromRect:cell.frame 
-                                           inView:gridView 
-                                      onSelection:
-   ^(NSArray *assets) {
-     
-     [self asyncLoadImages:assets pageProgress:^(IPPage *nextPage, NSUInteger count) {
-       
-       [setCell.currentSet insertObject:nextPage inPagesAtIndex:[setCell.currentSet countOfPages]];
-       
-     } completion:^ {
-       
-       //
-       //  NOTHING
-       //
-       
-     }];
-   }
-   setPopover:^(UIPopoverController *popover) {
-     self.activePopoverController = popover;
-   }
-   ];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1037,67 +928,6 @@ static NSString * const IPPortfolioCellIdentifier = @"IPPortfolioCellIdentifier"
       }];
     }
   }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Do a paste into an existing cell.
-//
-
-- (void)gridView:(BDGridView *)gridView didPasteIntoCell:(BDGridCell *)cell {
-  
-  IPSet *set = [self setFromPasteboard];
-  if (set != nil) {
-    
-    IPSetCell *setCell = (IPSetCell *)cell;
-    IPSet *targetSet = setCell.currentSet;
-    __block NSUInteger currentIndex = [targetSet countOfPages];
-    
-    for (IPPage *page in set.pages) {
-      
-      [[IPPhotoOptimizationManager sharedManager] asyncOptimizePage:page withCompletion:^(void) {
-        
-        [targetSet insertObject:page inPagesAtIndex:currentIndex];
-        currentIndex++;
-      }];
-    }
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Delete.
-//
-
-- (void)gridView:(BDGridView *)gridView didDelete:(NSSet *)indexes {
-
-  NSAssert([indexes count] == 1, @"Only know how to delete single portfolios");
-  NSUInteger index = [[indexes anyObject] unsignedIntegerValue];
-  NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
-  IPSet *set = [self.portfolio objectInSetsAtIndex:index];
-  UICollectionViewCell *cell = [self.gridView cellForItemAtIndexPath:indexPath];
-  CGRect frame = cell.frame;
-  
-  NSString *alertText;
-  if ([set.title length] > 0) {
-    
-    alertText = [NSString stringWithFormat:kConfirmDelete, set.title];
-    
-  } else {
-    
-    alertText = kConfirmDeleteSetNoTitle;
-  }
-  [self.alertManager confirmWithDescription:alertText
-                                  andButtonTitle:kDeleteString
-                                        fromRect:frame 
-                                          inView:self.gridView 
-                                   performAction:
-   ^(void) {
-     [set deletePhotoFiles];
-     [self.portfolio removeObjectFromSetsAtIndex:index];
-     [self.gridView deleteItemsAtIndexPaths:@[indexPath]];
-     [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
-  }];
 }
 
 #pragma mark - UITextFieldDelegate

@@ -28,7 +28,6 @@
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import "IPSettingsController.h"
-#import "BDGridView.h"
 #import "BDOverlayViewController.h"
 
 
@@ -45,8 +44,7 @@ typedef void (^IPSetGridControllerDidPickImageBlock)(UIImage *image, NSDictionar
   UIPopoverControllerDelegate,
   IPSettingsControllerDelegate,
   MFMailComposeViewControllerDelegate,
-  BDOverlayViewControllerDelegate,
-  BDGridViewDelegate
+  BDOverlayViewControllerDelegate
 >
 
 //

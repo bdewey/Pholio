@@ -505,18 +505,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
   [self dismissModalViewControllerAnimated:YES];
 }
 
-#pragma mark - BDGridViewDelegate
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Do we allow editing?
-//
-
-- (BOOL)gridViewShouldEdit:(BDGridView *)gridView {
-  
-  return [self.userDefaults editingEnabled];
-}
-
 #pragma mark - IPSettingsControllerDelegate
 
 ////////////////////////////////////////////////////////////////////////////////

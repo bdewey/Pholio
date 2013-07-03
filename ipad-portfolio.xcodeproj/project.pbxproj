@@ -183,9 +183,6 @@
 		D3AEA44C135FE71D0025C334 /* BDGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA44B135FE71D0025C334 /* BDGridCell.m */; };
 		D3AEA44D135FE71D0025C334 /* BDGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA44B135FE71D0025C334 /* BDGridCell.m */; };
 		D3AEA450136137560025C334 /* BDGridCell-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA44F136137560025C334 /* BDGridCell-test.m */; };
-		D3AEA45313613C090025C334 /* BDGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA45213613C080025C334 /* BDGridView.m */; };
-		D3AEA45413613C090025C334 /* BDGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA45213613C080025C334 /* BDGridView.m */; };
-		D3AEA46713628F4B0025C334 /* BDGridView-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA46613628F4B0025C334 /* BDGridView-test.m */; };
 		D3B09AB013BC46B00001C3F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B09AAF13BC46AF0001C3F4 /* AppDelegate.m */; };
 		D3B09AB113BC46B00001C3F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B09AAF13BC46AF0001C3F4 /* AppDelegate.m */; };
 		D3D01474138B1F5A00181DE7 /* Choose Your Best.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D01473138B1F5A00181DE7 /* Choose Your Best.png */; };
@@ -447,9 +444,6 @@
 		D3AEA44A135FE71D0025C334 /* BDGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDGridCell.h; sourceTree = "<group>"; };
 		D3AEA44B135FE71D0025C334 /* BDGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDGridCell.m; sourceTree = "<group>"; };
 		D3AEA44F136137560025C334 /* BDGridCell-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BDGridCell-test.m"; sourceTree = "<group>"; };
-		D3AEA45113613C080025C334 /* BDGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDGridView.h; sourceTree = "<group>"; };
-		D3AEA45213613C080025C334 /* BDGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDGridView.m; sourceTree = "<group>"; };
-		D3AEA46613628F4B0025C334 /* BDGridView-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BDGridView-test.m"; sourceTree = "<group>"; };
 		D3B09AAF13BC46AF0001C3F4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; tabWidth = 2; };
 		D3CADAD413B7744B00834CAC /* IPFlickrApiKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFlickrApiKeys.h; sourceTree = "<group>"; };
 		D3D01473138B1F5A00181DE7 /* Choose Your Best.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Choose Your Best.png"; sourceTree = "<group>"; };
@@ -773,7 +767,6 @@
 				D31E9368134D6E29000F5494 /* IPSet-test.m */,
 				D3DF7544134E70A000439546 /* IPPortfolio-test.m */,
 				D3AEA44F136137560025C334 /* BDGridCell-test.m */,
-				D3AEA46613628F4B0025C334 /* BDGridView-test.m */,
 				D3D014B1138D948300181DE7 /* IPEditableTitleViewController-test.m */,
 				D30E43751363DF050025BDAB /* IPPortfolioGridViewController-test.m */,
 				D30E437F13646BB50025BDAB /* IPSetGridViewController-test.m */,
@@ -952,8 +945,6 @@
 			children = (
 				D3AEA44A135FE71D0025C334 /* BDGridCell.h */,
 				D3AEA44B135FE71D0025C334 /* BDGridCell.m */,
-				D3AEA45113613C080025C334 /* BDGridView.h */,
-				D3AEA45213613C080025C334 /* BDGridView.m */,
 				D3E7C5E91367C3D600DE4A98 /* BDContrainPanGestureRecognizer.h */,
 				D3E7C5EA1367C3D700DE4A98 /* BDContrainPanGestureRecognizer.m */,
 				D3E166C31369281400B72591 /* BDPagingView.h */,
@@ -1321,7 +1312,6 @@
 				D3912C34135902520021E4C7 /* NSString+TestHelper.m in Sources */,
 				D35934BF135A907C001048E2 /* BDSplashScreen.m in Sources */,
 				D3AEA44C135FE71D0025C334 /* BDGridCell.m in Sources */,
-				D3AEA45313613C090025C334 /* BDGridView.m in Sources */,
 				D30E43701363D9FD0025BDAB /* IPPortfolioGridViewController.m in Sources */,
 				D30E437A13646AA90025BDAB /* IPSetGridViewController.m in Sources */,
 				D3E7C5C613649C5C00DE4A98 /* UIImage+Border.m in Sources */,
@@ -1391,8 +1381,6 @@
 				D35934C8135AA8B5001048E2 /* BDSplashScreen.m in Sources */,
 				D3AEA44D135FE71D0025C334 /* BDGridCell.m in Sources */,
 				D3AEA450136137560025C334 /* BDGridCell-test.m in Sources */,
-				D3AEA45413613C090025C334 /* BDGridView.m in Sources */,
-				D3AEA46713628F4B0025C334 /* BDGridView-test.m in Sources */,
 				D30E43711363D9FD0025BDAB /* IPPortfolioGridViewController.m in Sources */,
 				D30E43761363DF050025BDAB /* IPPortfolioGridViewController-test.m in Sources */,
 				D30E437B13646AA90025BDAB /* IPSetGridViewController.m in Sources */,
