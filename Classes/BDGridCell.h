@@ -46,7 +46,7 @@ typedef enum {
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-@interface BDGridCell : UIView {
+@interface BDGridCell : UICollectionViewCell {
     
 }
 
@@ -111,9 +111,9 @@ typedef enum {
 @property (nonatomic, assign, getter=isSelected) BOOL selected;
 
 //
-//  Designated initializer.
+//  Sets up all of the custom views to match a particular style.
 //
 
-- (id)initWithStyle:(BDGridCellStyle)style;
+- (void)configureWithStyle:(BDGridCellStyle)style;
 
 @end

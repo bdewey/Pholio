@@ -615,7 +615,7 @@ BDGridViewDataSource>
   //  Finally, test the actions, one at a time.
   //
   
-  [[mockDelegate expect] gridView:view didCut:OCMOCK_ANY];
+  [[mockDelegate expect] _collectionView:view didCut:OCMOCK_ANY];
   [view cut:nil];
   STAssertNoThrow([mockDelegate verify], nil);
   STAssertFalse(selectedCell.selected, @"cut: should remove object selection");
@@ -626,7 +626,7 @@ BDGridViewDataSource>
   
   [view performSelector:@selector(selectCell:) withObject:selectedCell];
   STAssertTrue(selectedCell.selected, nil);
-  [[mockDelegate expect] gridView:view didCopy:OCMOCK_ANY];
+  [[mockDelegate expect] _collectionView:view didCopy:OCMOCK_ANY];
   [view copy:nil];
   STAssertNoThrow([mockDelegate verify], nil);
   STAssertFalse(selectedCell.selected, @"copy: should remove object selection");

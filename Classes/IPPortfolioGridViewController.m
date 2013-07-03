@@ -19,24 +19,26 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "UIImage+Border.h"
-#import "UIImage+Resize.h"
+#import "BDContrainPanGestureRecognizer.h"
+#import "BDCustomAlert.h"
+#import "BDGridCell.h"
+#import "BDImagePickerController.h"
+#import "IPAlert.h"
+#import "IPGridHeader.h"
+#import "IPPasteboardObject.h"
+#import "IPPhoto.h"
+#import "IPPhotoOptimizationManager.h"
 #import "IPPortfolio.h"
 #import "IPPortfolioGridViewController.h"
 #import "IPSetGridViewController.h"
 #import "IPSetPagingViewController.h"
-#import "BDGridCell.h"
-#import "IPPasteboardObject.h"
-#import "BDImagePickerController.h"
-#import "IPAlert.h"
-#import "NSString+TestHelper.h"
-#import "IPUserDefaults.h"
-#import "BDCustomAlert.h"
-#import "IPPhotoOptimizationManager.h"
-#import "IPPhoto.h"
-#import "BDContrainPanGestureRecognizer.h"
-#import "IPGridHeader.h"
 #import "IPTutorialManager.h"
+#import "IPUserDefaults.h"
+#import "NSString+TestHelper.h"
+#import "UIImage+Border.h"
+#import "UIImage+Resize.h"
+
+static NSString * const IPPortfolioCellIdentifier = @"IPPortfolioCellIdentifier";
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -58,15 +60,6 @@
 @end
 
 @implementation IPSetCell
-
-@synthesize currentSet = currentSet_;
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Dealloc. Note we set |currentSet| to nil, to both release it and remove the
-//  observers.
-//
-
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -206,12 +199,15 @@
 
 - (void)setCurrentSet:(IPSet *)currentSet {
 
-  [self.currentSet removeObserver:self forKeyPath:kIPSetTitle];
-  [self.currentSet removeObserver:self forKeyPath:kIPSetThumbnailFilename];
+  if (_currentSet == currentSet) {
+    return;
+  }
+  [_currentSet removeObserver:self forKeyPath:kIPSetTitle];
+  [_currentSet removeObserver:self forKeyPath:kIPSetThumbnailFilename];
   
-  currentSet_ = currentSet;
+  _currentSet = currentSet;
   
-  if (self.currentSet != nil) {
+  if (_currentSet != nil) {
     
     //
     //  Note that in |dealloc|, we set |currentSet| to nil. We therefore
@@ -222,9 +218,9 @@
     
     [self updateThumbnail];
     
-    self.caption = self.currentSet.title;
-    [self.currentSet addObserver:self forKeyPath:kIPSetTitle options:0 context:NULL];
-    [self.currentSet addObserver:self forKeyPath:kIPSetThumbnailFilename options:0 context:NULL];
+    self.caption = _currentSet.title;
+    [_currentSet addObserver:self forKeyPath:kIPSetTitle options:0 context:NULL];
+    [_currentSet addObserver:self forKeyPath:kIPSetThumbnailFilename options:0 context:NULL];
   }
 }
 
@@ -245,7 +241,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-@interface IPPortfolioGridViewController() 
+@interface IPPortfolioGridViewController() <UICollectionViewDelegateFlowLayout>
 
 //
 //  This is the header label that we've displayed over our content.
@@ -259,34 +255,9 @@
 
 @property (weak, nonatomic, readonly) UIFont *headerFont;
 
-- (void)configureDropCap;
-- (void)setTitleToPortfolioTitle;
-- (void)pushControllerForSet:(IPSet *)set;
-
-- (void)didSwipeDown;
-- (void)didSwipeUp;
-
 @end
 
 @implementation IPPortfolioGridViewController
-
-@synthesize gridView = gridView_;
-@synthesize gridHeader = gridHeader_;
-@dynamic headerFont;
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Designatied initializer.
-//
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-
-  }
-  return self;
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -295,22 +266,7 @@
 
 - (void)dealloc {
 
-  //
-  //  This will both remove observers and release the portfolio.
-  //
-  
-  self.portfolio = nil;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Free memory.
-//
-
-- (void)didReceiveMemoryWarning {
-
-  // Releases the view if it doesn't have a superview.
-  [super didReceiveMemoryWarning];
+  [self _stopObservingPortfolio:self.portfolio];
 }
 
 #pragma mark - View lifecycle
@@ -328,24 +284,23 @@
   //  Create the header label.
   //
   
-  gridHeader_ = [[IPGridHeader alloc] initWithNibName:nil bundle:nil];
-  gridHeader_.delegate = self;
-//  self.gridView.headerView = gridHeader_.view;
+  _gridHeader = [[IPGridHeader alloc] initWithNibName:nil bundle:nil];
+  _gridHeader.delegate = self;
   if (self.portfolio != nil) {
     
     self.gridHeader.foregroundColor = self.portfolio.fontColor;
     self.gridHeader.label.font = self.portfolio.titleFont;
-    self.gridView.labelBackgroundColor = self.portfolio.navigationColor;
+    
+    // TODO -- Use UIAppearance to set cell traits
   }
-    [self configureDropCap];
 
   self.gridView.dataSource = self;
-  self.gridView.gridViewDelegate = self;
-  if (self.portfolio.fontColor != nil) {
-
-    self.gridView.fontColor = self.portfolio.fontColor;
-  }
-  self.gridView.font = self.portfolio.textFont;
+  self.gridView.delegate = self;
+  [self.gridView registerClass:[IPSetCell class] forCellWithReuseIdentifier:IPPortfolioCellIdentifier];
+  
+  UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+  layout.itemSize = CGSizeMake(220, 240);
+  self.gridView.collectionViewLayout = layout;
   [self setTitleToPortfolioTitle];
   self.navigationController.navigationBar.translucent = YES;
   
@@ -378,7 +333,8 @@
 - (void)viewWillAppear:(BOOL)animated {
 
   [super viewWillAppear:animated];
-  self.gridView.topContentPadding = self.navigationController.navigationBar.frame.size.height;
+  UIEdgeInsets insets = UIEdgeInsetsMake(8, 8, 8, 8);
+  self.gridView.contentInset = insets;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -485,28 +441,6 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  Configures the Drop Cap settings based on the layout style.
-//
-
-- (void)configureDropCap {
-  
-  switch (self.portfolio.layoutStyle) {
-    case IPPortfolioLayoutStyleTiles:
-      self.gridView.dropCapHeight = 2;
-      self.gridView.dropCapWidth = 2;
-      break;
-      
-    case IPPortfolioLayoutStyleStacks:      
-    default:
-      self.gridView.dropCapHeight = 1;
-      self.gridView.dropCapWidth = 1;
-      break;
-  }
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-//
 //  Sets the view title to the portfolio title.
 //
 
@@ -534,6 +468,36 @@
   return [UIFont fontWithName:self.portfolio.titleFont.fontName size:36.0];
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  Stop observing changes to _portfolio
+//
+
+- (void)_stopObservingPortfolio:(IPPortfolio *)portfolio {
+  
+  [portfolio removeObserver:self forKeyPath:kIPPortfolioBackgroundImageName];
+  [portfolio removeObserver:self forKeyPath:kIPPortfolioFontColor];
+  [portfolio removeObserver:self forKeyPath:kIPPortfolioLayoutStyle];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  Start observing changes to a portfolio
+//
+
+- (void)_startObservingPortfolio:(IPPortfolio *)portfolio {
+  
+  [portfolio addObserver:self
+              forKeyPath:kIPPortfolioBackgroundImageName
+                 options:0
+                 context:NULL];
+  [portfolio addObserver:self
+              forKeyPath:kIPPortfolioFontColor
+                 options:0
+                 context:NULL];
+  [portfolio addObserver:self forKeyPath:kIPPortfolioLayoutStyle options:0 context:NULL];
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  Sets the portfolio -- refresh the grid.
@@ -545,20 +509,10 @@
   //  Stop looking for changes to the background image.
   //
   
-  [self.portfolio removeObserver:self 
-                      forKeyPath:kIPPortfolioBackgroundImageName];
-  [self.portfolio removeObserver:self forKeyPath:kIPPortfolioFontColor];
-  [self.portfolio removeObserver:self forKeyPath:kIPPortfolioLayoutStyle];
+  [self _stopObservingPortfolio:self.portfolio];
   [super setPortfolio:portfolio];
   
-  [self configureDropCap];
   [self setTitleToPortfolioTitle];
-  if (self.portfolio.fontColor != nil) {
-
-    self.gridView.fontColor = self.portfolio.fontColor;
-  }
-  self.gridView.font = self.portfolio.textFont;
-  self.gridView.labelBackgroundColor = self.portfolio.navigationColor;
   self.titleTextField.font = self.portfolio.titleFont;
   if (self.portfolio.navigationColor != nil) {
     
@@ -580,16 +534,8 @@
   //  Look for further changes to the background image.
   //
   
-  [self.portfolio addObserver:self 
-                   forKeyPath:kIPPortfolioBackgroundImageName 
-                      options:0 
-                      context:NULL];
-  [self.portfolio addObserver:self 
-                   forKeyPath:kIPPortfolioFontColor 
-                      options:0 
-                      context:NULL];
-  [self.portfolio addObserver:self forKeyPath:kIPPortfolioLayoutStyle options:0 context:NULL];
-  [self.gridView setNeedsLayout];
+  [self _startObservingPortfolio:self.portfolio];
+  [self.gridView reloadData];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -600,10 +546,8 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 
   [self setBackgroundImageName:self.portfolio.backgroundImageName];
-  self.gridView.fontColor = self.portfolio.fontColor;
   if ([keyPath isEqualToString:kIPPortfolioLayoutStyle]) {
     
-    [self configureDropCap];
     [self.gridView reloadData];
   }
 }
@@ -630,7 +574,9 @@
       IPSet *optimizedSet = [[IPSet alloc] init];
       optimizedSet.title = foundSet.title;
       [self.portfolio insertObject:optimizedSet inSetsAtIndex:insertionIndex];
-      IPSetCell *cell = (IPSetCell *)[self.gridView insertCellAtIndex:insertionIndex];
+      NSIndexPath *indexPath = [NSIndexPath indexPathForItem:insertionIndex inSection:0];
+      [self.gridView insertItemsAtIndexPaths:@[indexPath]];
+      IPSetCell *cell = (IPSetCell *)[self.gridView cellForItemAtIndexPath:indexPath];
 
       for (IPPage *page in foundSet.pages) {
         
@@ -661,105 +607,29 @@
                                               animated:YES];
 }
 
-#pragma mark - IPSettingsControllerDelegate
-
-////////////////////////////////////////////////////////////////////////////////
-
-- (void)ipSettingsSetNavigationColor:(UIColor *)navigationColor {
-  
-  [super ipSettingsSetNavigationColor:navigationColor];
-  self.gridView.labelBackgroundColor = navigationColor;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Set the text color.
-//
-
-- (void)ipSettingsSetGridTextColor:(UIColor *)gridTextColor {
-  
-  [super ipSettingsSetGridTextColor:gridTextColor];
-  self.gridView.fontColor = self.portfolio.fontColor;
-  self.gridHeader.foregroundColor = self.portfolio.fontColor;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Set the text font.
-//
-
-- (void)ipSettingsDidSetTextFontFamily:(NSString *)fontFamily {
-  
-  [super ipSettingsDidSetTextFontFamily:fontFamily];
-  self.gridView.font = self.portfolio.textFont;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-- (void)ipSettingsDidSetTitleFontFamily:(NSString *)fontFamily {
-  
-  [super ipSettingsDidSetTitleFontFamily:fontFamily];
-  self.gridHeader.label.font = self.headerFont;
-}
-
 #pragma mark -
-#pragma mark BDGridViewDataSource
+#pragma mark UICollectionViewDataSource
 
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Return the cell size.
-//
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-- (CGSize)gridViewSizeOfCell:(BDGridView *)gridView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
   
-  CGFloat size;
-  
-  switch (self.portfolio.layoutStyle) {
-    case IPPortfolioLayoutStyleTiles:
-//      size = 300;
-      size = 220;
-      break;
-      
-    case IPPortfolioLayoutStyleStacks:
-      size = 220;
-      break;
-      
-    default:
-      size = 180;
-      break;
-  }
-  
-  //
-  //  The +20 below is for the 10 pixel top & bottom edge inset on the cell.
-  //
-  
-  return CGSizeMake(size, size + 20);
+  return 1;
 }
 
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Return the number of sets in the portfolio.
-//
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-- (NSUInteger)gridViewCountOfCells:(BDGridView *)gridView {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
   
   return [self.portfolio countOfSets];
 }
 
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Get a cell for a set in the portfolio.
-//
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-- (BDGridCell *)gridView:(BDGridView *)gridView cellForIndex:(NSUInteger)index {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
   
-  IPSetCell *cell = (IPSetCell *)[gridView dequeueCell];
-  if (cell == nil) {
-    
-    cell = [[IPSetCell alloc] initWithStyle:BDGridCellStyleTile];
-    cell.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
-  }
-  
+  IPSetCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:IPPortfolioCellIdentifier forIndexPath:indexPath];
+  cell.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
   switch (self.portfolio.layoutStyle) {
     case IPPortfolioLayoutStyleStacks:
       cell.style = BDGridCellStyleDefault;
@@ -774,9 +644,92 @@
     default:
       break;
   }
-  cell.currentSet = [self.portfolio objectInSetsAtIndex:index];
+  cell.currentSet = [self.portfolio objectInSetsAtIndex:indexPath.row];
   
   return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+  
+  NSUInteger index = indexPath.row;
+  IPSet *nextSet = [self.portfolio objectInSetsAtIndex:index];
+  [self _pushControllerForSet:nextSet];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
+  
+  return YES;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (BOOL)collectionView:(UICollectionView *)collectionView
+      canPerformAction:(SEL)action
+    forItemAtIndexPath:(NSIndexPath *)indexPath
+            withSender:(id)sender {
+  
+  if (action == @selector(paste:)) {
+    NSArray *types = @[kIPPasteboardObjectUTI];
+    return [[UIPasteboard generalPasteboard] containsPasteboardTypes:types] ||
+    ([[UIPasteboard generalPasteboard] image] != nil);
+  }
+  return YES;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)collectionView:(UICollectionView *)collectionView
+         performAction:(SEL)action
+    forItemAtIndexPath:(NSIndexPath *)indexPath
+            withSender:(id)sender {
+  
+  NSIndexSet *indexes = [NSIndexSet indexSetWithIndex:indexPath.row];
+  if (action == @selector(cut:)) {
+    
+    [self _collectionView:collectionView didCut:indexes];
+    
+  } else if (action == @selector(copy:)) {
+    
+    [self _collectionView:collectionView didCopy:indexes];
+    
+  } else if (action == @selector(paste:)) {
+    
+    [self _collectionView:collectionView didPasteAtIndexSet:indexes];
+  }
+}
+
+#pragma mark - UICollectionViewFlowLayoutDelegate
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  The size of a cell is set to a constant 200 pixel height, and whatever width preserves the aspect ratio.
+//
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+  
+  NSUInteger index = indexPath.row;
+  IPSet *set = [self.portfolio objectInSetsAtIndex:index];
+  UIImage *coverImage = set.thumbnail;
+  CGSize imageSize = coverImage.size;
+  CGFloat aspectRatio;
+  if (imageSize.height) {
+    
+    aspectRatio = imageSize.width / imageSize.height;
+    
+  } else {
+    
+    aspectRatio = 1.0;
+  }
+  CGFloat cellWidth = 200 * aspectRatio;
+  return CGSizeMake(cellWidth, 200);
 }
 
 #pragma mark -
@@ -787,7 +740,7 @@
 //  Helper routine to push the navigation controller for a specific set.
 //
 
-- (void)pushControllerForSet:(IPSet *)set {
+- (void)_pushControllerForSet:(IPSet *)set {
   
   IPSetGridViewController *setController = [[IPSetGridViewController alloc] initWithNibName:@"IPSetGridViewController" bundle:nil];
 //  IPSetPagingViewController *setController = [[[IPSetPagingViewController alloc] initWithNibName:@"IPSetPagingViewController" bundle:nil] autorelease];
@@ -816,7 +769,7 @@
   
   NSUInteger index = cell.index;
   IPSet *nextSet = [self.portfolio objectInSetsAtIndex:index];
-  [self pushControllerForSet:nextSet];
+  [self _pushControllerForSet:nextSet];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -967,10 +920,10 @@
 //  Copy a set.
 //
 
-- (void)gridView:(BDGridView *)gridView didCopy:(NSSet *)indexes {
+- (void)_collectionView:(UICollectionView *)collectionView didCopy:(NSIndexSet *)indexes {
   
   NSAssert([indexes count] == 1, @"Only know how to copy single sets");
-  NSUInteger index = [[indexes anyObject] unsignedIntegerValue];
+  NSUInteger index = [indexes firstIndex];
   IPPasteboardObject *pasteboardObject = [[IPPasteboardObject alloc] init];
   pasteboardObject.modelObject = [self.portfolio objectInSetsAtIndex:index];
   NSData *data = [NSKeyedArchiver archivedDataWithRootObject:pasteboardObject];
@@ -989,10 +942,10 @@
 //  Cut a set.
 //
 
-- (void)gridView:(BDGridView *)gridView didCut:(NSSet *)indexes {
+- (void)_collectionView:(UICollectionView *)collectionView didCut:(NSIndexSet *)indexes {
   
   NSAssert([indexes count] == 1, @"Only know how to cut single sets");
-  NSUInteger index = [[indexes anyObject] unsignedIntegerValue];
+  NSUInteger index = [indexes firstIndex];
   IPPasteboardObject *pasteboardObject = [[IPPasteboardObject alloc] init];
   IPSet *set = [self.portfolio objectInSetsAtIndex:index];
   pasteboardObject.modelObject = set;
@@ -1003,24 +956,15 @@
     [[UIPasteboard generalPasteboard] setData:data forPasteboardType:kIPPasteboardObjectUTI];
     [self.portfolio removeObjectFromSetsAtIndex:index];
     [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
-    [gridView deleteCellAtIndex:index];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
+    [collectionView performBatchUpdates:^{
+      [collectionView deleteItemsAtIndexPaths:@[indexPath]];
+    } completion:nil];
     
   } else {
     
     [self.alertManager showErrorMessage:kErrorCutFailed];
   }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Can we paste?
-//
-
-- (BOOL)gridViewCanPaste:(BDGridView *)gridView {
-  
-  NSArray *types = @[kIPPasteboardObjectUTI];
-  return [[UIPasteboard generalPasteboard] containsPasteboardTypes:types] ||
-    ([[UIPasteboard generalPasteboard] image] != nil);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1057,8 +1001,11 @@
 //  Do a paste.
 //
 
-- (void)gridView:(BDGridView *)gridView didPasteAtPoint:(NSUInteger)insertionPoint {
+- (void)_collectionView:(UICollectionView *)collectionView didPasteAtIndexSet:(NSIndexSet *)indexSet {
   
+  NSAssert(indexSet.count <= 1, @"Cannot handle more than one index");
+  NSUInteger insertionPoint = indexSet.firstIndex;
+  NSIndexPath *indexPath = [NSIndexPath indexPathForItem:insertionPoint inSection:0];
   IPSet *unoptimizedSet = [self setFromPasteboard];
   if (unoptimizedSet != nil) {
 
@@ -1071,7 +1018,9 @@
     
     [self.portfolio insertObject:optimizedSet inSetsAtIndex:insertionPoint];
     [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
-    [gridView insertCellAtIndex:insertionPoint];
+    [collectionView performBatchUpdates:^{
+      [collectionView insertItemsAtIndexPaths:@[indexPath]];
+    } completion:nil];
     
     //
     //  Optimize each page from the unoptimized set and stick it in the
@@ -1124,8 +1073,10 @@
 
   NSAssert([indexes count] == 1, @"Only know how to delete single portfolios");
   NSUInteger index = [[indexes anyObject] unsignedIntegerValue];
+  NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
   IPSet *set = [self.portfolio objectInSetsAtIndex:index];
-  CGRect frame = [self.gridView frameForCellAtIndex:index];
+  UICollectionViewCell *cell = [self.gridView cellForItemAtIndexPath:indexPath];
+  CGRect frame = cell.frame;
   
   NSString *alertText;
   if ([set.title length] > 0) {
@@ -1144,7 +1095,7 @@
    ^(void) {
      [set deletePhotoFiles];
      [self.portfolio removeObjectFromSetsAtIndex:index];
-     [self.gridView deleteCellAtIndex:index];
+     [self.gridView deleteItemsAtIndexPaths:@[indexPath]];
      [self.portfolio savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
   }];
 }

@@ -370,7 +370,9 @@
   IPPageCell *cell = (IPPageCell *)[gridView dequeueCell];
   if (cell == nil) {
     
-    cell = [[IPPageCell alloc] initWithStyle:BDGridCellStyleDefault];
+    cell = [[IPPageCell alloc] initWithFrame:CGRectZero];
+    cell.style = BDGridCellStyleDefault;
+    [cell configureWithStyle:BDGridCellStyleDefault];
     cell.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
   }
   

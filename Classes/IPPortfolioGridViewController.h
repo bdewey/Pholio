@@ -34,8 +34,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 @interface IPPortfolioGridViewController : IPEditableTitleViewController<
-  BDGridViewDataSource,
-  BDGridViewDelegate,
+  UICollectionViewDataSource,
+  UICollectionViewDelegate,
   IPGridHeaderDelegate
 > {
     
@@ -45,7 +45,7 @@
 //  Interface Builder outlets.
 //
 
-@property (nonatomic, strong) IBOutlet BDGridView *gridView;
+@property (nonatomic, strong) IBOutlet UICollectionView *gridView;
 
 //
 //  Tell the controller to look for images.

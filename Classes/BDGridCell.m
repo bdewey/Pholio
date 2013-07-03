@@ -51,47 +51,38 @@
 @synthesize labelView = labelView_;
 @synthesize selected = selected_;
 
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Main initializer
-//
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-- (id)initWithStyle:(BDGridCellStyle)style {
+- (void)configureWithStyle:(BDGridCellStyle)style {
 
-  self = [super initWithFrame:CGRectZero];
-  if (self) {
-
-    self.style = style;
-    self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    captionHeight_ = kDefaultCaptionHeight;
-    self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.0];
-    self.labelBackgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-
-    //
-    //  Construct a view for holding our label.
-    //
-    
-    self.labelView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.labelView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-
-    
-    self.label = [[UILabel alloc] init];
-    self.label.textAlignment = UITextAlignmentCenter;
-    self.label.textColor = [UIColor whiteColor];
-    self.label.backgroundColor = [UIColor clearColor];
-    self.label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.labelView addSubview:self.label];
-    
-    self.imageView = [[UIImageView alloc] init];
-    self.imageView.clipsToBounds = YES;
-    self.imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | 
-      UIViewAutoresizingFlexibleHeight | 
-      UIViewAutoresizingFlexibleBottomMargin;
-    [self addSubview:self.imageView];
-    [self addSubview:self.labelView];
-    [self repositionImageAndLabel];
-  }
-  return self;
+  self.style = style;
+  captionHeight_ = kDefaultCaptionHeight;
+  self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.0];
+  self.labelBackgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+  
+  //
+  //  Construct a view for holding our label.
+  //
+  
+  self.labelView = [[UIView alloc] initWithFrame:CGRectZero];
+  self.labelView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+  
+  
+  self.label = [[UILabel alloc] init];
+  self.label.textAlignment = UITextAlignmentCenter;
+  self.label.textColor = [UIColor whiteColor];
+  self.label.backgroundColor = [UIColor clearColor];
+  self.label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  [self.labelView addSubview:self.label];
+  
+  self.imageView = [[UIImageView alloc] init];
+  self.imageView.clipsToBounds = YES;
+  self.imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+  UIViewAutoresizingFlexibleHeight |
+  UIViewAutoresizingFlexibleBottomMargin;
+  [self addSubview:self.imageView];
+  [self addSubview:self.labelView];
+  [self repositionImageAndLabel];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -296,7 +287,11 @@
 
 - (void)setStyle:(BDGridCellStyle)style {
   
+  if (style_ == style) {
+    return;
+  }
   style_ = style;
+  [self configureWithStyle:style_];
   switch (self.style) {
     case BDGridCellStyleTile:
       self.imageView.contentMode = UIViewContentModeScaleAspectFill;

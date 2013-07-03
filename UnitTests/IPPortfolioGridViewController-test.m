@@ -208,7 +208,7 @@
 - (void)testCopy {
   
   NSSet *victim = [NSSet setWithObject:[NSNumber numberWithUnsignedInteger:0]];
-  [self.controller gridView:self.controller.gridView didCopy:victim];
+  [self.controller _collectionView:self.controller.gridView didCopy:victim];
   
   //
   //  We should have something we know how to paste.
@@ -242,7 +242,7 @@
   NSSet *victim = [NSSet setWithObject:[NSNumber numberWithUnsignedInteger:0]];
   IPSet *set = [[[self.portfolio objectInSetsAtIndex:0] retain] autorelease];
   
-  [self.controller gridView:self.controller.gridView didCut:victim];
+  [self.controller _collectionView:self.controller.gridView didCut:victim];
   STAssertEquals((NSUInteger)1, [self.portfolio countOfSets], nil);
   
   //
