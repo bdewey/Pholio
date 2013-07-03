@@ -3,6 +3,7 @@ build
 *.pbxuser
 *.mode1v3
 ipad-portfolio.xcodeproj/project.xcworkspace
+ipad-portfolio.xcworkspace/xcshareddata/
 Workspaces/Pholio.xcworkspace/xcshareddata
 xcuserdata
 *.ipa
