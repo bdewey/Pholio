@@ -27,11 +27,11 @@
 //  Private methods & properties
 
 @interface BDGridCell ()
+
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UIView *labelView;
 
-- (void)repositionImageAndLabel;
 @end
 
 
@@ -55,7 +55,7 @@
 
 - (void)configureWithStyle:(BDGridCellStyle)style {
 
-  self.style = style;
+  style_ = style;
   captionHeight_ = kDefaultCaptionHeight;
   self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.0];
   self.labelBackgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
@@ -84,12 +84,6 @@
   [self addSubview:self.labelView];
   [self repositionImageAndLabel];
 }
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Deallocate
-//
-
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -287,9 +281,6 @@
 
 - (void)setStyle:(BDGridCellStyle)style {
   
-  if (style_ == style) {
-    return;
-  }
   style_ = style;
   [self configureWithStyle:style_];
   switch (self.style) {

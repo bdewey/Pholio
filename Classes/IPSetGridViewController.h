@@ -32,14 +32,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-@interface IPSetGridViewController : IPEditableTitleViewController<
-BDGridViewDataSource,
-BDGridViewDelegate,
-UIImagePickerControllerDelegate,
-UINavigationControllerDelegate
-> {
-  
-}
+@interface IPSetGridViewController : IPEditableTitleViewController
 
 //
 //  This is the portfolio that we are showing.
@@ -57,6 +50,6 @@ UINavigationControllerDelegate
 //  Interface Builder outlets.
 //
 
-@property (nonatomic, strong) IBOutlet BDGridView *gridView;
+@property (nonatomic, strong) IBOutlet UICollectionView *gridView;
 
 @end

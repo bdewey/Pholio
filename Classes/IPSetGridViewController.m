@@ -29,6 +29,8 @@
 #import "IPPhotoOptimizationManager.h"
 #import "UIImage+Border.h"
 
+static NSString * const kIPSetGridViewCellIdentifier = @"kIPSetGridViewCellIdentifier";
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -37,8 +39,7 @@
 //  so we can update the cell appropriately.
 //
 
-@interface IPPageCell : BDGridCell {
-}
+@interface IPPageCell : BDGridCell
 
 //
 //  The photo visualized by this cell.
@@ -50,17 +51,11 @@
 
 @implementation IPPageCell
 
-@synthesize photo = photo_;
-
 ////////////////////////////////////////////////////////////////////////////////
-//
-//  Dealloc. Note we set photo to nil, which will not only release it but also
-//  remove the observers.
-//
 
 - (void)dealloc {
   
-  self.photo = nil;
+  [_photo removeObserver:self forKeyPath:kIPPhotoTitle];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -71,8 +66,11 @@
 
 - (void)setPhoto:(IPPhoto *)photo {
   
-  [self.photo removeObserver:self forKeyPath:kIPPhotoTitle];
-  photo_ = photo;
+  if (_photo == photo) {
+    return;
+  }
+  [_photo removeObserver:self forKeyPath:kIPPhotoTitle];
+  _photo = photo;
   
   self.image = nil;
   if (photo == nil) {
@@ -84,7 +82,7 @@
     
     return;
   }
-  [self.photo addObserver:self forKeyPath:kIPPhotoTitle options:0 context:NULL];
+  [_photo addObserver:self forKeyPath:kIPPhotoTitle options:0 context:NULL];
   self.caption = self.photo.title;
   UIImage *thumbnail = self.photo.thumbnail;
   [[[IPPhotoOptimizationManager sharedManager] optimizationQueue] addOperationWithBlock:^(void) {
@@ -111,49 +109,25 @@
 
 @end
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+@interface IPSetGridViewController () <
+UICollectionViewDataSource,
+UICollectionViewDelegate,
+UIImagePickerControllerDelegate,
+UINavigationControllerDelegate
+>
 
-@interface IPSetGridViewController ()
-
-
-- (void)popView;
 @end
+
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
 @implementation IPSetGridViewController
-
-@synthesize currentSet = currentSet_;
-@synthesize backButtonText = backButtonText_;
-@synthesize gridView = gridView_;
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Designatied initializer.
-//
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-
-    //
-    //  Spot for custom initialization.
-    //
-  }
-  return self;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Deallocator.
-//
-
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -179,32 +153,19 @@
   
   [super viewDidLoad];
   
-  self.gridView.dataSource = self;
-  self.gridView.gridViewDelegate = self;
-  self.gridView.topContentPadding = self.navigationController.navigationBar.frame.size.height;
-  if (self.currentSet.parent.fontColor != nil) {
-
-    self.gridView.fontColor = self.currentSet.parent.fontColor;
-  }
-  self.gridView.font = self.currentSet.parent.textFont;
+  _gridView.dataSource = self;
+  _gridView.delegate = self;
+  _gridView.contentInset = UIEdgeInsetsMake(8, 8, 8, 8);
+  [_gridView registerClass:[IPPageCell class] forCellWithReuseIdentifier:kIPSetGridViewCellIdentifier];
+  UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+  layout.itemSize = CGSizeMake(kGridCellSize, kGridCellSize);
+  _gridView.collectionViewLayout = layout;
 
   self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.backButtonText 
                                                                             style:UIBarButtonItemStylePlain 
                                                                            target:self 
                                                                            action:@selector(popView)];
   self.titleTextField.text = self.title;
-  
-  //
-  //  Make sure tiles exist for all photos in this set.
-  //
-  
-//  for (IPPage *page in self.currentSet.pages) {
-//    for (IPPhoto *photo in page.photos) {
-//      
-//      [[IPPhotoTilingManager sharedManager] asyncTilePhoto:photo 
-//                                            withCompletion:nil];
-//    }
-//  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -217,7 +178,6 @@
   [super viewWillAppear:animated];
   [self setBackgroundImageName:self.currentSet.parent.backgroundImageName];
   NSAssert(self.currentSet.parent != nil, @"Set must have a parent");
-  self.gridView.fontColor = self.currentSet.parent.fontColor;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -287,40 +247,17 @@
 
 - (void)setCurrentSet:(IPSet *)currentSet {
   
-  currentSet_ = currentSet;
+  if (_currentSet == currentSet) {
+    return;
+  }
+  _currentSet = currentSet;
   
   self.portfolio = self.currentSet.parent;
   self.title = self.currentSet.title;
-  if (self.currentSet.parent.fontColor != nil) {
-
-    self.gridView.fontColor = self.currentSet.parent.fontColor;
-  }
   [self.gridView reloadData];
   DDLogVerbose(@"%s -- looking at a set with %d pages",
              __PRETTY_FUNCTION__,
              [self.currentSet countOfPages]);
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Write through changes to the font color.
-//
-
-- (void)ipSettingsSetGridTextColor:(UIColor *)gridTextColor {
-  
-  [super ipSettingsSetGridTextColor:gridTextColor];
-  self.gridView.fontColor = self.currentSet.parent.fontColor;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Handle changes to text font.
-//
-
-- (void)ipSettingsDidSetTextFontFamily:(NSString *)fontFamily {
-  
-  [super ipSettingsDidSetTextFontFamily:fontFamily];
-  self.gridView.font = self.portfolio.textFont;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -330,53 +267,37 @@
 
 - (NSString *)backButtonText {
   
-  if (backButtonText_ == nil) {
+  if (_backButtonText == nil) {
     
-    backButtonText_ = [[NSString alloc] initWithString:kBackButtonText];
+    _backButtonText = [[NSString alloc] initWithString:kBackButtonText];
   }
-  return backButtonText_;
+  return _backButtonText;
 }
 
-#pragma mark -
-#pragma mark BDGridViewDataSource
+#pragma mark - UICollectionViewDataSource
 
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Return the cell size.
-//
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-- (CGSize)gridViewSizeOfCell:(BDGridView *)gridView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
   
-  return CGSizeMake(kGridCellSize, kGridCellSize);
+  return 1;
 }
 
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Return the number of sets in the portfolio.
-//
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-- (NSUInteger)gridViewCountOfCells:(BDGridView *)gridView {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
   
-  return [self.currentSet countOfPages];
+  return [_currentSet countOfPages];
 }
 
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Get a cell for a set in the portfolio.
-//
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-- (BDGridCell *)gridView:(BDGridView *)gridView cellForIndex:(NSUInteger)index {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
   
-  IPPageCell *cell = (IPPageCell *)[gridView dequeueCell];
-  if (cell == nil) {
-    
-    cell = [[IPPageCell alloc] initWithFrame:CGRectZero];
-    cell.style = BDGridCellStyleDefault;
-    [cell configureWithStyle:BDGridCellStyleDefault];
-    cell.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
-  }
+  IPPageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kIPSetGridViewCellIdentifier forIndexPath:indexPath];
+  cell.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
   
-  IPPage *page = [self.currentSet objectInPagesAtIndex:index];
+  IPPage *page = [self.currentSet objectInPagesAtIndex:indexPath.row];
   IPPhoto *photo = [page objectInPhotosAtIndex:0];
   cell.style = BDGridCellStyleDefault;
   cell.photo = photo;
@@ -384,25 +305,25 @@
   return cell;
 }
 
-#pragma mark -
-#pragma mark BDGridViewDelegate
+#pragma mark - UICollectionViewDelegate
 
-////////////////////////////////////////////////////////////////////////////////
-//
-//  The user tapped a picture. Open an |IPSetPagingViewController| centered
-//  on that picture.
-//
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-- (void)gridView:(BDGridView *)gridView didTapCell:(BDGridCell *)cell {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
   
-  NSUInteger index = cell.index;
+  NSUInteger index = indexPath.row;
   IPSetPagingViewController *controller = [[IPSetPagingViewController alloc] initWithNibName:@"IPSetPagingViewController" bundle:nil];
-
+  
   controller.currentSet = self.currentSet;
   controller.currentPageIndex = index;
   controller.backButtonText = self.navigationItem.title;
   [self.navigationController pushViewController:controller animated:NO];
 }
+
+#if 0
+
+#pragma mark -
+#pragma mark BDGridViewDelegate
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -621,6 +542,8 @@
   [self.currentSet insertObject:page inPagesAtIndex:finalIndex];
   [self.currentSet.parent savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
 }
+
+#endif
 
 #pragma mark - UITextFieldDelegate
 
