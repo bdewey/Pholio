@@ -155,13 +155,12 @@ UINavigationControllerDelegate
   
   UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
   layout.itemSize = CGSizeMake(kGridCellSize, kGridCellSize);
+  layout.sectionInset = UIEdgeInsetsMake(72, 8, 8, 8);
   
   _gridView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+  _gridView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
   _gridView.dataSource = self;
   _gridView.delegate = self;
-  UINavigationBar *navBar = self.navigationController.navigationBar;
-  CGRect navBarFrameInWindow = [navBar convertRect:navBar.bounds toView:nil];
-  _gridView.contentInset = UIEdgeInsetsMake(8 + CGRectGetMaxY(navBarFrameInWindow), 8, 8, 8);
   [_gridView registerClass:[IPPageCell class] forCellWithReuseIdentifier:kIPSetGridViewCellIdentifier];
   _gridView.collectionViewLayout = layout;
   [self.view addSubview:_gridView];

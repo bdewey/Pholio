@@ -275,16 +275,17 @@ static NSString * const IPPortfolioCellIdentifier = @"IPPortfolioCellIdentifier"
   
   UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
   layout.itemSize = CGSizeMake(220, 240);
+  UINavigationBar *navBar = self.navigationController.navigationBar;
+  CGRect navBarFrameInWindow = [navBar convertRect:navBar.bounds toView:nil];
+  layout.sectionInset = UIEdgeInsetsMake(8 + CGRectGetMaxY(navBarFrameInWindow), 8, 8, 8);
+
   _gridView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+  _gridView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
   _gridView.dataSource = self;
   _gridView.delegate = self;
   [_gridView registerClass:[IPSetCell class] forCellWithReuseIdentifier:IPPortfolioCellIdentifier];
   
   [self setTitleToPortfolioTitle];
-  UINavigationBar *navigationBar = self.navigationController.navigationBar;
-  CGRect navBarFrameInWindow = [navigationBar convertRect:navigationBar.bounds toView:nil];
-  UIEdgeInsets insets = UIEdgeInsetsMake(8 + CGRectGetMaxY(navBarFrameInWindow), 8, 8, 8);
-  _gridView.contentInset = insets;
 
   
   UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDown)];
