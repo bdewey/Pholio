@@ -122,11 +122,12 @@
   //  Create the editable title field. 
   //
   
-  self.titleTextField = [[IPAlwaysCenteredTextField alloc] init];
-  self.titleTextField.textColor = [UIColor whiteColor];
-  self.titleTextField.textAlignment = UITextAlignmentCenter;
-  self.titleTextField.font = self.portfolio.titleFont;
-  self.titleTextField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  IPAlwaysCenteredTextField *titleTextField = [[IPAlwaysCenteredTextField alloc] init];
+  titleTextField = [[IPAlwaysCenteredTextField alloc] init];
+  titleTextField.textColor = [UIColor whiteColor];
+  titleTextField.textAlignment = UITextAlignmentCenter;
+  titleTextField.font = self.portfolio.titleFont;
+  titleTextField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   if (self.navigationController != nil) {
 
     //
@@ -134,11 +135,12 @@
     //  harmful to execute this line. The rest of the lines are merely useless.
     //
     
-    self.titleTextField.frame = self.navigationController.navigationBar.bounds;
+    titleTextField.frame = self.navigationController.navigationBar.bounds;
   }
-  self.titleTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-  self.titleTextField.delegate = self;
-  self.titleTextField.returnKeyType = UIReturnKeyDone;
+  titleTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+  titleTextField.delegate = self;
+  titleTextField.returnKeyType = UIReturnKeyDone;
+  titleTextField = titleTextField;
   self.navigationItem.titleView = self.titleTextField;
   self.navigationController.navigationBar.barTintColor = self.portfolio.navigationColor;
   

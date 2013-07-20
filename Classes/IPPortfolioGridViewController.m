@@ -294,15 +294,19 @@ static NSString * const IPPortfolioCellIdentifier = @"IPPortfolioCellIdentifier"
     // TODO -- Use UIAppearance to set cell traits
   }
 
-  self.gridView.dataSource = self;
-  self.gridView.delegate = self;
-  [self.gridView registerClass:[IPSetCell class] forCellWithReuseIdentifier:IPPortfolioCellIdentifier];
+  _gridView.dataSource = self;
+  _gridView.delegate = self;
+  [_gridView registerClass:[IPSetCell class] forCellWithReuseIdentifier:IPPortfolioCellIdentifier];
   
   UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
   layout.itemSize = CGSizeMake(220, 240);
-  self.gridView.collectionViewLayout = layout;
+  _gridView.collectionViewLayout = layout;
   [self setTitleToPortfolioTitle];
-  self.navigationController.navigationBar.translucent = YES;
+  UINavigationBar *navigationBar = self.navigationController.navigationBar;
+  CGRect navBarFrameInWindow = [navigationBar convertRect:navigationBar.bounds toView:nil];
+  UIEdgeInsets insets = UIEdgeInsetsMake(8 + CGRectGetMaxY(navBarFrameInWindow), 8, 8, 8);
+  _gridView.contentInset = insets;
+
   
   UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDown)];
   swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
@@ -333,8 +337,6 @@ static NSString * const IPPortfolioCellIdentifier = @"IPPortfolioCellIdentifier"
 - (void)viewWillAppear:(BOOL)animated {
 
   [super viewWillAppear:animated];
-  UIEdgeInsets insets = UIEdgeInsetsMake(8, 8, 8, 8);
-  self.gridView.contentInset = insets;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

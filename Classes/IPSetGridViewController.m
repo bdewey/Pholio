@@ -155,7 +155,9 @@ UINavigationControllerDelegate
   
   _gridView.dataSource = self;
   _gridView.delegate = self;
-  _gridView.contentInset = UIEdgeInsetsMake(8, 8, 8, 8);
+  UINavigationBar *navBar = self.navigationController.navigationBar;
+  CGRect navBarFrameInWindow = [navBar convertRect:navBar.bounds toView:nil];
+  _gridView.contentInset = UIEdgeInsetsMake(8 + CGRectGetMaxY(navBarFrameInWindow), 8, 8, 8);
   [_gridView registerClass:[IPPageCell class] forCellWithReuseIdentifier:kIPSetGridViewCellIdentifier];
   UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
   layout.itemSize = CGSizeMake(kGridCellSize, kGridCellSize);
