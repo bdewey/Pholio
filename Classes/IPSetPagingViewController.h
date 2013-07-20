@@ -20,7 +20,6 @@
 
 #import <UIKit/UIKit.h>
 #import "IPEditableTitleViewController.h"
-#import "BDPagingView.h"
 
 @class IPSet;
 @interface IPSetPagingViewController : IPEditableTitleViewController<

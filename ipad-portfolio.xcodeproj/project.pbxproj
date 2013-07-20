@@ -212,8 +212,6 @@
 		D3D843571480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D843561480C05200819497 /* BDOverlayViewController_testDrawingMultiLine.10.7.2.iPhone.png */; };
 		D3DD1C99148DF81600F4F4E6 /* BDOverlayViewController_skipDisabled.10.7.2.iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = D3DD1C98148DF81600F4F4E6 /* BDOverlayViewController_skipDisabled.10.7.2.iPhone.png */; };
 		D3DF7545134E70A000439546 /* IPPortfolio-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF7544134E70A000439546 /* IPPortfolio-test.m */; };
-		D3E166C51369281500B72591 /* BDPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E166C41369281400B72591 /* BDPagingView.m */; };
-		D3E166C61369281500B72591 /* BDPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E166C41369281400B72591 /* BDPagingView.m */; };
 		D3E166CA136935BD00B72591 /* IPSetPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E166C8136935BD00B72591 /* IPSetPagingViewController.m */; };
 		D3E166CB136935BD00B72591 /* IPSetPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E166C8136935BD00B72591 /* IPSetPagingViewController.m */; };
 		D3E57E741384CA910027534B /* IPFlickrAuthorizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E57E731384CA910027534B /* IPFlickrAuthorizationManager.m */; };
@@ -472,8 +470,6 @@
 		D3DF7539134E6C6A00439546 /* IPPortfolio+TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPortfolio+TestHelpers.m"; sourceTree = "<group>"; };
 		D3DF7544134E70A000439546 /* IPPortfolio-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPortfolio-test.m"; sourceTree = "<group>"; };
 		D3E0E5B113B1CE7500203A79 /* remove-keys.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = "remove-keys.pl"; sourceTree = "<group>"; };
-		D3E166C31369281400B72591 /* BDPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPagingView.h; sourceTree = "<group>"; };
-		D3E166C41369281400B72591 /* BDPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPagingView.m; sourceTree = "<group>"; };
 		D3E166C7136935BD00B72591 /* IPSetPagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPSetPagingViewController.h; sourceTree = "<group>"; };
 		D3E166C8136935BD00B72591 /* IPSetPagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPSetPagingViewController.m; sourceTree = "<group>"; };
 		D3E57E721384CA910027534B /* IPFlickrAuthorizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFlickrAuthorizationManager.h; sourceTree = "<group>"; };
@@ -930,8 +926,6 @@
 				D3AEA44B135FE71D0025C334 /* BDGridCell.m */,
 				D3E7C5E91367C3D600DE4A98 /* BDContrainPanGestureRecognizer.h */,
 				D3E7C5EA1367C3D700DE4A98 /* BDContrainPanGestureRecognizer.m */,
-				D3E166C31369281400B72591 /* BDPagingView.h */,
-				D3E166C41369281400B72591 /* BDPagingView.m */,
 			);
 			name = Grid;
 			sourceTree = "<group>";
@@ -1292,7 +1286,6 @@
 				D3E7C5C613649C5C00DE4A98 /* UIImage+Border.m in Sources */,
 				D3E7C5E713672AF100DE4A98 /* IPColors.m in Sources */,
 				D3E7C5EB1367C3D800DE4A98 /* BDContrainPanGestureRecognizer.m in Sources */,
-				D3E166C51369281500B72591 /* BDPagingView.m in Sources */,
 				D3E166CA136935BD00B72591 /* IPSetPagingViewController.m in Sources */,
 				D32ADFC7136B1CFD009EA22E /* IPEditableTitleViewController.m in Sources */,
 				D32ADFD913727262009EA22E /* IPPasteboardObject.m in Sources */,
@@ -1363,7 +1356,6 @@
 				D3E7C5C713649C5C00DE4A98 /* UIImage+Border.m in Sources */,
 				D3E7C5E813672AF100DE4A98 /* IPColors.m in Sources */,
 				D3E7C5EC1367C3D800DE4A98 /* BDContrainPanGestureRecognizer.m in Sources */,
-				D3E166C61369281500B72591 /* BDPagingView.m in Sources */,
 				D3E166CB136935BD00B72591 /* IPSetPagingViewController.m in Sources */,
 				D32ADFC8136B1CFD009EA22E /* IPEditableTitleViewController.m in Sources */,
 				D32ADFDA13727262009EA22E /* IPPasteboardObject.m in Sources */,

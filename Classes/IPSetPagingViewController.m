@@ -20,7 +20,6 @@
 
 #import <MessageUI/MessageUI.h>
 #import "BDGridCell.h"
-#import "BDPagingView.h"
 #import "IPPortfolio.h"
 #import "IPSetPagingViewController.h"
 #import "IPAlert.h"
@@ -336,7 +335,7 @@ static NSString * const FBPhotoCellIdentifier = @"FBPhotoCellIdentifier";
 //  The user moved to a page. Update the navigation title.
 //
 
-- (void)pagingView:(BDPagingView *)pagingView didMoveToPage:(NSUInteger)index {
+- (void)_updateNavigationTitleForPageIndex:(NSUInteger) index {
   
   IPPage *page = [self.currentSet objectInPagesAtIndex:index];
   NSString *title = [page valueForKeyPath:kIPPhotoTitle
