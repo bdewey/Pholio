@@ -36,44 +36,6 @@
 
 @implementation IPSetPagingViewController
 
-@synthesize currentSet = currentSet_;
-@synthesize currentPageIndex = currentPageIndex_;
-@synthesize backButtonText = backButtonText_;
-@synthesize pagingView = pagingView_;
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Initializer.
-//
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if (self) {
-    // Custom initialization
-  }
-  return self;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Dealloc.
-//
-
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Release whatever memory we can.
-//
-
-- (void)didReceiveMemoryWarning {
-
-  // Releases the view if it doesn't have a superview.
-  [super didReceiveMemoryWarning];
-  
-  // Release any cached data, images, etc that aren't in use.
-}
-
 #pragma mark - Properties
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -83,7 +45,10 @@
 
 - (void)setCurrentSet:(IPSet *)currentSet {
   
-  currentSet_ = currentSet;
+  if (_currentSet == currentSet) {
+    return;
+  }
+  _currentSet = currentSet;
   
   self.portfolio = self.currentSet.parent;
   [self.pagingView setNeedsLayout];
@@ -155,11 +120,11 @@
 
 - (NSString *)backButtonText {
   
-  if (backButtonText_ == nil) {
+  if (_backButtonText == nil) {
     
-    backButtonText_ = [[NSString alloc] initWithString:kBackButtonText];
+    _backButtonText = [[NSString alloc] initWithString:kBackButtonText];
   }
-  return backButtonText_;
+  return _backButtonText;
 }
 
 #pragma mark - View lifecycle
