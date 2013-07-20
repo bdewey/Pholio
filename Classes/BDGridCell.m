@@ -37,26 +37,11 @@
 
 @implementation BDGridCell
 
-@dynamic image;
-@synthesize style = style_;
-@dynamic caption;
-@dynamic fontColor;
-@synthesize labelBackgroundColor = labelBackgroundColor_;
-@dynamic font;
-@synthesize index = index_;
-@synthesize contentInset = contentInset_;
-@synthesize captionHeight = captionHeight_;
-@synthesize imageView = imageView_;
-@synthesize label = label_;
-@synthesize labelView = labelView_;
-@synthesize selected = selected_;
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-- (void)configureWithStyle:(BDGridCellStyle)style {
+- (void)_configureWithStyle:(BDGridCellStyle)style {
 
-  style_ = style;
-  captionHeight_ = kDefaultCaptionHeight;
+  _captionHeight = kDefaultCaptionHeight;
   self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.0];
   self.labelBackgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
   
@@ -131,6 +116,10 @@
     case BDGridCellStyleTile:
       imageFrame = contentRect;
       break;
+      
+    case BDGridCellStyleUnconfigured:
+      NSAssert(NO, @"Not reached");
+      return;
   }
   
   //
@@ -148,13 +137,37 @@
 #pragma mark -
 #pragma mark Properties
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)setImageView:(UIImageView *)imageView
+{
+  if (_imageView == imageView) {
+    return;
+  }
+  [_imageView removeFromSuperview];
+  _imageView = imageView;
+  [self addSubview:_imageView];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)setLabel:(UILabel *)label
+{
+  if (_label == label) {
+    return;
+  }
+  [_label removeFromSuperview];
+  _label = label;
+  [self addSubview:_label];
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  Sets the caption height.
 //
 
 - (void)setCaptionHeight:(CGFloat)captionHeight {
-  captionHeight_ = captionHeight;
+  _captionHeight = captionHeight;
   [self repositionImageAndLabel];
 }
 
@@ -165,7 +178,7 @@
 
 - (void)setContentInset:(UIEdgeInsets)contentInset {
   
-  contentInset_ = contentInset;
+  _contentInset = contentInset;
   [self repositionImageAndLabel];
 }
 
@@ -258,43 +271,28 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-//
-//  Sets the selected state. When selected, draw a simple border around 
-//  the cell.
-//
-
-- (void)setSelected:(BOOL)selected {
-  
-  selected_ = selected;
-  if (selected_) {
-    
-    self.layer.borderWidth = 2.0;
-    self.layer.borderColor = [[[IPColors defaultColors] highlightColor] CGColor];
-    
-  } else {
-    
-    self.layer.borderWidth = 0.0;
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////
 
 - (void)setStyle:(BDGridCellStyle)style {
   
-  style_ = style;
-  [self configureWithStyle:style_];
-  switch (self.style) {
+  if (_style == style) {
+    return;
+  }
+  _style = style;
+  [self _configureWithStyle:_style];
+  switch (_style) {
     case BDGridCellStyleTile:
       self.imageView.contentMode = UIViewContentModeScaleAspectFill;
       self.labelView.backgroundColor = self.labelBackgroundColor;
       break;
 
     case BDGridCellStyleDefault:
-    default:
       self.imageView.contentMode = UIViewContentModeScaleAspectFit;
       self.labelView.backgroundColor = nil;
       break;
       
+    case BDGridCellStyleUnconfigured:
+      NSAssert(NO, @"Not reached");
+      return;
   }
 }
 
@@ -302,15 +300,15 @@
 
 - (void)setLabelBackgroundColor:(UIColor *)labelBackgroundColor {
   
-  if (labelBackgroundColor == labelBackgroundColor_) {
+  if (labelBackgroundColor == _labelBackgroundColor) {
     
     return;
   }
-  labelBackgroundColor_ = [labelBackgroundColor colorWithAlphaComponent:0.5];
+  _labelBackgroundColor = [labelBackgroundColor colorWithAlphaComponent:0.5];
   
   if (self.style == BDGridCellStyleTile) {
     
-    self.labelView.backgroundColor = labelBackgroundColor_;
+    self.labelView.backgroundColor = _labelBackgroundColor;
   }
 }
 

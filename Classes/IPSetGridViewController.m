@@ -300,11 +300,11 @@ UINavigationControllerDelegate
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
   
   IPPageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kIPSetGridViewCellIdentifier forIndexPath:indexPath];
+  cell.style = BDGridCellStyleDefault;
   cell.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
   
   IPPage *page = [self.currentSet objectInPagesAtIndex:indexPath.row];
   IPPhoto *photo = [page objectInPhotosAtIndex:0];
-  cell.style = BDGridCellStyleDefault;
   cell.photo = photo;
   
   return cell;

@@ -593,7 +593,6 @@ static NSString * const IPPortfolioCellIdentifier = @"IPPortfolioCellIdentifier"
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
   
   IPSetCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:IPPortfolioCellIdentifier forIndexPath:indexPath];
-  cell.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
   switch (self.portfolio.layoutStyle) {
     case IPPortfolioLayoutStyleStacks:
       cell.style = BDGridCellStyleDefault;
@@ -608,6 +607,7 @@ static NSString * const IPPortfolioCellIdentifier = @"IPPortfolioCellIdentifier"
     default:
       break;
   }
+  cell.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
   cell.currentSet = [self.portfolio objectInSetsAtIndex:indexPath.row];
   
   return cell;

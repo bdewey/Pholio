@@ -28,6 +28,12 @@
 typedef enum {
   
   //
+  //  The cell has not yet been configured with a style.
+  //
+  
+  BDGridCellStyleUnconfigured,
+  
+  //
   //  Default style: An Aspect Fit image with a caption of |captionHeight|
   //  *underneath* the image.
   //
@@ -103,12 +109,6 @@ typedef enum {
 //
 
 @property (nonatomic, assign) CGFloat captionHeight;
-
-//
-//  Selected state of the cell.
-//
-
-@property (nonatomic, assign, getter=isSelected) BOOL selected;
 
 //
 //  Sets up all of the custom views to match a particular style.
