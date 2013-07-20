@@ -70,8 +70,6 @@
 		D30E43761363DF050025BDAB /* IPPortfolioGridViewController-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D30E43751363DF050025BDAB /* IPPortfolioGridViewController-test.m */; };
 		D30E437A13646AA90025BDAB /* IPSetGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D30E437813646AA90025BDAB /* IPSetGridViewController.m */; };
 		D30E437B13646AA90025BDAB /* IPSetGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D30E437813646AA90025BDAB /* IPSetGridViewController.m */; };
-		D30E437C13646AA90025BDAB /* IPSetGridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30E437913646AA90025BDAB /* IPSetGridViewController.xib */; };
-		D30E437D13646AA90025BDAB /* IPSetGridViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30E437913646AA90025BDAB /* IPSetGridViewController.xib */; };
 		D30E438013646BB50025BDAB /* IPSetGridViewController-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D30E437F13646BB50025BDAB /* IPSetGridViewController-test.m */; };
 		D318CB7F13B571AA00F90860 /* IPPhotoOptimizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB7E13B571AA00F90860 /* IPPhotoOptimizationManager.m */; };
 		D318CB8013B571AA00F90860 /* IPPhotoOptimizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D318CB7E13B571AA00F90860 /* IPPhotoOptimizationManager.m */; };
@@ -322,7 +320,6 @@
 		D30E43751363DF050025BDAB /* IPPortfolioGridViewController-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPPortfolioGridViewController-test.m"; sourceTree = "<group>"; };
 		D30E437713646AA90025BDAB /* IPSetGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPSetGridViewController.h; sourceTree = "<group>"; };
 		D30E437813646AA90025BDAB /* IPSetGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPSetGridViewController.m; sourceTree = "<group>"; };
-		D30E437913646AA90025BDAB /* IPSetGridViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IPSetGridViewController.xib; sourceTree = "<group>"; };
 		D30E437F13646BB50025BDAB /* IPSetGridViewController-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPSetGridViewController-test.m"; sourceTree = "<group>"; };
 		D318CB7D13B571AA00F90860 /* IPPhotoOptimizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPhotoOptimizationManager.h; sourceTree = "<group>"; };
 		D318CB7E13B571AA00F90860 /* IPPhotoOptimizationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPPhotoOptimizationManager.m; sourceTree = "<group>"; };
@@ -809,7 +806,6 @@
 				D30E436F1363D9FD0025BDAB /* IPPortfolioGridViewController.xib */,
 				D30E437713646AA90025BDAB /* IPSetGridViewController.h */,
 				D30E437813646AA90025BDAB /* IPSetGridViewController.m */,
-				D30E437913646AA90025BDAB /* IPSetGridViewController.xib */,
 				D3E166C7136935BD00B72591 /* IPSetPagingViewController.h */,
 				D3E166C8136935BD00B72591 /* IPSetPagingViewController.m */,
 				D3E166C9136935BD00B72591 /* IPSetPagingViewController.xib */,
@@ -1163,7 +1159,6 @@
 				D3A4AA58122CED5C00A37F78 /* gold.jpg in Resources */,
 				D3F61153123C043B007F789A /* 40-inbox.png in Resources */,
 				D30E43721363D9FD0025BDAB /* IPPortfolioGridViewController.xib in Resources */,
-				D30E437C13646AA90025BDAB /* IPSetGridViewController.xib in Resources */,
 				D3E7C5DB1366946800DE4A98 /* Close.png in Resources */,
 				D3E166CC136935BD00B72591 /* IPSetPagingViewController.xib in Resources */,
 				D33C019113749D4300030DD9 /* Overlay.png in Resources */,
@@ -1215,7 +1210,6 @@
 				D3912C2D1358EFDF0021E4C7 /* branding.png in Resources */,
 				D3912C2F1358F1E50021E4C7 /* background.jpg in Resources */,
 				D30E43731363D9FD0025BDAB /* IPPortfolioGridViewController.xib in Resources */,
-				D30E437D13646AA90025BDAB /* IPSetGridViewController.xib in Resources */,
 				D3E166CD136935BD00B72591 /* IPSetPagingViewController.xib in Resources */,
 				D3A25E8C1388104400FA80B7 /* 42-photos.png in Resources */,
 				D3D0149B138CB39F00181DE7 /* BDColorPicker.xib in Resources */,

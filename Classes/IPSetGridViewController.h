@@ -49,6 +49,6 @@
 //  Interface Builder outlets.
 //
 
-@property (nonatomic, strong) IBOutlet UICollectionView *gridView;
+@property (nonatomic, strong) UICollectionView *gridView;
 
 @end
