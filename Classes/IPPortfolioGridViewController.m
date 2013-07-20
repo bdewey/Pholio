@@ -280,27 +280,13 @@ static NSString * const IPPortfolioCellIdentifier = @"IPPortfolioCellIdentifier"
 
   [super viewDidLoad];
   
-  //
-  //  Create the header label.
-  //
-  
-  _gridHeader = [[IPGridHeader alloc] initWithNibName:nil bundle:nil];
-  _gridHeader.delegate = self;
-  if (self.portfolio != nil) {
-    
-    self.gridHeader.foregroundColor = self.portfolio.fontColor;
-    self.gridHeader.label.font = self.portfolio.titleFont;
-    
-    // TODO -- Use UIAppearance to set cell traits
-  }
-
+  UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+  layout.itemSize = CGSizeMake(220, 240);
+  _gridView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
   _gridView.dataSource = self;
   _gridView.delegate = self;
   [_gridView registerClass:[IPSetCell class] forCellWithReuseIdentifier:IPPortfolioCellIdentifier];
   
-  UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-  layout.itemSize = CGSizeMake(220, 240);
-  _gridView.collectionViewLayout = layout;
   [self setTitleToPortfolioTitle];
   UINavigationBar *navigationBar = self.navigationController.navigationBar;
   CGRect navBarFrameInWindow = [navigationBar convertRect:navigationBar.bounds toView:nil];
@@ -311,12 +297,14 @@ static NSString * const IPPortfolioCellIdentifier = @"IPPortfolioCellIdentifier"
   UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeDown)];
   swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
   swipeDown.numberOfTouchesRequired = 2;
-  [self.gridView addGestureRecognizer:swipeDown];
+  [_gridView addGestureRecognizer:swipeDown];
   
   UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeUp)];
   swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
   swipeUp.numberOfTouchesRequired = 2;
-  [self.gridView addGestureRecognizer:swipeUp];
+  [_gridView addGestureRecognizer:swipeUp];
+  
+  [self.view addSubview:_gridView];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
