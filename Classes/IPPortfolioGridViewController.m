@@ -24,7 +24,6 @@
 #import "BDGridCell.h"
 #import "BDImagePickerController.h"
 #import "IPAlert.h"
-#import "IPGridHeader.h"
 #import "IPPasteboardObject.h"
 #import "IPPhoto.h"
 #import "IPPhotoOptimizationManager.h"
@@ -244,12 +243,6 @@ static NSString * const IPPortfolioCellIdentifier = @"IPPortfolioCellIdentifier"
 @interface IPPortfolioGridViewController() <UICollectionViewDelegateFlowLayout>
 
 //
-//  This is the header label that we've displayed over our content.
-//
-
-@property (nonatomic, strong) IPGridHeader *gridHeader;
-
-//
 //  The font we use for showing the header label. 
 //
 
@@ -317,7 +310,6 @@ static NSString * const IPPortfolioCellIdentifier = @"IPPortfolioCellIdentifier"
   [super viewDidUnload];
   
   self.gridView = nil;
-  self.gridHeader = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -441,8 +433,7 @@ static NSString * const IPPortfolioCellIdentifier = @"IPPortfolioCellIdentifier"
   } else {
     self.titleTextField.text = kProductName;
   }
-  self.gridHeader.label.text = self.titleTextField.text;
-  DDLogVerbose(@"%s -- titleTextField is %@", 
+  DDLogVerbose(@"%s -- titleTextField is %@",
              __PRETTY_FUNCTION__,
              self.titleTextField.text);
 }
@@ -509,8 +500,6 @@ static NSString * const IPPortfolioCellIdentifier = @"IPPortfolioCellIdentifier"
     self.navigationController.navigationBar.barTintColor = self.portfolio.navigationColor;
     self.navigationController.navigationBar.translucent = YES;
   }
-  self.gridHeader.label.font = self.headerFont;
-  self.gridHeader.foregroundColor = self.portfolio.fontColor;
 
   DDLogVerbose(@"%s -- looking at a portfolio with %d set(s)",
              __PRETTY_FUNCTION__,
@@ -580,21 +569,6 @@ static NSString * const IPPortfolioCellIdentifier = @"IPPortfolioCellIdentifier"
       }
     }
   }];
-}
-
-#pragma mark - IPGridHeaderDelegate
-
-////////////////////////////////////////////////////////////////////////////////
-
-- (void)gridHeaderDidTapSettings:(IPGridHeader *)gridHeader {
-  
-  UIPopoverController *settingsPopover = [self settingsPopover];
-  [self dismissPopover];
-  self.activePopoverController = settingsPopover;
-  [self.activePopoverController presentPopoverFromRect:self.gridHeader.settingsButton.frame
-                                                inView:self.gridHeader.view
-                              permittedArrowDirections:UIPopoverArrowDirectionAny
-                                              animated:YES];
 }
 
 #pragma mark -

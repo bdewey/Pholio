@@ -31,10 +31,6 @@
 		0A8EB7A61418996E00E4ACA7 /* IPDropBoxAssetsSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8EB7A41418996E00E4ACA7 /* IPDropBoxAssetsSource.m */; };
 		0AB0C80E13E26A5700B204BC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB0C80D13E26A5700B204BC /* CoreLocation.framework */; };
 		0AB0C80F13E2750900B204BC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB0C80D13E26A5700B204BC /* CoreLocation.framework */; };
-		0AB426DE13DCE7A600895092 /* IPGridHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB426DC13DCE7A600895092 /* IPGridHeader.m */; };
-		0AB426DF13DCE7A600895092 /* IPGridHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB426DC13DCE7A600895092 /* IPGridHeader.m */; };
-		0AB426E013DCE7A600895092 /* IPGridHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AB426DD13DCE7A600895092 /* IPGridHeader.xib */; };
-		0AB426E113DCE7A600895092 /* IPGridHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AB426DD13DCE7A600895092 /* IPGridHeader.xib */; };
 		0AB426E313DCE87400895092 /* 19-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB426E213DCE87400895092 /* 19-gear.png */; };
 		0AB426E413DCE87400895092 /* 19-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB426E213DCE87400895092 /* 19-gear.png */; };
 		0AB426EB13DD2D1700895092 /* UIImage+ColorMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB426EA13DD2D1700895092 /* UIImage+ColorMask.m */; };
@@ -282,9 +278,6 @@
 		0A8EB7A31418996E00E4ACA7 /* IPDropBoxAssetsSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPDropBoxAssetsSource.h; sourceTree = "<group>"; };
 		0A8EB7A41418996E00E4ACA7 /* IPDropBoxAssetsSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPDropBoxAssetsSource.m; sourceTree = "<group>"; };
 		0AB0C80D13E26A5700B204BC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		0AB426DB13DCE7A600895092 /* IPGridHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPGridHeader.h; sourceTree = "<group>"; };
-		0AB426DC13DCE7A600895092 /* IPGridHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPGridHeader.m; sourceTree = "<group>"; };
-		0AB426DD13DCE7A600895092 /* IPGridHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IPGridHeader.xib; sourceTree = "<group>"; };
 		0AB426E213DCE87400895092 /* 19-gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-gear.png"; sourceTree = "<group>"; };
 		0AB426E913DD2D1700895092 /* UIImage+ColorMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ColorMask.h"; sourceTree = "<group>"; };
 		0AB426EA13DD2D1700895092 /* UIImage+ColorMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ColorMask.m"; sourceTree = "<group>"; };
@@ -814,9 +807,6 @@
 				D318CB8413B5BD8B00F90860 /* IPOptimizingPhotoNotification.h */,
 				D318CB8513B5BD8B00F90860 /* IPOptimizingPhotoNotification.m */,
 				D318CB8613B5BD8B00F90860 /* IPOptimizingPhotoNotification.xib */,
-				0AB426DB13DCE7A600895092 /* IPGridHeader.h */,
-				0AB426DC13DCE7A600895092 /* IPGridHeader.m */,
-				0AB426DD13DCE7A600895092 /* IPGridHeader.xib */,
 			);
 			name = "Grid Controllers";
 			sourceTree = "<group>";
@@ -1174,7 +1164,6 @@
 				D343E28513C96065007330D6 /* dark_texture-thumb.jpg in Resources */,
 				D343E28613C96065007330D6 /* purple-thumb.jpg in Resources */,
 				D343E28713C96065007330D6 /* black-thumb.jpg in Resources */,
-				0AB426E013DCE7A600895092 /* IPGridHeader.xib in Resources */,
 				0AB426E313DCE87400895092 /* 19-gear.png in Resources */,
 				0A373C3C141E7F4600EBEAB0 /* dropbox.png in Resources */,
 				0AEDDB08141E9E6C0091D8E7 /* folder48.gif in Resources */,
@@ -1207,7 +1196,6 @@
 				D3E166CD136935BD00B72591 /* IPSetPagingViewController.xib in Resources */,
 				D3A25E8C1388104400FA80B7 /* 42-photos.png in Resources */,
 				D3D0149B138CB39F00181DE7 /* BDColorPicker.xib in Resources */,
-				0AB426E113DCE7A600895092 /* IPGridHeader.xib in Resources */,
 				0AB426E413DCE87400895092 /* 19-gear.png in Resources */,
 				D3D843481480A59700819497 /* BDOverlayViewController.xib in Resources */,
 				D3D843551480BDEA00819497 /* BDOverlayViewController_testDrawing.10.7.2.iPhone.png in Resources */,
@@ -1342,7 +1330,6 @@
 				D318CB7F13B571AA00F90860 /* IPPhotoOptimizationManager.m in Sources */,
 				D318CB8713B5BD8C00F90860 /* IPOptimizingPhotoNotification.m in Sources */,
 				D3B09AB013BC46B00001C3F4 /* AppDelegate.m in Sources */,
-				0AB426DE13DCE7A600895092 /* IPGridHeader.m in Sources */,
 				0AB426EB13DD2D1700895092 /* UIImage+ColorMask.m in Sources */,
 				0AD8CF0E13E13CA000BD88E6 /* IPToggleCell.m in Sources */,
 				0A8EB7941415417900E4ACA7 /* IPDropBoxConnectionCell.m in Sources */,
@@ -1417,7 +1404,6 @@
 				D318CB8313B572FD00F90860 /* IPPhotoOptimizationManager-test.m in Sources */,
 				D318CB8913B5C79100F90860 /* IPOptimizingPhotoNotification.m in Sources */,
 				D3B09AB113BC46B00001C3F4 /* AppDelegate.m in Sources */,
-				0AB426DF13DCE7A600895092 /* IPGridHeader.m in Sources */,
 				0AB426EC13DD2D1700895092 /* UIImage+ColorMask.m in Sources */,
 				0A1372EC13E141EA004469E4 /* IPToggleCell.m in Sources */,
 				0A8EB7951415417900E4ACA7 /* IPDropBoxConnectionCell.m in Sources */,
