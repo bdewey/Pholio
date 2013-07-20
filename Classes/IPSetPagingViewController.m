@@ -25,6 +25,9 @@
 #import "IPSetPagingViewController.h"
 #import "IPAlert.h"
 #import "IPPhotoScrollView.h"
+#import "IPPhotoScrollViewCell.h"
+
+static NSString * const FBPhotoCellIdentifier = @"FBPhotoCellIdentifier";
 
 @interface IPSetPagingViewController()
 
@@ -35,6 +38,10 @@
 
 
 @implementation IPSetPagingViewController
+{
+  NSUInteger _pageIndexBeforeRotation;
+  UICollectionViewFlowLayout *_layout;
+}
 
 #pragma mark - Properties
 
@@ -79,7 +86,7 @@
       MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
       picker.mailComposeDelegate = self;
       
-      IPPage *thePage = [self.currentSet objectInPagesAtIndex:self.pagingView.currentPageIndex];
+      IPPage *thePage = [self.currentSet objectInPagesAtIndex:self.currentPageIndex];
       IPPhoto *thePhoto = (thePage.photos)[0];
       
       //
@@ -127,6 +134,25 @@
   return _backButtonText;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)setCurrentPageIndex:(NSUInteger)currentPageIndex
+{
+  [self setCurrentPageIndex:currentPageIndex animated:NO];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)setCurrentPageIndex:(NSUInteger)currentPageIndex animated:(BOOL)animated
+{
+  if (_currentPageIndex == currentPageIndex) {
+    return;
+  }
+  _currentPageIndex = currentPageIndex;
+  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:currentPageIndex inSection:0];
+  [_pagingView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionTop | UICollectionViewScrollPositionLeft animated:animated];
+}
+
 #pragma mark - View lifecycle
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -138,8 +164,27 @@
 
   [super viewDidLoad];
 
-  self.pagingView.pagingViewDelegate = self;
-  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.backButtonText 
+  _layout = [[UICollectionViewFlowLayout alloc] init];
+  _layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+  _layout.itemSize = self.view.bounds.size;
+  _layout.minimumInteritemSpacing = 0;
+  _layout.minimumLineSpacing = 0;
+  
+  _pagingView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:_layout];
+  _pagingView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+  _pagingView.pagingEnabled = YES;
+  _pagingView.dataSource = self;
+  [_pagingView registerClass:[IPPhotoScrollViewCell class] forCellWithReuseIdentifier:FBPhotoCellIdentifier];
+  
+  [self.view addSubview:_pagingView];
+  
+  // HACK -- Force the setter logic to work, which will position the scroll view
+  [_pagingView layoutIfNeeded];
+  NSUInteger tempPage = _currentPageIndex;
+  _currentPageIndex = NSNotFound;
+  [self setCurrentPageIndex:tempPage animated:NO];
+  
+  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.backButtonText
                                                                             style:UIBarButtonItemStyleBordered 
                                                                            target:self 
                                                                            action:@selector(popView)];
@@ -163,9 +208,7 @@
 - (void)viewDidAppear:(BOOL)animated {
 
   [super viewDidAppear:animated];
-  [self.pagingView tileSubviews];
   self.navigationController.navigationBar.translucent = YES;
-  self.pagingView.currentPageIndex = self.currentPageIndex;
   self.pagingView.alpha = 0;
   [UIView animateWithDuration:kIPAnimationViewFade animations:^(void) {
     
@@ -240,7 +283,7 @@
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation 
                                 duration:(NSTimeInterval)duration {
   
-  self.currentPageIndex = self.pagingView.currentPageIndex;
+  _pageIndexBeforeRotation = self.currentPageIndex;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -251,39 +294,40 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
   
-  [self.pagingView recomputeContentSize];
-  [self.pagingView setCurrentPageIndex:self.currentPageIndex animated:NO];
+  _layout.itemSize = self.view.bounds.size;
+  [_layout invalidateLayout];
+  [_pagingView setNeedsLayout];
+  [_pagingView layoutIfNeeded];
+  _currentPageIndex = NSNotFound;
+  [self setCurrentPageIndex:_pageIndexBeforeRotation animated:NO];
 }
 
-#pragma mark - BDPagingViewDelegate
+#pragma mark - UICollectionViewDataSource
 
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Number of pages...
-//
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-- (NSUInteger)pagingViewCountOfPages:(BDPagingView *)pagingView {
-  
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+  return 1;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
   return [self.currentSet countOfPages];
 }
 
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Gets a page.
-//
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-- (UIView *)pagingView:(BDPagingView *)pagingView pageAtIndex:(NSUInteger)index {
-  
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+  NSUInteger index = indexPath.row;
   IPPage *page = [self.currentSet objectInPagesAtIndex:index];
   IPPhoto *photo = [page objectInPhotosAtIndex:0];
 
-  IPPhotoScrollView *cell;
-  if ((cell = (IPPhotoScrollView *)[pagingView dequeueView]) == nil) {
-    
-    cell = [[IPPhotoScrollView alloc] initWithFrame:CGRectZero];
-//    cell.contentMode = UIViewContentModeScaleAspectFit;
-  }
-  cell.photo = photo;
+  IPPhotoScrollViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:FBPhotoCellIdentifier forIndexPath:indexPath];
+  cell.photoScrollView.photo = photo;
   return cell;
 }
 
@@ -314,6 +358,19 @@
   }
 }
 
+#pragma mark - UICollectionViewDelegate
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+  NSIndexPath *indexPath = [_pagingView indexPathForItemAtPoint:_pagingView.contentOffset];
+  NSAssert(indexPath.section == 0, @"Unexpected section in _pagingView: %d", indexPath.section);
+  
+  // don't go through the setter, because that would trigger more scrolling.
+  _currentPageIndex = indexPath.row;
+}
+
 #pragma mark - UITextFieldDelegate
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -323,7 +380,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
   
-  IPPage *page = [self.currentSet objectInPagesAtIndex:self.pagingView.currentPageIndex];
+  IPPage *page = [self.currentSet objectInPagesAtIndex:self.currentPageIndex];
   [page setValue:textField.text forKeyPath:kIPPhotoTitle forPhoto:0];
   [self.currentSet.parent savePortfolioToPath:[IPPortfolio defaultPortfolioPath]];
 }

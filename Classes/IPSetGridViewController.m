@@ -316,7 +316,7 @@ UINavigationControllerDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
   
   NSUInteger index = indexPath.row;
-  IPSetPagingViewController *controller = [[IPSetPagingViewController alloc] initWithNibName:@"IPSetPagingViewController" bundle:nil];
+  IPSetPagingViewController *controller = [[IPSetPagingViewController alloc] initWithNibName:nil bundle:nil];
   
   controller.currentSet = self.currentSet;
   controller.currentPageIndex = index;

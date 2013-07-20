@@ -23,9 +23,9 @@
 #import "BDPagingView.h"
 
 @class IPSet;
-@class BDPagingView;
 @interface IPSetPagingViewController : IPEditableTitleViewController<
-  BDPagingViewDelegate,
+  UICollectionViewDataSource,
+  UICollectionViewDelegate,
   UITextFieldDelegate
 > {
   
@@ -42,6 +42,7 @@
 //
 
 @property (nonatomic, assign) NSUInteger currentPageIndex;
+- (void)setCurrentPageIndex:(NSUInteger)currentPageIndex animated:(BOOL)animated;
 
 //
 //  The string to use for the back navigation button.
@@ -53,6 +54,6 @@
 //  Interface builder outlets.
 //
 
-@property (nonatomic, strong) IBOutlet BDPagingView *pagingView;
+@property (nonatomic, strong) UICollectionView *pagingView;
 
 @end

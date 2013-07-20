@@ -23,6 +23,7 @@
 		0A373C3C141E7F4600EBEAB0 /* dropbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A373C3B141E7F4600EBEAB0 /* dropbox.png */; };
 		0A4F0C7A13D938F8008759F5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4F0C7913D938F8008759F5 /* Security.framework */; };
 		0A4F0C8113D944EB008759F5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4F0C7913D938F8008759F5 /* Security.framework */; };
+		0A897AAC179A72F00040E110 /* IPPhotoScrollViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A897AAB179A72F00040E110 /* IPPhotoScrollViewCell.m */; };
 		0A8EB7941415417900E4ACA7 /* IPDropBoxConnectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8EB7931415417900E4ACA7 /* IPDropBoxConnectionCell.m */; };
 		0A8EB7951415417900E4ACA7 /* IPDropBoxConnectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8EB7931415417900E4ACA7 /* IPDropBoxConnectionCell.m */; };
 		0A8EB7A114188B5600E4ACA7 /* IPDropBoxSelectableAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8EB7A014188B5600E4ACA7 /* IPDropBoxSelectableAsset.m */; };
@@ -215,8 +216,6 @@
 		D3E166C61369281500B72591 /* BDPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E166C41369281400B72591 /* BDPagingView.m */; };
 		D3E166CA136935BD00B72591 /* IPSetPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E166C8136935BD00B72591 /* IPSetPagingViewController.m */; };
 		D3E166CB136935BD00B72591 /* IPSetPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E166C8136935BD00B72591 /* IPSetPagingViewController.m */; };
-		D3E166CC136935BD00B72591 /* IPSetPagingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E166C9136935BD00B72591 /* IPSetPagingViewController.xib */; };
-		D3E166CD136935BD00B72591 /* IPSetPagingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E166C9136935BD00B72591 /* IPSetPagingViewController.xib */; };
 		D3E57E741384CA910027534B /* IPFlickrAuthorizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E57E731384CA910027534B /* IPFlickrAuthorizationManager.m */; };
 		D3E57E751384CA910027534B /* IPFlickrAuthorizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E57E731384CA910027534B /* IPFlickrAuthorizationManager.m */; };
 		D3E57E821384D2AA0027534B /* IPFlickrAuthorizationManager-test.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E57E811384D2AA0027534B /* IPFlickrAuthorizationManager-test.m */; };
@@ -270,6 +269,8 @@
 		0A31C00A142CF9B9007E95E1 /* IPDropBoxAssetsSource-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPDropBoxAssetsSource-test.m"; sourceTree = "<group>"; };
 		0A373C3B141E7F4600EBEAB0 /* dropbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropbox.png; sourceTree = "<group>"; };
 		0A4F0C7913D938F8008759F5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0A897AAA179A72F00040E110 /* IPPhotoScrollViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPhotoScrollViewCell.h; sourceTree = "<group>"; };
+		0A897AAB179A72F00040E110 /* IPPhotoScrollViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPPhotoScrollViewCell.m; sourceTree = "<group>"; };
 		0A8EB78714153CEF00E4ACA7 /* IPDropBoxApiKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPDropBoxApiKeys.h; sourceTree = "<group>"; };
 		0A8EB7921415417900E4ACA7 /* IPDropBoxConnectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPDropBoxConnectionCell.h; sourceTree = "<group>"; };
 		0A8EB7931415417900E4ACA7 /* IPDropBoxConnectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPDropBoxConnectionCell.m; sourceTree = "<group>"; };
@@ -475,7 +476,6 @@
 		D3E166C41369281400B72591 /* BDPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPagingView.m; sourceTree = "<group>"; };
 		D3E166C7136935BD00B72591 /* IPSetPagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPSetPagingViewController.h; sourceTree = "<group>"; };
 		D3E166C8136935BD00B72591 /* IPSetPagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPSetPagingViewController.m; sourceTree = "<group>"; };
-		D3E166C9136935BD00B72591 /* IPSetPagingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IPSetPagingViewController.xib; sourceTree = "<group>"; };
 		D3E57E721384CA910027534B /* IPFlickrAuthorizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPFlickrAuthorizationManager.h; sourceTree = "<group>"; };
 		D3E57E731384CA910027534B /* IPFlickrAuthorizationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPFlickrAuthorizationManager.m; sourceTree = "<group>"; };
 		D3E57E811384D2AA0027534B /* IPFlickrAuthorizationManager-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IPFlickrAuthorizationManager-test.m"; sourceTree = "<group>"; };
@@ -797,7 +797,6 @@
 				D30E437813646AA90025BDAB /* IPSetGridViewController.m */,
 				D3E166C7136935BD00B72591 /* IPSetPagingViewController.h */,
 				D3E166C8136935BD00B72591 /* IPSetPagingViewController.m */,
-				D3E166C9136935BD00B72591 /* IPSetPagingViewController.xib */,
 				D32ADFC5136B1CFD009EA22E /* IPEditableTitleViewController.h */,
 				D32ADFC6136B1CFD009EA22E /* IPEditableTitleViewController.m */,
 				D3A584C5139B3C4E006B58E2 /* IPPhotoScrollView.h */,
@@ -807,6 +806,8 @@
 				D318CB8413B5BD8B00F90860 /* IPOptimizingPhotoNotification.h */,
 				D318CB8513B5BD8B00F90860 /* IPOptimizingPhotoNotification.m */,
 				D318CB8613B5BD8B00F90860 /* IPOptimizingPhotoNotification.xib */,
+				0A897AAA179A72F00040E110 /* IPPhotoScrollViewCell.h */,
+				0A897AAB179A72F00040E110 /* IPPhotoScrollViewCell.m */,
 			);
 			name = "Grid Controllers";
 			sourceTree = "<group>";
@@ -1145,7 +1146,6 @@
 				D3A4AA58122CED5C00A37F78 /* gold.jpg in Resources */,
 				D3F61153123C043B007F789A /* 40-inbox.png in Resources */,
 				D3E7C5DB1366946800DE4A98 /* Close.png in Resources */,
-				D3E166CC136935BD00B72591 /* IPSetPagingViewController.xib in Resources */,
 				D33C019113749D4300030DD9 /* Overlay.png in Resources */,
 				D33C019213749D4300030DD9 /* Overlay@2x.png in Resources */,
 				D3A25E8913880DB800FA80B7 /* FlickrTabBarIcon.png in Resources */,
@@ -1193,7 +1193,6 @@
 				D3A392F81358AF1200DBAA36 /* smoke.jpg in Resources */,
 				D3912C2D1358EFDF0021E4C7 /* branding.png in Resources */,
 				D3912C2F1358F1E50021E4C7 /* background.jpg in Resources */,
-				D3E166CD136935BD00B72591 /* IPSetPagingViewController.xib in Resources */,
 				D3A25E8C1388104400FA80B7 /* 42-photos.png in Resources */,
 				D3D0149B138CB39F00181DE7 /* BDColorPicker.xib in Resources */,
 				0AB426E413DCE87400895092 /* 19-gear.png in Resources */,
@@ -1306,6 +1305,7 @@
 				D33C01951374AB8000030DD9 /* BDSelectableALAsset.m in Sources */,
 				D33C01991374B68600030DD9 /* BDImagePickerController.m in Sources */,
 				D33C019E13788D2E00030DD9 /* IPSettingsController.m in Sources */,
+				0A897AAC179A72F00040E110 /* IPPhotoScrollViewCell.m in Sources */,
 				D33C01A21378964E00030DD9 /* IPButtonCell.m in Sources */,
 				D33C01A51378F1EB00030DD9 /* IPCustomBackgroundCell.m in Sources */,
 				D33C01A81378FF1D00030DD9 /* IPCustomAppearanceController.m in Sources */,

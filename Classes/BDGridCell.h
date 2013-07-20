@@ -110,10 +110,4 @@ typedef enum {
 
 @property (nonatomic, assign) CGFloat captionHeight;
 
-//
-//  Sets up all of the custom views to match a particular style.
-//
-
-- (void)configureWithStyle:(BDGridCellStyle)style;
-
 @end
